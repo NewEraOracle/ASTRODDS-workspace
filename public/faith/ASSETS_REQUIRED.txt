@@ -1,0 +1,28 @@
+FAITH PREMIUM ASSETS REQUIRED
+
+1. hero-bg.png
+Dark cosmic blue background, luxury institutional crypto, deep space, fog, light beams.
+
+2. logo-metal.png
+FAITH text logo, chrome silver, gothic luxury, transparent background.
+
+3. emblem.png
+Central FAITH emblem, angel wings, eye, diamond, chrome silver, transparent background.
+
+4. icon-vaults.png
+Vault icon, chrome, dark blue glow, transparent background.
+
+5. icon-pcs.png
+Protocol control system icon, network eye / monitoring symbol, chrome, transparent background.
+
+6. icon-treasury.png
+Treasury reserve icon, shield / chest / reserve symbol, chrome, transparent background.
+
+7. icon-tfusd.png
+tfUSD activation icon, stablecoin orb, chrome and blue, transparent background.
+
+8. token-faith.png
+FAITH token coin, chrome blue, transparent background.
+
+9. token-tfusd.png
+tfUSD token coin, chrome blue, transparent background.

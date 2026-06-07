@@ -1,0 +1,2 @@
+# ASTRODDS MLB Engine foundation is stdlib-only for now.
+# Add pinned packages later only after real data contracts are finalized.

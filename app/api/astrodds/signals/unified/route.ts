@@ -1,0 +1,143 @@
+import { NextResponse } from "next/server";
+
+import { loadPythonMlbPredictions, PYTHON_MLB_PREDICTIONS_PATH } from "@/lib/astrodss/mlb/python-predictions";
+import { buildUnifiedSignals, serializeUnifiedSignal } from "@/lib/astrodss/signal-engine";
+import { scanAstroddsSport } from "@/lib/astrodss/sports-data/scanner";
+import { getTelegramConfig } from "@/lib/astrodss/wallets/telegram";
+import { scanWhaleWallets } from "@/lib/astrodss/wallets/wallet-scanner";
+
+
+type SerializedUnifiedSignal = ReturnType<typeof serializeUnifiedSignal>;
+
+type UnifiedNoBetReason = {
+  reason: string;
+  count: number;
+};
+
+function addNoBetReason(reasons: Map<string, number>, reason: string, count = 1) {
+  if (count <= 0) return;
+  reasons.set(reason, (reasons.get(reason) ?? 0) + count);
+}
+
+function buildNoBetReasons(signals: SerializedUnifiedSignal[], scan?: Awaited<ReturnType<typeof scanAstroddsSport>>): UnifiedNoBetReason[] {
+  const reasons = new Map<string, number>();
+  const noLiveData = !scan || scan.diagnostics.sportApi.status === "FAILED" || (scan.diagnostics.sportApi.gamesFetched === 0 && signals.length === 0);
+  if (noLiveData) {
+    addNoBetReason(reasons, "No Bet - live MLB data unavailable", 1);
+    addNoBetReason(reasons, "No Bet - no verified market price", 1);
+    addNoBetReason(reasons, "No Bet - lineup cannot be evaluated without game rows", 1);
+  }
+  const official = signals.filter((signal) => signal.decision === "ELITE" || signal.decision === "STRONG_BUY" || signal.decision === "BUY");
+  const dataOnly = signals.filter((signal) => signal.signalType === "DATA_ONLY");
+  const watchOrWait = signals.filter((signal) => signal.decision === "WATCH" || signal.decision === "WAIT");
+  const missingPrice = signals.filter((signal) => !signal.entryPrice).length;
+  const badBook = signals.filter((signal) => signal.orderBookQuality === "POOR" || signal.orderBookQuality === "NO_LIQUIDITY" || signal.orderBookQuality === "NO_CLOB_TOKEN_ID" || signal.orderBookQuality === "NOT_CONNECTED").length;
+  const lowEdge = signals.filter((signal) => typeof signal.edge === "number" && signal.edge < 0.05).length;
+  const lowDataQuality = signals.filter((signal) => signal.dataQuality === "LOW" || signal.dataQuality === "VERY_LOW" || signal.dataQuality === "DATA_ONLY").length;
+  const missingLineups = signals.filter((signal) => signal.lineupImpact?.lineupStatus === "missing").length;
+  const projectedLineups = signals.filter((signal) => signal.lineupImpact?.lineupStatus === "projected").length;
+
+  if (scan?.diagnostics.sportApi.gamesFetched && !scan.diagnostics.matching.matchedGamesCount) {
+    addNoBetReason(reasons, "No clean matched Polymarket MLB market", scan.diagnostics.sportApi.gamesFetched);
+  }
+  addNoBetReason(reasons, "Missing real odds or entry price", missingPrice);
+  addNoBetReason(reasons, "Order book missing or blocked", badBook);
+  addNoBetReason(reasons, "Edge below official threshold", lowEdge);
+  addNoBetReason(reasons, "Low or data-only quality", lowDataQuality);
+  addNoBetReason(reasons, "Lineup data unavailable", missingLineups);
+  addNoBetReason(reasons, "Watchlist - lineup not confirmed yet", projectedLineups);
+  addNoBetReason(reasons, "Watch/WAIT guardrail applied", watchOrWait.length);
+  if (!official.length) addNoBetReason(reasons, "No official +EV paper pick passed all guardrails", Math.max(1, signals.length));
+  if (dataOnly.length) addNoBetReason(reasons, "Model leans are data-only until odds connect", dataOnly.length);
+  for (const warning of scan?.warnings.slice(0, 3) ?? []) addNoBetReason(reasons, warning, 1);
+
+  return Array.from(reasons, ([reason, count]) => ({ reason, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8);
+}
+export const dynamic = "force-dynamic";
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const sport = (searchParams.get("sport") ?? "MLB").toUpperCase();
+  const errors: string[] = [];
+  const telegram = getTelegramConfig();
+  if (sport !== "MLB") errors.push("Unified signal MVP is MLB-only for now.");
+
+  const [scanResult, whaleResult, pythonPredictionResult] = await Promise.allSettled([
+    scanAstroddsSport("MLB"),
+    scanWhaleWallets({ sport: "MLB" }),
+    loadPythonMlbPredictions(),
+  ]);
+
+  if (scanResult.status === "rejected") {
+    errors.push(`Scan engine failed: ${scanResult.reason instanceof Error ? scanResult.reason.message : "Unknown scan failure"}`);
+  }
+
+  if (whaleResult.status === "rejected") {
+    errors.push(`Whale scan failed: ${whaleResult.reason instanceof Error ? whaleResult.reason.message : "Unknown whale scan failure"}`);
+  }
+
+  if (pythonPredictionResult.status === "rejected") {
+    errors.push(`Python MLB prediction loader failed: ${pythonPredictionResult.reason instanceof Error ? pythonPredictionResult.reason.message : "Unknown loader failure"}`);
+  }
+
+  const scan = scanResult.status === "fulfilled" ? scanResult.value : undefined;
+  const whale = whaleResult.status === "fulfilled" ? whaleResult.value : undefined;
+  const pythonMlbPredictions = pythonPredictionResult.status === "fulfilled"
+    ? pythonPredictionResult.value
+    : { available: false, sourcePath: PYTHON_MLB_PREDICTIONS_PATH, predictions: [], warnings: ["Python MLB prediction loader failed."] };
+  const signals = scan
+    ? buildUnifiedSignals(scan.games, {
+        whaleConsensus: whale?.consensus ?? [],
+        telegramSignalsEnabled: telegram.signalsEnabled,
+        telegramWhaleAlertsEnabled: telegram.whaleAlertsEnabled,
+      }).map(serializeUnifiedSignal)
+    : [];
+  const noBetReasons = buildNoBetReasons(signals, scan);
+  const noLiveData = !scan || scan.diagnostics.sportApi.status === "FAILED" || (scan.diagnostics.sportApi.gamesFetched === 0 && signals.length === 0);
+  const sourceDiagnostics = scan?.diagnostics.sourceDiagnostics ?? [];
+
+  return NextResponse.json(
+    {
+      sport: "MLB",
+      modelAvailable: Boolean(scan),
+      whaleAvailable: Boolean(whale),
+      generatedAt: new Date().toISOString(),
+      signals,
+      noBetReasons,
+      summary: {
+        status: noLiveData ? "no_live_data" : signals.length ? "signals_ready" : "no_qualified_signals",
+        totalSignals: signals.length,
+        officialPicks: signals.filter((signal) => signal.decision === "ELITE" || signal.decision === "STRONG_BUY" || signal.decision === "BUY").length,
+        strongBuys: signals.filter((signal) => signal.decision === "ELITE" || signal.decision === "STRONG_BUY").length,
+        watchlist: signals.filter((signal) => signal.decision === "WATCH").length,
+        dataOnly: signals.filter((signal) => signal.signalType === "DATA_ONLY").length,
+      },
+      sourceDiagnostics,
+      pythonMlbEngine: {
+        available: pythonMlbPredictions.available,
+        sourcePath: pythonMlbPredictions.sourcePath,
+        predictions: pythonMlbPredictions.predictions,
+        warnings: pythonMlbPredictions.warnings,
+        activeMarkets: ["moneyline", "total_runs"],
+        disabledMarkets: ["runline"],
+        officialPickOverride: false,
+      },
+      scanStatus: scan?.sourceStatus,
+      whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings],
+      telegram: {
+        configured: telegram.configured,
+        signalsEnabled: telegram.signalsEnabled,
+        whaleAlertsEnabled: telegram.whaleAlertsEnabled,
+        status: telegram.status,
+      },
+    },
+    {
+      headers: {
+        "Cache-Control": "no-store",
+      },
+    },
+  );
+}

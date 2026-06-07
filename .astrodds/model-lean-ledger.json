@@ -1,0 +1,50 @@
+[
+  {
+    "sport": "MLB",
+    "league": "MLB",
+    "gameId": "mlb-823290",
+    "game": "Cincinnati Reds vs San Diego Padres",
+    "leanSide": "Cincinnati Reds",
+    "confidence": 64,
+    "modelScore": 63,
+    "dataQuality": "C",
+    "reason": "Cincinnati Reds lean: StatsAPI data favors Cincinnati Reds. Inputs: pitcher data incomplete, season records connected, recent form connected, weather partial, venue Petco Park. Official bet blocked until real odds are matched.",
+    "missingDataWarnings": [
+      "Lineup source not connected - confirmed batting orders unavailable.",
+      "Injury/news source not connected - late scratches unavailable.",
+      "Bullpen availability not connected - reliever fatigue not modeled yet.",
+      "Starting pitcher unknown for one or both teams.",
+      "Weather is partial or missing."
+    ],
+    "source": "ASTRODDS_STATSAPI_MODEL_LEAN",
+    "id": "modelLean:mlb-823290:cincinnati-reds:2026-06-05",
+    "createdAt": "2026-06-05T22:29:42.581Z",
+    "status": "open",
+    "scanCount": 1,
+    "lastSeenAt": "2026-06-05T22:29:42.581Z"
+  },
+  {
+    "sport": "MLB",
+    "league": "MLB",
+    "gameId": "mlb-824999",
+    "game": "Milwaukee Brewers vs Athletics",
+    "leanSide": "Milwaukee Brewers",
+    "confidence": 60,
+    "modelScore": 56,
+    "dataQuality": "D",
+    "reason": "Milwaukee Brewers lean: StatsAPI data favors Milwaukee Brewers. Inputs: pitcher data incomplete, season records connected, recent form connected, weather partial, venue Las Vegas Ballpark. Official bet blocked until real odds are matched.",
+    "missingDataWarnings": [
+      "Lineup source not connected - confirmed batting orders unavailable.",
+      "Injury/news source not connected - late scratches unavailable.",
+      "Bullpen availability not connected - reliever fatigue not modeled yet.",
+      "Starting pitcher unknown for one or both teams.",
+      "Weather is partial or missing."
+    ],
+    "source": "ASTRODDS_STATSAPI_MODEL_LEAN",
+    "id": "modelLean:mlb-824999:milwaukee-brewers:2026-06-05",
+    "createdAt": "2026-06-05T22:29:42.655Z",
+    "status": "open",
+    "scanCount": 1,
+    "lastSeenAt": "2026-06-05T22:29:42.655Z"
+  }
+]

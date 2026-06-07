@@ -1,0 +1,1069 @@
+@import "tailwindcss";
+
+/* =========================
+   FAITH CLEAN GLOBAL SYSTEM
+   ========================= */
+
+:root {
+  --faith-bg: #02040a;
+  --faith-panel: rgba(2, 6, 23, 0.46);
+  --faith-border: rgba(191, 219, 254, 0.16);
+  --faith-cyan: #8ff4ff;
+  --faith-text: #f8fbff;
+  --faith-muted: #9aa8bd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--faith-bg);
+}
+
+body {
+  margin: 0;
+  background: var(--faith-bg);
+  color: var(--faith-text);
+  overflow-x: hidden;
+}
+
+/* Main shell */
+.faith-home {
+  background: #02040a;
+}
+
+.faith-shell {
+  border: 1px solid var(--faith-border);
+  background: rgba(2, 6, 23, 0.10);
+  box-shadow:
+    inset 0 0 32px rgba(255,255,255,0.018),
+    0 0 52px rgba(56,189,248,0.06);
+}
+
+/* Navigation */
+.faith-home nav {
+  background: rgba(2, 6, 23, 0.42);
+  backdrop-filter: blur(12px);
+}
+
+.faith-home nav a {
+  color: rgba(248, 251, 255, 0.92);
+  text-decoration: none;
+  text-shadow: 0 0 14px rgba(191,219,254,0.16);
+}
+
+.faith-home nav a:hover {
+  color: var(--faith-cyan);
+}
+
+/* Buttons */
+.faith-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(191,219,254,0.34);
+  background: linear-gradient(180deg, rgba(15,23,42,0.54), rgba(2,6,23,0.78));
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: .26em;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow:
+    inset 0 0 18px rgba(255,255,255,0.04),
+    0 0 24px rgba(125,211,252,0.10);
+  transition: all .2s ease;
+}
+
+.faith-button:hover {
+  border-color: rgba(207,250,254,0.72);
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,0.07),
+    0 0 34px rgba(125,211,252,0.22);
+  transform: translateY(-1px);
+}
+
+/* Hero assets */
+.faith-logo-top {
+  height: 54px;
+  width: auto;
+  object-fit: contain;
+  filter:
+    brightness(1.08)
+    contrast(1.08)
+    drop-shadow(0 0 12px rgba(191,219,254,.35));
+}
+
+.faith-logo-main {
+  filter:
+    brightness(1.06)
+    contrast(1.06)
+    drop-shadow(0 0 20px rgba(191,219,254,.24))
+    drop-shadow(0 0 44px rgba(56,189,248,.12));
+}
+
+.faith-emblem {
+  filter:
+    brightness(1.08)
+    contrast(1.08)
+    drop-shadow(0 0 22px rgba(191,219,254,.24))
+    drop-shadow(0 0 52px rgba(56,189,248,.14));
+}
+
+/* Panels / cards */
+.faith-card {
+  position: relative;
+  border: 1px solid rgba(191, 219, 254, 0.14);
+  background:
+    radial-gradient(circle at 18% 10%, rgba(125,211,252,0.08), transparent 38%),
+    linear-gradient(180deg, rgba(2,6,23,0.42), rgba(2,6,23,0.68));
+  box-shadow:
+    inset 0 0 24px rgba(255,255,255,0.018),
+    0 0 28px rgba(56,189,248,0.045);
+  backdrop-filter: blur(5px);
+}
+
+.faith-card:hover {
+  border-color: rgba(207,250,254,0.28);
+  box-shadow:
+    inset 0 0 26px rgba(255,255,255,0.024),
+    0 0 34px rgba(56,189,248,0.08);
+}
+
+/* Asset boxes */
+.faith-icon-box {
+  display: grid;
+  height: 96px;
+  width: 96px;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid rgba(191,219,254,0.17);
+  background:
+    radial-gradient(circle at center, rgba(125,211,252,0.10), rgba(2,6,23,0.50) 62%),
+    rgba(2,6,23,0.35);
+  box-shadow:
+    inset 0 0 18px rgba(255,255,255,0.025),
+    0 0 24px rgba(125,211,252,0.08);
+}
+
+.faith-loop-icon {
+  display: grid;
+  height: 96px;
+  width: 96px;
+  margin-inline: auto;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(191,219,254,0.15);
+  background: radial-gradient(circle at center, rgba(125,211,252,0.10), rgba(2,6,23,0.18) 64%);
+}
+
+.faith-asset {
+  height: 82px;
+  width: 82px;
+  object-fit: contain;
+  filter:
+    brightness(1.14)
+    contrast(1.12)
+    saturate(1.08)
+    drop-shadow(0 0 12px rgba(125,211,252,.16));
+}
+
+.tfusd-bright {
+  filter:
+    brightness(1.42)
+    contrast(1.16)
+    saturate(1.15)
+    drop-shadow(0 0 18px rgba(125,211,252,.30)) !important;
+}
+
+/* Tokens */
+.faith-token-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(2,6,23,0.34);
+  padding: 1.25rem;
+}
+
+.faith-token {
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+  filter:
+    brightness(1.18)
+    contrast(1.12)
+    saturate(1.08)
+    drop-shadow(0 0 20px rgba(125,211,252,.22));
+}
+
+/* Typography */
+.faith-home h1,
+.faith-home h2,
+.faith-home h3 {
+  text-shadow:
+    0 0 18px rgba(191,219,254,0.14),
+    0 0 34px rgba(56,189,248,0.07);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .faith-logo-top {
+    height: 42px;
+  }
+
+  .faith-logo-main {
+    height: 145px !important;
+  }
+
+  .faith-emblem {
+    height: 165px !important;
+  }
+
+  .faith-icon-box,
+  .faith-loop-icon {
+    height: 82px;
+    width: 82px;
+  }
+
+  .faith-asset {
+    height: 70px;
+    width: 70px;
+  }
+
+  .faith-token {
+    height: 82px;
+    width: 82px;
+  }
+}
+
+/* === PREMIUM TOKEN SYSTEM SECTION === */
+
+.faith-token-system {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(191, 219, 254, 0.18);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(125,211,252,0.10), transparent 42%),
+    linear-gradient(180deg, rgba(2,6,23,0.58), rgba(2,6,23,0.86));
+  padding: 3rem 2rem;
+  box-shadow:
+    inset 0 0 34px rgba(255,255,255,0.022),
+    0 0 42px rgba(56,189,248,0.07);
+  backdrop-filter: blur(6px);
+}
+
+.faith-token-system::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  pointer-events: none;
+  border: 1px solid rgba(191,219,254,0.10);
+}
+
+.faith-token-system::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 5rem;
+  bottom: 2rem;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(191,219,254,0.32),
+    transparent
+  );
+  opacity: 0.7;
+}
+
+.faith-token-orb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  min-height: 430px;
+  border: 1px solid rgba(191,219,254,0.12);
+  background:
+    radial-gradient(circle at center, rgba(125,211,252,0.09), transparent 48%),
+    rgba(2,6,23,0.30);
+}
+
+.faith-token-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  border: 1px solid rgba(207,250,254,0.38);
+  background:
+    radial-gradient(circle at center, rgba(125,211,252,0.10), rgba(2,6,23,0.42) 58%, rgba(2,6,23,0.82));
+  box-shadow:
+    inset 0 0 36px rgba(255,255,255,0.04),
+    0 0 46px rgba(125,211,252,0.18);
+}
+
+.faith-token-ring::before,
+.faith-token-ring::after {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  border-radius: inherit;
+  border: 1px solid rgba(191,219,254,0.14);
+}
+
+.faith-token-ring::after {
+  inset: -30px;
+  border-color: rgba(125,211,252,0.08);
+}
+
+.faith-token-large {
+  width: 205px;
+  height: 205px;
+  object-fit: contain;
+  filter:
+    brightness(1.25)
+    contrast(1.16)
+    saturate(1.1)
+    drop-shadow(0 0 24px rgba(125,211,252,.28));
+}
+
+.faith-token-large.tfusd-bright {
+  filter:
+    brightness(1.58)
+    contrast(1.18)
+    saturate(1.16)
+    drop-shadow(0 0 30px rgba(125,211,252,.42)) !important;
+}
+
+@media (max-width: 1024px) {
+  .faith-token-system::after {
+    display: none;
+  }
+
+  .faith-token-ring {
+    width: 220px;
+    height: 220px;
+  }
+
+  .faith-token-large {
+    width: 170px;
+    height: 170px;
+  }
+}
+
+/* === FINAL ICON BRIGHTNESS FIX === */
+
+img[src*="icon-vaults"],
+img[src*="icon-pcs"],
+img[src*="icon-treasury"],
+img[src*="icon-tfusd"] {
+  opacity: 1 !important;
+  filter: brightness(1.65) contrast(1.22) saturate(1.18) drop-shadow(0 0 18px rgba(125,211,252,0.28)) !important;
+  mix-blend-mode: normal !important;
+}
+
+img[src*="token-faith"],
+img[src*="token-fusd"] {
+  opacity: 1 !important;
+  filter: brightness(1.35) contrast(1.15) saturate(1.12) drop-shadow(0 0 22px rgba(125,211,252,0.25)) !important;
+  mix-blend-mode: normal !important;
+}
+
+.protocol-card img,
+.feature-card img,
+.loop-icon img,
+.token-card img {
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+.protocol-card,
+.feature-card,
+.token-card,
+.loop-card {
+  background: rgba(3, 8, 22, 0.50) !important;
+}
+
+.protocol-card .image-frame,
+.feature-card .image-frame,
+.token-card .image-frame,
+.loop-icon {
+  background: rgba(5, 14, 32, 0.18) !important;
+}
+
+/* === GLOBAL FIX: HIDE WHITE SQUARE AROUND FUSD TOKEN EVERYWHERE === */
+
+img[src*="token-fusd"],
+img[src*="fusd-web-icon"],
+img[alt*="fUSD"],
+img[alt*="FUSD"],
+img[alt*="tfUSD"],
+img[alt*="TFUSD"] {
+  clip-path: circle(39% at 50% 50%) !important;
+  border-radius: 9999px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  background: transparent !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  filter:
+    brightness(1.18)
+    contrast(1.14)
+    saturate(1.05)
+    drop-shadow(0 0 18px rgba(125,211,252,0.22)) !important;
+}
+
+/* Force all FUSD image containers to not show white/box background */
+div:has(> img[src*="token-fusd"]),
+div:has(> img[src*="fusd-web-icon"]),
+div:has(> img[alt*="fUSD"]),
+div:has(> img[alt*="FUSD"]),
+div:has(> img[alt*="tfUSD"]),
+div:has(> img[alt*="TFUSD"]) {
+  background:
+    radial-gradient(circle at center, rgba(90,170,255,0.12), rgba(2,6,18,0.02) 62%, transparent 72%) !important;
+  border-radius: 9999px !important;
+  overflow: hidden !important;
+}
+
+/* If the token is inside loop/card boxes, keep it circular */
+.loop-icon img[src*="token-fusd"],
+.token-card img[src*="token-fusd"],
+.protocol-card img[src*="token-fusd"],
+.feature-card img[src*="token-fusd"] {
+  clip-path: circle(39% at 50% 50%) !important;
+  border-radius: 9999px !important;
+}
+
+/* === REMOVE WHITE SQUARES AROUND WEB ICONS === */
+
+img[src*="icon-vaults"],
+img[src*="icon-pcs"],
+img[src*="icon-treasury"],
+img[src*="icon-tfusd"],
+img[src*="token-fusd"],
+img[src*="token-faith"] {
+  background: transparent !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  mix-blend-mode: normal !important;
+}
+
+img[src*="icon-pcs"],
+img[src*="icon-treasury"],
+img[src*="icon-tfusd"],
+img[src*="token-fusd"],
+img[src*="token-faith"] {
+  clip-path: circle(45% at 50% 50%) !important;
+  border-radius: 9999px !important;
+}
+
+img[src*="icon-vaults"] {
+  clip-path: inset(8% round 8px) !important;
+  border-radius: 10px !important;
+}
+
+div:has(> img[src*="icon-vaults"]),
+div:has(> img[src*="icon-pcs"]),
+div:has(> img[src*="icon-treasury"]),
+div:has(> img[src*="icon-tfusd"]),
+div:has(> img[src*="token-fusd"]),
+div:has(> img[src*="token-faith"]) {
+  background: transparent !important;
+  overflow: hidden !important;
+}
+
+/* === CLEAN WEB ICONS LIKE FUSD - HIDE WHITE BACKGROUND === */
+
+/* Dark circular container around all protocol icons */
+div:has(> img[src*="icon-vaults"]),
+div:has(> img[src*="icon-pcs"]),
+div:has(> img[src*="icon-treasury"]) {
+  width: 104px !important;
+  height: 104px !important;
+  border-radius: 9999px !important;
+  background:
+    radial-gradient(circle at center, rgba(8, 18, 38, 0.96), rgba(1, 5, 14, 0.98)) !important;
+  border: 1px solid rgba(148, 197, 255, 0.22) !important;
+  box-shadow:
+    inset 0 0 26px rgba(125, 211, 252, 0.08),
+    0 0 26px rgba(80, 160, 255, 0.10) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Make white pixels disappear into dark background */
+img[src*="icon-vaults"],
+img[src*="icon-pcs"],
+img[src*="icon-treasury"] {
+  width: 86px !important;
+  height: 86px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  background: transparent !important;
+  mix-blend-mode: multiply !important;
+  opacity: 1 !important;
+  filter:
+    brightness(1.55)
+    contrast(1.32)
+    saturate(1.22)
+    drop-shadow(0 0 12px rgba(125, 211, 252, 0.25)) !important;
+}
+
+/* Keep fUSD clean and round */
+img[src*="icon-tfusd"],
+img[src*="token-fusd"] {
+  clip-path: circle(45% at 50% 50%) !important;
+  border-radius: 9999px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  background: transparent !important;
+}
+
+/* === FIX AFTER MULTIPLY: RESTORE ICON VISIBILITY === */
+
+img[src*="icon-vaults"],
+img[src*="icon-pcs"],
+img[src*="icon-treasury"] {
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  width: 92px !important;
+  height: 92px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  filter:
+    brightness(1.45)
+    contrast(1.16)
+    saturate(1.08)
+    drop-shadow(0 0 14px rgba(125,211,252,0.25)) !important;
+}
+
+div:has(> img[src*="icon-vaults"]),
+div:has(> img[src*="icon-pcs"]),
+div:has(> img[src*="icon-treasury"]) {
+  background: transparent !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+
+/* remove the ugly visible white by cropping only the image edges */
+img[src*="icon-vaults"] {
+  clip-path: inset(10% round 10px) !important;
+}
+
+img[src*="icon-pcs"],
+img[src*="icon-treasury"] {
+  clip-path: circle(42% at 50% 50%) !important;
+  border-radius: 9999px !important;
+}
+
+/* keep tfUSD clean */
+img[src*="icon-tfusd"],
+img[src*="token-fusd"] {
+  mix-blend-mode: normal !important;
+  clip-path: circle(45% at 50% 50%) !important;
+  border-radius: 9999px !important;
+  opacity: 1 !important;
+}
+
+/* Premium FAITH icon effects - visual-only upgrade */
+.faith-icon-box,
+.faith-loop-icon {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 22px rgba(34, 211, 238, 0.08),
+    0 0 28px rgba(14, 165, 233, 0.08);
+}
+
+.faith-icon-box::before,
+.faith-loop-icon::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  z-index: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.16);
+  box-shadow:
+    0 0 22px rgba(34, 211, 238, 0.12),
+    inset 0 0 18px rgba(34, 211, 238, 0.08);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.faith-icon-box::after,
+.faith-loop-icon::after {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  z-index: 0;
+  background: conic-gradient(
+    from 180deg,
+    transparent,
+    rgba(34, 211, 238, 0.14),
+    transparent,
+    rgba(59, 130, 246, 0.12),
+    transparent
+  );
+  opacity: 0.28;
+  animation: faithIconOrbit 16s linear infinite;
+  pointer-events: none;
+}
+
+.faith-icon-box img,
+.faith-loop-icon img {
+  position: relative;
+  z-index: 1;
+  filter:
+    drop-shadow(0 0 10px rgba(34, 211, 238, 0.28))
+    drop-shadow(0 0 22px rgba(59, 130, 246, 0.14));
+  transition: transform 260ms ease, filter 260ms ease;
+}
+
+.faith-card:hover .faith-icon-box img,
+.faith-loop-icon:hover img {
+  transform: translateY(-2px) scale(1.04);
+  filter:
+    drop-shadow(0 0 14px rgba(34, 211, 238, 0.48))
+    drop-shadow(0 0 30px rgba(59, 130, 246, 0.22));
+}
+
+@keyframes faithIconOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Stronger FAITH icon glow - visual only */
+.faith-icon-box,
+.faith-loop-icon {
+  border-color: rgba(103, 232, 249, 0.28) !important;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.22), rgba(15, 23, 42, 0.45) 48%, rgba(2, 6, 23, 0.72) 100%) !important;
+  box-shadow:
+    inset 0 0 26px rgba(34, 211, 238, 0.16),
+    0 0 22px rgba(34, 211, 238, 0.18),
+    0 0 48px rgba(59, 130, 246, 0.12) !important;
+}
+
+.faith-loop-icon {
+  transform: translateZ(0);
+}
+
+.faith-icon-box::before,
+.faith-loop-icon::before {
+  inset: 8% !important;
+  border: 1px solid rgba(125, 211, 252, 0.28) !important;
+  box-shadow:
+    0 0 18px rgba(34, 211, 238, 0.28),
+    inset 0 0 22px rgba(34, 211, 238, 0.14) !important;
+}
+
+.faith-icon-box img,
+.faith-loop-icon img {
+  filter:
+    drop-shadow(0 0 10px rgba(34, 211, 238, 0.55))
+    drop-shadow(0 0 26px rgba(59, 130, 246, 0.35))
+    contrast(1.08)
+    saturate(1.12) !important;
+}
+
+.faith-card:hover,
+.faith-loop-icon:hover {
+  border-color: rgba(103, 232, 249, 0.38);
+}
+
+.faith-card:hover .faith-icon-box,
+.faith-loop-icon:hover {
+  box-shadow:
+    inset 0 0 30px rgba(34, 211, 238, 0.22),
+    0 0 30px rgba(34, 211, 238, 0.25),
+    0 0 70px rgba(59, 130, 246, 0.18) !important;
+}
+
+.faith-card:hover .faith-icon-box img,
+.faith-loop-icon:hover img {
+  transform: translateY(-2px) scale(1.06);
+}
+
+/* =========================
+   ASTRODDS TERMINAL SYSTEM
+   ========================= */
+
+.astro-terminal {
+  color-scheme: dark;
+  background:
+    radial-gradient(circle at 72% 100%, rgba(20, 115, 255, 0.16), transparent 24%),
+    radial-gradient(circle at 8% 0%, rgba(214, 175, 85, 0.11), transparent 24%),
+    linear-gradient(135deg, rgba(214, 175, 85, 0.045), transparent 22%),
+    linear-gradient(225deg, rgba(20, 115, 255, 0.065), transparent 30%),
+    #05060a;
+}
+
+.astro-grid-bg {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    repeating-linear-gradient(115deg, rgba(214, 175, 85, 0.05) 0 1px, transparent 1px 18px);
+  background-size: 64px 64px, 64px 64px, 320px 320px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.22));
+  pointer-events: none;
+}
+
+.astro-shell,
+.astro-panel,
+.astro-panel-soft,
+.astro-chrome-card,
+.astro-pick-card,
+.astro-metric,
+.astro-table-wrap {
+  border-radius: 8px;
+}
+
+.astro-shell {
+  overflow: hidden;
+  border: 1px solid rgba(214, 175, 85, 0.36);
+  background:
+    linear-gradient(180deg, rgba(4, 6, 10, 0.96), rgba(2, 3, 6, 0.98)),
+    rgba(5, 6, 10, 0.96);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
+    inset 0 0 60px rgba(214, 175, 85, 0.035),
+    0 0 42px rgba(214, 175, 85, 0.13),
+    0 0 56px rgba(38, 100, 255, 0.07);
+}
+
+.astro-panel,
+.astro-panel-soft,
+.astro-chrome-card,
+.astro-pick-card,
+.astro-metric,
+.astro-table-wrap {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(214, 175, 85, 0.28);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(37, 71, 115, 0.18), transparent 42%),
+    linear-gradient(140deg, rgba(255, 255, 255, 0.035), transparent 32%),
+    linear-gradient(180deg, rgba(10, 14, 22, 0.96), rgba(3, 5, 9, 0.98));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.022),
+    inset 0 0 28px rgba(214, 175, 85, 0.035),
+    0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+.astro-panel::before,
+.astro-chrome-card::before,
+.astro-pick-card::before,
+.astro-metric::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, transparent 0 35%, rgba(255, 255, 255, 0.09) 46%, transparent 58%),
+    repeating-linear-gradient(100deg, rgba(214, 175, 85, 0.055) 0 1px, transparent 1px 12px);
+  opacity: 0.36;
+  pointer-events: none;
+}
+
+.astro-panel > *,
+.astro-panel-soft > *,
+.astro-chrome-card > *,
+.astro-pick-card > *,
+.astro-metric > * {
+  position: relative;
+  z-index: 1;
+}
+
+.astro-panel {
+  border-color: rgba(214, 175, 85, 0.22);
+}
+
+.astro-panel-soft {
+  border-color: rgba(214, 175, 85, 0.28);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(24, 54, 92, 0.18), transparent 40%),
+    linear-gradient(145deg, rgba(12, 17, 28, 0.9), rgba(3, 5, 9, 0.96));
+}
+
+.astro-chrome-card {
+  border-color: rgba(214, 175, 85, 0.42);
+  background:
+    linear-gradient(145deg, rgba(214, 175, 85, 0.16), transparent 34%),
+    linear-gradient(225deg, rgba(63, 123, 255, 0.13), transparent 45%),
+    rgba(8, 8, 12, 0.9);
+}
+
+.astro-pick-card {
+  border-color: rgba(145, 200, 255, 0.18);
+}
+
+.astro-metric {
+  min-height: 86px;
+}
+
+.astro-metric-gold {
+  border-color: rgba(214, 175, 85, 0.34);
+}
+
+.astro-metric-green {
+  border-color: rgba(52, 211, 153, 0.26);
+}
+
+.astro-metric-red {
+  border-color: rgba(248, 113, 113, 0.28);
+}
+
+.astro-metric-blue {
+  border-color: rgba(96, 165, 250, 0.28);
+}
+
+.astro-metric-silver {
+  border-color: rgba(226, 232, 240, 0.2);
+}
+
+.astro-score {
+  --score: 0%;
+  display: grid;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, #090b11 0 55%, transparent 57%),
+    conic-gradient(#f8d66a var(--score), rgba(255, 255, 255, 0.12) 0);
+  box-shadow:
+    inset 0 0 18px rgba(255, 255, 255, 0.05),
+    0 0 18px rgba(214, 175, 85, 0.16);
+}
+
+.astro-score span {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 950;
+}
+
+.astro-mark {
+  background:
+    repeating-conic-gradient(from 22deg, #d6af55 0 8deg, #f9edbb 8deg 12deg, #87611b 12deg 18deg, #d6af55 18deg 28deg);
+  box-shadow:
+    inset 0 0 18px rgba(0, 0, 0, 0.42),
+    0 0 22px rgba(214, 175, 85, 0.22);
+}
+
+.astro-table-wrap {
+  border-color: rgba(214, 175, 85, 0.18);
+  background:
+    linear-gradient(180deg, rgba(7, 12, 20, 0.94), rgba(2, 4, 8, 0.96)),
+    rgba(0, 0, 0, 0.42);
+}
+
+.astro-table-wrap table {
+  border-spacing: 0;
+}
+
+.astro-feature-card,
+.astro-tier-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid rgba(214, 175, 85, 0.28);
+  background:
+    linear-gradient(135deg, rgba(214, 175, 85, 0.16), transparent 34%),
+    linear-gradient(225deg, rgba(56, 189, 248, 0.08), transparent 40%),
+    rgba(5, 6, 10, 0.86);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
+    0 0 34px rgba(214, 175, 85, 0.08);
+}
+
+.astro-reference-frame {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  min-height: 520px;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid rgba(250, 204, 21, 0.58);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(250, 204, 21, 0.22), transparent 42%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
+  box-shadow:
+    inset 0 0 0 8px rgba(214, 175, 85, 0.08),
+    inset 0 0 44px rgba(250, 204, 21, 0.16),
+    0 0 34px rgba(250, 204, 21, 0.22);
+}
+
+.astro-reference-frame::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.18) 48%, transparent 58%),
+    repeating-linear-gradient(95deg, rgba(250, 204, 21, 0.08) 0 1px, transparent 1px 16px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.astro-reference-frame img {
+  position: relative;
+  z-index: 1;
+  filter:
+    saturate(1.08)
+    contrast(1.06)
+    drop-shadow(0 0 22px rgba(250, 204, 21, 0.22));
+}
+
+.astro-tier-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, 0.08) 48%, transparent 58%),
+    repeating-linear-gradient(105deg, rgba(214, 175, 85, 0.045) 0 1px, transparent 1px 14px);
+  pointer-events: none;
+}
+
+.astro-tier-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.astro-tier-strip {
+  height: 86px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(90deg, rgba(129, 24, 30, 0.84), rgba(236, 213, 153, 0.86), rgba(8, 18, 38, 0.88)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.13) 0 1px, transparent 1px 9px);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.38);
+}
+
+.astro-tier-1 .astro-tier-strip {
+  background:
+    linear-gradient(90deg, rgba(148, 163, 184, 0.88), rgba(255, 255, 255, 0.88), rgba(71, 85, 105, 0.9)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 9px);
+}
+
+.astro-tier-2,
+.astro-tier-3 {
+  border-color: rgba(250, 204, 21, 0.38);
+}
+
+.astro-tier-3 .astro-tier-strip {
+  background:
+    repeating-conic-gradient(from 12deg, #c88d12 0 8deg, #fff0a6 8deg 12deg, #5d3609 12deg 18deg, #f3c84f 18deg 28deg);
+}
+
+.astro-nav-scroll {
+  scrollbar-color: rgba(214, 175, 85, 0.72) rgba(255, 255, 255, 0.04);
+  scrollbar-width: thin;
+}
+
+.astro-nav-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.astro-nav-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.astro-nav-scroll::-webkit-scrollbar-thumb {
+  background: rgba(214, 175, 85, 0.72);
+}
+
+.astro-diag-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(214, 175, 85, 0.26);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(50, 84, 132, 0.16), transparent 44%),
+    linear-gradient(180deg, rgba(8, 13, 22, 0.96), rgba(2, 4, 8, 0.98));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.024),
+    inset 0 0 26px rgba(214, 175, 85, 0.035);
+}
+
+.astro-opportunity-table th,
+.astro-opportunity-table td {
+  border-right: 1px solid rgba(214, 175, 85, 0.12);
+}
+
+.astro-opportunity-table th:last-child,
+.astro-opportunity-table td:last-child {
+  border-right: 0;
+}
+
+.astro-opportunity-table tbody tr {
+  background:
+    linear-gradient(90deg, rgba(13, 19, 30, 0.52), transparent 42%),
+    rgba(0, 0, 0, 0.12);
+}
+
+.astro-health-ring {
+  display: grid;
+  width: 82px;
+  height: 82px;
+  place-items: center;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, #05060a 0 56%, transparent 57%),
+    conic-gradient(#63f055 0 98%, rgba(255, 255, 255, 0.12) 98% 100%);
+  box-shadow:
+    inset 0 0 24px rgba(99, 240, 85, 0.12),
+    0 0 24px rgba(99, 240, 85, 0.2);
+}
+
+.astro-health-ring span {
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 950;
+}
+
+.astro-sparkline {
+  height: 42px;
+  background:
+    linear-gradient(135deg, transparent 7%, #63f055 8% 10%, transparent 11% 20%, #63f055 21% 23%, transparent 24% 34%, #63f055 35% 37%, transparent 38% 48%, #63f055 49% 51%, transparent 52% 62%, #63f055 63% 65%, transparent 66% 76%, #63f055 77% 79%, transparent 80%),
+    linear-gradient(180deg, transparent 49%, rgba(99, 240, 85, 0.18) 50%, transparent 51%);
+  opacity: 0.9;
+}
+
+.astro-sidebar-card-frame {
+  min-height: 322px;
+}
+
+.astro-bottom-strip {
+  overflow: hidden;
+  border: 1px solid rgba(214, 175, 85, 0.34);
+  background:
+    radial-gradient(circle at 70% 50%, rgba(23, 95, 160, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(8, 13, 22, 0.96), rgba(2, 4, 8, 0.98));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.022),
+    0 0 30px rgba(214, 175, 85, 0.08);
+}
+
+.astro-stat-cell {
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 18px;
+}
+
+.astro-stat-cell:last-child {
+  border-right: 0;
+}
+
