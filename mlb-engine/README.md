@@ -144,6 +144,42 @@ Split policy:
 - completed 2026: `holdout_2026`
 
 This step does not create live picks, official picks, betting edge, ROI, CLV, confidence, calibration, Polymarket probabilities, or `today_predictions.json`.
+
+## Measure Baseline Calibration
+
+After generating historical predictions, measure raw model probability calibration:
+
+```bash
+python mlb-engine/scripts/calibrate_model.py
+```
+
+This creates:
+
+```text
+mlb-engine/calibration/moneyline_calibration_report.json
+mlb-engine/calibration/moneyline_calibration_bins.csv
+```
+
+The bins CSV groups historical predictions into probability ranges and reports:
+
+- `bin_lower`
+- `bin_upper`
+- `count`
+- `average_predicted_probability`
+- `actual_home_win_rate`
+- `calibration_error`
+
+The report JSON includes Brier score, log loss, expected calibration error, max calibration error, rows by split, model metadata, calibration quality, and warnings.
+
+Calibration quality is conservative and can be:
+
+- `strong`
+- `medium`
+- `weak`
+- `not_enough_history`
+- `missing`
+
+This is probability calibration measurement only. It is not betting ROI, not CLV, not market edge, not an official pick, and not a live signal. Betting ROI and edge require market prices or Polymarket implied probabilities later.
 ## Other Commands
 
 ```bash

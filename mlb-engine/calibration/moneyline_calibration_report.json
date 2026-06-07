@@ -1,0 +1,31 @@
+{
+  "input_predictions_file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\moneyline_historical_predictions.csv",
+  "bins_output_file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\calibration\\moneyline_calibration_bins.csv",
+  "total_rows": 8267,
+  "metric_rows": 3398,
+  "metric_sample_policy": "validation + holdout_2026 when available; otherwise all valid rows",
+  "rows_by_split": {
+    "train": 4869,
+    "validation": 2434,
+    "holdout_2026": 964
+  },
+  "metric_rows_by_split": {
+    "validation": 2434,
+    "holdout_2026": 964
+  },
+  "brier_score": 0.248344,
+  "log_loss": 0.689773,
+  "expected_calibration_error": 0.036499,
+  "max_calibration_error": 0.07429,
+  "populated_bins": 8,
+  "model_version": "moneyline_logistic_baseline_v0.1",
+  "model_type": "stdlib_logistic_regression",
+  "calibration_quality": "weak",
+  "warnings": [
+    "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
+    "This is calibration measurement only. No calibrated probability mapping or calibrator pickle was created.",
+    "Betting ROI/edge requires market price or Polymarket implied probability later.",
+    "2026 is season-to-date holdout only, not a completed full-season calibration set."
+  ],
+  "generated_at": "2026-06-07T18:57:58.044237+00:00"
+}
