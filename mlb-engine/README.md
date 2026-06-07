@@ -38,7 +38,7 @@ mlb-engine/data/raw/mlb_schedule_<YEAR>.json
 mlb-engine/data/processed/mlb_games_<YEAR>.csv
 ```
 
-The processed CSV is moneyline-ready and includes:
+The processed CSV is moneyline-ready source data and includes:
 
 - `game_id`
 - `game_date`
@@ -60,10 +60,43 @@ If a game is scheduled, future, incomplete, or missing final scores, the row is 
 
 2026 is season-to-date/live paper calibration data only. It should not be treated as a completed full-season training set.
 
-## Other Commands
+## Build Moneyline Features
+
+After fetching yearly game files, build the first supervised Moneyline/Game Winner feature dataset:
 
 ```bash
 python mlb-engine/scripts/build_features.py
+```
+
+This creates:
+
+```text
+mlb-engine/data/processed/mlb_moneyline_features.csv
+mlb-engine/data/processed/mlb_moneyline_features_report.json
+```
+
+`mlb_moneyline_features.csv` contains one row per completed game with a known winner. The target column is:
+
+```text
+target_home_win
+```
+
+`target_home_win` is `1` when the home team won and `0` when the away team won. It is for future supervised Moneyline model training only.
+
+Feature rules:
+
+- Uses only games before the current game.
+- Resets team history by season.
+- Keeps 2026 completed games, but treats 2026 as season-to-date.
+- Skips scheduled/incomplete games as labeled training rows.
+- Uses `0.5` win-percentage defaults only when a team has no prior games.
+- Leaves rest/run fields empty when there is no prior history rather than faking values.
+
+This is feature building only. It is not model training, not calibration, not backtesting, and not a prediction engine.
+
+## Other Commands
+
+```bash
 python mlb-engine/scripts/train_model.py
 python mlb-engine/scripts/calibrate_model.py
 python mlb-engine/scripts/backtest.py
