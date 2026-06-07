@@ -38,23 +38,7 @@ mlb-engine/data/raw/mlb_schedule_<YEAR>.json
 mlb-engine/data/processed/mlb_games_<YEAR>.csv
 ```
 
-The processed CSV is moneyline-ready source data and includes:
-
-- `game_id`
-- `game_date`
-- `season`
-- `game_type`
-- `status`
-- `home_team`
-- `away_team`
-- `home_score`
-- `away_score`
-- `winner`
-- `home_win`
-- `away_win`
-- `venue`
-- `doubleheader`
-- `game_number`
+The processed CSV is moneyline-ready source data and includes game id, date, teams, final score fields, winner fields, venue, and schedule metadata.
 
 If a game is scheduled, future, incomplete, or missing final scores, the row is kept but result fields remain empty. Results are never faked.
 
@@ -92,18 +76,45 @@ Feature rules:
 - Uses `0.5` win-percentage defaults only when a team has no prior games.
 - Leaves rest/run fields empty when there is no prior history rather than faking values.
 
-This is feature building only. It is not model training, not calibration, not backtesting, and not a prediction engine.
+## Train Baseline Moneyline Model
+
+Train the first baseline Moneyline/Game Winner model:
+
+```bash
+python mlb-engine/scripts/train_model.py
+```
+
+Training policy:
+
+- Trains only on 2023 and 2024 rows.
+- Validates/tests on 2025 rows.
+- Keeps completed 2026 rows as season-to-date holdout/paper evaluation only.
+- Uses only pre-game numeric features.
+- Excludes leakage fields such as `game_id`, `game_date`, final scores, `winner`, and `target_home_win` from model inputs.
+- Uses Logistic Regression with scikit-learn when available.
+- Falls back to a small stdlib logistic-regression baseline if scikit-learn is not installed.
+
+Training creates:
+
+```text
+mlb-engine/models/moneyline_baseline_model.pkl
+mlb-engine/models/moneyline_feature_columns.json
+mlb-engine/models/moneyline_training_report.json
+```
+
+This is a baseline Moneyline model only. It is not calibrated yet. Betting edge requires a market price or Polymarket implied probability later. Model probability alone is not a bet.
+
+The training report contains model metrics only, such as validation accuracy, log loss, Brier score, and home-team baseline accuracy. It does not report ROI, CLV, profit, or betting performance.
 
 ## Other Commands
 
 ```bash
-python mlb-engine/scripts/train_model.py
 python mlb-engine/scripts/calibrate_model.py
 python mlb-engine/scripts/backtest.py
 python mlb-engine/scripts/predict_today.py
 ```
 
-These scripts still exit cleanly and print next steps when required data/model artifacts are missing. This is not a trained model yet.
+These scripts still exit cleanly and print next steps when required data/model artifacts are missing. Calibration, backtesting, and prediction export come later.
 
 ## Prediction Export Contract
 

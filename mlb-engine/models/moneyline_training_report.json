@@ -1,0 +1,88 @@
+{
+  "model_version": "moneyline_logistic_baseline_v0.1",
+  "model_type": "stdlib_logistic_regression",
+  "generated_at": "2026-06-07T18:32:56.333514+00:00",
+  "target": "target_home_win",
+  "market": "moneyline",
+  "train_seasons": [
+    2023,
+    2024
+  ],
+  "validation_season": 2025,
+  "holdout_2026_policy": "completed 2026 rows are held out as season-to-date/paper evaluation only; they are not used for training",
+  "train_rows": 4869,
+  "validation_rows": 2434,
+  "holdout_2026_rows": 964,
+  "accuracy": 0.549302,
+  "log_loss": 0.686715,
+  "brier_score": 0.246843,
+  "baseline_home_team_accuracy": 0.543139,
+  "train_metrics": {
+    "accuracy": 0.558226,
+    "log_loss": 0.680571,
+    "brier_score": 0.243809,
+    "baseline_home_team_accuracy": 0.521052
+  },
+  "validation_metrics": {
+    "accuracy": 0.549302,
+    "log_loss": 0.686715,
+    "brier_score": 0.246843,
+    "baseline_home_team_accuracy": 0.543139
+  },
+  "holdout_2026_metrics": {
+    "accuracy": 0.514523,
+    "log_loss": 0.697495,
+    "brier_score": 0.252135,
+    "baseline_home_team_accuracy": 0.525934
+  },
+  "feature_columns": [
+    "home_games_played_before",
+    "away_games_played_before",
+    "home_wins_before",
+    "away_wins_before",
+    "home_losses_before",
+    "away_losses_before",
+    "home_win_pct_before",
+    "away_win_pct_before",
+    "home_last_10_win_pct",
+    "away_last_10_win_pct",
+    "home_last_30_win_pct",
+    "away_last_30_win_pct",
+    "home_runs_scored_last_10",
+    "away_runs_scored_last_10",
+    "home_runs_allowed_last_10",
+    "away_runs_allowed_last_10",
+    "home_run_diff_last_10",
+    "away_run_diff_last_10",
+    "home_runs_scored_last_30",
+    "away_runs_scored_last_30",
+    "home_runs_allowed_last_30",
+    "away_runs_allowed_last_30",
+    "home_run_diff_last_30",
+    "away_run_diff_last_30",
+    "home_rest_days",
+    "away_rest_days",
+    "home_back_to_back",
+    "away_back_to_back",
+    "win_pct_diff",
+    "last_10_win_pct_diff",
+    "last_30_win_pct_diff",
+    "run_diff_last_10_diff",
+    "run_diff_last_30_diff",
+    "rest_days_diff"
+  ],
+  "excluded_columns": [
+    "away_score",
+    "away_team",
+    "game_date",
+    "game_id",
+    "home_score",
+    "home_team",
+    "season",
+    "target_home_win",
+    "winner"
+  ],
+  "warnings": [
+    "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn"
+  ]
+}
