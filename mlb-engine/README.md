@@ -106,6 +106,44 @@ This is a baseline Moneyline model only. It is not calibrated yet. Betting edge 
 
 The training report contains model metrics only, such as validation accuracy, log loss, Brier score, and home-team baseline accuracy. It does not report ROI, CLV, profit, or betting performance.
 
+
+## Generate Historical Model Predictions
+
+After training the baseline moneyline model, score historical feature rows for calibration/backtest preparation:
+
+```bash
+python mlb-engine/scripts/generate_historical_predictions.py
+```
+
+This creates:
+
+```text
+mlb-engine/data/processed/moneyline_historical_predictions.csv
+mlb-engine/data/processed/moneyline_historical_predictions_report.json
+```
+
+Historical prediction rows include:
+
+- `game_id`
+- `game_date`
+- `season`
+- `home_team`
+- `away_team`
+- `target_home_win`
+- `raw_home_win_probability`
+- `predicted_home_win`
+- `split`
+- `model_version`
+- `model_type`
+- `generated_at`
+
+Split policy:
+
+- 2023 and 2024: `train`
+- 2025: `validation`
+- completed 2026: `holdout_2026`
+
+This step does not create live picks, official picks, betting edge, ROI, CLV, confidence, calibration, Polymarket probabilities, or `today_predictions.json`.
 ## Other Commands
 
 ```bash

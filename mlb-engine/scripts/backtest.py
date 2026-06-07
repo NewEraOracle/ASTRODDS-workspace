@@ -1,13 +1,14 @@
 """Backtest scaffold for ASTRODDS MLB Engine.
 
-Never reports fake ROI, CLV, win rate, or edge. It only runs once verified
-historical predictions and settled results are available.
+Detects historical baseline predictions, but never reports fake ROI, CLV, win
+rate, profit, or betting edge without verified market prices/odds.
 """
 from pathlib import Path
 
 ENGINE_ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = ENGINE_ROOT / "data" / "processed"
 OUTPUTS_DIR = ENGINE_ROOT / "outputs"
+HISTORICAL_PREDICTIONS = PROCESSED_DIR / "moneyline_historical_predictions.csv"
 
 
 def ensure_dirs() -> None:
@@ -18,15 +19,14 @@ def ensure_dirs() -> None:
 def main() -> None:
     ensure_dirs()
     print("ASTRODDS MLB Engine - backtest")
-    prediction_files = list(PROCESSED_DIR.glob("*prediction*.*"))
-    result_files = list(PROCESSED_DIR.glob("*result*.*"))
-    if not prediction_files or not result_files:
-        print("Backtest skipped. Verified historical predictions and settled results are both required.")
-        print("No fake ROI, CLV, win rate, or calibration was produced.")
-        print("Next: generate historical model predictions and join them to settled MLB outcomes.")
+    if not HISTORICAL_PREDICTIONS.exists():
+        print("Backtest skipped. Verified historical model predictions are required.")
+        print("No fake ROI, CLV, win rate, profit, or calibration was produced.")
+        print("Next: run generate_historical_predictions.py.")
         return
-    print("Backtest inputs detected, but backtest logic is not implemented yet.")
-    print("No performance report was written.")
+    print(f"Historical predictions detected: {HISTORICAL_PREDICTIONS}")
+    print("Backtest ROI is still skipped because verified market odds/Polymarket prices are not connected yet.")
+    print("No fake ROI, CLV, win rate, profit, edge, or performance report was written.")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 """Calibration scaffold for ASTRODDS MLB Engine.
 
-This script does not create fake calibration quality. It exits cleanly until a
-trained model and verified holdout/paper data exist.
+Detects historical baseline predictions when present, but does not create fake
+calibration quality. Calibration logic comes later.
 """
 from pathlib import Path
 
@@ -9,6 +9,7 @@ ENGINE_ROOT = Path(__file__).resolve().parents[1]
 MODELS_DIR = ENGINE_ROOT / "models"
 CALIBRATION_DIR = ENGINE_ROOT / "calibration"
 PROCESSED_DIR = ENGINE_ROOT / "data" / "processed"
+HISTORICAL_PREDICTIONS = PROCESSED_DIR / "moneyline_historical_predictions.csv"
 
 
 def ensure_dirs() -> None:
@@ -18,26 +19,27 @@ def ensure_dirs() -> None:
 
 
 def has_model() -> bool:
-    return any(path.is_file() for path in MODELS_DIR.glob("*"))
+    return (MODELS_DIR / "moneyline_baseline_model.pkl").exists()
 
 
-def has_calibration_data() -> bool:
-    return any(PROCESSED_DIR.glob("*calibration*.*")) or any(CALIBRATION_DIR.glob("*holdout*.*"))
+def has_historical_predictions() -> bool:
+    return HISTORICAL_PREDICTIONS.exists()
 
 
 def main() -> None:
     ensure_dirs()
     print("ASTRODDS MLB Engine - calibrate_model")
     if not has_model():
-        print("No trained model artifact found. Calibration skipped.")
+        print("No trained moneyline model artifact found. Calibration skipped.")
         print("Next: run train_model.py after verified features exist.")
         return
-    if not has_calibration_data():
-        print("No verified calibration/holdout data found. Calibration skipped.")
-        print("Next: prepare holdout results and 2026 season-to-date paper calibration data.")
+    if has_historical_predictions():
+        print(f"Historical predictions detected: {HISTORICAL_PREDICTIONS}")
+        print("Calibration logic is not implemented yet. No calibration artifact was written.")
+        print("No fake calibration quality, confidence, edge, ROI, or CLV was created.")
         return
-    print("Calibration inputs detected, but calibration logic is not implemented yet.")
-    print("No calibration artifact was written.")
+    print("No verified historical predictions found. Calibration skipped.")
+    print("Next: run generate_historical_predictions.py to create moneyline_historical_predictions.csv.")
 
 
 if __name__ == "__main__":

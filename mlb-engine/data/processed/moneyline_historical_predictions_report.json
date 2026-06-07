@@ -1,0 +1,19 @@
+{
+  "input_feature_file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features.csv",
+  "model_path": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\models\\moneyline_baseline_model.pkl",
+  "feature_columns_path": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\models\\moneyline_feature_columns.json",
+  "training_report_path": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\models\\moneyline_training_report.json",
+  "output_csv_path": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\moneyline_historical_predictions.csv",
+  "total_rows_scored": 8267,
+  "rows_by_split": {
+    "train": 4869,
+    "validation": 2434,
+    "holdout_2026": 964
+  },
+  "model_version": "moneyline_logistic_baseline_v0.1",
+  "model_type": "stdlib_logistic_regression",
+  "warnings": [
+    "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets."
+  ],
+  "generated_at": "2026-06-07T18:41:46.265205+00:00"
+}
