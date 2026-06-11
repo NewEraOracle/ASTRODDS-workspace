@@ -1,0 +1,3482 @@
+{
+  "status": "available",
+  "years_requested": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "years_included": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "games_read_by_year": {
+    "2016": 2456,
+    "2017": 2469,
+    "2018": 2487,
+    "2019": 2472,
+    "2020": 973,
+    "2021": 2512,
+    "2022": 2479,
+    "2023": 2476,
+    "2024": 2469,
+    "2025": 2464,
+    "2026": 2444
+  },
+  "total_games_read": 25701,
+  "completed_games_used": 23773,
+  "games_read": 25701,
+  "games_with_injury_data": 23773,
+  "games_missing_injury_data": 0,
+  "injury_source_used": "MLB StatsAPI public injured-list roster data + research-only availability proxies",
+  "injury_source": "MLB StatsAPI public injured-list roster data + research-only availability proxies",
+  "features_created": 23773,
+  "data_quality_summary": {
+    "high": 0,
+    "medium": 23773,
+    "low": 0,
+    "missing": 0
+  },
+  "injury_data_quality": "available",
+  "warnings": [
+    "Injury / player availability analysis is research only and does not create official picks.",
+    "Public injured-list roster data is a conservative proxy; exact key-player importance is not guaranteed.",
+    "No paid or authenticated injury API is used.",
+    "Official use remains blocked until a future combined risk gate is explicitly approved."
+  ],
+  "generated_at": "2026-06-11T22:09:13.150571+00:00",
+  "source_diagnostics": [
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "teams",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams?sportId=1&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2016",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2017",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2018",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2019",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2020",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2021",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2022",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2023",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2024",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2025",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/137/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/121/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/134/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/158/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/145/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/112/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/120/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/110/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/142/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/113/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/111/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/117/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/108/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/135/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/138/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/139/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/143/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/140/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/119/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/109/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/136/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/114/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/141/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/133/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/146/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/115/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/144/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    },
+    {
+      "source_label": "MLB StatsAPI",
+      "endpoint_label": "injuredList roster",
+      "status": "CONNECTED",
+      "http_status": 200,
+      "timeout": false,
+      "sanitized_url": "https://statsapi.mlb.com/api/v1/teams/118/roster?rosterType=injuredList&season=2026",
+      "error_message": null,
+      "retry_count": 0
+    }
+  ],
+  "merged_outputs": {
+    "injury_output_csv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_injury_availability_features.csv",
+    "merged_moneyline_csv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_injuries.csv",
+    "merged_rich_output_csv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv"
+  },
+  "source_file": "mlb_games_2016.csv..mlb_games_2026.csv"
+}

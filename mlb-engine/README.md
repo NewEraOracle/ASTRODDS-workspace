@@ -377,6 +377,30 @@ This layer is intentionally conservative. If confirmed player-lineup data is not
 
 The report records how many games have confirmed lineup data, how many use projected/proxy lineup context, how many are still missing, and which proxy method was used. This is research-only and intended for future retraining or risk-context work only.
 
+## Build Injury / Availability Features
+
+Build a research-only injury and player-availability layer from public MLB StatsAPI injured-list roster data:
+
+```bash
+python mlb-engine/scripts/build_injury_availability_features.py
+```
+
+This creates:
+
+```text
+mlb-engine/data/processed/mlb_injury_availability_features.csv
+mlb-engine/data/processed/mlb_injury_availability_features_report.json
+```
+
+If the baseline moneyline features file exists, the builder can also create merged research outputs:
+
+```text
+mlb-engine/data/processed/mlb_moneyline_features_with_injuries.csv
+mlb-engine/data/processed/mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv
+```
+
+This layer is research only. It uses public injured-list roster snapshots as a conservative availability proxy, fails soft when data is missing, and does not create official picks, Strong Buys, odds, calibration, ROI, or real-money behavior.
+
 ## Export Research-Only Today Predictions
 
 After building today features and model status, export safe baseline Moneyline diagnostics:

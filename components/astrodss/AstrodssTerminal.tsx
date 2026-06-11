@@ -445,6 +445,19 @@ type LineupPlayerFeatureDiagnosticsResponse = {
   mergedMoneylineCsv?: string;
   mergedPitcherBullpenWeatherLineupCsv?: string;
 };
+type InjuryAvailabilityDiagnosticsResponse = {
+  status: "available" | "partial" | "missing";
+  available: boolean;
+  gamesWithInjuryData: number;
+  gamesMissingInjuryData: number;
+  injurySource: string;
+  dataQuality: "high" | "medium" | "low" | "missing";
+  warnings: string[];
+  generatedAt?: string;
+  sourcePath: string;
+  mergedInjuriesCsv?: string;
+  mergedPitcherBullpenWeatherLineupInjuriesCsv?: string;
+};
 type BullpenFeatureDiagnosticsResponse = {
   status: "available" | "partial" | "missing";
   available: boolean;
@@ -544,6 +557,7 @@ type UnifiedMlbStatusResponse = {
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
   marketMatchDiagnostics?: MarketMatchDiagnosticsResponse;
   todayPredictionMarketDiagnostics?: TodayPredictionMarketDiagnosticsResponse;
+  injuryAvailabilityDiagnostics?: InjuryAvailabilityDiagnosticsResponse;
   paperWatchlistDiagnostics?: PaperWatchlistDiagnosticsResponse;
   paperWatchlistRows?: PaperWatchlistRowResponse[];
   paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
@@ -1695,6 +1709,8 @@ export default function AstrodssTerminal() {
   const [weatherBallparkFeatureDiagnosticsError, setWeatherBallparkFeatureDiagnosticsError] = useState("");
   const [lineupPlayerFeatureDiagnostics, setLineupPlayerFeatureDiagnostics] = useState<LineupPlayerFeatureDiagnosticsResponse | null>(null);
   const [lineupPlayerFeatureDiagnosticsError, setLineupPlayerFeatureDiagnosticsError] = useState("");
+  const [injuryAvailabilityDiagnostics, setInjuryAvailabilityDiagnostics] = useState<InjuryAvailabilityDiagnosticsResponse | null>(null);
+  const [injuryAvailabilityDiagnosticsError, setInjuryAvailabilityDiagnosticsError] = useState("");
   const [bullpenFeatureDiagnostics, setBullpenFeatureDiagnostics] = useState<BullpenFeatureDiagnosticsResponse | null>(null);
   const [bullpenFeatureDiagnosticsError, setBullpenFeatureDiagnosticsError] = useState("");
   const [modelComparisonDiagnostics, setModelComparisonDiagnostics] = useState<PitcherModelComparisonDiagnosticsResponse | null>(null);
@@ -1802,6 +1818,9 @@ export default function AstrodssTerminal() {
   const lineupPlayerFeatureSummary = lineupPlayerFeatureDiagnostics;
   const lineupPlayerFeatureStatusLabel = lineupPlayerFeatureSummary?.status === "available" ? "Available" : lineupPlayerFeatureSummary?.status === "partial" ? "Partial" : "Missing";
   const lineupPlayerFeatureWarning = lineupPlayerFeatureSummary?.warnings[0] ?? lineupPlayerFeatureDiagnosticsError ?? "Waiting for lineup / player diagnostics.";
+  const injuryAvailabilitySummary = injuryAvailabilityDiagnostics;
+  const injuryAvailabilityStatusLabel = injuryAvailabilitySummary?.status === "available" ? "Available" : injuryAvailabilitySummary?.status === "partial" ? "Partial" : "Missing";
+  const injuryAvailabilityWarning = injuryAvailabilitySummary?.warnings[0] ?? injuryAvailabilityDiagnosticsError ?? "Waiting for injury / availability diagnostics.";
   const bullpenFeatureSummary = bullpenFeatureDiagnostics;
   const bullpenFeatureStatusLabel = bullpenFeatureSummary?.status === "available" ? "Available" : bullpenFeatureSummary?.status === "partial" ? "Partial" : "Missing";
   const bullpenFeatureWarning = bullpenFeatureSummary?.warnings[0] ?? bullpenFeatureDiagnosticsError ?? "Waiting for bullpen feature diagnostics.";
@@ -1823,7 +1842,7 @@ export default function AstrodssTerminal() {
     { label: "Bullpen", value: bullpenFeatureSummary ? bullpenFeatureStatusLabel : "MISSING", tone: bullpenFeatureSummary?.status === "available" ? "green" : bullpenFeatureSummary?.status === "partial" ? "yellow" : "red" },
     { label: "Lineups", value: decisionLineupImpact ? lineupStatusLabel(decisionLineupImpact.lineupStatus) : normalizeDecisionStatus(result?.sourceStatus.lineups), tone: decisionLineupImpact ? lineupImpactTone(decisionLineupImpact.lineupStatus) : qualityTone(result?.sourceStatus.lineups) },
     { label: "Lineup Impact", value: decisionLineupImpact ? `${Math.round(decisionLineupImpact.lineupImpactScore * 100)}%` : "MISSING", tone: decisionLineupImpact ? lineupImpactTone(decisionLineupImpact.lineupStatus) : "red" },
-    { label: "Injuries", value: normalizeDecisionStatus(result?.sourceStatus.injuries), tone: qualityTone(result?.sourceStatus.injuries) },
+    { label: "Injuries", value: injuryAvailabilitySummary ? injuryAvailabilityStatusLabel : normalizeDecisionStatus(result?.sourceStatus.injuries), tone: injuryAvailabilitySummary ? (injuryAvailabilitySummary.status === "available" ? "green" : injuryAvailabilitySummary.status === "partial" ? "yellow" : "red") : qualityTone(result?.sourceStatus.injuries) },
     { label: "Weather", value: normalizeDecisionStatus(result?.diagnostics.weather.status), tone: qualityTone(result?.diagnostics.weather.status) },
     { label: "Whales", value: whaleConsensus.length || whaleProfiles.length ? "BONUS ONLY" : "BONUS ONLY", tone: whaleErrors.length ? "yellow" : "yellow" },
   ];
@@ -1999,6 +2018,13 @@ export default function AstrodssTerminal() {
         setLineupPlayerFeatureDiagnostics(null);
         setLineupPlayerFeatureDiagnosticsError("Lineup / player feature diagnostics missing from unified API response.");
       }
+      if (payload.injuryAvailabilityDiagnostics) {
+        setInjuryAvailabilityDiagnostics(payload.injuryAvailabilityDiagnostics);
+        setInjuryAvailabilityDiagnosticsError("");
+      } else {
+        setInjuryAvailabilityDiagnostics(null);
+        setInjuryAvailabilityDiagnosticsError("Injury / availability diagnostics missing from unified API response.");
+      }
       if (payload.bullpenFeatureDiagnostics) {
         setBullpenFeatureDiagnostics(payload.bullpenFeatureDiagnostics);
         setBullpenFeatureDiagnosticsError("");
@@ -2042,6 +2068,8 @@ export default function AstrodssTerminal() {
       setWeatherBallparkFeatureDiagnosticsError(message);
       setLineupPlayerFeatureDiagnostics(null);
       setLineupPlayerFeatureDiagnosticsError(message);
+      setInjuryAvailabilityDiagnostics(null);
+      setInjuryAvailabilityDiagnosticsError(message);
       setBullpenFeatureDiagnostics(null);
       setBullpenFeatureDiagnosticsError(message);
       setModelComparisonDiagnostics(null);
@@ -3138,6 +3166,40 @@ export default function AstrodssTerminal() {
                           {lineupPlayerFeatureSummary?.mergedPitcherBullpenWeatherLineupCsv ? (
                             <p className="leading-5 text-slate-500">Merged richer CSV: {lineupPlayerFeatureSummary.mergedPitcherBullpenWeatherLineupCsv}</p>
                           ) : null}
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Injury / Availability Layer</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(injuryAvailabilitySummary?.status === "available" ? "green" : injuryAvailabilitySummary?.status === "partial" ? "yellow" : "red")}>
+                              {injuryAvailabilityStatusLabel}
+                            </Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Games with Injury Data</span>
+                            <span className="font-mono font-black text-white">{injuryAvailabilitySummary?.gamesWithInjuryData ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Missing Injury Data</span>
+                            <span className="font-mono font-black text-white">{injuryAvailabilitySummary?.gamesMissingInjuryData ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Data Quality</span>
+                            <span className="font-black text-white">{injuryAvailabilitySummary?.dataQuality ?? "missing"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Official Use</span>
+                            <span className="font-black text-red-200">Blocked / Research Only</span>
+                          </div>
+                          <div className="grid gap-1 border-b border-white/10 pb-2">
+                            <p className="font-black uppercase tracking-[0.12em] text-[#f4d274]">Key Reasons</p>
+                            {injuryAvailabilityWarning ? <p className="leading-5 text-slate-300">{injuryAvailabilityWarning}</p> : null}
+                            {injuryAvailabilitySummary?.warnings.slice(1, 3).map((reason) => (
+                              <p key={reason} className="leading-5 text-slate-500">{reason}</p>
+                            ))}
+                          </div>
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">

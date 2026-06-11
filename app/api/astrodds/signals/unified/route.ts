@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { loadWeatherBallparkFeatureStatus } from "@/lib/astrodss/mlb/weather-ballpark-feature-status";
 import { loadLineupPlayerFeatureStatus } from "@/lib/astrodss/mlb/lineup-player-feature-status";
+import { loadInjuryAvailabilityStatus, MLB_INJURY_AVAILABILITY_FEATURE_REPORT_PATH, type InjuryAvailabilityDiagnostics } from "@/lib/astrodss/mlb/injury-availability-status";
 import { loadHistoricalExpansionStatus, MLB_HISTORICAL_EXPANSION_REPORT_PATH } from "@/lib/astrodss/mlb/historical-expansion-status";
 import { loadBullpenFeatureStatus } from "@/lib/astrodss/mlb/bullpen-feature-status";
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
@@ -35,7 +36,11 @@ function addNoBetReason(reasons: Map<string, number>, reason: string, count = 1)
   reasons.set(reason, (reasons.get(reason) ?? 0) + count);
 }
 
-function buildNoBetReasons(signals: SerializedUnifiedSignal[], scan?: Awaited<ReturnType<typeof scanAstroddsSport>>): UnifiedNoBetReason[] {
+function buildNoBetReasons(
+  signals: SerializedUnifiedSignal[],
+  scan?: Awaited<ReturnType<typeof scanAstroddsSport>>,
+  injuryAvailabilityDiagnostics?: InjuryAvailabilityDiagnostics,
+): UnifiedNoBetReason[] {
   const reasons = new Map<string, number>();
   const noLiveData = !scan || scan.diagnostics.sportApi.status === "FAILED" || (scan.diagnostics.sportApi.gamesFetched === 0 && signals.length === 0);
   if (noLiveData) {
@@ -52,6 +57,8 @@ function buildNoBetReasons(signals: SerializedUnifiedSignal[], scan?: Awaited<Re
   const lowDataQuality = signals.filter((signal) => signal.dataQuality === "LOW" || signal.dataQuality === "VERY_LOW" || signal.dataQuality === "DATA_ONLY").length;
   const missingLineups = signals.filter((signal) => signal.lineupImpact?.lineupStatus === "missing").length;
   const projectedLineups = signals.filter((signal) => signal.lineupImpact?.lineupStatus === "projected").length;
+  const injuryUnavailable = injuryAvailabilityDiagnostics && !injuryAvailabilityDiagnostics.available ? Math.max(1, injuryAvailabilityDiagnostics.gamesMissingInjuryData || 0) : 0;
+  const injuryPartial = injuryAvailabilityDiagnostics?.status === "partial" ? Math.max(1, injuryAvailabilityDiagnostics.gamesMissingInjuryData || 0) : 0;
 
   if (scan?.diagnostics.sportApi.gamesFetched && !scan.diagnostics.matching.matchedGamesCount) {
     addNoBetReason(reasons, "No clean matched Polymarket MLB market", scan.diagnostics.sportApi.gamesFetched);
@@ -62,10 +69,13 @@ function buildNoBetReasons(signals: SerializedUnifiedSignal[], scan?: Awaited<Re
   addNoBetReason(reasons, "Low or data-only quality", lowDataQuality);
   addNoBetReason(reasons, "Lineup data unavailable", missingLineups);
   addNoBetReason(reasons, "Watchlist - lineup not confirmed yet", projectedLineups);
+  addNoBetReason(reasons, "Injury / availability data unavailable", injuryUnavailable);
+  addNoBetReason(reasons, "Injury / availability data partial", injuryPartial);
   addNoBetReason(reasons, "Watch/WAIT guardrail applied", watchOrWait.length);
   if (!official.length) addNoBetReason(reasons, "No official +EV paper pick passed all guardrails", Math.max(1, signals.length));
   if (dataOnly.length) addNoBetReason(reasons, "Model leans are data-only until odds connect", dataOnly.length);
   for (const warning of scan?.warnings.slice(0, 3) ?? []) addNoBetReason(reasons, warning, 1);
+  for (const warning of injuryAvailabilityDiagnostics?.warnings.slice(0, 2) ?? []) addNoBetReason(reasons, warning, 1);
 
   return Array.from(reasons, ([reason, count]) => ({ reason, count }))
     .sort((a, b) => b.count - a.count)
@@ -306,7 +316,7 @@ export async function GET(request: Request) {
   const telegram = getTelegramConfig();
   if (sport !== "MLB") errors.push("Unified signal MVP is MLB-only for now.");
 
-  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult, modelComparisonResult, modernModelComparisonResult, weatherBallparkResult, lineupPlayerResult, historicalExpansionResult] = await Promise.allSettled([
+  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult, modelComparisonResult, modernModelComparisonResult, weatherBallparkResult, lineupPlayerResult, injuryAvailabilityResult, historicalExpansionResult] = await Promise.allSettled([
     scanAstroddsSport("MLB"),
     scanWhaleWallets({ sport: "MLB" }),
     loadPythonMlbPredictions(),
@@ -316,6 +326,7 @@ export async function GET(request: Request) {
     loadModernModelComparisonStatus(),
     loadWeatherBallparkFeatureStatus(),
     loadLineupPlayerFeatureStatus(),
+    loadInjuryAvailabilityStatus(),
     loadHistoricalExpansionStatus(),
   ]);
 
@@ -353,6 +364,10 @@ export async function GET(request: Request) {
 
   if (lineupPlayerResult.status === "rejected") {
     errors.push(`Lineup / player feature loader failed: ${lineupPlayerResult.reason instanceof Error ? lineupPlayerResult.reason.message : "Unknown lineup / player loader failure"}`);
+  }
+
+  if (injuryAvailabilityResult.status === "rejected") {
+    errors.push(`Injury / availability feature loader failed: ${injuryAvailabilityResult.reason instanceof Error ? injuryAvailabilityResult.reason.message : "Unknown injury / availability loader failure"}`);
   }
 
   if (historicalExpansionResult.status === "rejected") {
@@ -468,6 +483,19 @@ export async function GET(request: Request) {
         generatedAt: undefined,
         sourcePath: path.join(process.cwd(), "mlb-engine", "data", "processed", "mlb_lineup_player_features_report.json"),
       };
+  const injuryAvailabilityDiagnostics: InjuryAvailabilityDiagnostics = injuryAvailabilityResult.status === "fulfilled"
+    ? injuryAvailabilityResult.value
+    : {
+        status: "missing",
+        available: false,
+        gamesWithInjuryData: 0,
+        gamesMissingInjuryData: 0,
+        injurySource: "unavailable",
+        dataQuality: "missing",
+        warnings: ["Injury / availability feature loader failed."],
+        generatedAt: undefined,
+        sourcePath: MLB_INJURY_AVAILABILITY_FEATURE_REPORT_PATH,
+      };
   const historicalExpansionDiagnostics = historicalExpansionResult.status === "fulfilled"
     ? historicalExpansionResult.value
     : {
@@ -559,7 +587,7 @@ export async function GET(request: Request) {
       officialEdgeBlockReasons: match.officialEdgeBlockReasons,
     };
   });
-  const noBetReasons = buildNoBetReasons(signalsWithMarketDiagnostics, scan);
+  const noBetReasons = buildNoBetReasons(signalsWithMarketDiagnostics, scan, injuryAvailabilityDiagnostics);
   const noLiveData = !scan || scan.diagnostics.sportApi.status === "FAILED" || (scan.diagnostics.sportApi.gamesFetched === 0 && signals.length === 0);
   const sourceDiagnostics = scan?.diagnostics.sourceDiagnostics ?? [];
 
@@ -606,6 +634,7 @@ export async function GET(request: Request) {
       pitcherFeatureDiagnostics,
       weatherBallparkFeatureDiagnostics,
       lineupPlayerFeatureDiagnostics,
+      injuryAvailabilityDiagnostics,
       historicalExpansionDiagnostics,
       bullpenFeatureDiagnostics,
       modelComparisonDiagnostics,
@@ -644,6 +673,7 @@ export async function GET(request: Request) {
         pitcherFeatureDiagnostics,
         weatherBallparkFeatureDiagnostics,
         lineupPlayerFeatureDiagnostics,
+        injuryAvailabilityDiagnostics,
         historicalExpansionDiagnostics,
         bullpenFeatureDiagnostics,
         modernModelComparisonDiagnostics,
@@ -659,7 +689,7 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...weatherBallparkFeatureDiagnostics.warnings, ...lineupPlayerFeatureDiagnostics.warnings, ...historicalExpansionDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings, ...modernModelComparisonDiagnostics.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...weatherBallparkFeatureDiagnostics.warnings, ...lineupPlayerFeatureDiagnostics.warnings, ...injuryAvailabilityDiagnostics.warnings, ...historicalExpansionDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings, ...modernModelComparisonDiagnostics.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,
