@@ -19,17 +19,20 @@ ENGINE_ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = ENGINE_ROOT / "data" / "processed"
 MODELS_DIR = ENGINE_ROOT / "models"
 OUTPUTS_DIR = ENGINE_ROOT / "outputs"
+CALIBRATION_DIR = ENGINE_ROOT / "calibration"
 TODAY_FEATURES_PATH = PROCESSED_DIR / "mlb_today_features.csv"
 MODEL_PATH = MODELS_DIR / "moneyline_baseline_model.pkl"
 FEATURE_COLUMNS_PATH = MODELS_DIR / "moneyline_feature_columns.json"
 MODEL_STATUS_PATH = OUTPUTS_DIR / "model_status.json"
 PREDICTION_PATH = OUTPUTS_DIR / "today_predictions.json"
+CALIBRATION_MAPPING_PATH = CALIBRATION_DIR / "moneyline_calibration_mapping.json"
 
 
 def ensure_dirs() -> None:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+    CALIBRATION_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def remove_stale_prediction_file() -> None:
@@ -52,6 +55,14 @@ def parse_float(value: str | None) -> float | None:
     return None
 
 
+def parse_int(value: str | int | float | None) -> int | None:
+    if value is None or value == "":
+        return None
+    try:
+        return int(float(value))
+    except (TypeError, ValueError):
+        return None
+
 def load_json(path: Path) -> dict[str, Any] | None:
     try:
         with path.open("r", encoding="utf-8") as file:
@@ -62,6 +73,62 @@ def load_json(path: Path) -> dict[str, Any] | None:
     except json.JSONDecodeError:
         return None
 
+
+def load_calibration_mapping(path: Path) -> tuple[dict[str, Any] | None, list[str]]:
+    mapping = load_json(path)
+    if mapping is None:
+        return None, ["Calibration mapping unavailable"]
+    bins = mapping.get("bins")
+    if not isinstance(bins, list) or not bins:
+        return mapping, ["Calibration mapping unavailable: no populated bins"]
+    warnings = string_list(mapping.get("warnings"))
+    if mapping.get("mappingStatus") == "research_only":
+        warnings.append("Calibration mapping is research-only")
+    if mapping.get("officialUseAllowed") is not False:
+        warnings.append("Calibration mapping official-use flag is not safely false; official use remains blocked")
+    return mapping, dedupe(warnings)
+
+
+def calibration_bin_for_probability(probability: float, mapping: dict[str, Any] | None) -> dict[str, Any] | None:
+    if mapping is None:
+        return None
+    raw_bins = mapping.get("bins")
+    if not isinstance(raw_bins, list):
+        return None
+    valid_bins = [item for item in raw_bins if isinstance(item, dict)]
+    for index, item in enumerate(valid_bins):
+        lower = parse_float(item.get("binLower"))
+        upper = parse_float(item.get("binUpper"))
+        actual_rate = parse_float(item.get("actualHomeWinRate"))
+        count = parse_int(item.get("count"))
+        if lower is None or upper is None or actual_rate is None or count is None or count <= 0:
+            continue
+        is_last = index == len(valid_bins) - 1
+        if lower <= probability < upper or (is_last and lower <= probability <= upper):
+            return item
+    return None
+
+
+def apply_calibration_mapping(
+    probability: float,
+    mapping: dict[str, Any] | None,
+    mapping_load_warnings: list[str],
+) -> tuple[float | None, str, str | None, int | None, list[str]]:
+    if mapping is None:
+        return None, "missing", None, None, dedupe(mapping_load_warnings + ["Calibration mapping unavailable"])
+    mapping_status = str(mapping.get("mappingStatus") or "missing")
+    method = str(mapping.get("method") or "unavailable")
+    bin_row = calibration_bin_for_probability(probability, mapping)
+    warnings = mapping_load_warnings[:]
+    if bin_row is None:
+        warnings.append("Calibration mapping unavailable for this raw probability bin")
+        return None, mapping_status, method, None, dedupe(warnings)
+    calibrated_probability = parse_float(bin_row.get("actualHomeWinRate"))
+    count = parse_int(bin_row.get("count"))
+    if calibrated_probability is None:
+        warnings.append("Calibration mapping bin missing observed home win rate")
+        return None, mapping_status, method, count, dedupe(warnings)
+    return round(calibrated_probability, 6), mapping_status, method, count, dedupe(warnings)
 
 def load_model(path: Path) -> dict[str, Any] | None:
     try:
@@ -155,34 +222,48 @@ def prediction_for_row(
     probability: float,
     model_payload: dict[str, Any],
     model_status: dict[str, Any],
+    calibration_mapping: dict[str, Any] | None,
+    calibration_mapping_warnings: list[str],
     generated_at: str,
 ) -> dict[str, Any]:
     calibration_quality = str(model_status.get("calibrationQuality") or "missing")
     model_version = str(model_payload.get("model_version") or model_status.get("modelVersion") or "unknown")
     model_type = str(model_payload.get("model_type") or model_status.get("modelType") or "unknown")
     block_reasons = string_list(model_status.get("officialPickBlockReasons"))
-    calibration_warnings = string_list(model_status.get("warnings"))
+    calibrated_probability, calibration_mapping_status, calibration_method, calibration_sample_size, mapping_warnings = apply_calibration_mapping(
+        probability,
+        calibration_mapping,
+        calibration_mapping_warnings,
+    )
+    calibration_warnings = dedupe(string_list(model_status.get("warnings")) + mapping_warnings)
     row_warnings = split_warning_string(row.get("missing_data_warnings"))
 
     reasons = [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
     ]
+    if calibrated_probability is None:
+        reasons.append("Calibration mapping unavailable for this prediction.")
+    else:
+        reasons.append("Calibration mapping applied from historical bins for research only.")
+
     if calibration_quality == "weak":
         reasons.append("Calibration weak - research only.")
     elif calibration_quality in {"missing", "not_enough_history"}:
         reasons.append(f"Calibration {calibration_quality} - research only.")
 
+    mapping_block_reason = "Calibration mapping is research-only" if calibrated_probability is not None else "No calibrated probability mapping available"
     official_edge_block_reasons = dedupe(
         block_reasons
         + [
             "No market price connected for this prediction",
-            "No calibrated probability mapping available",
-            "Raw model probability is not official betting edge",
+            mapping_block_reason,
+            "Raw and calibrated model probabilities are not official betting edge",
             "Python today predictions are diagnostics/watchlist only",
         ]
     )
+
+    calibration_risk = "Calibration mapping is research-only and weak; official use remains blocked." if calibrated_probability is not None else "Calibration mapping unavailable."
 
     return {
         "gameId": row.get("game_id") or "",
@@ -195,13 +276,16 @@ def prediction_for_row(
         "marketAvailability": "unknown",
         "pick": "research_only",
         "rawModelProbability": round(probability, 6),
-        "calibratedProbability": None,
+        "calibratedProbability": calibrated_probability,
         "marketProbability": None,
         "rawEdge": None,
         "calibratedEdge": None,
         "confidence": None,
         "dataQuality": row.get("data_quality") or "unknown",
         "calibrationQuality": calibration_quality,
+        "calibrationMethod": calibration_method,
+        "calibrationSampleSize": calibration_sample_size,
+        "calibrationMappingStatus": calibration_mapping_status,
         "calibrationWarnings": calibration_warnings,
         "lineupStatus": "missing",
         "pitcherStatus": "missing",
@@ -215,6 +299,7 @@ def prediction_for_row(
         "risks": dedupe(row_warnings + [
             "No verified market price or Polymarket probability is attached.",
             "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+            calibration_risk,
             "Weak or missing calibration blocks official use.",
         ]),
         "isPaperOnly": True,
@@ -238,6 +323,7 @@ def main() -> None:
     model_status = load_json(MODEL_STATUS_PATH) or {}
     model_payload = load_model(MODEL_PATH)
     rows = load_feature_rows(TODAY_FEATURES_PATH)
+    calibration_mapping, calibration_mapping_warnings = load_calibration_mapping(CALIBRATION_MAPPING_PATH)
 
     if feature_config is None:
         remove_stale_prediction_file()
@@ -272,13 +358,18 @@ def main() -> None:
         if probability is None:
             skipped_rows += 1
             continue
-        predictions.append(prediction_for_row(row, probability, model_payload, model_status, generated_at))
+        predictions.append(prediction_for_row(row, probability, model_payload, model_status, calibration_mapping, calibration_mapping_warnings, generated_at))
 
     if skipped_rows:
         warnings.append(f"Skipped {skipped_rows} today feature rows with unavailable model probability.")
+    warnings.extend(calibration_mapping_warnings[:3])
+    if calibration_mapping is None:
+        warnings.append("Calibration mapping unavailable")
+    else:
+        warnings.append(f"Calibration mapping status: {calibration_mapping.get('mappingStatus', 'missing')} - research-only diagnostics")
     warnings.extend([
         "Today predictions are research-only diagnostics and cannot create official ASTRODDS picks.",
-        "No market prices, calibrated probabilities, edge, ROI, CLV, Telegram alerts, or real-money behavior were created.",
+        "No market prices, official edge, ROI, CLV, Telegram alerts, or real-money behavior were created.",
     ])
 
     payload = {
@@ -286,6 +377,8 @@ def main() -> None:
         "sourceFeatureFile": str(TODAY_FEATURES_PATH),
         "modelPath": str(MODEL_PATH),
         "modelStatusPath": str(MODEL_STATUS_PATH),
+        "calibrationMappingPath": str(CALIBRATION_MAPPING_PATH),
+        "calibrationMappingStatus": str(calibration_mapping.get("mappingStatus") if calibration_mapping else "missing"),
         "predictionPolicy": "research_only_watchlist_diagnostics",
         "officialPickOverride": False,
         "officialPickEligible": False,

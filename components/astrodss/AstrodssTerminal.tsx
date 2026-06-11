@@ -232,6 +232,9 @@ type TodayPredictionMarketDiagnosticsResponse = {
   lowConfidenceMatches: number;
   unmatchedPredictions: number;
   diagnosticEdgesCalculated: number;
+  diagnosticCalibratedEdgesCalculated: number;
+  calibratedProbabilitiesAvailable: number;
+  calibrationMappingStatus: string;
   officialEdgesAllowed: 0;
   warnings: string[];
   bestDiagnosticEdge?: {
@@ -242,6 +245,10 @@ type TodayPredictionMarketDiagnosticsResponse = {
     marketProbability?: number | null;
     diagnosticRawEdge?: number;
     diagnosticRawEdgePct?: number;
+    calibratedProbability?: number;
+    diagnosticCalibratedEdge?: number;
+    diagnosticCalibratedEdgePct?: number;
+    calibrationMappingStatus?: string;
     matchConfidence?: string;
   };
 };
@@ -1400,6 +1407,8 @@ export default function AstrodssTerminal() {
   const todayPredictionMatchedCount = (todayPredictionMarketDiagnostics?.highConfidenceMatches ?? 0) + (todayPredictionMarketDiagnostics?.mediumConfidenceMatches ?? 0);
   const todayPredictionMarketWarning = todayPredictionMarketDiagnostics?.warnings[0] ?? todayPredictionMarketDiagnosticsError ?? "Waiting for today prediction market diagnostics.";
   const bestTodayDiagnosticEdge = todayPredictionMarketDiagnostics?.bestDiagnosticEdge;
+  const todayPredictionCalibrationMappingLabel = todayPredictionMarketDiagnostics?.calibrationMappingStatus === "research_only" ? "Research Only" : "Missing";
+  const todayPredictionCalibratedAvailable = (todayPredictionMarketDiagnostics?.calibratedProbabilitiesAvailable ?? 0) > 0;
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -2378,8 +2387,20 @@ export default function AstrodssTerminal() {
                             <span className="font-mono font-black text-yellow-100">{todayPredictionMarketDiagnostics?.lowConfidenceMatches ?? 0}</span>
                           </div>
                           <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
-                            <span className="text-slate-400">Diagnostic Edges</span>
+                            <span className="text-slate-400">Calibrated Probability</span>
+                            <span className={todayPredictionCalibratedAvailable ? "font-black text-emerald-200" : "font-black text-yellow-100"}>{todayPredictionCalibratedAvailable ? `${todayPredictionMarketDiagnostics?.calibratedProbabilitiesAvailable ?? 0} available` : "Not Available"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Calibration Mapping</span>
+                            <span className={todayPredictionMarketDiagnostics?.calibrationMappingStatus === "research_only" ? "font-black text-yellow-100" : "font-black text-red-100"}>{todayPredictionCalibrationMappingLabel}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Diagnostic Raw Edge</span>
                             <span className={todayPredictionMarketDiagnostics?.diagnosticEdgesCalculated ? "font-black text-emerald-200" : "font-black text-yellow-100"}>{todayPredictionMarketDiagnostics?.diagnosticEdgesCalculated ? `${todayPredictionMarketDiagnostics.diagnosticEdgesCalculated} available` : "Not Available"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Diagnostic Calibrated Edge</span>
+                            <span className={todayPredictionMarketDiagnostics?.diagnosticCalibratedEdgesCalculated ? "font-black text-emerald-200" : "font-black text-yellow-100"}>{todayPredictionMarketDiagnostics?.diagnosticCalibratedEdgesCalculated ? `${todayPredictionMarketDiagnostics.diagnosticCalibratedEdgesCalculated} available` : "Not Available"}</span>
                           </div>
                           <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
                             <span className="text-slate-400">Official Edge</span>
@@ -2390,9 +2411,10 @@ export default function AstrodssTerminal() {
                               <p className="font-black uppercase tracking-[0.12em] text-[#f4d274]">Best Diagnostic Edge - Research Only</p>
                               <p className="leading-5 text-white">{bestTodayDiagnosticEdge.game ?? "MLB prediction"}</p>
                               <p className="font-mono text-emerald-100">{formatEdge(bestTodayDiagnosticEdge.diagnosticRawEdge)} raw edge vs market probability</p>
+                              {typeof bestTodayDiagnosticEdge.diagnosticCalibratedEdge === "number" ? <p className="font-mono text-cyan-100">{formatEdge(bestTodayDiagnosticEdge.diagnosticCalibratedEdge)} calibrated edge vs market probability</p> : null}
                             </div>
                           ) : null}
-                          <p className="leading-5 text-slate-300">Reason: calibration weak, no calibrated probability mapping, paper-only safety gate.</p>
+                          <p className="leading-5 text-slate-300">Reason: calibration weak, calibration mapping research-only, paper-only safety gate.</p>
                           <p className="leading-5 text-slate-500">{todayPredictionMarketWarning}</p>
                         </div>
                       </div>
@@ -2415,7 +2437,7 @@ export default function AstrodssTerminal() {
                             <span className="text-slate-400">Official Edge</span>
                             <span className="font-black text-red-100">Blocked</span>
                           </div>
-                          <p className="leading-5 text-slate-300">Reason: calibration weak, no calibrated probability mapping, paper-only safety gate.</p>
+                          <p className="leading-5 text-slate-300">Reason: calibration weak, calibration mapping research-only, paper-only safety gate.</p>
                           <p className="leading-5 text-slate-500">{marketMatchWarning}</p>
                         </div>
                       </div>

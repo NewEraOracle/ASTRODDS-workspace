@@ -27,6 +27,7 @@ export type PythonMlbPrediction = {
   calibrationQuality?: PythonMlbCalibrationQuality;
   calibrationMethod?: string;
   calibrationSampleSize?: number;
+  calibrationMappingStatus?: string;
   calibrationWarnings?: string[];
   lineupStatus?: string;
   lineupImpactScore?: number;
@@ -123,6 +124,7 @@ function normalizePrediction(raw: unknown, index: number, warnings: string[]): P
     calibrationQuality: normalizeCalibrationQuality(raw.calibrationQuality),
     calibrationMethod: optionalString(raw.calibrationMethod),
     calibrationSampleSize: optionalNumber(raw.calibrationSampleSize),
+    calibrationMappingStatus: optionalString(raw.calibrationMappingStatus),
     calibrationWarnings: optionalStringArray(raw.calibrationWarnings),
     lineupStatus: optionalString(raw.lineupStatus),
     lineupImpactScore: optionalNumber(raw.lineupImpactScore),

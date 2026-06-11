@@ -1,0 +1,88 @@
+{
+  "mappingStatus": "research_only",
+  "officialUseAllowed": false,
+  "method": "bin_actual_home_win_rate_v1",
+  "sourceBinsFile": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\calibration\\moneyline_calibration_bins.csv",
+  "sourceReportFile": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\calibration\\moneyline_calibration_report.json",
+  "modelVersion": "moneyline_logistic_baseline_v0.1",
+  "modelType": "stdlib_logistic_regression",
+  "calibrationQuality": "weak",
+  "expectedCalibrationError": 0.036499,
+  "maxCalibrationError": 0.07429,
+  "totalRows": 8267,
+  "metricRows": 3398,
+  "bins": [
+    {
+      "binLower": 0.0,
+      "binUpper": 0.4,
+      "averagePredictedProbability": 0.368188,
+      "actualHomeWinRate": 0.442478,
+      "count": 113,
+      "calibrationError": 0.07429
+    },
+    {
+      "binLower": 0.4,
+      "binUpper": 0.45,
+      "averagePredictedProbability": 0.43162,
+      "actualHomeWinRate": 0.489305,
+      "count": 374,
+      "calibrationError": 0.057685
+    },
+    {
+      "binLower": 0.45,
+      "binUpper": 0.5,
+      "averagePredictedProbability": 0.476741,
+      "actualHomeWinRate": 0.510911,
+      "count": 779,
+      "calibrationError": 0.03417
+    },
+    {
+      "binLower": 0.5,
+      "binUpper": 0.55,
+      "averagePredictedProbability": 0.525212,
+      "actualHomeWinRate": 0.559024,
+      "count": 1025,
+      "calibrationError": 0.033812
+    },
+    {
+      "binLower": 0.55,
+      "binUpper": 0.6,
+      "averagePredictedProbability": 0.570354,
+      "actualHomeWinRate": 0.529903,
+      "count": 719,
+      "calibrationError": 0.040452
+    },
+    {
+      "binLower": 0.6,
+      "binUpper": 0.65,
+      "averagePredictedProbability": 0.619811,
+      "actualHomeWinRate": 0.609319,
+      "count": 279,
+      "calibrationError": 0.010492
+    },
+    {
+      "binLower": 0.65,
+      "binUpper": 0.7,
+      "averagePredictedProbability": 0.673226,
+      "actualHomeWinRate": 0.670732,
+      "count": 82,
+      "calibrationError": 0.002494
+    },
+    {
+      "binLower": 0.7,
+      "binUpper": 1.0,
+      "averagePredictedProbability": 0.724472,
+      "actualHomeWinRate": 0.703704,
+      "count": 27,
+      "calibrationError": 0.020768
+    }
+  ],
+  "warnings": [
+    "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
+    "This is calibration measurement only. No calibrated probability mapping or calibrator pickle was created.",
+    "Betting ROI/edge requires market price or Polymarket implied probability later.",
+    "2026 is season-to-date holdout only, not a completed full-season calibration set.",
+    "Calibration quality is weak - mapping is research-only"
+  ],
+  "generatedAt": "2026-06-11T11:31:30.934064+00:00"
+}

@@ -67,6 +67,9 @@ type TodayPredictionMarketDiagnostics = {
   lowConfidenceMatches: number;
   unmatchedPredictions: number;
   diagnosticEdgesCalculated: number;
+  diagnosticCalibratedEdgesCalculated: number;
+  calibratedProbabilitiesAvailable: number;
+  calibrationMappingStatus: string;
   officialEdgesAllowed: 0;
   warnings: string[];
   bestDiagnosticEdge?: {
@@ -77,6 +80,10 @@ type TodayPredictionMarketDiagnostics = {
     marketProbability?: number | null;
     diagnosticRawEdge?: number;
     diagnosticRawEdgePct?: number;
+    calibratedProbability?: number;
+    diagnosticCalibratedEdge?: number;
+    diagnosticCalibratedEdgePct?: number;
+    calibrationMappingStatus?: string;
     matchConfidence?: string;
   };
 };
@@ -172,18 +179,25 @@ function enrichTodayPredictionsWithMarketDiagnostics(
     const gameId = predictionGameId(prediction, index);
     const match = matchesByGameId.get(gameId);
     const diagnosticEdgeAvailable = typeof match?.diagnosticRawEdge === "number";
+    const calibrationMappingStatus = prediction.calibrationMappingStatus ?? (typeof prediction.calibratedProbability === "number" ? "research_only" : "missing");
+    const diagnosticCalibratedEdgeAvailable =
+      (match?.matchConfidence === "high" || match?.matchConfidence === "medium") &&
+      typeof match.marketProbability === "number" &&
+      typeof prediction.calibratedProbability === "number";
+    const diagnosticCalibratedEdge = diagnosticCalibratedEdgeAvailable ? (prediction.calibratedProbability ?? 0) - (match?.marketProbability ?? 0) : null;
     const matchWarnings = uniqueStrings([
       ...(match
         ? match.matchWarnings
         : [prediction.marketType === "moneyline" ? "No Polymarket MLB moneyline market match found for this prediction." : "Only moneyline predictions are supported for market diagnostics."]),
       !match || match.matchConfidence === "low" || match.matchConfidence === "none" ? "Market match not reliable enough" : undefined,
       match?.marketProbability === null ? "Market probability unavailable" : undefined,
+      typeof prediction.calibratedProbability !== "number" ? "Calibrated probability unavailable" : undefined,
     ]);
     const officialEdgeBlockReasons = uniqueStrings([
       ...(prediction.officialEdgeBlockReasons ?? []),
       ...(match?.officialEdgeBlockReasons ?? []),
       calibrationQuality === "weak" ? "Calibration weak - diagnostic only" : undefined,
-      "No calibrated probability mapping",
+      calibrationMappingStatus === "research_only" ? "Calibration mapping research-only" : "No calibrated probability mapping",
       "Official edge gate remains closed",
       "Raw model edge is diagnostics-only",
     ]);
@@ -201,6 +215,9 @@ function enrichTodayPredictionsWithMarketDiagnostics(
       marketProbability: match?.marketProbability ?? null,
       diagnosticRawEdge: diagnosticEdgeAvailable ? match?.diagnosticRawEdge : null,
       diagnosticRawEdgePct: diagnosticEdgeAvailable ? match?.diagnosticRawEdgePct : null,
+      diagnosticCalibratedEdge,
+      diagnosticCalibratedEdgePct: typeof diagnosticCalibratedEdge === "number" ? diagnosticCalibratedEdge * 100 : null,
+      calibrationMappingStatus,
       diagnosticOnly: true,
       diagnosticEdgeAllowed: diagnosticEdgeAvailable,
       officialEdgeAllowed: false,
@@ -218,11 +235,20 @@ function enrichTodayPredictionsWithMarketDiagnostics(
     .filter((prediction) => typeof prediction.diagnosticRawEdge === "number")
     .sort((a, b) => (b.diagnosticRawEdge ?? -Infinity) - (a.diagnosticRawEdge ?? -Infinity));
   const best = edgeCandidates[0];
+  const calibratedEdgeCandidates = enrichedPredictions
+    .filter((prediction) => typeof prediction.diagnosticCalibratedEdge === "number")
+    .sort((a, b) => (b.diagnosticCalibratedEdge ?? -Infinity) - (a.diagnosticCalibratedEdge ?? -Infinity));
   const bestDiagnosticRawEdge = typeof best?.diagnosticRawEdge === "number" ? best.diagnosticRawEdge : undefined;
   const bestDiagnosticRawEdgePct = typeof best?.diagnosticRawEdgePct === "number" ? best.diagnosticRawEdgePct : undefined;
+  const bestDiagnosticCalibratedEdge = typeof best?.diagnosticCalibratedEdge === "number" ? best.diagnosticCalibratedEdge : undefined;
+  const bestDiagnosticCalibratedEdgePct = typeof best?.diagnosticCalibratedEdgePct === "number" ? best.diagnosticCalibratedEdgePct : undefined;
+  const calibratedProbabilitiesAvailable = enrichedPredictions.filter((prediction) => typeof prediction.calibratedProbability === "number").length;
+  const calibrationMappingStatuses = uniqueStrings(enrichedPredictions.map((prediction) => prediction.calibrationMappingStatus));
+  const calibrationMappingStatus = calibrationMappingStatuses.includes("research_only") ? "research_only" : (calibrationMappingStatuses[0] ?? "missing");
   const warnings = uniqueStrings([
     ...rawDiagnostics.warnings,
     calibrationQuality === "weak" ? "Calibration weak - diagnostic only; official edge remains blocked." : undefined,
+    calibratedProbabilitiesAvailable ? "Calibration mapping is research-only; calibrated probabilities cannot create official picks." : "Calibration mapping unavailable for today predictions.",
     !metadata.marketPricesConnected ? "Polymarket market prices are not connected; today prediction market diagnostics may be unmatched." : undefined,
     "Today prediction market comparison is research-only and cannot create official picks.",
   ]).slice(0, 25);
@@ -234,6 +260,9 @@ function enrichTodayPredictionsWithMarketDiagnostics(
     lowConfidenceMatches: rawDiagnostics.lowConfidenceMatches,
     unmatchedPredictions: predictions.length - rawDiagnostics.highConfidenceMatches - rawDiagnostics.mediumConfidenceMatches - rawDiagnostics.lowConfidenceMatches,
     diagnosticEdgesCalculated: rawDiagnostics.diagnosticEdgesCalculated,
+    diagnosticCalibratedEdgesCalculated: calibratedEdgeCandidates.length,
+    calibratedProbabilitiesAvailable,
+    calibrationMappingStatus,
     officialEdgesAllowed: 0,
     warnings,
     bestDiagnosticEdge: best && typeof bestDiagnosticRawEdge === "number"
@@ -245,6 +274,10 @@ function enrichTodayPredictionsWithMarketDiagnostics(
           marketProbability: best.marketProbability,
           diagnosticRawEdge: bestDiagnosticRawEdge,
           diagnosticRawEdgePct: bestDiagnosticRawEdgePct,
+          calibratedProbability: best.calibratedProbability,
+          diagnosticCalibratedEdge: bestDiagnosticCalibratedEdge,
+          diagnosticCalibratedEdgePct: bestDiagnosticCalibratedEdgePct,
+          calibrationMappingStatus: best.calibrationMappingStatus,
           matchConfidence: best.matchConfidence,
         }
       : undefined,

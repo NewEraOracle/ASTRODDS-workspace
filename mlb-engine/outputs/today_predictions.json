@@ -1,8 +1,10 @@
 {
-  "generatedAt": "2026-06-11T02:24:12.227602+00:00",
+  "generatedAt": "2026-06-11T11:36:26.288011+00:00",
   "sourceFeatureFile": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_today_features.csv",
   "modelPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\models\\moneyline_baseline_model.pkl",
   "modelStatusPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\outputs\\model_status.json",
+  "calibrationMappingPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\calibration\\moneyline_calibration_mapping.json",
+  "calibrationMappingStatus": "research_only",
   "predictionPolicy": "research_only_watchlist_diagnostics",
   "officialPickOverride": false,
   "officialPickEligible": false,
@@ -15,8 +17,12 @@
   ],
   "predictionCount": 11,
   "warnings": [
+    "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
+    "This is calibration measurement only. No calibrated probability mapping or calibrator pickle was created.",
+    "Betting ROI/edge requires market price or Polymarket implied probability later.",
+    "Calibration mapping status: research_only - research-only diagnostics",
     "Today predictions are research-only diagnostics and cannot create official ASTRODDS picks.",
-    "No market prices, calibrated probabilities, edge, ROI, CLV, Telegram alerts, or real-money behavior were created."
+    "No market prices, official edge, ROI, CLV, Telegram alerts, or real-money behavior were created."
   ],
   "predictions": [
     {
@@ -30,13 +36,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.517561,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.559024,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 1025,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -45,7 +54,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -59,13 +70,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -75,12 +87,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "824996",
@@ -93,13 +106,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.431609,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.489305,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 374,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -108,7 +124,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -122,13 +140,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -138,12 +157,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "824022",
@@ -156,13 +176,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.499768,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.510911,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 779,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -171,7 +194,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -185,13 +210,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -201,12 +227,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "823619",
@@ -219,13 +246,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.50131,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.559024,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 1025,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -234,7 +264,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -248,13 +280,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -264,12 +297,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "823855",
@@ -282,13 +316,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.514952,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.559024,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 1025,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -297,7 +334,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -311,13 +350,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -327,12 +367,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "824265",
@@ -345,13 +386,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.513884,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.559024,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 1025,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -360,7 +404,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -374,13 +420,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -390,12 +437,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "824101",
@@ -408,13 +456,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.492211,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.510911,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 779,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -423,7 +474,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -437,13 +490,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -453,12 +507,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "824346",
@@ -471,13 +526,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.517561,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.559024,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 1025,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -486,7 +544,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -500,13 +560,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -516,12 +577,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "823371",
@@ -534,13 +596,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.438618,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.489305,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 374,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -549,7 +614,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -563,13 +630,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -579,12 +647,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "824827",
@@ -597,13 +666,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.498719,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.510911,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 779,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -612,7 +684,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -626,13 +700,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -642,12 +717,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     },
     {
       "gameId": "824589",
@@ -660,13 +736,16 @@
       "marketAvailability": "unknown",
       "pick": "research_only",
       "rawModelProbability": 0.443522,
-      "calibratedProbability": null,
+      "calibratedProbability": 0.489305,
       "marketProbability": null,
       "rawEdge": null,
       "calibratedEdge": null,
       "confidence": null,
       "dataQuality": "B",
       "calibrationQuality": "weak",
+      "calibrationMethod": "bin_actual_home_win_rate_v1",
+      "calibrationSampleSize": 374,
+      "calibrationMappingStatus": "research_only",
       "calibrationWarnings": [
         "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
         "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
@@ -675,7 +754,9 @@
         "2026 is season-to-date holdout only, not a completed full-season calibration set.",
         "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
         "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
-        "total_runs remains future secondary; runline remains disabled."
+        "total_runs remains future secondary; runline remains disabled.",
+        "Calibration quality is weak - mapping is research-only",
+        "Calibration mapping is research-only"
       ],
       "lineupStatus": "missing",
       "pitcherStatus": "missing",
@@ -689,13 +770,14 @@
         "No market prices connected",
         "No calibrated probability mapping available",
         "No market price connected for this prediction",
-        "Raw model probability is not official betting edge",
+        "Calibration mapping is research-only",
+        "Raw and calibrated model probabilities are not official betting edge",
         "Python today predictions are diagnostics/watchlist only"
       ],
       "reasons": [
         "Baseline moneyline model generated a raw home-win probability from pre-game historical team features.",
         "Market price not connected for this prediction.",
-        "No calibrated probability mapping is available yet.",
+        "Calibration mapping applied from historical bins for research only.",
         "Calibration weak - research only."
       ],
       "risks": [
@@ -705,12 +787,13 @@
         "Weather impact not connected in Python today feature export.",
         "No verified market price or Polymarket probability is attached.",
         "Lineups, pitcher details, bullpen status, and weather are missing in the Python today export.",
+        "Calibration mapping is research-only and weak; official use remains blocked.",
         "Weak or missing calibration blocks official use."
       ],
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T02:24:12.227602+00:00"
+      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
     }
   ]
 }
