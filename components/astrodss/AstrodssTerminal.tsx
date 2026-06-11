@@ -378,6 +378,63 @@ type PaperWatchlistLedgerActionResponse = {
   recentRows?: PaperWatchlistRowResponse[];
 };
 type PaperPerformanceDiagnosticsResponse = PaperPerformanceAnalysis;
+type CombinedRiskGateDecision = "bet_candidate" | "watchlist" | "research_only" | "blocked";
+type CombinedRiskGateRiskLevel = "low" | "medium" | "high" | "unknown";
+type CombinedRiskGateRowResponse = {
+  rowId: string;
+  gameId?: string;
+  date?: string;
+  homeTeam?: string;
+  awayTeam?: string;
+  marketType: "moneyline";
+  selectedSide?: string;
+  researchSide?: string;
+  rawModelProbability?: number;
+  calibratedProbability?: number;
+  marketProbability?: number;
+  diagnosticCalibratedEdge?: number | null;
+  diagnosticCalibratedEdgePct?: number | null;
+  matchConfidence?: "high" | "medium" | "low" | "none" | string;
+  riskScore: number;
+  riskLevel: CombinedRiskGateRiskLevel;
+  decision: CombinedRiskGateDecision;
+  blockReasons: string[];
+  downgradeReasons: string[];
+  positiveReasons: string[];
+  dataQuality: string;
+  officialPickEligible: false;
+  officialEdgeAllowed: false;
+  isPaperOnly: true;
+  realMoneyDisabled: true;
+};
+type CombinedRiskGateDiagnosticsResponse = {
+  status: "available" | "partial" | "missing";
+  available: boolean;
+  totalRows: number;
+  betCandidateRows: number;
+  watchlistRows: number;
+  researchOnlyRows: number;
+  blockedRows: number;
+  lowRiskRows: number;
+  mediumRiskRows: number;
+  highRiskRows: number;
+  unknownRiskRows: number;
+  averageDiagnosticCalibratedEdge: number | null;
+  averageCalibratedProbability: number | null;
+  averageMarketProbability: number | null;
+  officialPickEligible: false;
+  officialEdgeAllowed: false;
+  isPaperOnly: true;
+  realMoneyDisabled: true;
+  warnings: string[];
+  generatedAt: string;
+  sourcePath: string;
+  sourceDiagnostics: Array<{
+    label: string;
+    status: string;
+    note: string;
+  }>;
+};
 type HistoricalExpansionDiagnosticsResponse = {
   status: "available" | "partial" | "missing";
   available: boolean;
@@ -563,6 +620,8 @@ type UnifiedMlbStatusResponse = {
   paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
   paperClvDiagnostics?: PaperWatchlistClvDiagnosticsResponse;
   paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
+  combinedRiskGateDiagnostics?: CombinedRiskGateDiagnosticsResponse;
+  combinedRiskRows?: CombinedRiskGateRowResponse[];
   historicalExpansionDiagnostics?: HistoricalExpansionDiagnosticsResponse;
   pitcherFeatureDiagnostics?: PitcherFeatureDiagnosticsResponse;
   weatherBallparkFeatureDiagnostics?: WeatherBallparkFeatureDiagnosticsResponse;
@@ -1304,6 +1363,32 @@ function marketMatchTone(status: MarketMatchDiagnosticsResponse | null) {
   return "red";
 }
 
+function combinedRiskTone(decision?: CombinedRiskGateDecision | string) {
+  if (decision === "bet_candidate") return "green";
+  if (decision === "watchlist" || decision === "research_only") return "yellow";
+  return "red";
+}
+
+function combinedRiskRiskTone(level?: CombinedRiskGateRiskLevel | string): "green" | "yellow" | "red" {
+  if (level === "low") return "green";
+  if (level === "medium") return "yellow";
+  return "red";
+}
+
+function combinedRiskDecisionLabel(decision?: CombinedRiskGateDecision | string) {
+  if (decision === "bet_candidate") return "Bet Candidate";
+  if (decision === "watchlist") return "Watchlist";
+  if (decision === "research_only") return "Research Only";
+  return "Blocked";
+}
+
+function combinedRiskRiskLabel(level?: CombinedRiskGateRiskLevel | string) {
+  if (level === "low") return "Low Risk";
+  if (level === "medium") return "Medium Risk";
+  if (level === "high") return "High Risk";
+  return "Unknown Risk";
+}
+
 function percentMetric(value?: number) {
   if (typeof value !== "number" || !Number.isFinite(value)) return "--";
   return `${Math.round(value * 1000) / 10}%`;
@@ -1701,6 +1786,9 @@ export default function AstrodssTerminal() {
   const [isUpdatingPaperWatchlistClv, setIsUpdatingPaperWatchlistClv] = useState(false);
   const [paperPerformanceDiagnostics, setPaperPerformanceDiagnostics] = useState<PaperPerformanceDiagnosticsResponse | null>(null);
   const [paperPerformanceDiagnosticsError, setPaperPerformanceDiagnosticsError] = useState("");
+  const [combinedRiskGateDiagnostics, setCombinedRiskGateDiagnostics] = useState<CombinedRiskGateDiagnosticsResponse | null>(null);
+  const [combinedRiskGateDiagnosticsError, setCombinedRiskGateDiagnosticsError] = useState("");
+  const [combinedRiskRows, setCombinedRiskRows] = useState<CombinedRiskGateRowResponse[]>([]);
   const [historicalExpansionDiagnostics, setHistoricalExpansionDiagnostics] = useState<HistoricalExpansionDiagnosticsResponse | null>(null);
   const [historicalExpansionDiagnosticsError, setHistoricalExpansionDiagnosticsError] = useState("");
   const [pitcherFeatureDiagnostics, setPitcherFeatureDiagnostics] = useState<PitcherFeatureDiagnosticsResponse | null>(null);
@@ -1805,6 +1893,9 @@ export default function AstrodssTerminal() {
   const paperPerformanceWarning = paperPerformanceSummary?.warnings[0] ?? paperPerformanceDiagnosticsError ?? "Waiting for paper performance diagnostics.";
   const paperPerformanceWinRateLabel = percentMetric(paperPerformanceSummary?.winRate ?? undefined);
   const paperPerformancePnLLabel = typeof paperPerformanceSummary?.paperPnLUnits === "number" ? paperPerformanceSummary.paperPnLUnits.toFixed(2) : "--";
+  const combinedRiskSummary = combinedRiskGateDiagnostics;
+  const combinedRiskWarning = combinedRiskSummary?.warnings[0] ?? combinedRiskGateDiagnosticsError ?? "Waiting for combined risk diagnostics.";
+  const combinedRiskTopRows = combinedRiskRows.slice(0, 3);
   const historicalExpansionSummary = historicalExpansionDiagnostics;
   const historicalExpansionWindowLabel = historicalExpansionSummary?.historicalWindow ?? "2016-2026";
   const historicalExpansionWarning = historicalExpansionSummary?.warnings[0] ?? historicalExpansionDiagnosticsError ?? "Waiting for historical expansion diagnostics.";
@@ -1989,6 +2080,15 @@ export default function AstrodssTerminal() {
       } else {
         setPaperPerformanceDiagnostics(null);
         setPaperPerformanceDiagnosticsError("Paper performance diagnostics missing from unified API response.");
+      }
+      if (payload.combinedRiskGateDiagnostics) {
+        setCombinedRiskGateDiagnostics(payload.combinedRiskGateDiagnostics);
+        setCombinedRiskRows(payload.combinedRiskRows ?? []);
+        setCombinedRiskGateDiagnosticsError("");
+      } else {
+        setCombinedRiskGateDiagnostics(null);
+        setCombinedRiskRows([]);
+        setCombinedRiskGateDiagnosticsError("Combined risk gate diagnostics missing from unified API response.");
       }
       if (payload.historicalExpansionDiagnostics) {
         setHistoricalExpansionDiagnostics(payload.historicalExpansionDiagnostics);
@@ -2793,6 +2893,117 @@ export default function AstrodssTerminal() {
                         <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Bet Decision Snapshot</h3>
                       </div>
                       <Badge className="border-cyan-300/40 bg-cyan-400/10 text-cyan-100">Model first | Whales bonus only</Badge>
+                    </div>
+
+                    <div className="border border-white/10 bg-black/35 p-4">
+                      <div className="flex flex-col gap-3 border-b border-white/10 pb-3 lg:flex-row lg:items-start lg:justify-between">
+                        <div>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Combined Risk Gate</p>
+                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">MLB Moneyline Research Gate</h3>
+                          <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300">
+                            Research / manual only. Official use stays blocked unless the live price, match confidence, data quality,
+                            and MLB support layers all clear the gate.
+                          </p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge className={decisionToneClass(combinedRiskSummary?.status === "available" ? "green" : combinedRiskSummary?.status === "partial" ? "yellow" : "red")}>
+                            {combinedRiskSummary?.status ? combinedRiskSummary.status.replace(/_/g, " ") : "missing"}
+                          </Badge>
+                          <Badge className="border-red-300/55 bg-red-500/12 text-red-100">Official Use Blocked</Badge>
+                          <Badge className="border-cyan-300/45 bg-cyan-400/10 text-cyan-100">Paper / research only</Badge>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-7">
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Bet Candidates</p>
+                          <p className="mt-2 text-3xl font-black text-white">{combinedRiskSummary?.betCandidateRows ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Watchlist</p>
+                          <p className="mt-2 text-3xl font-black text-white">{combinedRiskSummary?.watchlistRows ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Research Only</p>
+                          <p className="mt-2 text-3xl font-black text-white">{combinedRiskSummary?.researchOnlyRows ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Blocked</p>
+                          <p className="mt-2 text-3xl font-black text-white">{combinedRiskSummary?.blockedRows ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Low Risk</p>
+                          <p className="mt-2 text-3xl font-black text-emerald-100">{combinedRiskSummary?.lowRiskRows ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Medium Risk</p>
+                          <p className="mt-2 text-3xl font-black text-yellow-100">{combinedRiskSummary?.mediumRiskRows ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">High Risk</p>
+                          <p className="mt-2 text-3xl font-black text-red-100">{combinedRiskSummary?.highRiskRows ?? 0}</p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 overflow-x-auto">
+                        <table className="min-w-[980px] w-full text-left text-xs">
+                          <thead>
+                            <tr className="border-b border-white/10 text-[10px] uppercase tracking-[0.16em] text-slate-400">
+                              <th className="p-2">Game</th>
+                              <th className="p-2">Side</th>
+                              <th className="p-2">Decision</th>
+                              <th className="p-2">Edge</th>
+                              <th className="p-2">Risk</th>
+                              <th className="p-2">Reason</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {combinedRiskTopRows.length ? (
+                              combinedRiskTopRows.map((row) => (
+                                <tr key={row.rowId} className="border-b border-white/[0.08] align-top">
+                                  <td className="p-2 text-white">
+                                    <p className="font-black">{row.awayTeam ?? "Away"} @ {row.homeTeam ?? "Home"}</p>
+                                    <p className="text-[11px] text-slate-400">{row.date ?? "Date unavailable"}</p>
+                                  </td>
+                                  <td className="p-2 text-cyan-100">
+                                    <p className="font-bold text-white">{row.selectedSide ?? row.researchSide ?? "--"}</p>
+                                    <p className="text-[11px] text-slate-400">{row.marketType}</p>
+                                  </td>
+                                  <td className="p-2">
+                                    <Badge className={decisionToneClass(combinedRiskTone(row.decision))}>{combinedRiskDecisionLabel(row.decision)}</Badge>
+                                  </td>
+                                  <td className="p-2 font-mono text-emerald-100">
+                                    {formatEdge(row.diagnosticCalibratedEdge ?? undefined)}
+                                  </td>
+                                  <td className="p-2">
+                                    <Badge className={decisionToneClass(combinedRiskRiskTone(row.riskLevel))}>
+                                      {combinedRiskRiskLabel(row.riskLevel)} / {row.riskScore}
+                                    </Badge>
+                                  </td>
+                                  <td className="max-w-[360px] p-2 text-slate-300">
+                                    {row.blockReasons[0] ?? row.downgradeReasons[0] ?? row.positiveReasons[0] ?? "Research only"}
+                                  </td>
+                                </tr>
+                              ))
+                            ) : (
+                              <tr>
+                                <td colSpan={6} className="p-4 text-center text-sm font-bold text-slate-400">
+                                  No combined risk rows available yet. Run Scan MLB to populate the research gate.
+                                </td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-400">
+                        <span>Official edge: blocked</span>
+                        <span>Data quality: research only</span>
+                        <span>Whales: bonus only</span>
+                        <span>Real money: OFF</span>
+                      </div>
+
+                      <p className="mt-3 text-xs leading-5 text-slate-400">{combinedRiskWarning}</p>
                     </div>
 
                     <div className="grid gap-3 xl:grid-cols-4 2xl:grid-cols-8">

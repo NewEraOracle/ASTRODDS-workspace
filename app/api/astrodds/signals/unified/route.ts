@@ -1,19 +1,20 @@
 import { NextResponse } from "next/server";
 import path from "node:path";
 
-import { loadWeatherBallparkFeatureStatus } from "@/lib/astrodss/mlb/weather-ballpark-feature-status";
-import { loadLineupPlayerFeatureStatus } from "@/lib/astrodss/mlb/lineup-player-feature-status";
+import { loadWeatherBallparkFeatureStatus, type WeatherBallparkFeatureDiagnostics } from "@/lib/astrodss/mlb/weather-ballpark-feature-status";
+import { loadLineupPlayerFeatureStatus, type LineupPlayerFeatureDiagnostics } from "@/lib/astrodss/mlb/lineup-player-feature-status";
 import { loadInjuryAvailabilityStatus, MLB_INJURY_AVAILABILITY_FEATURE_REPORT_PATH, type InjuryAvailabilityDiagnostics } from "@/lib/astrodss/mlb/injury-availability-status";
 import { loadHistoricalExpansionStatus, MLB_HISTORICAL_EXPANSION_REPORT_PATH } from "@/lib/astrodss/mlb/historical-expansion-status";
-import { loadBullpenFeatureStatus } from "@/lib/astrodss/mlb/bullpen-feature-status";
-import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
-import { loadPitcherFeatureStatus } from "@/lib/astrodss/mlb/pitcher-feature-status";
+import { loadBullpenFeatureStatus, type BullpenFeatureDiagnostics } from "@/lib/astrodss/mlb/bullpen-feature-status";
+import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH, type PythonMlbEngineStatus } from "@/lib/astrodss/mlb/python-engine-status";
+import { loadPitcherFeatureStatus, type PitcherFeatureDiagnostics } from "@/lib/astrodss/mlb/pitcher-feature-status";
 import { loadPitcherModelComparisonStatus } from "@/lib/astrodss/mlb/pitcher-model-comparison-status";
 import { loadModernModelComparisonStatus } from "@/lib/astrodss/mlb/modern-model-comparison-status";
 import { loadPaperWatchlistClvDiagnostics } from "@/lib/astrodss/mlb/paper-watchlist-clv";
 import { buildMlbPaperWatchlist } from "@/lib/astrodss/mlb/paper-watchlist";
 import { loadPaperWatchlistLedgerStatus } from "@/lib/astrodss/mlb/paper-watchlist-ledger";
 import { loadPaperWatchlistPerformanceAnalysis } from "@/lib/astrodss/mlb/paper-performance-analysis";
+import { buildCombinedRiskGate } from "@/lib/astrodss/mlb/combined-risk-gate";
 import { loadPythonMlbPredictions, PYTHON_MLB_PREDICTIONS_PATH, type PythonMlbPrediction } from "@/lib/astrodss/mlb/python-predictions";
 import { buildPolymarketMlbMatchDiagnostics } from "@/lib/astrodss/sports-data/polymarket-mlb-match";
 import { discoverPolymarketMlbMoneylineMarkets, type PolymarketMlbMoneylineMarket } from "@/lib/astrodss/sports-data/polymarket-mlb-markets";
@@ -379,7 +380,7 @@ export async function GET(request: Request) {
   const pythonMlbPredictions = pythonPredictionResult.status === "fulfilled"
     ? pythonPredictionResult.value
     : { available: false, sourcePath: PYTHON_MLB_PREDICTIONS_PATH, predictions: [], warnings: ["Python MLB prediction loader failed."] };
-  const pythonMlbEngineStatus = pythonStatusResult.status === "fulfilled"
+  const pythonMlbEngineStatus: PythonMlbEngineStatus = pythonStatusResult.status === "fulfilled"
     ? pythonStatusResult.value
     : {
         engineAvailable: false,
@@ -455,7 +456,7 @@ export async function GET(request: Request) {
         generatedAt: undefined,
         sourcePath: path.join(process.cwd(), "mlb-engine", "models", "moneyline_modern_window_comparison_report.json"),
       };
-  const weatherBallparkFeatureDiagnostics = weatherBallparkResult.status === "fulfilled"
+  const weatherBallparkFeatureDiagnostics: WeatherBallparkFeatureDiagnostics = weatherBallparkResult.status === "fulfilled"
     ? weatherBallparkResult.value
     : {
         status: "missing",
@@ -469,7 +470,7 @@ export async function GET(request: Request) {
         generatedAt: undefined,
         sourcePath: path.join(process.cwd(), "mlb-engine", "data", "processed", "mlb_weather_ballpark_features_report.json"),
       };
-  const lineupPlayerFeatureDiagnostics = lineupPlayerResult.status === "fulfilled"
+  const lineupPlayerFeatureDiagnostics: LineupPlayerFeatureDiagnostics = lineupPlayerResult.status === "fulfilled"
     ? lineupPlayerResult.value
     : {
         status: "missing",
@@ -571,8 +572,21 @@ export async function GET(request: Request) {
   const paperWatchlistLedgerDiagnostics = await loadPaperWatchlistLedgerStatus();
   const paperClvDiagnostics = await loadPaperWatchlistClvDiagnostics();
   const paperPerformanceDiagnostics = await loadPaperWatchlistPerformanceAnalysis();
-  const pitcherFeatureDiagnostics = await loadPitcherFeatureStatus();
-  const bullpenFeatureDiagnostics = await loadBullpenFeatureStatus();
+  const pitcherFeatureDiagnostics: PitcherFeatureDiagnostics = await loadPitcherFeatureStatus();
+  const bullpenFeatureDiagnostics: BullpenFeatureDiagnostics = await loadBullpenFeatureStatus();
+  const combinedRiskGate = buildCombinedRiskGate({
+    predictions: enrichedPythonMlbPredictions,
+    watchlistRows: paperWatchlist.watchlistRows,
+    pythonMlbEngineStatus,
+    marketPriceDiagnostics,
+    marketMatchDiagnostics,
+    lineupPlayerFeatureDiagnostics,
+    injuryAvailabilityDiagnostics,
+    weatherBallparkFeatureDiagnostics,
+    pitcherFeatureDiagnostics,
+    bullpenFeatureDiagnostics,
+    paperPerformanceDiagnostics,
+  });
   const matchesByGameId = new Map(marketMatchDiagnostics.matches.map((match) => [match.gameId, match]));
   const signalsWithMarketDiagnostics = signals.map((signal) => {
     const match = signal.gameId ? matchesByGameId.get(signal.gameId) : undefined;
@@ -631,6 +645,8 @@ export async function GET(request: Request) {
       },
       paperClvDiagnostics,
       paperPerformanceDiagnostics,
+      combinedRiskGateDiagnostics: combinedRiskGate.diagnostics,
+      combinedRiskRows: combinedRiskGate.rows,
       pitcherFeatureDiagnostics,
       weatherBallparkFeatureDiagnostics,
       lineupPlayerFeatureDiagnostics,
