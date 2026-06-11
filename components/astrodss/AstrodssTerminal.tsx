@@ -504,6 +504,41 @@ type PitcherModelComparisonDiagnosticsResponse = {
   generatedAt?: string;
   sourcePath: string;
 };
+type ModernModelComparisonDiagnosticsResponse = {
+  status: "available" | "missing" | "empty";
+  recommendation: "keep_current_baseline" | "candidate_modern_2016_2026" | "needs_more_data";
+  baselineModelVersion: string;
+  baselineModelType: string;
+  modernModelVersion: string;
+  modernModelType: string;
+  trainRows?: number;
+  validationRows?: number;
+  holdout2026Rows?: number;
+  baselineValidationAccuracy?: number;
+  baselineValidationLogLoss?: number;
+  baselineValidationBrierScore?: number;
+  modernValidationAccuracy?: number;
+  modernValidationLogLoss?: number;
+  modernValidationBrierScore?: number;
+  baselineHoldout2026Accuracy?: number;
+  baselineHoldout2026LogLoss?: number;
+  baselineHoldout2026BrierScore?: number;
+  modernHoldout2026Accuracy?: number;
+  modernHoldout2026LogLoss?: number;
+  modernHoldout2026BrierScore?: number;
+  accuracyDelta?: number;
+  logLossDelta?: number;
+  brierScoreDelta?: number;
+  holdoutAccuracyDelta?: number;
+  holdoutLogLossDelta?: number;
+  holdoutBrierScoreDelta?: number;
+  featureCount?: number;
+  activeModelChanged: false;
+  reasons: string[];
+  warnings: string[];
+  generatedAt?: string;
+  sourcePath: string;
+};
 type UnifiedMlbStatusResponse = {
   pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
@@ -520,6 +555,7 @@ type UnifiedMlbStatusResponse = {
   lineupPlayerFeatureDiagnostics?: LineupPlayerFeatureDiagnosticsResponse;
   bullpenFeatureDiagnostics?: BullpenFeatureDiagnosticsResponse;
   modelComparisonDiagnostics?: PitcherModelComparisonDiagnosticsResponse;
+  modernModelComparisonDiagnostics?: ModernModelComparisonDiagnosticsResponse;
 };
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
@@ -1206,6 +1242,20 @@ function pitcherModelRecommendationLabel(recommendation?: PitcherModelComparison
   return "Missing";
 }
 
+function modernModelComparisonTone(status: ModernModelComparisonDiagnosticsResponse | null) {
+  if (!status) return "red";
+  if (status.recommendation === "candidate_modern_2016_2026") return "green";
+  if (status.recommendation === "needs_more_data") return "yellow";
+  return "red";
+}
+
+function modernModelRecommendationLabel(recommendation?: ModernModelComparisonDiagnosticsResponse["recommendation"]) {
+  if (recommendation === "candidate_modern_2016_2026") return "Candidate Modern 2016-2026";
+  if (recommendation === "keep_current_baseline") return "Keep Current Baseline";
+  if (recommendation === "needs_more_data") return "Needs More Data";
+  return "Missing";
+}
+
 function pythonEngineTone(status: PythonMlbEngineStatusResponse | null) {
   if (!status?.modelAvailable) return "red";
   if (status.officialPickEligible) return "green";
@@ -1649,6 +1699,8 @@ export default function AstrodssTerminal() {
   const [bullpenFeatureDiagnosticsError, setBullpenFeatureDiagnosticsError] = useState("");
   const [modelComparisonDiagnostics, setModelComparisonDiagnostics] = useState<PitcherModelComparisonDiagnosticsResponse | null>(null);
   const [modelComparisonDiagnosticsError, setModelComparisonDiagnosticsError] = useState("");
+  const [modernModelComparisonDiagnostics, setModernModelComparisonDiagnostics] = useState<ModernModelComparisonDiagnosticsResponse | null>(null);
+  const [modernModelComparisonDiagnosticsError, setModernModelComparisonDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1757,6 +1809,10 @@ export default function AstrodssTerminal() {
   const modelComparisonStatusLabel = modelComparisonSummary?.status === "available" ? "Available" : modelComparisonSummary?.status === "empty" ? "Empty" : "Missing";
   const modelComparisonWarning = modelComparisonSummary?.warnings[0] ?? modelComparisonDiagnosticsError ?? "Waiting for pitcher model comparison diagnostics.";
   const modelComparisonReasons = modelComparisonSummary?.reasons.length ? modelComparisonSummary.reasons : ["Pitcher model comparison report not loaded yet."];
+  const modernModelComparisonSummary = modernModelComparisonDiagnostics;
+  const modernModelComparisonStatusLabel = modernModelComparisonSummary?.status === "available" ? "Available" : modernModelComparisonSummary?.status === "empty" ? "Empty" : "Missing";
+  const modernModelComparisonWarning = modernModelComparisonSummary?.warnings[0] ?? modernModelComparisonDiagnosticsError ?? "Waiting for modern 2016-2026 model comparison diagnostics.";
+  const modernModelComparisonReasons = modernModelComparisonSummary?.reasons.length ? modernModelComparisonSummary.reasons : ["Modern 2016-2026 comparison report not loaded yet."];
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1957,6 +2013,13 @@ export default function AstrodssTerminal() {
         setModelComparisonDiagnostics(null);
         setModelComparisonDiagnosticsError("Pitcher model comparison diagnostics missing from unified API response.");
       }
+      if (payload.modernModelComparisonDiagnostics) {
+        setModernModelComparisonDiagnostics(payload.modernModelComparisonDiagnostics);
+        setModernModelComparisonDiagnosticsError("");
+      } else {
+        setModernModelComparisonDiagnostics(null);
+        setModernModelComparisonDiagnosticsError("Modern 2016-2026 model comparison diagnostics missing from unified API response.");
+      }
     } catch (statusError) {
       const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
       setPythonMlbEngineStatusError(message);
@@ -1983,6 +2046,8 @@ export default function AstrodssTerminal() {
       setBullpenFeatureDiagnosticsError(message);
       setModelComparisonDiagnostics(null);
       setModelComparisonDiagnosticsError(message);
+      setModernModelComparisonDiagnostics(null);
+      setModernModelComparisonDiagnosticsError(message);
     }
   }
   async function savePaperWatchlistLedger() {
@@ -2907,6 +2972,37 @@ export default function AstrodssTerminal() {
                           </div>
                           <p className="leading-5 text-slate-300">Active model unchanged. This comparison is research only and does not change official picks.</p>
                           <p className="leading-5 text-slate-500">{modelComparisonWarning}</p>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Modern 2016-2026 Comparison</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(modernModelComparisonTone(modernModelComparisonSummary))}>{modernModelComparisonStatusLabel}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Baseline vs Modern</span>
+                            <span className="font-bold text-white">{modernModelRecommendationLabel(modernModelComparisonSummary?.recommendation)}</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2 text-slate-400">
+                            <span>2025 Log Loss Delta</span><span className="text-right font-mono text-white">{formatDecimalDelta(modernModelComparisonSummary?.logLossDelta)}</span>
+                            <span>2025 Brier Delta</span><span className="text-right font-mono text-white">{formatDecimalDelta(modernModelComparisonSummary?.brierScoreDelta)}</span>
+                            <span>2026 Holdout Log Loss</span><span className="text-right font-mono text-white">{formatDecimalDelta(modernModelComparisonSummary?.holdoutLogLossDelta)}</span>
+                            <span>2026 Holdout Brier</span><span className="text-right font-mono text-white">{formatDecimalDelta(modernModelComparisonSummary?.holdoutBrierScoreDelta)}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5 text-slate-400">
+                            <span>Modern Feature Count</span>
+                            <span className="font-mono font-black text-white">{modernModelComparisonSummary?.featureCount ?? 0}</span>
+                          </div>
+                          <div className="grid gap-1 border-b border-white/10 pb-2">
+                            <p className="font-black uppercase tracking-[0.12em] text-[#f4d274]">Reason</p>
+                            {modernModelComparisonReasons.slice(0, 3).map((reason) => (
+                              <p key={reason} className="leading-5 text-slate-300">{reason}</p>
+                            ))}
+                          </div>
+                          <p className="leading-5 text-slate-300">Active model unchanged. Official use remains blocked until a later explicit switch, calibration pass, and market-price integration.</p>
+                          <p className="leading-5 text-slate-500">{modernModelComparisonWarning}</p>
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">

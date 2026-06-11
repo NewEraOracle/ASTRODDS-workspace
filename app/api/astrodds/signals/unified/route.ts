@@ -8,6 +8,7 @@ import { loadBullpenFeatureStatus } from "@/lib/astrodss/mlb/bullpen-feature-sta
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
 import { loadPitcherFeatureStatus } from "@/lib/astrodss/mlb/pitcher-feature-status";
 import { loadPitcherModelComparisonStatus } from "@/lib/astrodss/mlb/pitcher-model-comparison-status";
+import { loadModernModelComparisonStatus } from "@/lib/astrodss/mlb/modern-model-comparison-status";
 import { loadPaperWatchlistClvDiagnostics } from "@/lib/astrodss/mlb/paper-watchlist-clv";
 import { buildMlbPaperWatchlist } from "@/lib/astrodss/mlb/paper-watchlist";
 import { loadPaperWatchlistLedgerStatus } from "@/lib/astrodss/mlb/paper-watchlist-ledger";
@@ -305,13 +306,14 @@ export async function GET(request: Request) {
   const telegram = getTelegramConfig();
   if (sport !== "MLB") errors.push("Unified signal MVP is MLB-only for now.");
 
-  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult, modelComparisonResult, weatherBallparkResult, lineupPlayerResult, historicalExpansionResult] = await Promise.allSettled([
+  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult, modelComparisonResult, modernModelComparisonResult, weatherBallparkResult, lineupPlayerResult, historicalExpansionResult] = await Promise.allSettled([
     scanAstroddsSport("MLB"),
     scanWhaleWallets({ sport: "MLB" }),
     loadPythonMlbPredictions(),
     loadPythonMlbEngineStatus(),
     discoverPolymarketMlbMoneylineMarkets(),
     loadPitcherModelComparisonStatus(),
+    loadModernModelComparisonStatus(),
     loadWeatherBallparkFeatureStatus(),
     loadLineupPlayerFeatureStatus(),
     loadHistoricalExpansionStatus(),
@@ -339,6 +341,10 @@ export async function GET(request: Request) {
 
   if (modelComparisonResult.status === "rejected") {
     errors.push(`Pitcher model comparison loader failed: ${modelComparisonResult.reason instanceof Error ? modelComparisonResult.reason.message : "Unknown comparison loader failure"}`);
+  }
+
+  if (modernModelComparisonResult.status === "rejected") {
+    errors.push(`Modern-window model comparison loader failed: ${modernModelComparisonResult.reason instanceof Error ? modernModelComparisonResult.reason.message : "Unknown modern comparison loader failure"}`);
   }
 
   if (weatherBallparkResult.status === "rejected") {
@@ -418,6 +424,21 @@ export async function GET(request: Request) {
         warnings: ["Pitcher model comparison loader failed."],
         generatedAt: undefined,
         sourcePath: path.join(process.cwd(), "mlb-engine", "models", "moneyline_model_comparison_report.json"),
+      };
+  const modernModelComparisonDiagnostics = modernModelComparisonResult.status === "fulfilled"
+    ? modernModelComparisonResult.value
+    : {
+        status: "missing",
+        recommendation: "needs_more_data",
+        baselineModelVersion: "unknown",
+        baselineModelType: "unknown",
+        modernModelVersion: "unknown",
+        modernModelType: "unknown",
+        activeModelChanged: false as const,
+        reasons: [],
+        warnings: ["Modern-window model comparison loader failed."],
+        generatedAt: undefined,
+        sourcePath: path.join(process.cwd(), "mlb-engine", "models", "moneyline_modern_window_comparison_report.json"),
       };
   const weatherBallparkFeatureDiagnostics = weatherBallparkResult.status === "fulfilled"
     ? weatherBallparkResult.value
@@ -588,6 +609,7 @@ export async function GET(request: Request) {
       historicalExpansionDiagnostics,
       bullpenFeatureDiagnostics,
       modelComparisonDiagnostics,
+      modernModelComparisonDiagnostics,
       marketMatchDiagnostics: {
         ...marketMatchDiagnostics,
         matches: marketMatchDiagnostics.matches.slice(0, 50),
@@ -624,6 +646,7 @@ export async function GET(request: Request) {
         lineupPlayerFeatureDiagnostics,
         historicalExpansionDiagnostics,
         bullpenFeatureDiagnostics,
+        modernModelComparisonDiagnostics,
         officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
         officialPickEligible: pythonMlbEngineStatus.officialPickEligible,
@@ -636,7 +659,7 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...weatherBallparkFeatureDiagnostics.warnings, ...lineupPlayerFeatureDiagnostics.warnings, ...historicalExpansionDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...weatherBallparkFeatureDiagnostics.warnings, ...lineupPlayerFeatureDiagnostics.warnings, ...historicalExpansionDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings, ...modernModelComparisonDiagnostics.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,

@@ -189,6 +189,40 @@ mlb-engine/data/processed/mlb_historical_expansion_2016_2026_report.json
 
 The 2016-2026 window is for research and diagnostics only. It does not change the active ASTRODDS model, official pick gate, or live betting behavior.
 
+## Train a Modern-Window 2016-2026 Comparison Model
+
+After building the expanded 2016-2026 feature file, train a separate research-only modern-window moneyline model:
+
+```bash
+python mlb-engine/scripts/train_modern_window_model.py
+```
+
+This creates:
+
+```text
+mlb-engine/models/moneyline_modern_2016_2026_model.pkl
+mlb-engine/models/moneyline_modern_2016_2026_feature_columns.json
+mlb-engine/models/moneyline_modern_2016_2026_training_report.json
+mlb-engine/models/moneyline_modern_window_comparison_report.json
+```
+
+Training policy:
+
+- train window: 2016-2023
+- research validation window: 2024-2025
+- holdout window: completed 2026 rows only
+- comparison window versus the current baseline: common 2025 validation plus completed 2026 holdout
+
+This step compares the current 2023-2024 baseline model against a broader 2016-2023 modern-window model. It is research only. The active ASTRODDS model stays unchanged until an explicit future switch is approved.
+
+Important:
+
+- this does not create live picks;
+- this does not create `today_predictions.json`;
+- this does not change the official pick gate;
+- this does not change Telegram behavior;
+- this does not enable real-money trading.
+
 ## Measure Baseline Calibration
 
 After generating historical predictions, measure raw model probability calibration:

@@ -1,0 +1,59 @@
+{
+  "model_family": "moneyline",
+  "comparison_type": "modern_window_2016_2026_vs_current_baseline",
+  "delta_convention": "positive_is_better",
+  "generated_at": "2026-06-11T20:31:43.127517+00:00",
+  "active_model_changed": false,
+  "baseline_model": {
+    "model_version": "moneyline_logistic_baseline_v0.1",
+    "model_type": "stdlib_logistic_regression",
+    "training_window": "2023-2024",
+    "comparison_validation_window": "2025",
+    "holdout_window": "2026",
+    "train_rows": 4869,
+    "validation_rows": 2434,
+    "holdout_2026_rows": 964,
+    "validation_accuracy": 0.549302,
+    "validation_log_loss": 0.686715,
+    "validation_brier_score": 0.246843,
+    "holdout_2026_accuracy": 0.514523,
+    "holdout_2026_log_loss": 0.697495,
+    "holdout_2026_brier_score": 0.252135,
+    "baseline_home_team_accuracy": 0.543139
+  },
+  "modern_model": {
+    "model_version": "moneyline_modern_2016_2026_v0.1",
+    "model_type": "stdlib_logistic_regression",
+    "training_window": "2016-2023",
+    "research_validation_window": "2024-2025",
+    "comparison_validation_window": "2025",
+    "holdout_window": "2026",
+    "train_rows": 17929,
+    "validation_rows": 4866,
+    "holdout_2026_rows": 964,
+    "validation_accuracy": 0.549302,
+    "validation_log_loss": 0.683014,
+    "validation_brier_score": 0.245077,
+    "holdout_2026_accuracy": 0.53527,
+    "holdout_2026_log_loss": 0.691803,
+    "holdout_2026_brier_score": 0.24935,
+    "baseline_home_team_accuracy": 0.543139,
+    "feature_count": 34
+  },
+  "accuracy_delta": 0.0,
+  "log_loss_delta": 0.003701,
+  "brier_score_delta": 0.001766,
+  "holdout_accuracy_delta": 0.020747,
+  "holdout_log_loss_delta": 0.005692,
+  "holdout_brier_score_delta": 0.002785,
+  "recommendation": "needs_more_data",
+  "reasons": [
+    "Modern 2016-2026 candidate does not yet show enough calibration lift to replace the current baseline."
+  ],
+  "warnings": [
+    "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
+    "Modern-window comparison is research only and does not switch the active ASTRODDS model.",
+    "Modern-window calibration and historical prediction generation still need their own dedicated pass before any active research promotion.",
+    "No official picks, Strong Buys, Telegram picks, or real-money behavior were created."
+  ]
+}
