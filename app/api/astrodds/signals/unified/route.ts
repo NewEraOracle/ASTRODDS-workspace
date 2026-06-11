@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import path from "node:path";
 
+import { loadBullpenFeatureStatus } from "@/lib/astrodss/mlb/bullpen-feature-status";
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
 import { loadPitcherFeatureStatus } from "@/lib/astrodss/mlb/pitcher-feature-status";
 import { loadPitcherModelComparisonStatus } from "@/lib/astrodss/mlb/pitcher-model-comparison-status";
@@ -458,6 +459,7 @@ export async function GET(request: Request) {
   const paperClvDiagnostics = await loadPaperWatchlistClvDiagnostics();
   const paperPerformanceDiagnostics = await loadPaperWatchlistPerformanceAnalysis();
   const pitcherFeatureDiagnostics = await loadPitcherFeatureStatus();
+  const bullpenFeatureDiagnostics = await loadBullpenFeatureStatus();
   const matchesByGameId = new Map(marketMatchDiagnostics.matches.map((match) => [match.gameId, match]));
   const signalsWithMarketDiagnostics = signals.map((signal) => {
     const match = signal.gameId ? matchesByGameId.get(signal.gameId) : undefined;
@@ -517,6 +519,7 @@ export async function GET(request: Request) {
       paperClvDiagnostics,
       paperPerformanceDiagnostics,
       pitcherFeatureDiagnostics,
+      bullpenFeatureDiagnostics,
       modelComparisonDiagnostics,
       marketMatchDiagnostics: {
         ...marketMatchDiagnostics,
@@ -550,6 +553,7 @@ export async function GET(request: Request) {
         paperClvDiagnostics,
         paperPerformanceDiagnostics,
         pitcherFeatureDiagnostics,
+        bullpenFeatureDiagnostics,
         officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
         officialPickEligible: pythonMlbEngineStatus.officialPickEligible,
@@ -562,7 +566,7 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,

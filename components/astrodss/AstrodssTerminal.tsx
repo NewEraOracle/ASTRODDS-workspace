@@ -398,6 +398,29 @@ type PitcherFeatureDiagnosticsResponse = {
   sourcePath: string;
   enhancedMoneylineCsv?: string;
 };
+type BullpenFeatureDiagnosticsResponse = {
+  status: "available" | "partial" | "missing";
+  available: boolean;
+  totalGamesRead: number;
+  completedGamesUsed: number;
+  gamesWithBullpenData: number;
+  gamesMissingBullpenData: number;
+  gamesApproximatedBullpenData: number;
+  approximationMethod: string;
+  approximationUsed: boolean;
+  dataQuality: "high" | "medium" | "low" | "missing";
+  dataQualitySummary: {
+    high: number;
+    medium: number;
+    low: number;
+    missing: number;
+  };
+  warnings: string[];
+  generatedAt?: string;
+  sourcePath: string;
+  enhancedMoneylineCsv?: string;
+  enhancedPitcherMoneylineCsv?: string;
+};
 type PitcherModelComparisonDiagnosticsResponse = {
   status: "available" | "missing" | "empty";
   recommendation: "keep_baseline" | "candidate_pitcher_model" | "needs_more_data";
@@ -445,6 +468,7 @@ type UnifiedMlbStatusResponse = {
   paperClvDiagnostics?: PaperWatchlistClvDiagnosticsResponse;
   paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
   pitcherFeatureDiagnostics?: PitcherFeatureDiagnosticsResponse;
+  bullpenFeatureDiagnostics?: BullpenFeatureDiagnosticsResponse;
   modelComparisonDiagnostics?: PitcherModelComparisonDiagnosticsResponse;
 };
 type OddsLayerResponse = {
@@ -1565,6 +1589,8 @@ export default function AstrodssTerminal() {
   const [paperPerformanceDiagnosticsError, setPaperPerformanceDiagnosticsError] = useState("");
   const [pitcherFeatureDiagnostics, setPitcherFeatureDiagnostics] = useState<PitcherFeatureDiagnosticsResponse | null>(null);
   const [pitcherFeatureDiagnosticsError, setPitcherFeatureDiagnosticsError] = useState("");
+  const [bullpenFeatureDiagnostics, setBullpenFeatureDiagnostics] = useState<BullpenFeatureDiagnosticsResponse | null>(null);
+  const [bullpenFeatureDiagnosticsError, setBullpenFeatureDiagnosticsError] = useState("");
   const [modelComparisonDiagnostics, setModelComparisonDiagnostics] = useState<PitcherModelComparisonDiagnosticsResponse | null>(null);
   const [modelComparisonDiagnosticsError, setModelComparisonDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
@@ -1658,6 +1684,9 @@ export default function AstrodssTerminal() {
   const pitcherFeatureSummary = pitcherFeatureDiagnostics;
   const pitcherFeatureStatusLabel = pitcherFeatureSummary?.status === "available" ? "Available" : pitcherFeatureSummary?.status === "partial" ? "Partial" : "Missing";
   const pitcherFeatureWarning = pitcherFeatureSummary?.warnings[0] ?? pitcherFeatureDiagnosticsError ?? "Waiting for pitcher feature diagnostics.";
+  const bullpenFeatureSummary = bullpenFeatureDiagnostics;
+  const bullpenFeatureStatusLabel = bullpenFeatureSummary?.status === "available" ? "Available" : bullpenFeatureSummary?.status === "partial" ? "Partial" : "Missing";
+  const bullpenFeatureWarning = bullpenFeatureSummary?.warnings[0] ?? bullpenFeatureDiagnosticsError ?? "Waiting for bullpen feature diagnostics.";
   const modelComparisonSummary = modelComparisonDiagnostics;
   const modelComparisonStatusLabel = modelComparisonSummary?.status === "available" ? "Available" : modelComparisonSummary?.status === "empty" ? "Empty" : "Missing";
   const modelComparisonWarning = modelComparisonSummary?.warnings[0] ?? modelComparisonDiagnosticsError ?? "Waiting for pitcher model comparison diagnostics.";
@@ -1667,6 +1696,7 @@ export default function AstrodssTerminal() {
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
     { label: "Odds", value: oddsStatus?.status === "CONNECTED" ? "CONNECTED" : oddsStatus?.status === "PARTIAL" ? "PARTIAL" : "MISSING", tone: oddsStatus?.status === "CONNECTED" ? "green" : oddsStatus?.status === "PARTIAL" ? "yellow" : "red" },
     { label: "Pitchers", value: result ? `${result.diagnostics.sportApi.probablePitchersFound} found` : "MISSING", tone: result?.diagnostics.sportApi.probablePitchersFound ? "green" : "red" },
+    { label: "Bullpen", value: bullpenFeatureSummary ? bullpenFeatureStatusLabel : "MISSING", tone: bullpenFeatureSummary?.status === "available" ? "green" : bullpenFeatureSummary?.status === "partial" ? "yellow" : "red" },
     { label: "Lineups", value: decisionLineupImpact ? lineupStatusLabel(decisionLineupImpact.lineupStatus) : normalizeDecisionStatus(result?.sourceStatus.lineups), tone: decisionLineupImpact ? lineupImpactTone(decisionLineupImpact.lineupStatus) : qualityTone(result?.sourceStatus.lineups) },
     { label: "Lineup Impact", value: decisionLineupImpact ? `${Math.round(decisionLineupImpact.lineupImpactScore * 100)}%` : "MISSING", tone: decisionLineupImpact ? lineupImpactTone(decisionLineupImpact.lineupStatus) : "red" },
     { label: "Injuries", value: normalizeDecisionStatus(result?.sourceStatus.injuries), tone: qualityTone(result?.sourceStatus.injuries) },
@@ -1824,6 +1854,13 @@ export default function AstrodssTerminal() {
         setPitcherFeatureDiagnostics(null);
         setPitcherFeatureDiagnosticsError("Pitcher feature diagnostics missing from unified API response.");
       }
+      if (payload.bullpenFeatureDiagnostics) {
+        setBullpenFeatureDiagnostics(payload.bullpenFeatureDiagnostics);
+        setBullpenFeatureDiagnosticsError("");
+      } else {
+        setBullpenFeatureDiagnostics(null);
+        setBullpenFeatureDiagnosticsError("Bullpen feature diagnostics missing from unified API response.");
+      }
       if (payload.modelComparisonDiagnostics) {
         setModelComparisonDiagnostics(payload.modelComparisonDiagnostics);
         setModelComparisonDiagnosticsError("");
@@ -1847,6 +1884,8 @@ export default function AstrodssTerminal() {
       setPaperPerformanceDiagnosticsError(message);
       setPitcherFeatureDiagnostics(null);
       setPitcherFeatureDiagnosticsError(message);
+      setBullpenFeatureDiagnostics(null);
+      setBullpenFeatureDiagnosticsError(message);
       setModelComparisonDiagnostics(null);
       setModelComparisonDiagnosticsError(message);
     }
@@ -2762,6 +2801,40 @@ export default function AstrodssTerminal() {
                           </div>
                           <p className="leading-5 text-slate-300">Feature layer only. Starting pitchers can help future model retraining, but they do not change official picks yet.</p>
                           <p className="leading-5 text-slate-500">{pitcherFeatureWarning}</p>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Bullpen Feature Layer</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(bullpenFeatureSummary?.status === "available" ? "green" : bullpenFeatureSummary?.status === "partial" ? "yellow" : "red")}>{bullpenFeatureStatusLabel}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Approximation Used</span>
+                            <span className={bullpenFeatureSummary?.approximationUsed ? "font-black text-yellow-100" : "font-black text-emerald-200"}>{bullpenFeatureSummary?.approximationUsed ? "Yes" : "No"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Data Quality</span>
+                            <span className="font-black text-white">{bullpenFeatureSummary?.dataQuality ? bullpenFeatureSummary.dataQuality.toUpperCase() : "MISSING"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Official Use</span>
+                            <span className="font-black text-red-200">Blocked</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2 text-slate-400">
+                            <span>Games with Data</span><span className="text-right font-mono text-white">{bullpenFeatureSummary?.gamesWithBullpenData ?? 0}</span>
+                            <span>Games Missing</span><span className="text-right font-mono text-yellow-100">{bullpenFeatureSummary?.gamesMissingBullpenData ?? 0}</span>
+                            <span>High</span><span className="text-right font-mono text-white">{bullpenFeatureSummary?.dataQualitySummary.high ?? 0}</span>
+                            <span>Medium</span><span className="text-right font-mono text-yellow-100">{bullpenFeatureSummary?.dataQualitySummary.medium ?? 0}</span>
+                            <span>Low</span><span className="text-right font-mono text-yellow-100">{bullpenFeatureSummary?.dataQualitySummary.low ?? 0}</span>
+                            <span>Missing</span><span className="text-right font-mono text-red-100">{bullpenFeatureSummary?.dataQualitySummary.missing ?? 0}</span>
+                          </div>
+                          <p className="leading-5 text-slate-300">Bullpen fatigue remains research-only. It helps future Moneyline modeling, but it does not change official picks, Strong Buys, or Telegram behavior.</p>
+                          <p className="leading-5 text-slate-500">{bullpenFeatureWarning}</p>
+                          {bullpenFeatureSummary?.enhancedMoneylineCsv ? (
+                            <p className="leading-5 text-slate-500">Enhanced CSV: {bullpenFeatureSummary.enhancedMoneylineCsv}</p>
+                          ) : null}
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">

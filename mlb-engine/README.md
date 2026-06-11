@@ -252,6 +252,32 @@ Pitcher feature rules:
 - Falls back to a safe year-level MLB StatsAPI schedule hydrate with `probablePitcher` if the saved raw schedule snapshot does not already include pitcher fields.
 - Remains feature-only and does not train, calibrate, or score a production model.
 
+## Build Bullpen Fatigue Features
+
+Build a research-only bullpen fatigue feature layer from the public MLB schedule snapshots:
+
+```bash
+python mlb-engine/scripts/build_bullpen_features.py
+```
+
+This creates:
+
+```text
+mlb-engine/data/processed/mlb_bullpen_features.csv
+mlb-engine/data/processed/mlb_bullpen_features_report.json
+mlb-engine/data/processed/mlb_moneyline_features_with_bullpen.csv
+mlb-engine/data/processed/mlb_moneyline_features_with_pitchers_bullpen.csv
+```
+
+The bullpen layer uses public linescore snapshots and recent-game stress proxies to approximate late-inning bullpen workload. It is research-only, approximate, and fail-soft:
+
+- no picks are created;
+- no official picks are changed;
+- no ROI, CLV, confidence, or calibration is invented;
+- no real-money behavior is enabled.
+
+If bullpen data is missing, the report marks the layer as missing or partial and keeps the output safe.
+
 ## Export Research-Only Today Predictions
 
 After building today features and model status, export safe baseline Moneyline diagnostics:
