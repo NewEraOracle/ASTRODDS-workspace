@@ -207,9 +207,20 @@ type MarketPriceDiagnosticsResponse = {
   warnings: string[];
   generatedAt?: string;
 };
+type MarketMatchDiagnosticsResponse = {
+  gamesEvaluated: number;
+  marketsEvaluated: number;
+  highConfidenceMatches: number;
+  mediumConfidenceMatches: number;
+  lowConfidenceMatches: number;
+  unmatchedGames: number;
+  diagnosticEdgesCalculated: number;
+  warnings: string[];
+};
 type UnifiedMlbStatusResponse = {
   pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
+  marketMatchDiagnostics?: MarketMatchDiagnosticsResponse;
 };
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
@@ -889,6 +900,12 @@ function marketPriceTone(status: MarketPriceDiagnosticsResponse | null) {
   return "red";
 }
 
+function marketMatchTone(status: MarketMatchDiagnosticsResponse | null) {
+  if ((status?.highConfidenceMatches ?? 0) > 0) return "green";
+  if ((status?.mediumConfidenceMatches ?? 0) > 0 || (status?.lowConfidenceMatches ?? 0) > 0) return "yellow";
+  return "red";
+}
+
 function percentMetric(value?: number) {
   if (typeof value !== "number" || !Number.isFinite(value)) return "--";
   return `${Math.round(value * 1000) / 10}%`;
@@ -1269,6 +1286,8 @@ export default function AstrodssTerminal() {
   const [pythonMlbEngineStatusError, setPythonMlbEngineStatusError] = useState("");
   const [marketPriceDiagnostics, setMarketPriceDiagnostics] = useState<MarketPriceDiagnosticsResponse | null>(null);
   const [marketPriceDiagnosticsError, setMarketPriceDiagnosticsError] = useState("");
+  const [marketMatchDiagnostics, setMarketMatchDiagnostics] = useState<MarketMatchDiagnosticsResponse | null>(null);
+  const [marketMatchDiagnosticsError, setMarketMatchDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1331,6 +1350,7 @@ export default function AstrodssTerminal() {
   });
   const pythonEngineBlockReasons = pythonMlbEngineStatus?.officialPickBlockReasons.length ? pythonMlbEngineStatus.officialPickBlockReasons : [pythonMlbEngineStatusError || "Model status not loaded yet"];
   const marketPriceWarning = marketPriceDiagnostics?.warnings[0] ?? marketPriceDiagnosticsError ?? "Waiting for public Polymarket MLB moneyline discovery.";
+  const marketMatchWarning = marketMatchDiagnostics?.warnings[0] ?? marketMatchDiagnosticsError ?? "Waiting for MLB game to Polymarket market matching.";
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1446,10 +1466,17 @@ export default function AstrodssTerminal() {
       } else {
         setMarketPriceDiagnosticsError("Polymarket MLB price diagnostics missing from unified API response.");
       }
+      if (payload.marketMatchDiagnostics) {
+        setMarketMatchDiagnostics(payload.marketMatchDiagnostics);
+        setMarketMatchDiagnosticsError("");
+      } else {
+        setMarketMatchDiagnosticsError("Polymarket MLB match diagnostics missing from unified API response.");
+      }
     } catch (statusError) {
       const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
       setPythonMlbEngineStatusError(message);
       setMarketPriceDiagnosticsError(message);
+      setMarketMatchDiagnosticsError(message);
     }
   }
   async function refreshOddsStatus(fetchLiveOdds = false) {
@@ -2108,7 +2135,7 @@ export default function AstrodssTerminal() {
                       <Badge className="border-cyan-300/40 bg-cyan-400/10 text-cyan-100">Model first | Whales bonus only</Badge>
                     </div>
 
-                    <div className="grid gap-3 xl:grid-cols-7">
+                    <div className="grid gap-3 xl:grid-cols-4 2xl:grid-cols-8">
                       <div className="border border-white/10 bg-black/35 p-3">
                         <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Best Official Pick</p>
                         {bestFinalSignal ? (
@@ -2257,6 +2284,29 @@ export default function AstrodssTerminal() {
                           </div>
                           <p className="leading-5 text-slate-300">Official Edge: blocked until calibrated probability mapping and verified market prices are available.</p>
                           <p className="leading-5 text-slate-500">{marketPriceWarning}</p>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Game to Polymarket Match</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Match Quality</span>
+                            <Badge className={decisionToneClass(marketMatchTone(marketMatchDiagnostics))}>{marketMatchDiagnostics ? `${marketMatchDiagnostics.highConfidenceMatches} high / ${marketMatchDiagnostics.mediumConfidenceMatches} medium` : "Not Loaded"}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Unmatched Games</span>
+                            <span className="font-mono font-black text-white">{marketMatchDiagnostics?.unmatchedGames ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Diagnostic Edge</span>
+                            <span className={marketMatchDiagnostics?.diagnosticEdgesCalculated ? "font-black text-emerald-200" : "font-black text-yellow-100"}>{marketMatchDiagnostics?.diagnosticEdgesCalculated ? "Available" : "Not Available"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Official Edge</span>
+                            <span className="font-black text-red-100">Blocked</span>
+                          </div>
+                          <p className="leading-5 text-slate-300">Reason: calibration weak, no calibrated probability mapping, paper-only safety gate.</p>
+                          <p className="leading-5 text-slate-500">{marketMatchWarning}</p>
                         </div>
                       </div>
                     </div>

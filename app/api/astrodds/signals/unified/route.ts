@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
 import { loadPythonMlbPredictions, PYTHON_MLB_PREDICTIONS_PATH } from "@/lib/astrodss/mlb/python-predictions";
+import { buildPolymarketMlbMatchDiagnostics } from "@/lib/astrodss/sports-data/polymarket-mlb-match";
 import { discoverPolymarketMlbMoneylineMarkets } from "@/lib/astrodss/sports-data/polymarket-mlb-markets";
 import { buildUnifiedSignals, serializeUnifiedSignal } from "@/lib/astrodss/signal-engine";
 import { scanAstroddsSport } from "@/lib/astrodss/sports-data/scanner";
@@ -146,7 +147,42 @@ export async function GET(request: Request) {
         telegramWhaleAlertsEnabled: telegram.whaleAlertsEnabled,
       }).map(serializeUnifiedSignal)
     : [];
-  const noBetReasons = buildNoBetReasons(signals, scan);
+  const modelProbabilitiesByGameId = Object.fromEntries(
+    signals
+      .filter((signal) => signal.gameId && typeof signal.modelProbability === "number")
+      .map((signal) => [signal.gameId as string, signal.modelProbability]),
+  );
+  const marketMatchDiagnostics = scan
+    ? buildPolymarketMlbMatchDiagnostics(scan.games, polymarketMlbMarkets.markets, {
+        calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
+        modelProbabilitiesByGameId,
+      })
+    : {
+        gamesEvaluated: 0,
+        marketsEvaluated: polymarketMlbMarkets.markets.length,
+        highConfidenceMatches: 0,
+        mediumConfidenceMatches: 0,
+        lowConfidenceMatches: 0,
+        unmatchedGames: 0,
+        diagnosticEdgesCalculated: 0,
+        warnings: ["No MLB scan rows available for Polymarket market matching."],
+        matches: [],
+      };
+  const matchesByGameId = new Map(marketMatchDiagnostics.matches.map((match) => [match.gameId, match]));
+  const signalsWithMarketDiagnostics = signals.map((signal) => {
+    const match = signal.gameId ? matchesByGameId.get(signal.gameId) : undefined;
+    if (!match) return signal;
+    return {
+      ...signal,
+      polymarketMatch: match,
+      diagnosticRawEdge: match.diagnosticRawEdge,
+      diagnosticRawEdgePct: match.diagnosticRawEdgePct,
+      diagnosticOnly: true,
+      officialEdgeAllowed: false,
+      officialEdgeBlockReasons: match.officialEdgeBlockReasons,
+    };
+  });
+  const noBetReasons = buildNoBetReasons(signalsWithMarketDiagnostics, scan);
   const noLiveData = !scan || scan.diagnostics.sportApi.status === "FAILED" || (scan.diagnostics.sportApi.gamesFetched === 0 && signals.length === 0);
   const sourceDiagnostics = scan?.diagnostics.sourceDiagnostics ?? [];
 
@@ -156,15 +192,15 @@ export async function GET(request: Request) {
       modelAvailable: Boolean(scan),
       whaleAvailable: Boolean(whale),
       generatedAt: new Date().toISOString(),
-      signals,
+      signals: signalsWithMarketDiagnostics,
       noBetReasons,
       summary: {
         status: noLiveData ? "no_live_data" : signals.length ? "signals_ready" : "no_qualified_signals",
-        totalSignals: signals.length,
-        officialPicks: signals.filter((signal) => signal.decision === "ELITE" || signal.decision === "STRONG_BUY" || signal.decision === "BUY").length,
-        strongBuys: signals.filter((signal) => signal.decision === "ELITE" || signal.decision === "STRONG_BUY").length,
-        watchlist: signals.filter((signal) => signal.decision === "WATCH").length,
-        dataOnly: signals.filter((signal) => signal.signalType === "DATA_ONLY").length,
+        totalSignals: signalsWithMarketDiagnostics.length,
+        officialPicks: signalsWithMarketDiagnostics.filter((signal) => signal.decision === "ELITE" || signal.decision === "STRONG_BUY" || signal.decision === "BUY").length,
+        strongBuys: signalsWithMarketDiagnostics.filter((signal) => signal.decision === "ELITE" || signal.decision === "STRONG_BUY").length,
+        watchlist: signalsWithMarketDiagnostics.filter((signal) => signal.decision === "WATCH").length,
+        dataOnly: signalsWithMarketDiagnostics.filter((signal) => signal.signalType === "DATA_ONLY").length,
       },
       sourceDiagnostics,
       polymarketMlbMarkets: {
@@ -172,6 +208,10 @@ export async function GET(request: Request) {
         markets: polymarketMlbMarkets.markets.slice(0, 30),
       },
       marketPriceDiagnostics,
+      marketMatchDiagnostics: {
+        ...marketMatchDiagnostics,
+        matches: marketMatchDiagnostics.matches.slice(0, 50),
+      },
       pythonMlbEngine: {
         available: pythonMlbPredictions.available,
         sourcePath: pythonMlbPredictions.sourcePath,
