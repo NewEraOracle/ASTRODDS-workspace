@@ -24,7 +24,7 @@ OUTPUTS_DIR = ENGINE_ROOT / "outputs"
 CALIBRATION_DIR = ENGINE_ROOT / "calibration"
 
 MLB_SCHEDULE_URL = "https://statsapi.mlb.com/api/v1/schedule"
-SUPPORTED_YEARS = {2023, 2024, 2025, 2026}
+SUPPORTED_YEARS = set(range(2016, 2027))
 CSV_COLUMNS = [
     "game_id",
     "game_date",
@@ -240,7 +240,12 @@ def print_diagnostics(diagnostics: FetchDiagnostics) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Fetch regular-season MLB schedule/results data for ASTRODDS.")
-    parser.add_argument("--year", type=int, choices=sorted(SUPPORTED_YEARS), help="Season year to fetch: 2023, 2024, 2025, or 2026.")
+    parser.add_argument(
+        "--year",
+        type=int,
+        choices=sorted(SUPPORTED_YEARS),
+        help="Season year to fetch: 2016 through 2026 (2026 is season-to-date only).",
+    )
     parser.add_argument("--timeout", type=float, default=25.0, help="HTTP timeout in seconds. Default: 25.")
     parser.add_argument("--retries", type=int, default=1, help="Retry count after the first attempt. Default: 1.")
     return parser.parse_args()
@@ -255,7 +260,7 @@ def main() -> None:
 
     if args.year is None:
         print("No --year provided. Example: python mlb-engine/scripts/fetch_data.py --year 2024")
-        print("Supported years: 2023, 2024, 2025, 2026 season-to-date.")
+        print("Supported years: 2016 through 2026 (2026 is season-to-date).")
         return
 
     if args.year == 2026:

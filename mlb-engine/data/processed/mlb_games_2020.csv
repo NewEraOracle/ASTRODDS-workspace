@@ -1,0 +1,974 @@
+game_id,game_date,season,game_type,status,home_team,away_team,home_score,away_score,winner,home_win,away_win,venue,doubleheader,game_number
+630851,2020-07-23T23:08:00Z,2020,R,Completed Early,Washington Nationals,New York Yankees,1,4,New York Yankees,0,1,Nationals Park,N,1
+631377,2020-07-24T02:08:00Z,2020,R,Final,Los Angeles Dodgers,San Francisco Giants,8,1,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631242,2020-07-24T20:10:00Z,2020,R,Final,New York Mets,Atlanta Braves,1,0,New York Mets,1,0,Citi Field,N,1
+631589,2020-07-24T22:10:00Z,2020,R,Final,Cincinnati Reds,Detroit Tigers,7,1,Cincinnati Reds,1,0,Great American Ball Park,N,1
+630966,2020-07-24T22:40:00Z,2020,R,Final,Tampa Bay Rays,Toronto Blue Jays,4,6,Toronto Blue Jays,0,1,Tropicana Field,N,1
+631121,2020-07-24T23:05:00Z,2020,R,Final,Philadelphia Phillies,Miami Marlins,2,5,Miami Marlins,0,1,Citizens Bank Park,N,1
+631563,2020-07-24T23:10:00Z,2020,R,Final,Cleveland Indians,Kansas City Royals,2,0,Cleveland Indians,1,0,Progressive Field,N,1
+631641,2020-07-24T23:10:00Z,2020,R,Final,Chicago Cubs,Milwaukee Brewers,3,0,Chicago Cubs,1,0,Wrigley Field,N,1
+631664,2020-07-24T23:30:00Z,2020,R,Final,Boston Red Sox,Baltimore Orioles,13,2,Boston Red Sox,1,0,Fenway Park,N,1
+630941,2020-07-25T00:05:00Z,2020,R,Final,Texas Rangers,Colorado Rockies,1,0,Texas Rangers,1,0,Globe Life Field,N,1
+631514,2020-07-25T00:10:00Z,2020,R,Final,Chicago White Sox,Minnesota Twins,5,10,Minnesota Twins,0,1,Guaranteed Rate Field,N,1
+630989,2020-07-25T00:15:00Z,2020,R,Final,St. Louis Cardinals,Pittsburgh Pirates,5,4,St. Louis Cardinals,1,0,Busch Stadium,N,1
+631091,2020-07-25T01:10:00Z,2020,R,Final,San Diego Padres,Arizona Diamondbacks,7,2,San Diego Padres,1,0,Petco Park,N,1
+631438,2020-07-25T01:10:00Z,2020,R,Final,Houston Astros,Seattle Mariners,8,2,Houston Astros,1,0,Minute Maid Park,N,1
+631378,2020-07-25T01:40:00Z,2020,R,Final,Los Angeles Dodgers,San Francisco Giants,9,1,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631182,2020-07-25T02:10:00Z,2020,R,Final,Oakland Athletics,Los Angeles Angels,7,3,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631642,2020-07-25T17:05:00Z,2020,R,Final,Chicago Cubs,Milwaukee Brewers,3,8,Milwaukee Brewers,0,1,Wrigley Field,N,1
+631666,2020-07-25T17:35:00Z,2020,R,Final,Boston Red Sox,Baltimore Orioles,2,7,Baltimore Orioles,0,1,Fenway Park,N,1
+631515,2020-07-25T18:10:00Z,2020,R,Final,Chicago White Sox,Minnesota Twins,10,3,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+630992,2020-07-25T18:15:00Z,2020,R,Final,St. Louis Cardinals,Pittsburgh Pirates,9,1,St. Louis Cardinals,1,0,Busch Stadium,N,1
+630967,2020-07-25T19:10:00Z,2020,R,Final,Tampa Bay Rays,Toronto Blue Jays,4,1,Tampa Bay Rays,1,0,Tropicana Field,N,1
+630942,2020-07-25T20:05:00Z,2020,R,Final,Texas Rangers,Colorado Rockies,2,3,Colorado Rockies,0,1,Globe Life Field,N,1
+631108,2020-07-25T20:05:00Z,2020,R,Final,Philadelphia Phillies,Miami Marlins,7,1,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631181,2020-07-25T20:10:00Z,2020,R,Final,Oakland Athletics,Los Angeles Angels,1,4,Los Angeles Angels,0,1,Oakland Coliseum,N,1
+631453,2020-07-25T20:10:00Z,2020,R,Final,Houston Astros,Seattle Mariners,7,2,Houston Astros,1,0,Minute Maid Park,N,1
+631382,2020-07-25T20:10:00Z,2020,R,Final,Los Angeles Dodgers,San Francisco Giants,4,5,San Francisco Giants,0,1,Dodger Stadium,N,1
+631241,2020-07-25T20:10:00Z,2020,R,Final,New York Mets,Atlanta Braves,3,5,Atlanta Braves,0,1,Citi Field,N,1
+631603,2020-07-25T21:10:00Z,2020,R,Final,Cincinnati Reds,Detroit Tigers,4,6,Detroit Tigers,0,1,Great American Ball Park,N,1
+631565,2020-07-25T21:10:00Z,2020,R,Final,Cleveland Indians,Kansas City Royals,2,3,Kansas City Royals,0,1,Progressive Field,N,1
+630899,2020-07-25T23:15:00Z,2020,R,Final,Washington Nationals,New York Yankees,9,2,Washington Nationals,1,0,Nationals Park,N,1
+631092,2020-07-26T01:10:00Z,2020,R,Final,San Diego Padres,Arizona Diamondbacks,5,1,San Diego Padres,1,0,Petco Park,N,1
+631126,2020-07-26T17:05:00Z,2020,R,Final,Philadelphia Phillies,Miami Marlins,6,11,Miami Marlins,0,1,Citizens Bank Park,N,1
+630856,2020-07-26T17:05:00Z,2020,R,Final,Washington Nationals,New York Yankees,2,3,New York Yankees,0,1,Nationals Park,N,1
+631591,2020-07-26T17:10:00Z,2020,R,Final,Cincinnati Reds,Detroit Tigers,2,3,Detroit Tigers,0,1,Great American Ball Park,N,1
+631566,2020-07-26T17:10:00Z,2020,R,Final,Cleveland Indians,Kansas City Royals,9,2,Cleveland Indians,1,0,Progressive Field,N,1
+630968,2020-07-26T17:10:00Z,2020,R,Final,Tampa Bay Rays,Toronto Blue Jays,6,5,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631668,2020-07-26T17:35:00Z,2020,R,Final,Boston Red Sox,Baltimore Orioles,4,7,Baltimore Orioles,0,1,Fenway Park,N,1
+631441,2020-07-26T18:10:00Z,2020,R,Final,Houston Astros,Seattle Mariners,6,7,Seattle Mariners,0,1,Minute Maid Park,N,1
+631517,2020-07-26T18:10:00Z,2020,R,Final,Chicago White Sox,Minnesota Twins,2,14,Minnesota Twins,0,1,Guaranteed Rate Field,N,1
+630993,2020-07-26T18:15:00Z,2020,R,Final,St. Louis Cardinals,Pittsburgh Pirates,1,5,Pittsburgh Pirates,0,1,Busch Stadium,N,1
+631643,2020-07-26T18:20:00Z,2020,R,Final,Chicago Cubs,Milwaukee Brewers,9,1,Chicago Cubs,1,0,Wrigley Field,N,1
+630943,2020-07-26T18:35:00Z,2020,R,Final,Texas Rangers,Colorado Rockies,2,5,Colorado Rockies,0,1,Globe Life Field,N,1
+631165,2020-07-26T20:10:00Z,2020,R,Final,Oakland Athletics,Los Angeles Angels,6,4,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631097,2020-07-26T20:10:00Z,2020,R,Final,San Diego Padres,Arizona Diamondbacks,3,4,Arizona Diamondbacks,0,1,Petco Park,N,1
+631240,2020-07-26T23:08:00Z,2020,R,Final,New York Mets,Atlanta Braves,1,14,Atlanta Braves,0,1,Citi Field,N,1
+631384,2020-07-27T02:08:00Z,2020,R,Final,Los Angeles Dodgers,San Francisco Giants,1,3,San Francisco Giants,0,1,Dodger Stadium,N,1
+631168,2020-07-27T19:40:00Z,2020,R,Final,Oakland Athletics,Los Angeles Angels,3,0,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631098,2020-07-27T20:10:00Z,2020,R,Final,San Diego Padres,Arizona Diamondbacks,6,2,San Diego Padres,1,0,Petco Park,N,1
+630861,2020-07-27T22:05:00Z,2020,R,Final,Washington Nationals,Toronto Blue Jays,1,4,Toronto Blue Jays,0,1,Nationals Park,N,1
+631592,2020-07-27T22:40:00Z,2020,R,Final,Cincinnati Reds,Chicago Cubs,7,8,Chicago Cubs,0,1,Great American Ball Park,N,1
+630969,2020-07-27T22:40:00Z,2020,R,Final,Tampa Bay Rays,Atlanta Braves,14,5,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631130,2020-07-27T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Milwaukee Brewers,5,6,Milwaukee Brewers,0,1,PNC Park,N,1
+631489,2020-07-27T23:10:00Z,2020,R,Final,Detroit Tigers,Kansas City Royals,6,14,Kansas City Royals,0,1,Comerica Park,N,1
+631442,2020-07-27T23:10:00Z,2020,R,Final,Houston Astros,Seattle Mariners,8,5,Houston Astros,1,0,Minute Maid Park,N,1
+631669,2020-07-27T23:35:00Z,2020,R,Final,Boston Red Sox,New York Mets,4,7,New York Mets,0,1,Fenway Park,N,1
+631127,2020-07-27T23:05:00Z,2020,R,Postponed,Philadelphia Phillies,New York Yankees,,,,,,Citizens Bank Park,N,1
+631567,2020-07-27T23:10:00Z,2020,R,Postponed,Cleveland Indians,Chicago White Sox,,,,,,Progressive Field,N,1
+631339,2020-07-27T23:10:00Z,2020,R,Postponed,Miami Marlins,Baltimore Orioles,,,,,,Marlins Park,N,1
+631573,2020-07-28T19:40:00Z,2020,R,Final,Cleveland Indians,Chicago White Sox,4,3,Cleveland Indians,1,0,Progressive Field,Y,1
+631567,2020-07-28T19:45:00Z,2020,R,Final,Cleveland Indians,Chicago White Sox,5,3,Cleveland Indians,1,0,Progressive Field,Y,2
+630866,2020-07-28T22:05:00Z,2020,R,Final,Washington Nationals,Toronto Blue Jays,1,5,Toronto Blue Jays,0,1,Nationals Park,N,1
+631593,2020-07-28T22:40:00Z,2020,R,Final,Cincinnati Reds,Chicago Cubs,5,8,Chicago Cubs,0,1,Great American Ball Park,N,1
+630970,2020-07-28T22:40:00Z,2020,R,Final,Tampa Bay Rays,Atlanta Braves,5,2,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631132,2020-07-28T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Milwaukee Brewers,8,6,Pittsburgh Pirates,1,0,PNC Park,N,1
+631490,2020-07-28T23:10:00Z,2020,R,Final,Detroit Tigers,Kansas City Royals,4,3,Detroit Tigers,1,0,Comerica Park,N,1
+631663,2020-07-28T23:30:00Z,2020,R,Final,Boston Red Sox,New York Mets,3,8,New York Mets,0,1,Fenway Park,N,1
+631269,2020-07-29T00:10:00Z,2020,R,Final,Minnesota Twins,St. Louis Cardinals,6,3,Minnesota Twins,1,0,Target Field,N,1
+630944,2020-07-29T01:05:00Z,2020,R,Final,Texas Rangers,Arizona Diamondbacks,1,4,Arizona Diamondbacks,0,1,Globe Life Field,N,1
+631443,2020-07-29T01:10:00Z,2020,R,Final,Houston Astros,Los Angeles Dodgers,2,5,Los Angeles Dodgers,0,1,Minute Maid Park,N,1
+631171,2020-07-29T01:40:00Z,2020,R,Final,Oakland Athletics,Colorado Rockies,3,8,Colorado Rockies,0,1,Oakland Coliseum,N,1
+631387,2020-07-29T01:40:00Z,2020,R,Final,Los Angeles Angels,Seattle Mariners,10,2,Los Angeles Angels,1,0,Angel Stadium,N,1
+631014,2020-07-29T01:45:00Z,2020,R,Final,San Francisco Giants,San Diego Padres,3,5,San Diego Padres,0,1,Oracle Park,N,1
+631129,2020-07-28T22:05:00Z,2020,R,Postponed,Philadelphia Phillies,New York Yankees,,,,,,Citizens Bank Park,N,1
+631340,2020-07-28T23:10:00Z,2020,R,Postponed,Miami Marlins,Baltimore Orioles,,,,,,Marlins Park,N,1
+631172,2020-07-29T19:40:00Z,2020,R,Final,Oakland Athletics,Colorado Rockies,1,5,Colorado Rockies,0,1,Oakland Coliseum,N,1
+630940,2020-07-29T20:05:00Z,2020,R,Final,Texas Rangers,Arizona Diamondbacks,7,4,Texas Rangers,1,0,Globe Life Field,N,1
+630916,2020-07-29T22:05:00Z,2020,R,Final,Toronto Blue Jays,Washington Nationals,0,4,Washington Nationals,0,1,Nationals Park,N,1
+631569,2020-07-29T22:10:00Z,2020,R,Final,Cleveland Indians,Chicago White Sox,0,4,Chicago White Sox,0,1,Progressive Field,N,1
+631594,2020-07-29T22:40:00Z,2020,R,Final,Cincinnati Reds,Chicago Cubs,12,7,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631137,2020-07-29T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Milwaukee Brewers,0,3,Milwaukee Brewers,0,1,PNC Park,N,1
+631492,2020-07-29T23:10:00Z,2020,R,Final,Detroit Tigers,Kansas City Royals,5,4,Detroit Tigers,1,0,Comerica Park,N,1
+631444,2020-07-29T23:10:00Z,2020,R,Final,Houston Astros,Los Angeles Dodgers,2,4,Los Angeles Dodgers,0,1,Minute Maid Park,N,1
+631239,2020-07-29T23:10:00Z,2020,R,Final,New York Mets,Boston Red Sox,5,6,Boston Red Sox,0,1,Citi Field,N,1
+630272,2020-07-29T23:10:00Z,2020,R,Final,Atlanta Braves,Tampa Bay Rays,7,4,Atlanta Braves,1,0,Truist Park,N,1
+630495,2020-07-29T23:35:00Z,2020,R,Final,Baltimore Orioles,New York Yankees,3,9,New York Yankees,0,1,Oriole Park at Camden Yards,N,1
+631270,2020-07-30T00:10:00Z,2020,R,Final,Minnesota Twins,St. Louis Cardinals,3,0,Minnesota Twins,1,0,Target Field,N,1
+631033,2020-07-30T01:45:00Z,2020,R,Final,San Francisco Giants,San Diego Padres,7,6,San Francisco Giants,1,0,Oracle Park,N,1
+631389,2020-07-30T02:10:00Z,2020,R,Final,Los Angeles Angels,Seattle Mariners,7,10,Seattle Mariners,0,1,Angel Stadium,N,1
+631219,2020-07-29T23:05:00Z,2020,R,Postponed,New York Yankees,Philadelphia Phillies,,,,,,Yankee Stadium,N,1
+630575,2020-07-29T23:35:00Z,2020,R,Postponed,Baltimore Orioles,Miami Marlins,,,,,,Oriole Park at Camden Yards,N,1
+630917,2020-07-30T20:05:00Z,2020,R,Final,Toronto Blue Jays,Washington Nationals,4,6,Washington Nationals,0,1,Nationals Park,N,1
+630496,2020-07-30T23:05:00Z,2020,R,Final,Baltimore Orioles,New York Yankees,6,8,New York Yankees,0,1,Oriole Park at Camden Yards,N,1
+631238,2020-07-30T23:07:00Z,2020,R,Final,New York Mets,Boston Red Sox,2,4,Boston Red Sox,0,1,Citi Field,N,1
+631271,2020-07-30T23:07:00Z,2020,R,Final,Minnesota Twins,Cleveland Indians,0,2,Cleveland Indians,0,1,Target Field,N,1
+631494,2020-07-30T23:10:00Z,2020,R,Final,Detroit Tigers,Kansas City Royals,3,5,Kansas City Royals,0,1,Comerica Park,N,1
+630346,2020-07-30T23:10:00Z,2020,R,Final,Atlanta Braves,Tampa Bay Rays,2,1,Atlanta Braves,1,0,Truist Park,N,1
+630145,2020-07-31T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Los Angeles Dodgers,3,6,Los Angeles Dodgers,0,1,Chase Field,N,1
+631390,2020-07-31T01:40:00Z,2020,R,Final,Los Angeles Angels,Seattle Mariners,5,8,Seattle Mariners,0,1,Angel Stadium,N,1
+631018,2020-07-31T01:45:00Z,2020,R,Final,San Francisco Giants,San Diego Padres,7,12,San Diego Padres,0,1,Oracle Park,N,1
+631595,2020-07-30T22:10:00Z,2020,R,Postponed,Cincinnati Reds,Chicago Cubs,,,,,,Great American Ball Park,N,1
+631220,2020-07-30T23:05:00Z,2020,R,Postponed,New York Yankees,Philadelphia Phillies,,,,,,Yankee Stadium,N,1
+630591,2020-07-30T23:35:00Z,2020,R,Postponed,Baltimore Orioles,Miami Marlins,,,,,,Oriole Park at Camden Yards,N,1
+631222,2020-07-31T23:05:00Z,2020,R,Final,New York Yankees,Boston Red Sox,5,1,New York Yankees,1,0,Yankee Stadium,N,1
+631480,2020-07-31T23:10:00Z,2020,R,Final,Detroit Tigers,Cincinnati Reds,7,2,Detroit Tigers,1,0,Comerica Park,N,1
+630275,2020-07-31T23:10:00Z,2020,R,Final,Atlanta Braves,New York Mets,11,10,Atlanta Braves,1,0,Truist Park,N,1
+630592,2020-07-31T23:35:00Z,2020,R,Final,Baltimore Orioles,Tampa Bay Rays,6,3,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+631410,2020-08-01T00:05:00Z,2020,R,Final,Kansas City Royals,Chicago White Sox,2,3,Chicago White Sox,0,1,Kauffman Stadium,N,1
+631539,2020-08-01T00:10:00Z,2020,R,Final,Colorado Rockies,San Diego Padres,7,8,San Diego Padres,0,1,Coors Field,N,1
+631272,2020-08-01T00:10:00Z,2020,R,Final,Minnesota Twins,Cleveland Indians,4,1,Minnesota Twins,1,0,Target Field,N,1
+631647,2020-08-01T00:15:00Z,2020,R,Final,Chicago Cubs,Pittsburgh Pirates,6,3,Chicago Cubs,1,0,Wrigley Field,N,1
+631391,2020-08-01T01:10:00Z,2020,R,Final,Los Angeles Angels,Houston Astros,6,9,Houston Astros,0,1,Angel Stadium,N,1
+631019,2020-08-01T01:10:00Z,2020,R,Final,San Francisco Giants,Texas Rangers,9,2,San Francisco Giants,1,0,Oracle Park,N,1
+630201,2020-08-01T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Los Angeles Dodgers,5,3,Arizona Diamondbacks,1,0,Chase Field,N,1
+631066,2020-08-01T01:40:00Z,2020,R,Final,Seattle Mariners,Oakland Athletics,5,3,Seattle Mariners,1,0,T-Mobile Park,N,1
+631289,2020-07-31T18:10:00Z,2020,R,Postponed,Milwaukee Brewers,St. Louis Cardinals,,,,,,Miller Park,N,1
+631341,2020-07-31T23:10:00Z,2020,R,Postponed,Miami Marlins,Washington Nationals,,,,,,Marlins Park,N,1
+631413,2020-08-01T23:05:00Z,2020,R,Final,Kansas City Royals,Chicago White Sox,5,11,Chicago White Sox,0,1,Kauffman Stadium,N,1
+631392,2020-08-01T23:07:00Z,2020,R,Final,Los Angeles Angels,Houston Astros,5,4,Los Angeles Angels,1,0,Angel Stadium,N,1
+631224,2020-08-01T23:07:00Z,2020,R,Final,New York Yankees,Boston Red Sox,5,2,New York Yankees,1,0,Yankee Stadium,N,1
+631273,2020-08-01T23:10:00Z,2020,R,Final,Minnesota Twins,Cleveland Indians,3,0,Minnesota Twins,1,0,Target Field,N,1
+630278,2020-08-01T23:10:00Z,2020,R,Final,Atlanta Braves,New York Mets,7,1,Atlanta Braves,1,0,Truist Park,N,1
+630492,2020-08-01T23:35:00Z,2020,R,Final,Baltimore Orioles,Tampa Bay Rays,5,4,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+630100,2020-08-02T00:10:00Z,2020,R,Final,Arizona Diamondbacks,Los Angeles Dodgers,2,11,Los Angeles Dodgers,0,1,Chase Field,N,1
+631540,2020-08-02T00:10:00Z,2020,R,Final,Colorado Rockies,San Diego Padres,6,1,Colorado Rockies,1,0,Coors Field,N,1
+631622,2020-08-02T00:15:00Z,2020,R,Final,Chicago Cubs,Pittsburgh Pirates,4,3,Chicago Cubs,1,0,Wrigley Field,N,1
+631067,2020-08-02T01:10:00Z,2020,R,Final,Seattle Mariners,Oakland Athletics,2,3,Oakland Athletics,0,1,T-Mobile Park,N,1
+631020,2020-08-02T01:10:00Z,2020,R,Final,San Francisco Giants,Texas Rangers,7,3,San Francisco Giants,1,0,Oracle Park,N,1
+631469,2020-08-01T17:10:00Z,2020,R,Postponed,Detroit Tigers,Cincinnati Reds,,,,,,Comerica Park,N,1
+630919,2020-08-01T19:07:00Z,2020,R,Postponed,Toronto Blue Jays,Philadelphia Phillies,,,,,,Citizens Bank Park,Y,1
+630918,2020-08-01T19:12:00Z,2020,R,Postponed,Toronto Blue Jays,Philadelphia Phillies,,,,,,Citizens Bank Park,Y,2
+631342,2020-08-01T22:10:00Z,2020,R,Postponed,Miami Marlins,Washington Nationals,,,,,,Marlins Park,N,1
+631288,2020-08-01T23:10:00Z,2020,R,Postponed,Milwaukee Brewers,St. Louis Cardinals,,,,,,Miller Park,N,1
+631470,2020-08-02T16:10:00Z,2020,R,Final,Detroit Tigers,Cincinnati Reds,3,4,Cincinnati Reds,0,1,Comerica Park,Y,1
+631469,2020-08-02T16:15:00Z,2020,R,Final,Detroit Tigers,Cincinnati Reds,0,4,Cincinnati Reds,0,1,Comerica Park,Y,2
+630493,2020-08-02T17:05:00Z,2020,R,Final,Baltimore Orioles,Tampa Bay Rays,5,1,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+630280,2020-08-02T17:10:00Z,2020,R,Final,Atlanta Braves,New York Mets,4,0,Atlanta Braves,1,0,Truist Park,N,1
+631415,2020-08-02T18:05:00Z,2020,R,Final,Kansas City Royals,Chicago White Sox,2,9,Chicago White Sox,0,1,Kauffman Stadium,N,1
+631274,2020-08-02T18:10:00Z,2020,R,Final,Minnesota Twins,Cleveland Indians,3,1,Minnesota Twins,1,0,Target Field,N,1
+631606,2020-08-02T18:20:00Z,2020,R,Final,Chicago Cubs,Pittsburgh Pirates,2,1,Chicago Cubs,1,0,Wrigley Field,N,1
+631541,2020-08-02T19:10:00Z,2020,R,Final,Colorado Rockies,San Diego Padres,9,6,Colorado Rockies,1,0,Coors Field,N,1
+631021,2020-08-02T20:05:00Z,2020,R,Final,San Francisco Giants,Texas Rangers,5,9,Texas Rangers,0,1,Oracle Park,N,1
+631393,2020-08-02T20:10:00Z,2020,R,Final,Los Angeles Angels,Houston Astros,5,6,Houston Astros,0,1,Angel Stadium,N,1
+630101,2020-08-02T20:10:00Z,2020,R,Final,Arizona Diamondbacks,Los Angeles Dodgers,0,3,Los Angeles Dodgers,0,1,Chase Field,N,1
+631068,2020-08-02T20:10:00Z,2020,R,Final,Seattle Mariners,Oakland Athletics,2,3,Oakland Athletics,0,1,T-Mobile Park,N,1
+631210,2020-08-02T23:08:00Z,2020,R,Final,New York Yankees,Boston Red Sox,9,7,New York Yankees,1,0,Yankee Stadium,N,1
+631329,2020-08-02T17:10:00Z,2020,R,Postponed,Miami Marlins,Washington Nationals,,,,,,Marlins Park,N,1
+631292,2020-08-02T18:10:00Z,2020,R,Postponed,Milwaukee Brewers,St. Louis Cardinals,,,,,,Miller Park,Y,1
+631289,2020-08-02T18:15:00Z,2020,R,Postponed,Milwaukee Brewers,St. Louis Cardinals,,,,,,Miller Park,Y,2
+630907,2020-08-02T19:07:00Z,2020,R,Postponed,Toronto Blue Jays,Philadelphia Phillies,,,,,,Citizens Bank Park,N,1
+631596,2020-08-03T22:40:00Z,2020,R,Final,Cincinnati Reds,Cleveland Indians,3,2,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631219,2020-08-03T23:05:00Z,2020,R,Final,New York Yankees,Philadelphia Phillies,6,3,New York Yankees,1,0,Yankee Stadium,N,1
+630281,2020-08-03T23:10:00Z,2020,R,Final,Atlanta Braves,New York Mets,2,7,New York Mets,0,1,Truist Park,N,1
+631275,2020-08-04T00:10:00Z,2020,R,Final,Minnesota Twins,Pittsburgh Pirates,5,4,Minnesota Twins,1,0,Target Field,N,1
+631293,2020-08-04T00:10:00Z,2020,R,Final,Milwaukee Brewers,Chicago White Sox,4,6,Chicago White Sox,0,1,Miller Park,N,1
+631645,2020-08-04T00:15:00Z,2020,R,Final,Chicago Cubs,Kansas City Royals,2,0,Chicago Cubs,1,0,Wrigley Field,N,1
+631542,2020-08-04T00:40:00Z,2020,R,Final,Colorado Rockies,San Francisco Giants,7,6,Colorado Rockies,1,0,Coors Field,N,1
+631090,2020-08-04T01:10:00Z,2020,R,Final,San Diego Padres,Los Angeles Dodgers,5,4,San Diego Padres,1,0,Petco Park,N,1
+631070,2020-08-04T01:10:00Z,2020,R,Final,Seattle Mariners,Oakland Athletics,1,11,Oakland Athletics,0,1,T-Mobile Park,N,1
+631276,2020-08-04T18:10:00Z,2020,R,Final,Minnesota Twins,Pittsburgh Pirates,7,3,Minnesota Twins,1,0,Target Field,N,1
+631597,2020-08-04T22:10:00Z,2020,R,Final,Cincinnati Reds,Cleveland Indians,2,4,Cleveland Indians,0,1,Great American Ball Park,N,1
+630971,2020-08-04T22:40:00Z,2020,R,Final,Tampa Bay Rays,Boston Red Sox,5,1,Tampa Bay Rays,1,0,Tropicana Field,N,1
+630874,2020-08-04T23:05:00Z,2020,R,Final,Washington Nationals,New York Mets,5,3,Washington Nationals,1,0,Nationals Park,N,1
+630284,2020-08-04T23:10:00Z,2020,R,Final,Atlanta Braves,Toronto Blue Jays,10,1,Atlanta Braves,1,0,Truist Park,N,1
+630575,2020-08-04T23:35:00Z,2020,R,Final,Baltimore Orioles,Miami Marlins,0,4,Miami Marlins,0,1,Oriole Park at Camden Yards,N,1
+631294,2020-08-05T00:10:00Z,2020,R,Final,Milwaukee Brewers,Chicago White Sox,2,3,Chicago White Sox,0,1,Miller Park,N,1
+631608,2020-08-05T00:15:00Z,2020,R,Final,Chicago Cubs,Kansas City Royals,5,4,Chicago Cubs,1,0,Wrigley Field,N,1
+631543,2020-08-05T00:40:00Z,2020,R,Final,Colorado Rockies,San Francisco Giants,5,2,Colorado Rockies,1,0,Coors Field,N,1
+630109,2020-08-05T01:10:00Z,2020,R,Final,Arizona Diamondbacks,Houston Astros,2,8,Houston Astros,0,1,Chase Field,N,1
+631069,2020-08-05T01:10:00Z,2020,R,Final,San Diego Padres,Los Angeles Dodgers,2,5,Los Angeles Dodgers,0,1,Petco Park,N,1
+631173,2020-08-05T01:10:00Z,2020,R,Final,Oakland Athletics,Texas Rangers,5,1,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631057,2020-08-05T02:10:00Z,2020,R,Final,Seattle Mariners,Los Angeles Angels,3,5,Los Angeles Angels,0,1,T-Mobile Park,N,1
+631472,2020-08-04T22:10:00Z,2020,R,Postponed,Detroit Tigers,St. Louis Cardinals,,,,,,Comerica Park,N,1
+631318,2020-08-04T23:10:00Z,2020,R,Postponed,Miami Marlins,Philadelphia Phillies,,,,,,Marlins Park,N,1
+631220,2020-08-05T20:05:00Z,2020,R,Final,New York Yankees,Philadelphia Phillies,7,11,Philadelphia Phillies,0,1,Citizens Bank Park,Y,1
+631127,2020-08-05T20:10:00Z,2020,R,Final,Philadelphia Phillies,New York Yankees,1,3,New York Yankees,0,1,Citizens Bank Park,Y,2
+630591,2020-08-05T21:05:00Z,2020,R,Final,Baltimore Orioles,Miami Marlins,0,1,Miami Marlins,0,1,Oriole Park at Camden Yards,Y,1
+631339,2020-08-05T21:10:00Z,2020,R,Final,Miami Marlins,Baltimore Orioles,2,1,Miami Marlins,1,0,Oriole Park at Camden Yards,Y,2
+630878,2020-08-05T22:05:00Z,2020,R,Final,Washington Nationals,New York Mets,1,3,New York Mets,0,1,Nationals Park,N,1
+630972,2020-08-05T22:40:00Z,2020,R,Final,Tampa Bay Rays,Boston Red Sox,0,5,Boston Red Sox,0,1,Tropicana Field,N,1
+631140,2020-08-05T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Minnesota Twins,2,5,Minnesota Twins,0,1,PNC Park,N,1
+631570,2020-08-05T23:10:00Z,2020,R,Final,Cleveland Indians,Cincinnati Reds,2,0,Cleveland Indians,1,0,Progressive Field,N,1
+630307,2020-08-05T23:10:00Z,2020,R,Final,Atlanta Braves,Toronto Blue Jays,1,2,Toronto Blue Jays,0,1,Truist Park,N,1
+631417,2020-08-06T00:05:00Z,2020,R,Final,Kansas City Royals,Chicago Cubs,1,6,Chicago Cubs,0,1,Kauffman Stadium,N,1
+631518,2020-08-06T00:10:00Z,2020,R,Final,Chicago White Sox,Milwaukee Brewers,0,1,Milwaukee Brewers,0,1,Guaranteed Rate Field,N,1
+631544,2020-08-06T00:40:00Z,2020,R,Final,Colorado Rockies,San Francisco Giants,3,4,San Francisco Giants,0,1,Coors Field,N,1
+630110,2020-08-06T01:10:00Z,2020,R,Final,Arizona Diamondbacks,Houston Astros,14,7,Arizona Diamondbacks,1,0,Chase Field,N,1
+631085,2020-08-06T01:10:00Z,2020,R,Final,San Diego Padres,Los Angeles Dodgers,6,7,Los Angeles Dodgers,0,1,Petco Park,N,1
+631174,2020-08-06T01:10:00Z,2020,R,Final,Oakland Athletics,Texas Rangers,6,4,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631043,2020-08-06T01:40:00Z,2020,R,Final,Seattle Mariners,Los Angeles Angels,7,6,Seattle Mariners,1,0,T-Mobile Park,N,1
+631471,2020-08-05T19:10:00Z,2020,R,Postponed,Detroit Tigers,St. Louis Cardinals,,,,,,Comerica Park,Y,1
+630994,2020-08-05T19:15:00Z,2020,R,Postponed,St. Louis Cardinals,Detroit Tigers,,,,,,Comerica Park,Y,2
+631320,2020-08-05T23:10:00Z,2020,R,Postponed,Miami Marlins,Philadelphia Phillies,,,,,,Marlins Park,N,1
+630497,2020-08-05T23:35:00Z,2020,R,Postponed,Baltimore Orioles,New York Yankees,,,,,,Oriole Park at Camden Yards,N,1
+631148,2020-08-06T17:35:00Z,2020,R,Final,Pittsburgh Pirates,Minnesota Twins,6,5,Pittsburgh Pirates,1,0,PNC Park,N,1
+631545,2020-08-06T19:10:00Z,2020,R,Final,Colorado Rockies,San Francisco Giants,6,4,Colorado Rockies,1,0,Coors Field,N,1
+631175,2020-08-06T19:40:00Z,2020,R,Final,Oakland Athletics,Texas Rangers,6,4,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631042,2020-08-06T20:10:00Z,2020,R,Final,Seattle Mariners,Los Angeles Angels,1,6,Los Angeles Angels,0,1,T-Mobile Park,N,1
+631129,2020-08-06T22:05:00Z,2020,R,Final,Philadelphia Phillies,New York Yankees,5,4,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631571,2020-08-06T22:10:00Z,2020,R,Final,Cleveland Indians,Cincinnati Reds,13,0,Cleveland Indians,1,0,Progressive Field,N,1
+630111,2020-08-06T23:07:00Z,2020,R,Final,Arizona Diamondbacks,Houston Astros,5,4,Arizona Diamondbacks,1,0,Chase Field,N,1
+631425,2020-08-06T23:07:00Z,2020,R,Final,Kansas City Royals,Chicago Cubs,13,2,Kansas City Royals,1,0,Kauffman Stadium,N,1
+630313,2020-08-06T23:10:00Z,2020,R,Final,Atlanta Braves,Toronto Blue Jays,4,3,Atlanta Braves,1,0,Truist Park,N,1
+631340,2020-08-06T23:35:00Z,2020,R,Final,Miami Marlins,Baltimore Orioles,8,7,Miami Marlins,1,0,Oriole Park at Camden Yards,N,1
+631513,2020-08-07T00:10:00Z,2020,R,Final,Chicago White Sox,Milwaukee Brewers,3,8,Milwaukee Brewers,0,1,Guaranteed Rate Field,N,1
+630995,2020-08-06T17:10:00Z,2020,R,Postponed,St. Louis Cardinals,Detroit Tigers,,,,,,Comerica Park,N,1
+631321,2020-08-06T23:10:00Z,2020,R,Postponed,Miami Marlins,Philadelphia Phillies,,,,,,Marlins Park,N,1
+630879,2020-08-07T22:05:00Z,2020,R,Final,Washington Nationals,Baltimore Orioles,0,11,Baltimore Orioles,0,1,Nationals Park,N,1
+630974,2020-08-07T22:40:00Z,2020,R,Final,Tampa Bay Rays,New York Yankees,1,0,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631105,2020-08-07T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Detroit Tigers,13,17,Detroit Tigers,0,1,PNC Park,N,1
+631237,2020-08-07T23:10:00Z,2020,R,Final,New York Mets,Miami Marlins,3,4,Miami Marlins,0,1,Citi Field,N,1
+631623,2020-08-07T23:30:00Z,2020,R,Final,Boston Red Sox,Toronto Blue Jays,5,3,Boston Red Sox,1,0,Fenway Park,N,1
+631419,2020-08-08T00:05:00Z,2020,R,Final,Kansas City Royals,Minnesota Twins,3,2,Kansas City Royals,1,0,Kauffman Stadium,N,1
+631504,2020-08-08T00:10:00Z,2020,R,Final,Chicago White Sox,Cleveland Indians,2,0,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631295,2020-08-08T00:10:00Z,2020,R,Final,Milwaukee Brewers,Cincinnati Reds,3,8,Cincinnati Reds,0,1,Miller Park,N,1
+630920,2020-08-08T01:05:00Z,2020,R,Final,Texas Rangers,Los Angeles Angels,4,3,Texas Rangers,1,0,Globe Life Field,N,1
+631176,2020-08-08T01:10:00Z,2020,R,Final,Oakland Athletics,Houston Astros,3,2,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631073,2020-08-08T01:10:00Z,2020,R,Final,San Diego Padres,Arizona Diamondbacks,3,0,San Diego Padres,1,0,Petco Park,N,1
+631045,2020-08-08T01:40:00Z,2020,R,Final,Seattle Mariners,Colorado Rockies,4,8,Colorado Rockies,0,1,T-Mobile Park,N,1
+631358,2020-08-08T01:40:00Z,2020,R,Final,Los Angeles Dodgers,San Francisco Giants,7,2,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631131,2020-08-07T23:05:00Z,2020,R,Postponed,Philadelphia Phillies,Atlanta Braves,,,,,,Citizens Bank Park,N,1
+630996,2020-08-08T00:15:00Z,2020,R,Postponed,St. Louis Cardinals,Chicago Cubs,,,,,,Busch Stadium,N,1
+631503,2020-08-08T18:10:00Z,2020,R,Final,Chicago White Sox,Cleveland Indians,1,7,Cleveland Indians,0,1,Guaranteed Rate Field,N,1
+630962,2020-08-08T18:10:00Z,2020,R,Final,Tampa Bay Rays,New York Yankees,4,8,New York Yankees,0,1,Tropicana Field,Y,1
+630973,2020-08-08T18:15:00Z,2020,R,Final,Tampa Bay Rays,New York Yankees,5,3,Tampa Bay Rays,1,0,Tropicana Field,Y,2
+631106,2020-08-08T20:05:00Z,2020,R,Final,Pittsburgh Pirates,Detroit Tigers,5,11,Detroit Tigers,0,1,PNC Park,N,1
+631177,2020-08-08T20:10:00Z,2020,R,Final,Oakland Athletics,Houston Astros,3,1,Oakland Athletics,1,0,Oakland Coliseum,N,1
+630880,2020-08-08T22:05:00Z,2020,R,Final,Washington Nationals,Baltimore Orioles,3,5,Baltimore Orioles,0,1,Nationals Park,N,1
+631133,2020-08-08T22:05:00Z,2020,R,Final,Philadelphia Phillies,Atlanta Braves,5,0,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+630935,2020-08-08T23:05:00Z,2020,R,Final,Texas Rangers,Los Angeles Angels,2,0,Texas Rangers,1,0,Globe Life Field,N,1
+631420,2020-08-08T23:05:00Z,2020,R,Final,Kansas City Royals,Minnesota Twins,9,6,Kansas City Royals,1,0,Kauffman Stadium,N,1
+631236,2020-08-08T23:10:00Z,2020,R,Final,New York Mets,Miami Marlins,8,4,New York Mets,1,0,Citi Field,N,1
+631296,2020-08-08T23:10:00Z,2020,R,Final,Milwaukee Brewers,Cincinnati Reds,1,4,Cincinnati Reds,0,1,Miller Park,N,1
+631658,2020-08-08T23:30:00Z,2020,R,Final,Boston Red Sox,Toronto Blue Jays,1,2,Toronto Blue Jays,0,1,Fenway Park,N,1
+631074,2020-08-09T01:10:00Z,2020,R,Final,San Diego Padres,Arizona Diamondbacks,2,3,Arizona Diamondbacks,0,1,Petco Park,N,1
+631046,2020-08-09T01:10:00Z,2020,R,Final,Seattle Mariners,Colorado Rockies,0,5,Colorado Rockies,0,1,T-Mobile Park,N,1
+631343,2020-08-09T01:10:00Z,2020,R,Final,Los Angeles Dodgers,San Francisco Giants,4,5,San Francisco Giants,0,1,Dodger Stadium,N,1
+630997,2020-08-09T00:15:00Z,2020,R,Postponed,St. Louis Cardinals,Chicago Cubs,,,,,,Busch Stadium,N,1
+630882,2020-08-09T16:35:00Z,2020,R,Final,Washington Nationals,Baltimore Orioles,2,6,Baltimore Orioles,0,1,Nationals Park,N,1
+631136,2020-08-09T17:05:00Z,2020,R,Final,Philadelphia Phillies,Atlanta Braves,2,5,Atlanta Braves,0,1,Citizens Bank Park,Y,1
+631131,2020-08-09T17:10:00Z,2020,R,Completed Early,Philadelphia Phillies,Atlanta Braves,0,8,Atlanta Braves,0,1,Citizens Bank Park,Y,2
+631235,2020-08-09T17:10:00Z,2020,R,Final,New York Mets,Miami Marlins,4,2,New York Mets,1,0,Citi Field,N,1
+630946,2020-08-09T17:10:00Z,2020,R,Final,Tampa Bay Rays,New York Yankees,4,3,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631110,2020-08-09T17:35:00Z,2020,R,Final,Pittsburgh Pirates,Detroit Tigers,1,2,Detroit Tigers,0,1,PNC Park,N,1
+631630,2020-08-09T17:35:00Z,2020,R,Final,Boston Red Sox,Toronto Blue Jays,5,3,Boston Red Sox,1,0,Fenway Park,N,1
+631421,2020-08-09T18:05:00Z,2020,R,Final,Kansas City Royals,Minnesota Twins,4,2,Kansas City Royals,1,0,Kauffman Stadium,N,1
+631297,2020-08-09T18:10:00Z,2020,R,Final,Milwaukee Brewers,Cincinnati Reds,9,3,Milwaukee Brewers,1,0,Miller Park,N,1
+630922,2020-08-09T18:35:00Z,2020,R,Final,Texas Rangers,Los Angeles Angels,7,3,Texas Rangers,1,0,Globe Life Field,N,1
+631178,2020-08-09T20:10:00Z,2020,R,Final,Oakland Athletics,Houston Astros,7,2,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631075,2020-08-09T20:10:00Z,2020,R,Final,San Diego Padres,Arizona Diamondbacks,9,5,San Diego Padres,1,0,Petco Park,N,1
+631047,2020-08-09T20:10:00Z,2020,R,Final,Seattle Mariners,Colorado Rockies,5,3,Seattle Mariners,1,0,T-Mobile Park,N,1
+631373,2020-08-09T20:10:00Z,2020,R,Final,Los Angeles Dodgers,San Francisco Giants,6,2,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631506,2020-08-09T23:08:00Z,2020,R,Final,Chicago White Sox,Cleveland Indians,4,5,Cleveland Indians,0,1,Guaranteed Rate Field,N,1
+630998,2020-08-09T23:08:00Z,2020,R,Postponed,St. Louis Cardinals,Chicago Cubs,,,,,,Busch Stadium,N,1
+631138,2020-08-10T22:05:00Z,2020,R,Final,Philadelphia Phillies,Atlanta Braves,13,8,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631233,2020-08-10T23:10:00Z,2020,R,Final,New York Mets,Washington Nationals,4,16,Washington Nationals,0,1,Citi Field,N,1
+631473,2020-08-10T23:10:00Z,2020,R,Final,Detroit Tigers,Chicago White Sox,5,1,Detroit Tigers,1,0,Comerica Park,N,1
+631631,2020-08-10T23:30:00Z,2020,R,Final,Boston Red Sox,Tampa Bay Rays,7,8,Tampa Bay Rays,0,1,Fenway Park,N,1
+631298,2020-08-11T00:10:00Z,2020,R,Final,Milwaukee Brewers,Minnesota Twins,2,4,Minnesota Twins,0,1,Miller Park,N,1
+631546,2020-08-11T00:40:00Z,2020,R,Final,Colorado Rockies,Arizona Diamondbacks,8,12,Arizona Diamondbacks,0,1,Coors Field,N,1
+630923,2020-08-11T01:05:00Z,2020,R,Final,Texas Rangers,Seattle Mariners,2,10,Seattle Mariners,0,1,Globe Life Field,N,1
+631445,2020-08-11T01:10:00Z,2020,R,Final,Houston Astros,San Francisco Giants,6,4,Houston Astros,1,0,Minute Maid Park,N,1
+631395,2020-08-11T01:40:00Z,2020,R,Final,Los Angeles Angels,Oakland Athletics,10,9,Los Angeles Angels,1,0,Angel Stadium,N,1
+631346,2020-08-11T01:40:00Z,2020,R,Final,Los Angeles Dodgers,San Diego Padres,1,2,San Diego Padres,0,1,Dodger Stadium,N,1
+630999,2020-08-11T00:15:00Z,2020,R,Postponed,St. Louis Cardinals,Pittsburgh Pirates,,,,,,Busch Stadium,N,1
+630901,2020-08-11T22:37:00Z,2020,R,Final,Toronto Blue Jays,Miami Marlins,5,4,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631598,2020-08-11T22:40:00Z,2020,R,Final,Cincinnati Reds,Kansas City Royals,6,5,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631139,2020-08-11T23:05:00Z,2020,R,Final,Philadelphia Phillies,Baltimore Orioles,9,10,Baltimore Orioles,0,1,Citizens Bank Park,N,1
+631192,2020-08-11T23:05:00Z,2020,R,Final,New York Yankees,Atlanta Braves,9,6,New York Yankees,1,0,Yankee Stadium,N,1
+631572,2020-08-11T23:10:00Z,2020,R,Final,Cleveland Indians,Chicago Cubs,1,7,Chicago Cubs,0,1,Progressive Field,N,1
+631243,2020-08-11T23:10:00Z,2020,R,Final,New York Mets,Washington Nationals,1,2,Washington Nationals,0,1,Citi Field,N,1
+631474,2020-08-11T23:10:00Z,2020,R,Final,Detroit Tigers,Chicago White Sox,4,8,Chicago White Sox,0,1,Comerica Park,N,1
+631646,2020-08-11T23:30:00Z,2020,R,Final,Boston Red Sox,Tampa Bay Rays,2,8,Tampa Bay Rays,0,1,Fenway Park,N,1
+631299,2020-08-12T00:10:00Z,2020,R,Final,Milwaukee Brewers,Minnesota Twins,6,4,Milwaukee Brewers,1,0,Miller Park,N,1
+631547,2020-08-12T00:40:00Z,2020,R,Final,Colorado Rockies,Arizona Diamondbacks,8,7,Colorado Rockies,1,0,Coors Field,N,1
+630924,2020-08-12T01:05:00Z,2020,R,Final,Texas Rangers,Seattle Mariners,4,2,Texas Rangers,1,0,Globe Life Field,N,1
+631446,2020-08-12T01:10:00Z,2020,R,Final,Houston Astros,San Francisco Giants,6,7,San Francisco Giants,0,1,Minute Maid Park,N,1
+631396,2020-08-12T01:40:00Z,2020,R,Final,Los Angeles Angels,Oakland Athletics,6,0,Los Angeles Angels,1,0,Angel Stadium,N,1
+631347,2020-08-12T01:40:00Z,2020,R,Final,Los Angeles Dodgers,San Diego Padres,2,6,San Diego Padres,0,1,Dodger Stadium,N,1
+631000,2020-08-12T00:15:00Z,2020,R,Postponed,St. Louis Cardinals,Pittsburgh Pirates,,,,,,Busch Stadium,N,1
+631475,2020-08-12T17:10:00Z,2020,R,Final,Detroit Tigers,Chicago White Sox,5,7,Chicago White Sox,0,1,Comerica Park,N,1
+631535,2020-08-12T19:10:00Z,2020,R,Final,Colorado Rockies,Arizona Diamondbacks,7,13,Arizona Diamondbacks,0,1,Coors Field,N,1
+631397,2020-08-12T20:10:00Z,2020,R,Final,Los Angeles Angels,Oakland Athletics,4,8,Oakland Athletics,0,1,Angel Stadium,N,1
+631568,2020-08-12T22:10:00Z,2020,R,Final,Cleveland Indians,Chicago Cubs,2,7,Chicago Cubs,0,1,Progressive Field,N,1
+630902,2020-08-12T22:37:00Z,2020,R,Final,Toronto Blue Jays,Miami Marlins,11,14,Miami Marlins,0,1,Sahlen Field,N,1
+631599,2020-08-12T22:40:00Z,2020,R,Final,Cincinnati Reds,Kansas City Royals,4,5,Kansas City Royals,0,1,Great American Ball Park,N,1
+631141,2020-08-12T23:05:00Z,2020,R,Final,Philadelphia Phillies,Baltimore Orioles,4,5,Baltimore Orioles,0,1,Citizens Bank Park,N,1
+631208,2020-08-12T23:05:00Z,2020,R,Final,New York Yankees,Atlanta Braves,6,3,New York Yankees,1,0,Yankee Stadium,N,1
+631232,2020-08-12T23:10:00Z,2020,R,Final,New York Mets,Washington Nationals,11,6,New York Mets,1,0,Citi Field,N,1
+631447,2020-08-12T23:10:00Z,2020,R,Final,Houston Astros,San Francisco Giants,5,1,Houston Astros,1,0,Minute Maid Park,N,1
+631300,2020-08-12T23:10:00Z,2020,R,Final,Milwaukee Brewers,Minnesota Twins,2,12,Minnesota Twins,0,1,Miller Park,N,1
+631648,2020-08-12T23:30:00Z,2020,R,Final,Boston Red Sox,Tampa Bay Rays,5,9,Tampa Bay Rays,0,1,Fenway Park,N,1
+630926,2020-08-13T01:05:00Z,2020,R,Final,Texas Rangers,Seattle Mariners,7,4,Texas Rangers,1,0,Globe Life Field,N,1
+631350,2020-08-13T01:40:00Z,2020,R,Final,Los Angeles Dodgers,San Diego Padres,6,0,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+630987,2020-08-12T18:15:00Z,2020,R,Postponed,St. Louis Cardinals,Pittsburgh Pirates,,,,,,Busch Stadium,N,1
+631231,2020-08-13T17:10:00Z,2020,R,Final,New York Mets,Washington Nationals,8,2,New York Mets,1,0,Citi Field,N,1
+631142,2020-08-13T20:05:00Z,2020,R,Final,Philadelphia Phillies,Baltimore Orioles,4,11,Baltimore Orioles,0,1,Citizens Bank Park,N,1
+631650,2020-08-13T20:30:00Z,2020,R,Final,Boston Red Sox,Tampa Bay Rays,8,17,Tampa Bay Rays,0,1,Fenway Park,N,1
+631600,2020-08-13T21:10:00Z,2020,R,Final,Cincinnati Reds,Pittsburgh Pirates,6,9,Pittsburgh Pirates,0,1,Great American Ball Park,N,1
+631609,2020-08-13T23:15:00Z,2020,R,Final,Chicago Cubs,Milwaukee Brewers,4,2,Chicago Cubs,1,0,Wrigley Field,N,1
+631351,2020-08-14T01:40:00Z,2020,R,Final,Los Angeles Dodgers,San Diego Padres,11,2,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631472,2020-08-13T17:10:00Z,2020,R,Cancelled,Detroit Tigers,St. Louis Cardinals,,,,,,Comerica Park,Y,1
+631471,2020-08-13T07:33:00Z,2020,R,Cancelled,Detroit Tigers,St. Louis Cardinals,,,,,,Comerica Park,Y,2
+630882,2020-08-14T21:05:00Z,2020,R,Final,Washington Nationals,Baltimore Orioles,2,6,Baltimore Orioles,0,1,Oriole Park at Camden Yards,N,1
+630903,2020-08-14T22:37:00Z,2020,R,Final,Toronto Blue Jays,Tampa Bay Rays,12,4,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631683,2020-08-14T22:59:00Z,2020,R,Final,Baltimore Orioles,Washington Nationals,3,15,Washington Nationals,0,1,Oriole Park at Camden Yards,N,1
+631150,2020-08-14T23:05:00Z,2020,R,Final,Philadelphia Phillies,New York Mets,6,5,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631196,2020-08-14T23:05:00Z,2020,R,Final,New York Yankees,Boston Red Sox,10,3,New York Yankees,1,0,Yankee Stadium,N,1
+631476,2020-08-14T23:10:00Z,2020,R,Final,Detroit Tigers,Cleveland Indians,5,10,Cleveland Indians,0,1,Comerica Park,N,1
+631601,2020-08-14T23:10:00Z,2020,R,Final,Cincinnati Reds,Pittsburgh Pirates,8,1,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631322,2020-08-14T23:10:00Z,2020,R,Final,Miami Marlins,Atlanta Braves,8,2,Miami Marlins,1,0,Marlins Park,N,1
+631610,2020-08-15T00:15:00Z,2020,R,Final,Chicago Cubs,Milwaukee Brewers,3,4,Milwaukee Brewers,0,1,Wrigley Field,N,1
+631516,2020-08-15T00:40:00Z,2020,R,Final,Colorado Rockies,Texas Rangers,2,3,Texas Rangers,0,1,Coors Field,N,1
+631448,2020-08-15T01:10:00Z,2020,R,Final,Houston Astros,Seattle Mariners,11,1,Houston Astros,1,0,Minute Maid Park,N,1
+631381,2020-08-15T01:40:00Z,2020,R,Final,Los Angeles Angels,Los Angeles Dodgers,4,7,Los Angeles Dodgers,0,1,Angel Stadium,N,1
+630115,2020-08-15T01:40:00Z,2020,R,Final,Arizona Diamondbacks,San Diego Padres,5,1,Arizona Diamondbacks,1,0,Chase Field,N,1
+631022,2020-08-15T01:45:00Z,2020,R,Final,San Francisco Giants,Oakland Athletics,7,8,Oakland Athletics,0,1,Oracle Park,N,1
+631279,2020-08-15T00:10:00Z,2020,R,Postponed,Minnesota Twins,Kansas City Royals,,,,,,Target Field,N,1
+631507,2020-08-15T00:10:00Z,2020,R,Postponed,Chicago White Sox,St. Louis Cardinals,,,,,,Guaranteed Rate Field,N,1
+631508,2020-08-15T17:10:00Z,2020,R,Final,Chicago White Sox,St. Louis Cardinals,1,5,St. Louis Cardinals,0,1,Guaranteed Rate Field,Y,1
+631507,2020-08-15T17:15:00Z,2020,R,Final,Chicago White Sox,St. Louis Cardinals,3,6,St. Louis Cardinals,0,1,Guaranteed Rate Field,Y,2
+631280,2020-08-15T17:35:00Z,2020,R,Final,Minnesota Twins,Kansas City Royals,4,2,Minnesota Twins,1,0,Target Field,Y,1
+631279,2020-08-15T17:40:00Z,2020,R,Final,Minnesota Twins,Kansas City Royals,2,4,Kansas City Royals,0,1,Target Field,Y,2
+631611,2020-08-15T19:20:00Z,2020,R,Final,Chicago Cubs,Milwaukee Brewers,5,6,Milwaukee Brewers,0,1,Wrigley Field,N,1
+631151,2020-08-15T22:05:00Z,2020,R,Final,Philadelphia Phillies,New York Mets,6,2,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631477,2020-08-15T22:10:00Z,2020,R,Final,Detroit Tigers,Cleveland Indians,1,3,Cleveland Indians,0,1,Comerica Park,N,1
+631330,2020-08-15T22:10:00Z,2020,R,Final,Miami Marlins,Atlanta Braves,1,2,Atlanta Braves,0,1,Marlins Park,N,1
+630905,2020-08-15T22:37:00Z,2020,R,Final,Toronto Blue Jays,Tampa Bay Rays,2,3,Tampa Bay Rays,0,1,Sahlen Field,N,1
+631023,2020-08-15T23:07:00Z,2020,R,Final,San Francisco Giants,Oakland Athletics,6,7,Oakland Athletics,0,1,Oracle Park,N,1
+631197,2020-08-15T23:07:00Z,2020,R,Final,New York Yankees,Boston Red Sox,11,5,New York Yankees,1,0,Yankee Stadium,N,1
+631449,2020-08-15T23:10:00Z,2020,R,Final,Houston Astros,Seattle Mariners,2,1,Houston Astros,1,0,Minute Maid Park,N,1
+630568,2020-08-15T23:35:00Z,2020,R,Final,Baltimore Orioles,Washington Nationals,7,3,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+630116,2020-08-16T00:10:00Z,2020,R,Final,Arizona Diamondbacks,San Diego Padres,7,6,Arizona Diamondbacks,1,0,Chase Field,N,1
+631533,2020-08-16T00:10:00Z,2020,R,Final,Colorado Rockies,Texas Rangers,4,6,Texas Rangers,0,1,Coors Field,N,1
+631363,2020-08-16T01:40:00Z,2020,R,Final,Los Angeles Angels,Los Angeles Dodgers,5,6,Los Angeles Dodgers,0,1,Angel Stadium,N,1
+631602,2020-08-15T22:10:00Z,2020,R,Postponed,Cincinnati Reds,Pittsburgh Pirates,,,,,,Great American Ball Park,N,1
+631679,2020-08-16T17:05:00Z,2020,R,Final,Baltimore Orioles,Washington Nationals,5,6,Washington Nationals,0,1,Oriole Park at Camden Yards,N,1
+631124,2020-08-16T17:05:00Z,2020,R,Final,Philadelphia Phillies,New York Mets,6,2,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+630905,2020-08-16T17:07:00Z,2020,R,Final,Toronto Blue Jays,Tampa Bay Rays,2,3,Tampa Bay Rays,0,1,Sahlen Field,N,1
+631479,2020-08-16T17:10:00Z,2020,R,Final,Detroit Tigers,Cleveland Indians,5,8,Cleveland Indians,0,1,Comerica Park,N,1
+631324,2020-08-16T17:10:00Z,2020,R,Final,Miami Marlins,Atlanta Braves,0,4,Atlanta Braves,0,1,Marlins Park,N,1
+630872,2020-08-16T18:07:00Z,2020,R,Final,Toronto Blue Jays,Tampa Bay Rays,5,7,Tampa Bay Rays,0,1,Sahlen Field,N,1
+631450,2020-08-16T18:10:00Z,2020,R,Final,Houston Astros,Seattle Mariners,3,2,Houston Astros,1,0,Minute Maid Park,N,1
+631252,2020-08-16T18:10:00Z,2020,R,Final,Minnesota Twins,Kansas City Royals,4,2,Minnesota Twins,1,0,Target Field,N,1
+631491,2020-08-16T18:10:00Z,2020,R,Final,Chicago White Sox,St. Louis Cardinals,7,2,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631612,2020-08-16T18:20:00Z,2020,R,Final,Chicago Cubs,Milwaukee Brewers,5,6,Milwaukee Brewers,0,1,Wrigley Field,N,1
+631521,2020-08-16T19:10:00Z,2020,R,Final,Colorado Rockies,Texas Rangers,10,6,Colorado Rockies,1,0,Coors Field,N,1
+631024,2020-08-16T20:05:00Z,2020,R,Final,San Francisco Giants,Oakland Athletics,3,15,Oakland Athletics,0,1,Oracle Park,N,1
+631364,2020-08-16T20:10:00Z,2020,R,Final,Los Angeles Angels,Los Angeles Dodgers,3,8,Los Angeles Dodgers,0,1,Angel Stadium,N,1
+630117,2020-08-16T20:10:00Z,2020,R,Final,Arizona Diamondbacks,San Diego Padres,5,4,Arizona Diamondbacks,1,0,Chase Field,N,1
+631198,2020-08-16T23:08:00Z,2020,R,Final,New York Yankees,Boston Red Sox,4,2,New York Yankees,1,0,Yankee Stadium,N,1
+631590,2020-08-16T17:10:00Z,2020,R,Postponed,Cincinnati Reds,Pittsburgh Pirates,,,,,,Great American Ball Park,N,1
+631613,2020-08-17T21:15:00Z,2020,R,Final,Chicago Cubs,St. Louis Cardinals,1,3,St. Louis Cardinals,0,1,Wrigley Field,Y,1
+630996,2020-08-17T21:20:00Z,2020,R,Final,St. Louis Cardinals,Chicago Cubs,4,5,Chicago Cubs,0,1,Wrigley Field,Y,2
+631199,2020-08-17T23:05:00Z,2020,R,Final,New York Yankees,Boston Red Sox,6,3,New York Yankees,1,0,Yankee Stadium,N,1
+630316,2020-08-17T23:10:00Z,2020,R,Final,Atlanta Braves,Washington Nationals,7,6,Atlanta Braves,1,0,Truist Park,N,1
+631325,2020-08-17T23:10:00Z,2020,R,Final,Miami Marlins,New York Mets,4,11,New York Mets,0,1,Marlins Park,N,1
+631678,2020-08-17T23:35:00Z,2020,R,Final,Baltimore Orioles,Toronto Blue Jays,2,7,Toronto Blue Jays,0,1,Oriole Park at Camden Yards,N,1
+631258,2020-08-18T00:10:00Z,2020,R,Final,Minnesota Twins,Kansas City Royals,4,1,Minnesota Twins,1,0,Target Field,N,1
+631493,2020-08-18T00:10:00Z,2020,R,Final,Chicago White Sox,Detroit Tigers,7,2,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+630927,2020-08-18T01:05:00Z,2020,R,Final,Texas Rangers,San Diego Padres,4,14,San Diego Padres,0,1,Globe Life Field,N,1
+631451,2020-08-18T01:10:00Z,2020,R,Final,Houston Astros,Colorado Rockies,2,1,Houston Astros,1,0,Minute Maid Park,N,1
+630118,2020-08-18T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Oakland Athletics,4,3,Arizona Diamondbacks,1,0,Chase Field,N,1
+631352,2020-08-18T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Seattle Mariners,11,9,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631365,2020-08-18T01:40:00Z,2020,R,Final,Los Angeles Angels,San Francisco Giants,7,6,Los Angeles Angels,1,0,Angel Stadium,N,1
+631452,2020-08-18T19:10:00Z,2020,R,Final,Houston Astros,Colorado Rockies,2,1,Houston Astros,1,0,Minute Maid Park,N,1
+630928,2020-08-18T20:05:00Z,2020,R,Final,Texas Rangers,San Diego Padres,4,6,San Diego Padres,0,1,Globe Life Field,N,1
+631366,2020-08-18T20:10:00Z,2020,R,Final,Los Angeles Angels,San Francisco Giants,2,8,San Francisco Giants,0,1,Angel Stadium,N,1
+630174,2020-08-18T22:10:00Z,2020,R,Final,Arizona Diamondbacks,Oakland Athletics,10,1,Arizona Diamondbacks,1,0,Chase Field,N,1
+631114,2020-08-18T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Cleveland Indians,3,6,Cleveland Indians,0,1,PNC Park,N,1
+631200,2020-08-18T23:05:00Z,2020,R,Final,New York Yankees,Tampa Bay Rays,3,6,Tampa Bay Rays,0,1,Yankee Stadium,N,1
+631353,2020-08-18T23:10:00Z,2020,R,Final,Los Angeles Dodgers,Seattle Mariners,2,1,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+630322,2020-08-18T23:10:00Z,2020,R,Final,Atlanta Braves,Washington Nationals,5,8,Washington Nationals,0,1,Truist Park,N,1
+631326,2020-08-18T23:10:00Z,2020,R,Final,Miami Marlins,New York Mets,3,8,New York Mets,0,1,Marlins Park,N,1
+631651,2020-08-18T23:30:00Z,2020,R,Final,Boston Red Sox,Philadelphia Phillies,6,13,Philadelphia Phillies,0,1,Fenway Park,N,1
+631681,2020-08-18T23:35:00Z,2020,R,Final,Baltimore Orioles,Toronto Blue Jays,7,8,Toronto Blue Jays,0,1,Oriole Park at Camden Yards,N,1
+631496,2020-08-19T00:10:00Z,2020,R,Final,Chicago White Sox,Detroit Tigers,10,4,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631260,2020-08-19T00:10:00Z,2020,R,Final,Minnesota Twins,Milwaukee Brewers,4,3,Minnesota Twins,1,0,Target Field,N,1
+631620,2020-08-19T00:15:00Z,2020,R,Final,Chicago Cubs,St. Louis Cardinals,6,3,Chicago Cubs,1,0,Wrigley Field,N,1
+631422,2020-08-19T00:05:00Z,2020,R,Postponed,Kansas City Royals,Cincinnati Reds,,,,,,Kauffman Stadium,N,1
+631682,2020-08-19T17:05:00Z,2020,R,Final,Baltimore Orioles,Toronto Blue Jays,2,5,Toronto Blue Jays,0,1,Oriole Park at Camden Yards,N,1
+631652,2020-08-19T17:35:00Z,2020,R,Final,Boston Red Sox,Philadelphia Phillies,6,3,Boston Red Sox,1,0,Fenway Park,N,1
+631621,2020-08-19T18:20:00Z,2020,R,Final,Chicago Cubs,St. Louis Cardinals,3,9,St. Louis Cardinals,0,1,Wrigley Field,Y,1
+630997,2020-08-19T18:25:00Z,2020,R,Final,St. Louis Cardinals,Chicago Cubs,2,4,Chicago Cubs,0,1,Wrigley Field,Y,2
+631418,2020-08-19T21:05:00Z,2020,R,Final,Kansas City Royals,Cincinnati Reds,4,0,Kansas City Royals,1,0,Kauffman Stadium,Y,1
+631422,2020-08-19T21:10:00Z,2020,R,Final,Kansas City Royals,Cincinnati Reds,0,5,Cincinnati Reds,0,1,Kauffman Stadium,Y,2
+631120,2020-08-19T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Cleveland Indians,1,6,Cleveland Indians,0,1,PNC Park,N,1
+631201,2020-08-19T23:05:00Z,2020,R,Final,New York Yankees,Tampa Bay Rays,2,4,Tampa Bay Rays,0,1,Yankee Stadium,N,1
+631327,2020-08-19T23:10:00Z,2020,R,Final,Miami Marlins,New York Mets,3,5,New York Mets,0,1,Marlins Park,N,1
+631497,2020-08-20T00:10:00Z,2020,R,Final,Chicago White Sox,Detroit Tigers,5,3,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631249,2020-08-20T00:10:00Z,2020,R,Final,Minnesota Twins,Milwaukee Brewers,3,9,Milwaukee Brewers,0,1,Target Field,N,1
+631522,2020-08-20T00:40:00Z,2020,R,Final,Colorado Rockies,Houston Astros,6,13,Houston Astros,0,1,Coors Field,N,1
+631076,2020-08-20T01:10:00Z,2020,R,Final,San Diego Padres,Texas Rangers,6,3,San Diego Padres,1,0,Petco Park,N,1
+631179,2020-08-20T01:40:00Z,2020,R,Final,Oakland Athletics,Arizona Diamondbacks,4,1,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631048,2020-08-20T01:40:00Z,2020,R,Final,Seattle Mariners,Los Angeles Dodgers,6,4,Seattle Mariners,1,0,T-Mobile Park,N,1
+631025,2020-08-20T01:45:00Z,2020,R,Final,San Francisco Giants,Los Angeles Angels,7,2,San Francisco Giants,1,0,Oracle Park,N,1
+630323,2020-08-19T23:10:00Z,2020,R,Postponed,Atlanta Braves,Washington Nationals,,,,,,Truist Park,N,1
+631202,2020-08-20T17:05:00Z,2020,R,Final,New York Yankees,Tampa Bay Rays,5,10,Tampa Bay Rays,0,1,Yankee Stadium,N,1
+630919,2020-08-20T17:07:00Z,2020,R,Final,Toronto Blue Jays,Philadelphia Phillies,3,2,Toronto Blue Jays,1,0,Sahlen Field,Y,1
+630918,2020-08-20T17:12:00Z,2020,R,Final,Toronto Blue Jays,Philadelphia Phillies,9,8,Toronto Blue Jays,1,0,Sahlen Field,Y,2
+631498,2020-08-20T18:10:00Z,2020,R,Final,Chicago White Sox,Detroit Tigers,9,0,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631523,2020-08-20T19:10:00Z,2020,R,Final,Colorado Rockies,Houston Astros,8,10,Houston Astros,0,1,Coors Field,N,1
+631118,2020-08-20T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Cleveland Indians,0,2,Cleveland Indians,0,1,PNC Park,N,1
+631049,2020-08-20T23:10:00Z,2020,R,Final,Seattle Mariners,Los Angeles Dodgers,1,6,Los Angeles Dodgers,0,1,T-Mobile Park,N,1
+631248,2020-08-20T23:10:00Z,2020,R,Final,Minnesota Twins,Milwaukee Brewers,7,1,Minnesota Twins,1,0,Target Field,N,1
+631684,2020-08-20T23:35:00Z,2020,R,Final,Baltimore Orioles,Boston Red Sox,1,7,Boston Red Sox,0,1,Oriole Park at Camden Yards,N,1
+631077,2020-08-21T00:10:00Z,2020,R,Final,San Diego Padres,Texas Rangers,8,7,San Diego Padres,1,0,Petco Park,N,1
+630986,2020-08-21T00:15:00Z,2020,R,Final,St. Louis Cardinals,Cincinnati Reds,5,4,St. Louis Cardinals,1,0,Busch Stadium,N,1
+631180,2020-08-21T01:40:00Z,2020,R,Final,Oakland Athletics,Arizona Diamondbacks,5,1,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631026,2020-08-21T01:45:00Z,2020,R,Final,San Francisco Giants,Los Angeles Angels,10,5,San Francisco Giants,1,0,Oracle Park,N,1
+631323,2020-08-20T22:10:00Z,2020,R,Postponed,Miami Marlins,New York Mets,,,,,,Marlins Park,N,1
+630886,2020-08-21T22:05:00Z,2020,R,Final,Washington Nationals,Miami Marlins,2,3,Miami Marlins,0,1,Nationals Park,N,1
+630960,2020-08-21T22:40:00Z,2020,R,Final,Tampa Bay Rays,Toronto Blue Jays,5,6,Toronto Blue Jays,0,1,Tropicana Field,N,1
+631103,2020-08-21T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Milwaukee Brewers,7,2,Pittsburgh Pirates,1,0,PNC Park,N,1
+631548,2020-08-21T23:10:00Z,2020,R,Final,Cleveland Indians,Detroit Tigers,5,10,Detroit Tigers,0,1,Progressive Field,N,1
+630324,2020-08-21T23:10:00Z,2020,R,Final,Atlanta Braves,Philadelphia Phillies,11,2,Atlanta Braves,1,0,Truist Park,N,1
+631665,2020-08-21T23:35:00Z,2020,R,Final,Baltimore Orioles,Boston Red Sox,5,8,Boston Red Sox,0,1,Oriole Park at Camden Yards,N,1
+631409,2020-08-22T00:05:00Z,2020,R,Final,Kansas City Royals,Minnesota Twins,7,2,Kansas City Royals,1,0,Kauffman Stadium,N,1
+630990,2020-08-22T00:15:00Z,2020,R,Final,St. Louis Cardinals,Cincinnati Reds,2,4,Cincinnati Reds,0,1,Busch Stadium,N,1
+631633,2020-08-22T00:15:00Z,2020,R,Final,Chicago Cubs,Chicago White Sox,1,10,Chicago White Sox,0,1,Wrigley Field,N,1
+631078,2020-08-22T01:10:00Z,2020,R,Final,San Diego Padres,Houston Astros,4,3,San Diego Padres,1,0,Petco Park,N,1
+631050,2020-08-22T01:10:00Z,2020,R,Final,Seattle Mariners,Texas Rangers,7,4,Seattle Mariners,1,0,T-Mobile Park,N,1
+631348,2020-08-22T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Colorado Rockies,5,1,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631186,2020-08-22T01:40:00Z,2020,R,Final,Oakland Athletics,Los Angeles Angels,5,3,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631027,2020-08-22T01:45:00Z,2020,R,Final,San Francisco Giants,Arizona Diamondbacks,6,2,San Francisco Giants,1,0,Oracle Park,N,1
+631230,2020-08-21T23:10:00Z,2020,R,Postponed,New York Mets,New York Yankees,,,,,,Citi Field,N,1
+630890,2020-08-22T20:05:00Z,2020,R,Final,Washington Nationals,Miami Marlins,5,4,Washington Nationals,1,0,Nationals Park,Y,1
+631341,2020-08-22T20:10:00Z,2020,R,Final,Miami Marlins,Washington Nationals,5,3,Miami Marlins,1,0,Nationals Park,Y,2
+631104,2020-08-22T20:05:00Z,2020,R,Final,Pittsburgh Pirates,Milwaukee Brewers,12,5,Pittsburgh Pirates,1,0,PNC Park,N,1
+631154,2020-08-22T20:10:00Z,2020,R,Final,Oakland Athletics,Los Angeles Angels,3,4,Los Angeles Angels,0,1,Oakland Coliseum,N,1
+630948,2020-08-22T22:40:00Z,2020,R,Final,Tampa Bay Rays,Toronto Blue Jays,2,1,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631403,2020-08-22T23:05:00Z,2020,R,Final,Kansas City Royals,Minnesota Twins,2,7,Minnesota Twins,0,1,Kauffman Stadium,N,1
+631564,2020-08-22T23:10:00Z,2020,R,Final,Cleveland Indians,Detroit Tigers,6,1,Cleveland Indians,1,0,Progressive Field,N,1
+630338,2020-08-22T23:10:00Z,2020,R,Final,Atlanta Braves,Philadelphia Phillies,6,5,Atlanta Braves,1,0,Truist Park,N,1
+631667,2020-08-22T23:35:00Z,2020,R,Final,Baltimore Orioles,Boston Red Sox,5,4,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+630991,2020-08-23T00:15:00Z,2020,R,Final,St. Louis Cardinals,Cincinnati Reds,3,0,St. Louis Cardinals,1,0,Busch Stadium,N,1
+631638,2020-08-23T00:15:00Z,2020,R,Final,Chicago Cubs,Chicago White Sox,4,7,Chicago White Sox,0,1,Wrigley Field,N,1
+631349,2020-08-23T01:10:00Z,2020,R,Final,Los Angeles Dodgers,Colorado Rockies,4,3,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631079,2020-08-23T01:10:00Z,2020,R,Final,San Diego Padres,Houston Astros,13,2,San Diego Padres,1,0,Petco Park,N,1
+631051,2020-08-23T01:10:00Z,2020,R,Final,Seattle Mariners,Texas Rangers,10,1,Seattle Mariners,1,0,T-Mobile Park,N,1
+631028,2020-08-23T01:15:00Z,2020,R,Final,San Francisco Giants,Arizona Diamondbacks,5,1,San Francisco Giants,1,0,Oracle Park,N,1
+631229,2020-08-22T23:10:00Z,2020,R,Postponed,New York Mets,New York Yankees,,,,,,Citi Field,N,1
+630897,2020-08-23T16:35:00Z,2020,R,Final,Washington Nationals,Miami Marlins,9,3,Washington Nationals,1,0,Nationals Park,N,1
+631670,2020-08-23T17:05:00Z,2020,R,Final,Baltimore Orioles,Boston Red Sox,5,4,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+631551,2020-08-23T17:10:00Z,2020,R,Final,Cleveland Indians,Detroit Tigers,4,7,Detroit Tigers,0,1,Progressive Field,N,1
+630949,2020-08-23T17:10:00Z,2020,R,Final,Tampa Bay Rays,Toronto Blue Jays,5,4,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631107,2020-08-23T17:35:00Z,2020,R,Final,Pittsburgh Pirates,Milwaukee Brewers,5,4,Pittsburgh Pirates,1,0,PNC Park,N,1
+631412,2020-08-23T18:05:00Z,2020,R,Final,Kansas City Royals,Minnesota Twins,4,5,Minnesota Twins,0,1,Kauffman Stadium,N,1
+630976,2020-08-23T18:15:00Z,2020,R,Final,St. Louis Cardinals,Cincinnati Reds,6,2,St. Louis Cardinals,1,0,Busch Stadium,N,1
+631639,2020-08-23T18:20:00Z,2020,R,Final,Chicago Cubs,Chicago White Sox,2,1,Chicago Cubs,1,0,Wrigley Field,N,1
+631354,2020-08-23T20:10:00Z,2020,R,Final,Los Angeles Dodgers,Colorado Rockies,11,3,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631170,2020-08-23T20:10:00Z,2020,R,Final,Oakland Athletics,Los Angeles Angels,5,4,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631080,2020-08-23T20:10:00Z,2020,R,Final,San Diego Padres,Houston Astros,5,3,San Diego Padres,1,0,Petco Park,N,1
+631029,2020-08-23T20:10:00Z,2020,R,Final,San Francisco Giants,Arizona Diamondbacks,6,1,San Francisco Giants,1,0,Oracle Park,N,1
+631052,2020-08-23T20:10:00Z,2020,R,Final,Seattle Mariners,Texas Rangers,4,1,Seattle Mariners,1,0,T-Mobile Park,N,1
+630273,2020-08-23T23:08:00Z,2020,R,Final,Atlanta Braves,Philadelphia Phillies,4,5,Philadelphia Phillies,0,1,Truist Park,N,1
+631234,2020-08-23T17:10:00Z,2020,R,Postponed,New York Mets,New York Yankees,,,,,,Citi Field,N,1
+630950,2020-08-24T19:10:00Z,2020,R,Final,Tampa Bay Rays,Toronto Blue Jays,4,6,Toronto Blue Jays,0,1,Tropicana Field,N,1
+630898,2020-08-24T22:05:00Z,2020,R,Final,Washington Nationals,Miami Marlins,8,11,Miami Marlins,0,1,Nationals Park,N,1
+631468,2020-08-24T23:10:00Z,2020,R,Final,Detroit Tigers,Chicago Cubs,3,9,Chicago Cubs,0,1,Comerica Park,N,1
+631552,2020-08-24T23:10:00Z,2020,R,Final,Cleveland Indians,Minnesota Twins,2,3,Minnesota Twins,0,1,Progressive Field,N,1
+630929,2020-08-25T00:05:00Z,2020,R,Final,Texas Rangers,Oakland Athletics,3,2,Texas Rangers,1,0,Globe Life Field,N,1
+631301,2020-08-25T00:10:00Z,2020,R,Final,Milwaukee Brewers,Cincinnati Reds,4,2,Milwaukee Brewers,1,0,Miller Park,N,1
+630977,2020-08-25T00:15:00Z,2020,R,Final,St. Louis Cardinals,Kansas City Royals,9,3,St. Louis Cardinals,1,0,Busch Stadium,N,1
+631439,2020-08-25T01:10:00Z,2020,R,Final,Houston Astros,Los Angeles Angels,11,4,Houston Astros,1,0,Minute Maid Park,N,1
+630193,2020-08-25T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Colorado Rockies,2,3,Colorado Rockies,0,1,Chase Field,N,1
+631423,2020-08-25T20:05:00Z,2020,R,Final,Houston Astros,Los Angeles Angels,6,3,Houston Astros,1,0,Minute Maid Park,Y,1
+631426,2020-08-25T20:10:00Z,2020,R,Final,Houston Astros,Los Angeles Angels,5,12,Los Angeles Angels,0,1,Minute Maid Park,Y,2
+631227,2020-08-25T21:10:00Z,2020,R,Final,New York Mets,Miami Marlins,0,4,Miami Marlins,0,1,Citi Field,Y,1
+631323,2020-08-25T21:15:00Z,2020,R,Final,Miami Marlins,New York Mets,3,0,Miami Marlins,1,0,Citi Field,Y,2
+630855,2020-08-25T22:05:00Z,2020,R,Final,Washington Nationals,Philadelphia Phillies,3,8,Philadelphia Phillies,0,1,Nationals Park,N,1
+630862,2020-08-25T22:37:00Z,2020,R,Final,Toronto Blue Jays,Boston Red Sox,7,9,Boston Red Sox,0,1,Sahlen Field,N,1
+630951,2020-08-25T22:40:00Z,2020,R,Final,Tampa Bay Rays,Baltimore Orioles,4,2,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631467,2020-08-25T23:10:00Z,2020,R,Final,Detroit Tigers,Chicago Cubs,7,1,Detroit Tigers,1,0,Comerica Park,N,1
+631553,2020-08-25T23:10:00Z,2020,R,Final,Cleveland Indians,Minnesota Twins,4,2,Cleveland Indians,1,0,Progressive Field,N,1
+630930,2020-08-26T00:05:00Z,2020,R,Final,Texas Rangers,Oakland Athletics,3,10,Oakland Athletics,0,1,Globe Life Field,N,1
+631499,2020-08-26T00:10:00Z,2020,R,Final,Chicago White Sox,Pittsburgh Pirates,4,0,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631302,2020-08-26T00:10:00Z,2020,R,Final,Milwaukee Brewers,Cincinnati Reds,3,2,Milwaukee Brewers,1,0,Miller Park,N,1
+630978,2020-08-26T00:15:00Z,2020,R,Final,St. Louis Cardinals,Kansas City Royals,4,5,Kansas City Royals,0,1,Busch Stadium,N,1
+631081,2020-08-26T01:10:00Z,2020,R,Final,San Diego Padres,Seattle Mariners,3,8,Seattle Mariners,0,1,Petco Park,N,1
+630194,2020-08-26T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Colorado Rockies,4,5,Colorado Rockies,0,1,Chase Field,N,1
+631015,2020-08-26T01:45:00Z,2020,R,Final,San Francisco Giants,Los Angeles Dodgers,10,8,San Francisco Giants,1,0,Oracle Park,N,1
+630360,2020-08-25T23:10:00Z,2020,R,Postponed,Atlanta Braves,New York Yankees,,,,,,Truist Park,N,1
+631500,2020-08-26T18:10:00Z,2020,R,Final,Chicago White Sox,Pittsburgh Pirates,10,3,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+630361,2020-08-26T20:10:00Z,2020,R,Final,Atlanta Braves,New York Yankees,5,1,Atlanta Braves,1,0,Truist Park,Y,1
+630360,2020-08-26T20:15:00Z,2020,R,Final,Atlanta Braves,New York Yankees,2,1,Atlanta Braves,1,0,Truist Park,Y,2
+630853,2020-08-26T22:05:00Z,2020,R,Final,Washington Nationals,Philadelphia Phillies,2,3,Philadelphia Phillies,0,1,Nationals Park,N,1
+630863,2020-08-26T22:37:00Z,2020,R,Final,Toronto Blue Jays,Boston Red Sox,9,1,Toronto Blue Jays,1,0,Sahlen Field,N,1
+630952,2020-08-26T22:40:00Z,2020,R,Final,Tampa Bay Rays,Baltimore Orioles,4,3,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631455,2020-08-26T23:10:00Z,2020,R,Final,Detroit Tigers,Chicago Cubs,7,6,Detroit Tigers,1,0,Comerica Park,N,1
+631554,2020-08-26T23:10:00Z,2020,R,Final,Cleveland Indians,Minnesota Twins,6,3,Cleveland Indians,1,0,Progressive Field,N,1
+631226,2020-08-26T23:10:00Z,2020,R,Final,New York Mets,Miami Marlins,5,4,New York Mets,1,0,Citi Field,N,1
+630931,2020-08-27T00:05:00Z,2020,R,Final,Texas Rangers,Oakland Athletics,1,3,Oakland Athletics,0,1,Globe Life Field,N,1
+630979,2020-08-27T00:15:00Z,2020,R,Final,St. Louis Cardinals,Kansas City Royals,6,5,St. Louis Cardinals,1,0,Busch Stadium,N,1
+630099,2020-08-27T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Colorado Rockies,7,8,Colorado Rockies,0,1,Chase Field,N,1
+631440,2020-08-26T17:10:00Z,2020,R,Postponed,Houston Astros,Los Angeles Angels,,,,,,Minute Maid Park,N,1
+631303,2020-08-27T00:10:00Z,2020,R,Postponed,Milwaukee Brewers,Cincinnati Reds,,,,,,Miller Park,N,1
+631082,2020-08-27T01:10:00Z,2020,R,Postponed,San Diego Padres,Seattle Mariners,,,,,,Petco Park,N,1
+631001,2020-08-27T01:45:00Z,2020,R,Postponed,San Francisco Giants,Los Angeles Dodgers,,,,,,Oracle Park,N,1
+631083,2020-08-27T19:10:00Z,2020,R,Final,San Diego Padres,Seattle Mariners,10,7,San Diego Padres,1,0,Petco Park,Y,1
+631082,2020-08-27T19:15:00Z,2020,R,Final,San Diego Padres,Seattle Mariners,3,8,Seattle Mariners,0,1,Petco Park,Y,2
+630999,2020-08-27T19:15:00Z,2020,R,Final,St. Louis Cardinals,Pittsburgh Pirates,3,4,Pittsburgh Pirates,0,1,Busch Stadium,Y,1
+631000,2020-08-27T19:20:00Z,2020,R,Final,St. Louis Cardinals,Pittsburgh Pirates,0,2,Pittsburgh Pirates,0,1,Busch Stadium,Y,2
+631017,2020-08-27T20:05:00Z,2020,R,Final,San Francisco Giants,Los Angeles Dodgers,0,7,Los Angeles Dodgers,0,1,Oracle Park,Y,1
+631001,2020-08-27T20:10:00Z,2020,R,Final,San Francisco Giants,Los Angeles Dodgers,0,2,Los Angeles Dodgers,0,1,Oracle Park,Y,2
+631290,2020-08-27T21:10:00Z,2020,R,Final,Milwaukee Brewers,Cincinnati Reds,1,6,Cincinnati Reds,0,1,Miller Park,Y,1
+631303,2020-08-27T21:15:00Z,2020,R,Final,Milwaukee Brewers,Cincinnati Reds,0,6,Cincinnati Reds,0,1,Miller Park,Y,2
+630203,2020-08-27T22:10:00Z,2020,R,Postponed,Arizona Diamondbacks,Colorado Rockies,,,,,,Chase Field,N,1
+630932,2020-08-27T22:37:00Z,2020,R,Postponed,Texas Rangers,Oakland Athletics,,,,,,Globe Life Field,N,1
+630865,2020-08-27T22:37:00Z,2020,R,Postponed,Toronto Blue Jays,Boston Red Sox,,,,,,Sahlen Field,N,1
+630896,2020-08-27T22:37:00Z,2020,R,Postponed,Washington Nationals,Philadelphia Phillies,,,,,,Nationals Park,N,1
+630953,2020-08-27T22:40:00Z,2020,R,Postponed,Tampa Bay Rays,Baltimore Orioles,,,,,,Tropicana Field,N,1
+631456,2020-08-27T23:10:00Z,2020,R,Postponed,Detroit Tigers,Minnesota Twins,,,,,,Comerica Park,N,1
+631223,2020-08-27T23:10:00Z,2020,R,Postponed,New York Mets,Miami Marlins,,,,,,Citi Field,N,1
+631203,2020-08-28T20:05:00Z,2020,R,Final,New York Yankees,New York Mets,4,6,New York Mets,0,1,Yankee Stadium,Y,1
+631230,2020-08-28T20:10:00Z,2020,R,Final,New York Mets,New York Yankees,4,3,New York Mets,1,0,Yankee Stadium,Y,2
+630871,2020-08-28T22:37:00Z,2020,R,Final,Toronto Blue Jays,Baltimore Orioles,5,4,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631125,2020-08-28T23:05:00Z,2020,R,Final,Philadelphia Phillies,Atlanta Braves,7,4,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631582,2020-08-28T23:10:00Z,2020,R,Final,Cincinnati Reds,Chicago Cubs,6,5,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631501,2020-08-28T23:10:00Z,2020,R,Final,Chicago White Sox,Kansas City Royals,6,5,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631304,2020-08-28T23:10:00Z,2020,R,Final,Miami Marlins,Tampa Bay Rays,0,2,Tampa Bay Rays,0,1,Marlins Park,N,1
+631653,2020-08-28T23:30:00Z,2020,R,Final,Boston Red Sox,Washington Nationals,2,10,Washington Nationals,0,1,Fenway Park,N,1
+630933,2020-08-29T00:05:00Z,2020,R,Final,Texas Rangers,Los Angeles Dodgers,6,2,Texas Rangers,1,0,Globe Life Field,N,1
+631291,2020-08-29T00:10:00Z,2020,R,Final,Milwaukee Brewers,Pittsburgh Pirates,9,1,Milwaukee Brewers,1,0,Miller Park,N,1
+630980,2020-08-29T00:15:00Z,2020,R,Final,St. Louis Cardinals,Cleveland Indians,2,14,Cleveland Indians,0,1,Busch Stadium,N,1
+631524,2020-08-29T00:40:00Z,2020,R,Final,Colorado Rockies,San Diego Padres,4,10,San Diego Padres,0,1,Coors Field,N,1
+631394,2020-08-29T01:40:00Z,2020,R,Final,Los Angeles Angels,Seattle Mariners,3,2,Los Angeles Angels,1,0,Angel Stadium,N,1
+630216,2020-08-29T01:40:00Z,2020,R,Final,Arizona Diamondbacks,San Francisco Giants,7,4,Arizona Diamondbacks,1,0,Chase Field,N,1
+631457,2020-08-28T17:10:00Z,2020,R,Postponed,Detroit Tigers,Minnesota Twins,,,,,,Comerica Park,Y,1
+631456,2020-08-28T17:15:00Z,2020,R,Postponed,Detroit Tigers,Minnesota Twins,,,,,,Comerica Park,Y,2
+631427,2020-08-29T01:10:00Z,2020,R,Postponed,Houston Astros,Oakland Athletics,,,,,,Minute Maid Park,N,1
+631204,2020-08-29T17:05:00Z,2020,R,Final,New York Yankees,New York Mets,2,1,New York Yankees,1,0,Yankee Stadium,N,1
+631458,2020-08-29T17:10:00Z,2020,R,Final,Detroit Tigers,Minnesota Twins,8,2,Detroit Tigers,1,0,Comerica Park,Y,1
+631457,2020-08-29T17:15:00Z,2020,R,Final,Detroit Tigers,Minnesota Twins,4,2,Detroit Tigers,1,0,Comerica Park,Y,2
+630981,2020-08-29T17:15:00Z,2020,R,Final,St. Louis Cardinals,Cleveland Indians,1,2,Cleveland Indians,0,1,Busch Stadium,N,1
+631134,2020-08-29T17:15:00Z,2020,R,Final,Philadelphia Phillies,Atlanta Braves,4,1,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631502,2020-08-29T18:10:00Z,2020,R,Final,Chicago White Sox,Kansas City Royals,6,9,Kansas City Royals,0,1,Guaranteed Rate Field,N,1
+631581,2020-08-29T20:10:00Z,2020,R,Final,Cincinnati Reds,Chicago Cubs,0,3,Chicago Cubs,0,1,Great American Ball Park,Y,1
+631595,2020-08-29T20:15:00Z,2020,R,Final,Cincinnati Reds,Chicago Cubs,6,5,Cincinnati Reds,1,0,Great American Ball Park,Y,2
+631428,2020-08-29T20:10:00Z,2020,R,Final,Houston Astros,Oakland Athletics,4,2,Houston Astros,1,0,Minute Maid Park,Y,1
+631427,2020-08-29T20:15:00Z,2020,R,Final,Houston Astros,Oakland Athletics,6,3,Houston Astros,1,0,Minute Maid Park,Y,2
+631319,2020-08-29T22:10:00Z,2020,R,Final,Miami Marlins,Tampa Bay Rays,0,4,Tampa Bay Rays,0,1,Marlins Park,N,1
+630906,2020-08-29T22:37:00Z,2020,R,Final,Toronto Blue Jays,Baltimore Orioles,5,0,Toronto Blue Jays,1,0,Sahlen Field,N,1
+630934,2020-08-29T23:05:00Z,2020,R,Final,Texas Rangers,Los Angeles Dodgers,4,7,Los Angeles Dodgers,0,1,Globe Life Field,N,1
+631277,2020-08-29T23:10:00Z,2020,R,Final,Milwaukee Brewers,Pittsburgh Pirates,7,6,Milwaukee Brewers,1,0,Miller Park,N,1
+631654,2020-08-29T23:30:00Z,2020,R,Final,Boston Red Sox,Washington Nationals,5,3,Boston Red Sox,1,0,Fenway Park,N,1
+631525,2020-08-30T00:10:00Z,2020,R,Final,Colorado Rockies,San Diego Padres,4,3,Colorado Rockies,1,0,Coors Field,N,1
+630217,2020-08-30T00:10:00Z,2020,R,Final,Arizona Diamondbacks,San Francisco Giants,2,5,San Francisco Giants,0,1,Chase Field,N,1
+631369,2020-08-30T01:40:00Z,2020,R,Final,Los Angeles Angels,Seattle Mariners,16,3,Los Angeles Angels,1,0,Angel Stadium,N,1
+631205,2020-08-30T17:05:00Z,2020,R,Final,New York Yankees,New York Mets,8,7,New York Yankees,1,0,Yankee Stadium,Y,1
+631229,2020-08-30T17:10:00Z,2020,R,Final,New York Mets,New York Yankees,2,5,New York Yankees,0,1,Yankee Stadium,Y,2
+631584,2020-08-30T17:10:00Z,2020,R,Final,Cincinnati Reds,Chicago Cubs,1,10,Chicago Cubs,0,1,Great American Ball Park,N,1
+631459,2020-08-30T17:10:00Z,2020,R,Final,Detroit Tigers,Minnesota Twins,3,2,Detroit Tigers,1,0,Comerica Park,N,1
+631306,2020-08-30T17:10:00Z,2020,R,Final,Miami Marlins,Tampa Bay Rays,7,12,Tampa Bay Rays,0,1,Marlins Park,N,1
+631655,2020-08-30T17:35:00Z,2020,R,Final,Boston Red Sox,Washington Nationals,9,5,Boston Red Sox,1,0,Fenway Park,N,1
+631505,2020-08-30T18:10:00Z,2020,R,Final,Chicago White Sox,Kansas City Royals,5,2,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631278,2020-08-30T18:10:00Z,2020,R,Final,Milwaukee Brewers,Pittsburgh Pirates,1,5,Pittsburgh Pirates,0,1,Miller Park,N,1
+630982,2020-08-30T18:15:00Z,2020,R,Final,St. Louis Cardinals,Cleveland Indians,7,2,St. Louis Cardinals,1,0,Busch Stadium,N,1
+630921,2020-08-30T18:35:00Z,2020,R,Final,Texas Rangers,Los Angeles Dodgers,2,7,Los Angeles Dodgers,0,1,Globe Life Field,N,1
+630852,2020-08-30T19:07:00Z,2020,R,Final,Toronto Blue Jays,Baltimore Orioles,6,5,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631526,2020-08-30T19:10:00Z,2020,R,Final,Colorado Rockies,San Diego Padres,2,13,San Diego Padres,0,1,Coors Field,N,1
+631371,2020-08-30T20:10:00Z,2020,R,Final,Los Angeles Angels,Seattle Mariners,1,2,Seattle Mariners,0,1,Angel Stadium,N,1
+630219,2020-08-30T20:10:00Z,2020,R,Final,Arizona Diamondbacks,San Francisco Giants,1,4,San Francisco Giants,0,1,Chase Field,N,1
+631135,2020-08-30T23:08:00Z,2020,R,Final,Philadelphia Phillies,Atlanta Braves,10,12,Atlanta Braves,0,1,Citizens Bank Park,N,1
+631429,2020-08-30T18:10:00Z,2020,R,Postponed,Houston Astros,Oakland Athletics,,,,,,Minute Maid Park,N,1
+631223,2020-08-31T17:10:00Z,2020,R,Final,New York Mets,Miami Marlins,3,5,Miami Marlins,0,1,Citi Field,N,1
+630900,2020-08-31T18:07:00Z,2020,R,Final,Toronto Blue Jays,Baltimore Orioles,3,4,Baltimore Orioles,0,1,Sahlen Field,N,1
+631374,2020-08-31T20:10:00Z,2020,R,Final,Los Angeles Angels,Seattle Mariners,1,2,Seattle Mariners,0,1,Angel Stadium,N,1
+631585,2020-08-31T22:40:00Z,2020,R,Final,Cincinnati Reds,St. Louis Cardinals,5,7,St. Louis Cardinals,0,1,Great American Ball Park,N,1
+631143,2020-08-31T23:05:00Z,2020,R,Final,Philadelphia Phillies,Washington Nationals,8,6,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631206,2020-08-31T23:05:00Z,2020,R,Final,New York Yankees,Tampa Bay Rays,3,5,Tampa Bay Rays,0,1,Yankee Stadium,N,1
+631656,2020-08-31T23:30:00Z,2020,R,Final,Boston Red Sox,Atlanta Braves,3,6,Atlanta Braves,0,1,Fenway Park,N,1
+631281,2020-08-31T23:40:00Z,2020,R,Final,Milwaukee Brewers,Pittsburgh Pirates,6,5,Milwaukee Brewers,1,0,Miller Park,N,1
+631414,2020-09-01T00:05:00Z,2020,R,Final,Kansas City Royals,Cleveland Indians,2,1,Kansas City Royals,1,0,Kauffman Stadium,N,1
+631247,2020-09-01T00:10:00Z,2020,R,Final,Minnesota Twins,Chicago White Sox,5,8,Chicago White Sox,0,1,Target Field,N,1
+631527,2020-09-01T01:40:00Z,2020,R,Final,Colorado Rockies,San Diego Padres,0,6,San Diego Padres,0,1,Coors Field,N,1
+631586,2020-09-01T22:40:00Z,2020,R,Final,Cincinnati Reds,St. Louis Cardinals,2,16,St. Louis Cardinals,0,1,Great American Ball Park,N,1
+631307,2020-09-01T22:40:00Z,2020,R,Final,Miami Marlins,Toronto Blue Jays,3,2,Miami Marlins,1,0,Marlins Park,N,1
+631109,2020-09-01T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Chicago Cubs,7,8,Chicago Cubs,0,1,PNC Park,N,1
+631153,2020-09-01T23:05:00Z,2020,R,Final,Philadelphia Phillies,Washington Nationals,6,0,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631207,2020-09-01T23:05:00Z,2020,R,Final,New York Yankees,Tampa Bay Rays,5,3,New York Yankees,1,0,Yankee Stadium,N,1
+631657,2020-09-01T23:30:00Z,2020,R,Final,Boston Red Sox,Atlanta Braves,3,10,Atlanta Braves,0,1,Fenway Park,N,1
+631671,2020-09-01T23:35:00Z,2020,R,Final,Baltimore Orioles,New York Mets,9,5,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+631287,2020-09-01T23:40:00Z,2020,R,Final,Milwaukee Brewers,Detroit Tigers,1,12,Detroit Tigers,0,1,Miller Park,N,1
+631416,2020-09-02T00:05:00Z,2020,R,Final,Kansas City Royals,Cleveland Indians,1,10,Cleveland Indians,0,1,Kauffman Stadium,N,1
+631430,2020-09-02T00:10:00Z,2020,R,Final,Houston Astros,Texas Rangers,5,6,Texas Rangers,0,1,Minute Maid Park,N,1
+631261,2020-09-02T00:10:00Z,2020,R,Final,Minnesota Twins,Chicago White Sox,3,2,Minnesota Twins,1,0,Target Field,N,1
+631528,2020-09-02T00:40:00Z,2020,R,Final,Colorado Rockies,San Francisco Giants,5,23,San Francisco Giants,0,1,Coors Field,N,1
+631355,2020-09-02T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Arizona Diamondbacks,6,3,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631053,2020-09-02T01:40:00Z,2020,R,Postponed,Seattle Mariners,Oakland Athletics,,,,,,T-Mobile Park,N,1
+631529,2020-09-02T19:10:00Z,2020,R,Final,Colorado Rockies,San Francisco Giants,9,6,Colorado Rockies,1,0,Coors Field,N,1
+631673,2020-09-02T20:05:00Z,2020,R,Final,Baltimore Orioles,New York Mets,4,9,New York Mets,0,1,Oriole Park at Camden Yards,N,1
+631587,2020-09-02T22:40:00Z,2020,R,Final,Cincinnati Reds,St. Louis Cardinals,4,3,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631308,2020-09-02T22:40:00Z,2020,R,Final,Miami Marlins,Toronto Blue Jays,1,2,Toronto Blue Jays,0,1,Marlins Park,N,1
+631111,2020-09-02T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Chicago Cubs,2,8,Chicago Cubs,0,1,PNC Park,N,1
+631145,2020-09-02T23:05:00Z,2020,R,Final,Philadelphia Phillies,Washington Nationals,3,0,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631194,2020-09-02T23:05:00Z,2020,R,Final,New York Yankees,Tampa Bay Rays,2,5,Tampa Bay Rays,0,1,Yankee Stadium,N,1
+631624,2020-09-02T23:30:00Z,2020,R,Final,Boston Red Sox,Atlanta Braves,5,7,Atlanta Braves,0,1,Fenway Park,N,1
+631283,2020-09-02T23:40:00Z,2020,R,Final,Milwaukee Brewers,Detroit Tigers,8,5,Milwaukee Brewers,1,0,Miller Park,N,1
+631404,2020-09-03T00:05:00Z,2020,R,Final,Kansas City Royals,Cleveland Indians,0,5,Cleveland Indians,0,1,Kauffman Stadium,N,1
+631431,2020-09-03T00:10:00Z,2020,R,Final,Houston Astros,Texas Rangers,2,1,Houston Astros,1,0,Minute Maid Park,N,1
+631253,2020-09-03T00:10:00Z,2020,R,Final,Minnesota Twins,Chicago White Sox,8,1,Minnesota Twins,1,0,Target Field,N,1
+631356,2020-09-03T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Arizona Diamondbacks,3,2,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631379,2020-09-03T01:40:00Z,2020,R,Final,Los Angeles Angels,San Diego Padres,4,11,San Diego Padres,0,1,Angel Stadium,N,1
+631054,2020-09-03T01:40:00Z,2020,R,Postponed,Seattle Mariners,Oakland Athletics,,,,,,T-Mobile Park,N,1
+631112,2020-09-03T17:35:00Z,2020,R,Final,Pittsburgh Pirates,Chicago Cubs,6,2,Pittsburgh Pirates,1,0,PNC Park,N,1
+631432,2020-09-03T18:10:00Z,2020,R,Final,Houston Astros,Texas Rangers,8,4,Houston Astros,1,0,Minute Maid Park,N,1
+631146,2020-09-03T20:05:00Z,2020,R,Final,Philadelphia Phillies,Washington Nationals,6,5,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631234,2020-09-03T20:10:00Z,2020,R,Final,New York Mets,New York Yankees,9,7,New York Mets,1,0,Citi Field,N,1
+631368,2020-09-03T23:10:00Z,2020,R,Final,Los Angeles Angels,San Diego Padres,2,0,Los Angeles Angels,1,0,Angel Stadium,N,1
+631614,2020-09-03T23:30:00Z,2020,R,Final,Boston Red Sox,Toronto Blue Jays,2,6,Toronto Blue Jays,0,1,Fenway Park,N,1
+631405,2020-09-04T00:05:00Z,2020,R,Final,Kansas City Royals,Chicago White Sox,6,11,Chicago White Sox,0,1,Kauffman Stadium,N,1
+631370,2020-09-04T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Arizona Diamondbacks,5,1,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631055,2020-09-03T20:10:00Z,2020,R,Postponed,Seattle Mariners,Oakland Athletics,,,,,,T-Mobile Park,N,1
+631262,2020-09-04T18:10:00Z,2020,R,Final,Minnesota Twins,Detroit Tigers,2,0,Minnesota Twins,1,0,Target Field,Y,1
+631456,2020-09-04T18:15:00Z,2020,R,Final,Detroit Tigers,Minnesota Twins,2,3,Minnesota Twins,0,1,Target Field,Y,2
+631113,2020-09-04T20:05:00Z,2020,R,Final,Pittsburgh Pirates,Cincinnati Reds,2,4,Cincinnati Reds,0,1,PNC Park,Y,1
+631602,2020-09-04T20:10:00Z,2020,R,Final,Cincinnati Reds,Pittsburgh Pirates,3,4,Pittsburgh Pirates,0,1,PNC Park,Y,2
+631649,2020-09-04T20:10:00Z,2020,R,Final,Boston Red Sox,Toronto Blue Jays,7,8,Toronto Blue Jays,0,1,Fenway Park,Y,1
+630865,2020-09-04T20:15:00Z,2020,R,Final,Toronto Blue Jays,Boston Red Sox,2,3,Boston Red Sox,0,1,Fenway Park,Y,2
+630371,2020-09-04T20:10:00Z,2020,R,Final,Atlanta Braves,Washington Nationals,7,1,Atlanta Braves,1,0,Truist Park,Y,1
+630323,2020-09-04T20:15:00Z,2020,R,Final,Atlanta Braves,Washington Nationals,9,10,Washington Nationals,0,1,Truist Park,Y,2
+631674,2020-09-04T21:05:00Z,2020,R,Final,Baltimore Orioles,New York Yankees,5,6,New York Yankees,0,1,Oriole Park at Camden Yards,Y,1
+630497,2020-09-04T21:10:00Z,2020,R,Final,Baltimore Orioles,New York Yankees,6,3,Baltimore Orioles,1,0,Oriole Park at Camden Yards,Y,2
+630954,2020-09-04T22:40:00Z,2020,R,Final,Tampa Bay Rays,Miami Marlins,5,4,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631221,2020-09-04T23:10:00Z,2020,R,Final,New York Mets,Philadelphia Phillies,3,5,Philadelphia Phillies,0,1,Citi Field,N,1
+631555,2020-09-04T23:10:00Z,2020,R,Final,Cleveland Indians,Milwaukee Brewers,1,7,Milwaukee Brewers,0,1,Progressive Field,N,1
+631406,2020-09-05T00:05:00Z,2020,R,Final,Kansas City Royals,Chicago White Sox,4,7,Chicago White Sox,0,1,Kauffman Stadium,N,1
+631644,2020-09-05T00:15:00Z,2020,R,Final,Chicago Cubs,St. Louis Cardinals,4,1,Chicago Cubs,1,0,Wrigley Field,N,1
+631357,2020-09-05T01:10:00Z,2020,R,Final,Los Angeles Angels,Houston Astros,6,5,Los Angeles Angels,1,0,Angel Stadium,N,1
+631041,2020-09-05T01:10:00Z,2020,R,Final,Seattle Mariners,Texas Rangers,6,3,Seattle Mariners,1,0,T-Mobile Park,N,1
+631345,2020-09-05T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Colorado Rockies,10,6,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631156,2020-09-05T01:40:00Z,2020,R,Final,Oakland Athletics,San Diego Padres,0,7,San Diego Padres,0,1,Oakland Coliseum,N,1
+631003,2020-09-05T01:45:00Z,2020,R,Final,San Francisco Giants,Arizona Diamondbacks,5,6,Arizona Diamondbacks,0,1,Oracle Park,N,1
+631157,2020-09-05T20:07:00Z,2020,R,Final,Oakland Athletics,San Diego Padres,8,4,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631607,2020-09-05T21:15:00Z,2020,R,Final,Chicago Cubs,St. Louis Cardinals,2,4,St. Louis Cardinals,0,1,Wrigley Field,Y,1
+630998,2020-09-05T21:20:00Z,2020,R,Final,St. Louis Cardinals,Chicago Cubs,5,1,St. Louis Cardinals,1,0,Wrigley Field,Y,2
+630955,2020-09-05T22:40:00Z,2020,R,Final,Tampa Bay Rays,Miami Marlins,3,7,Miami Marlins,0,1,Tropicana Field,N,1
+631115,2020-09-05T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Cincinnati Reds,2,6,Cincinnati Reds,0,1,PNC Park,N,1
+631408,2020-09-05T23:05:00Z,2020,R,Final,Kansas City Royals,Chicago White Sox,3,5,Chicago White Sox,0,1,Kauffman Stadium,N,1
+631388,2020-09-05T23:07:00Z,2020,R,Final,Los Angeles Angels,Houston Astros,10,9,Los Angeles Angels,1,0,Angel Stadium,Y,1
+631440,2020-09-05T23:12:00Z,2020,R,Final,Houston Astros,Los Angeles Angels,6,7,Los Angeles Angels,0,1,Angel Stadium,Y,2
+631264,2020-09-05T23:10:00Z,2020,R,Final,Minnesota Twins,Detroit Tigers,4,3,Minnesota Twins,1,0,Target Field,N,1
+631228,2020-09-05T23:10:00Z,2020,R,Final,New York Mets,Philadelphia Phillies,5,1,New York Mets,1,0,Citi Field,N,1
+630383,2020-09-05T23:10:00Z,2020,R,Final,Atlanta Braves,Washington Nationals,4,10,Washington Nationals,0,1,Truist Park,N,1
+631556,2020-09-05T23:10:00Z,2020,R,Final,Cleveland Indians,Milwaukee Brewers,4,3,Cleveland Indians,1,0,Progressive Field,N,1
+631625,2020-09-05T23:30:00Z,2020,R,Final,Boston Red Sox,Toronto Blue Jays,9,8,Boston Red Sox,1,0,Fenway Park,N,1
+631675,2020-09-05T23:35:00Z,2020,R,Final,Baltimore Orioles,New York Yankees,6,1,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+631328,2020-09-06T01:10:00Z,2020,R,Final,Los Angeles Dodgers,Colorado Rockies,2,5,Colorado Rockies,0,1,Dodger Stadium,N,1
+631044,2020-09-06T01:10:00Z,2020,R,Final,Seattle Mariners,Texas Rangers,5,3,Seattle Mariners,1,0,T-Mobile Park,N,1
+631004,2020-09-06T01:15:00Z,2020,R,Final,San Francisco Giants,Arizona Diamondbacks,4,3,San Francisco Giants,1,0,Oracle Park,N,1
+631676,2020-09-06T17:05:00Z,2020,R,Final,Baltimore Orioles,New York Yankees,5,1,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+631209,2020-09-06T17:10:00Z,2020,R,Final,New York Mets,Philadelphia Phillies,14,1,New York Mets,1,0,Citi Field,N,1
+630491,2020-09-06T17:10:00Z,2020,R,Final,Atlanta Braves,Washington Nationals,10,3,Atlanta Braves,1,0,Truist Park,N,1
+630956,2020-09-06T17:10:00Z,2020,R,Final,Tampa Bay Rays,Miami Marlins,5,4,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631557,2020-09-06T17:10:00Z,2020,R,Final,Cleveland Indians,Milwaukee Brewers,4,1,Cleveland Indians,1,0,Progressive Field,N,1
+631116,2020-09-06T17:35:00Z,2020,R,Final,Pittsburgh Pirates,Cincinnati Reds,3,2,Pittsburgh Pirates,1,0,PNC Park,N,1
+631626,2020-09-06T17:35:00Z,2020,R,Final,Boston Red Sox,Toronto Blue Jays,8,10,Toronto Blue Jays,0,1,Fenway Park,N,1
+631407,2020-09-06T18:05:00Z,2020,R,Final,Kansas City Royals,Chicago White Sox,2,8,Chicago White Sox,0,1,Kauffman Stadium,N,1
+631254,2020-09-06T18:10:00Z,2020,R,Final,Minnesota Twins,Detroit Tigers,8,10,Detroit Tigers,0,1,Target Field,N,1
+631005,2020-09-06T20:05:00Z,2020,R,Final,San Francisco Giants,Arizona Diamondbacks,4,2,San Francisco Giants,1,0,Oracle Park,N,1
+631359,2020-09-06T20:10:00Z,2020,R,Final,Los Angeles Angels,Houston Astros,9,5,Los Angeles Angels,1,0,Angel Stadium,N,1
+631158,2020-09-06T20:10:00Z,2020,R,Final,Oakland Athletics,San Diego Padres,3,5,San Diego Padres,0,1,Oakland Coliseum,N,1
+631030,2020-09-06T20:10:00Z,2020,R,Final,Seattle Mariners,Texas Rangers,4,3,Seattle Mariners,1,0,T-Mobile Park,N,1
+631604,2020-09-06T23:08:00Z,2020,R,Final,Chicago Cubs,St. Louis Cardinals,3,7,St. Louis Cardinals,0,1,Wrigley Field,N,1
+631344,2020-09-07T02:10:00Z,2020,R,Final,Los Angeles Dodgers,Colorado Rockies,6,7,Colorado Rockies,0,1,Dodger Stadium,N,1
+631225,2020-09-07T17:10:00Z,2020,R,Final,New York Mets,Philadelphia Phillies,8,9,Philadelphia Phillies,0,1,Citi Field,N,1
+630415,2020-09-07T17:10:00Z,2020,R,Final,Atlanta Braves,Miami Marlins,4,5,Miami Marlins,0,1,Truist Park,N,1
+631255,2020-09-07T18:10:00Z,2020,R,Final,Minnesota Twins,Detroit Tigers,6,2,Minnesota Twins,1,0,Target Field,N,1
+631605,2020-09-07T20:10:00Z,2020,R,Final,Chicago Cubs,St. Louis Cardinals,5,1,Chicago Cubs,1,0,Wrigley Field,N,1
+631031,2020-09-07T20:10:00Z,2020,R,Final,Seattle Mariners,Texas Rangers,8,4,Seattle Mariners,1,0,T-Mobile Park,N,1
+630857,2020-09-07T22:05:00Z,2020,R,Final,Washington Nationals,Tampa Bay Rays,6,1,Washington Nationals,1,0,Nationals Park,N,1
+631558,2020-09-07T22:10:00Z,2020,R,Final,Cleveland Indians,Kansas City Royals,5,2,Cleveland Indians,1,0,Progressive Field,N,1
+630859,2020-09-07T22:37:00Z,2020,R,Final,Toronto Blue Jays,New York Yankees,12,7,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631006,2020-09-08T00:05:00Z,2020,R,Final,San Francisco Giants,Arizona Diamondbacks,4,2,San Francisco Giants,1,0,Oracle Park,N,1
+631159,2020-09-08T01:10:00Z,2020,R,Final,Oakland Athletics,Houston Astros,6,0,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631084,2020-09-08T01:10:00Z,2020,R,Final,San Diego Padres,Colorado Rockies,1,0,San Diego Padres,1,0,Petco Park,N,1
+630983,2020-09-08T19:15:00Z,2020,R,Final,St. Louis Cardinals,Minnesota Twins,3,7,Minnesota Twins,0,1,Busch Stadium,Y,1
+630984,2020-09-08T19:20:00Z,2020,R,Final,St. Louis Cardinals,Minnesota Twins,6,4,St. Louis Cardinals,1,0,Busch Stadium,Y,2
+631149,2020-09-08T20:05:00Z,2020,R,Final,Philadelphia Phillies,Boston Red Sox,6,5,Philadelphia Phillies,1,0,Citizens Bank Park,Y,1
+631152,2020-09-08T20:10:00Z,2020,R,Final,Philadelphia Phillies,Boston Red Sox,2,5,Boston Red Sox,0,1,Citizens Bank Park,Y,2
+630867,2020-09-08T22:05:00Z,2020,R,Final,Washington Nationals,Tampa Bay Rays,5,3,Washington Nationals,1,0,Nationals Park,N,1
+631559,2020-09-08T22:10:00Z,2020,R,Final,Cleveland Indians,Kansas City Royals,6,8,Kansas City Royals,0,1,Progressive Field,N,1
+631429,2020-09-08T22:10:00Z,2020,R,Final,Houston Astros,Oakland Athletics,2,4,Oakland Athletics,0,1,Oakland Coliseum,Y,1
+631160,2020-09-08T22:15:00Z,2020,R,Final,Oakland Athletics,Houston Astros,4,5,Houston Astros,0,1,Oakland Coliseum,Y,2
+630860,2020-09-08T22:37:00Z,2020,R,Final,Toronto Blue Jays,New York Yankees,2,1,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631096,2020-09-08T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Chicago White Sox,5,4,Pittsburgh Pirates,1,0,PNC Park,N,1
+631211,2020-09-08T23:10:00Z,2020,R,Final,New York Mets,Baltimore Orioles,2,11,Baltimore Orioles,0,1,Citi Field,N,1
+630438,2020-09-08T23:10:00Z,2020,R,Final,Atlanta Braves,Miami Marlins,0,8,Miami Marlins,0,1,Truist Park,N,1
+631460,2020-09-08T23:10:00Z,2020,R,Final,Detroit Tigers,Milwaukee Brewers,8,3,Detroit Tigers,1,0,Comerica Park,N,1
+630904,2020-09-09T00:05:00Z,2020,R,Final,Texas Rangers,Los Angeles Angels,7,1,Texas Rangers,1,0,Globe Life Field,N,1
+631615,2020-09-09T00:15:00Z,2020,R,Final,Chicago Cubs,Cincinnati Reds,3,0,Chicago Cubs,1,0,Wrigley Field,N,1
+631071,2020-09-09T01:10:00Z,2020,R,Final,San Diego Padres,Colorado Rockies,14,5,San Diego Padres,1,0,Petco Park,N,1
+630220,2020-09-09T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Los Angeles Dodgers,9,10,Los Angeles Dodgers,0,1,Chase Field,N,1
+631007,2020-09-09T01:45:00Z,2020,R,Final,San Francisco Giants,Seattle Mariners,6,5,San Francisco Giants,1,0,Oracle Park,N,1
+631461,2020-09-09T17:10:00Z,2020,R,Final,Detroit Tigers,Milwaukee Brewers,0,19,Milwaukee Brewers,0,1,Comerica Park,N,1
+631560,2020-09-09T22:10:00Z,2020,R,Final,Cleveland Indians,Kansas City Royals,0,3,Kansas City Royals,0,1,Progressive Field,N,1
+630864,2020-09-09T22:37:00Z,2020,R,Final,Toronto Blue Jays,New York Yankees,2,7,New York Yankees,0,1,Sahlen Field,N,1
+631100,2020-09-09T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Chicago White Sox,1,8,Chicago White Sox,0,1,PNC Park,N,1
+631212,2020-09-09T23:10:00Z,2020,R,Final,New York Mets,Baltimore Orioles,7,6,New York Mets,1,0,Citi Field,N,1
+630439,2020-09-09T23:10:00Z,2020,R,Final,Atlanta Braves,Miami Marlins,29,9,Atlanta Braves,1,0,Truist Park,N,1
+630925,2020-09-10T00:05:00Z,2020,R,Final,Texas Rangers,Los Angeles Angels,7,3,Texas Rangers,1,0,Globe Life Field,N,1
+631056,2020-09-10T00:10:00Z,2020,R,Final,San Diego Padres,Colorado Rockies,5,3,San Diego Padres,1,0,Petco Park,N,1
+631616,2020-09-10T00:15:00Z,2020,R,Final,Chicago Cubs,Cincinnati Reds,0,3,Cincinnati Reds,0,1,Wrigley Field,N,1
+631161,2020-09-10T01:10:00Z,2020,R,Final,Oakland Athletics,Houston Astros,3,2,Oakland Athletics,1,0,Oakland Coliseum,N,1
+630221,2020-09-10T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Los Angeles Dodgers,4,6,Los Angeles Dodgers,0,1,Chase Field,N,1
+631008,2020-09-10T01:45:00Z,2020,R,Final,San Francisco Giants,Seattle Mariners,10,1,San Francisco Giants,1,0,Oracle Park,N,1
+630994,2020-09-10T18:15:00Z,2020,R,Final,St. Louis Cardinals,Detroit Tigers,12,2,St. Louis Cardinals,1,0,Busch Stadium,Y,1
+630995,2020-09-10T18:20:00Z,2020,R,Final,St. Louis Cardinals,Detroit Tigers,3,6,Detroit Tigers,0,1,Busch Stadium,Y,2
+631162,2020-09-10T19:40:00Z,2020,R,Final,Oakland Athletics,Houston Astros,3,1,Oakland Athletics,1,0,Oakland Coliseum,N,1
+630908,2020-09-10T20:05:00Z,2020,R,Final,Texas Rangers,Los Angeles Angels,2,6,Los Angeles Angels,0,1,Globe Life Field,N,1
+630869,2020-09-10T22:05:00Z,2020,R,Final,Washington Nationals,Atlanta Braves,6,7,Atlanta Braves,0,1,Nationals Park,N,1
+631561,2020-09-10T22:10:00Z,2020,R,Final,Cleveland Indians,Kansas City Royals,1,11,Kansas City Royals,0,1,Progressive Field,N,1
+630957,2020-09-10T22:40:00Z,2020,R,Final,Tampa Bay Rays,Boston Red Sox,3,4,Boston Red Sox,0,1,Tropicana Field,N,1
+631309,2020-09-10T22:40:00Z,2020,R,Final,Miami Marlins,Philadelphia Phillies,7,6,Miami Marlins,1,0,Marlins Park,N,1
+631634,2020-09-11T00:15:00Z,2020,R,Final,Chicago Cubs,Cincinnati Reds,8,5,Chicago Cubs,1,0,Wrigley Field,N,1
+631072,2020-09-11T01:10:00Z,2020,R,Final,San Diego Padres,San Francisco Giants,6,1,San Diego Padres,1,0,Petco Park,N,1
+630223,2020-09-11T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Los Angeles Dodgers,5,2,Arizona Diamondbacks,1,0,Chase Field,N,1
+631183,2020-09-10T23:05:00Z,2020,R,Postponed,New York Yankees,Baltimore Orioles,,,,,,Yankee Stadium,N,1
+631184,2020-09-11T20:05:00Z,2020,R,Final,New York Yankees,Baltimore Orioles,6,0,New York Yankees,1,0,Yankee Stadium,Y,1
+631183,2020-09-11T20:10:00Z,2020,R,Final,New York Yankees,Baltimore Orioles,10,1,New York Yankees,1,0,Yankee Stadium,Y,2
+631310,2020-09-11T21:10:00Z,2020,R,Final,Miami Marlins,Philadelphia Phillies,0,11,Philadelphia Phillies,0,1,Marlins Park,Y,1
+631318,2020-09-11T21:15:00Z,2020,R,Final,Miami Marlins,Philadelphia Phillies,5,3,Miami Marlins,1,0,Marlins Park,Y,2
+630873,2020-09-11T22:05:00Z,2020,R,Final,Washington Nationals,Atlanta Braves,8,7,Washington Nationals,1,0,Nationals Park,N,1
+630868,2020-09-11T22:37:00Z,2020,R,Final,Toronto Blue Jays,New York Mets,1,18,New York Mets,0,1,Sahlen Field,N,1
+630958,2020-09-11T22:40:00Z,2020,R,Final,Tampa Bay Rays,Boston Red Sox,11,1,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631399,2020-09-12T00:05:00Z,2020,R,Final,Kansas City Royals,Pittsburgh Pirates,4,3,Kansas City Royals,1,0,Kauffman Stadium,N,1
+630909,2020-09-12T00:05:00Z,2020,R,Final,Texas Rangers,Oakland Athletics,6,10,Oakland Athletics,0,1,Globe Life Field,N,1
+631256,2020-09-12T00:10:00Z,2020,R,Final,Minnesota Twins,Cleveland Indians,3,1,Minnesota Twins,1,0,Target Field,N,1
+631478,2020-09-12T00:10:00Z,2020,R,Final,Chicago White Sox,Detroit Tigers,4,3,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631284,2020-09-12T00:10:00Z,2020,R,Final,Milwaukee Brewers,Chicago Cubs,1,0,Milwaukee Brewers,1,0,Miller Park,N,1
+630985,2020-09-12T00:15:00Z,2020,R,Final,St. Louis Cardinals,Cincinnati Reds,1,3,Cincinnati Reds,0,1,Busch Stadium,N,1
+631530,2020-09-12T00:40:00Z,2020,R,Final,Colorado Rockies,Los Angeles Angels,8,4,Colorado Rockies,1,0,Coors Field,N,1
+630224,2020-09-12T01:40:00Z,2020,R,Final,Arizona Diamondbacks,Seattle Mariners,4,3,Arizona Diamondbacks,1,0,Chase Field,N,1
+631058,2020-09-12T01:10:00Z,2020,R,Postponed,San Diego Padres,San Francisco Giants,,,,,,Petco Park,N,1
+631185,2020-09-12T17:05:00Z,2020,R,Final,New York Yankees,Baltimore Orioles,2,1,New York Yankees,1,0,Yankee Stadium,N,1
+630910,2020-09-12T21:05:00Z,2020,R,Final,Texas Rangers,Oakland Athletics,5,2,Texas Rangers,1,0,Globe Life Field,Y,1
+630932,2020-09-12T21:10:00Z,2020,R,Final,Texas Rangers,Oakland Athletics,1,10,Oakland Athletics,0,1,Globe Life Field,Y,2
+630877,2020-09-12T22:05:00Z,2020,R,Final,Washington Nationals,Atlanta Braves,1,2,Atlanta Braves,0,1,Nationals Park,N,1
+631311,2020-09-12T22:10:00Z,2020,R,Final,Miami Marlins,Philadelphia Phillies,6,12,Philadelphia Phillies,0,1,Marlins Park,N,1
+630870,2020-09-12T22:37:00Z,2020,R,Final,Toronto Blue Jays,New York Mets,3,2,Toronto Blue Jays,1,0,Sahlen Field,N,1
+630959,2020-09-12T22:40:00Z,2020,R,Final,Tampa Bay Rays,Boston Red Sox,5,4,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631400,2020-09-12T23:05:00Z,2020,R,Final,Kansas City Royals,Pittsburgh Pirates,7,4,Kansas City Royals,1,0,Kauffman Stadium,N,1
+631495,2020-09-12T23:10:00Z,2020,R,Final,Chicago White Sox,Detroit Tigers,14,0,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631285,2020-09-12T23:10:00Z,2020,R,Final,Milwaukee Brewers,Chicago Cubs,2,4,Chicago Cubs,0,1,Miller Park,N,1
+631331,2020-09-13T00:07:00Z,2020,R,Final,Los Angeles Dodgers,Houston Astros,5,7,Houston Astros,0,1,Dodger Stadium,N,1
+631257,2020-09-13T00:07:00Z,2020,R,Final,Minnesota Twins,Cleveland Indians,8,4,Minnesota Twins,1,0,Target Field,N,1
+631531,2020-09-13T00:10:00Z,2020,R,Final,Colorado Rockies,Los Angeles Angels,2,5,Los Angeles Angels,0,1,Coors Field,N,1
+630225,2020-09-13T00:10:00Z,2020,R,Final,Arizona Diamondbacks,Seattle Mariners,3,7,Seattle Mariners,0,1,Chase Field,N,1
+630988,2020-09-13T00:15:00Z,2020,R,Final,St. Louis Cardinals,Cincinnati Reds,7,1,St. Louis Cardinals,1,0,Busch Stadium,N,1
+631059,2020-09-13T01:10:00Z,2020,R,Postponed,San Diego Padres,San Francisco Giants,,,,,,Petco Park,N,1
+630883,2020-09-13T16:35:00Z,2020,R,Final,Washington Nationals,Atlanta Braves,4,8,Atlanta Braves,0,1,Nationals Park,N,1
+631187,2020-09-13T17:05:00Z,2020,R,Final,New York Yankees,Baltimore Orioles,3,1,New York Yankees,1,0,Yankee Stadium,N,1
+630947,2020-09-13T17:10:00Z,2020,R,Final,Tampa Bay Rays,Boston Red Sox,3,6,Boston Red Sox,0,1,Tropicana Field,N,1
+631312,2020-09-13T17:10:00Z,2020,R,Final,Miami Marlins,Philadelphia Phillies,2,1,Miami Marlins,1,0,Marlins Park,Y,1
+631320,2020-09-13T17:15:00Z,2020,R,Final,Miami Marlins,Philadelphia Phillies,8,1,Miami Marlins,1,0,Marlins Park,Y,2
+631401,2020-09-13T18:05:00Z,2020,R,Final,Kansas City Royals,Pittsburgh Pirates,11,0,Kansas City Royals,1,0,Kauffman Stadium,N,1
+631259,2020-09-13T18:10:00Z,2020,R,Final,Minnesota Twins,Cleveland Indians,7,5,Minnesota Twins,1,0,Target Field,N,1
+631481,2020-09-13T18:10:00Z,2020,R,Final,Chicago White Sox,Detroit Tigers,5,2,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631286,2020-09-13T18:10:00Z,2020,R,Final,Milwaukee Brewers,Chicago Cubs,0,12,Chicago Cubs,0,1,Miller Park,N,1
+630961,2020-09-13T18:15:00Z,2020,R,Final,St. Louis Cardinals,Cincinnati Reds,5,10,Cincinnati Reds,0,1,Busch Stadium,N,1
+630911,2020-09-13T18:35:00Z,2020,R,Final,Texas Rangers,Oakland Athletics,6,3,Texas Rangers,1,0,Globe Life Field,N,1
+630875,2020-09-13T19:07:00Z,2020,R,Final,Toronto Blue Jays,New York Mets,7,3,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631532,2020-09-13T19:10:00Z,2020,R,Final,Colorado Rockies,Los Angeles Angels,3,5,Los Angeles Angels,0,1,Coors Field,N,1
+630226,2020-09-13T20:10:00Z,2020,R,Final,Arizona Diamondbacks,Seattle Mariners,3,7,Seattle Mariners,0,1,Chase Field,N,1
+631060,2020-09-13T20:10:00Z,2020,R,Final,San Diego Padres,San Francisco Giants,6,0,San Diego Padres,1,0,Petco Park,Y,1
+631058,2020-09-13T20:15:00Z,2020,R,Final,San Diego Padres,San Francisco Giants,3,1,San Diego Padres,1,0,Petco Park,Y,2
+631332,2020-09-14T00:08:00Z,2020,R,Final,Los Angeles Dodgers,Houston Astros,8,1,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631588,2020-09-14T20:10:00Z,2020,R,Final,Cincinnati Reds,Pittsburgh Pirates,3,1,Cincinnati Reds,1,0,Great American Ball Park,Y,1
+631590,2020-09-14T20:15:00Z,2020,R,Final,Cincinnati Reds,Pittsburgh Pirates,9,4,Cincinnati Reds,1,0,Great American Ball Park,Y,2
+631321,2020-09-14T20:10:00Z,2020,R,Final,Miami Marlins,Philadelphia Phillies,6,2,Miami Marlins,1,0,Marlins Park,N,1
+631053,2020-09-14T21:10:00Z,2020,R,Final,Seattle Mariners,Oakland Athletics,6,5,Seattle Mariners,1,0,T-Mobile Park,Y,1
+631054,2020-09-14T21:15:00Z,2020,R,Final,Seattle Mariners,Oakland Athletics,0,9,Oakland Athletics,0,1,T-Mobile Park,Y,2
+631282,2020-09-14T21:10:00Z,2020,R,Final,Milwaukee Brewers,St. Louis Cardinals,2,1,Milwaukee Brewers,1,0,Miller Park,Y,1
+631288,2020-09-14T21:15:00Z,2020,R,Final,Milwaukee Brewers,St. Louis Cardinals,2,3,St. Louis Cardinals,0,1,Miller Park,Y,2
+631677,2020-09-14T23:35:00Z,2020,R,Final,Baltimore Orioles,Atlanta Braves,14,1,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+631482,2020-09-15T00:10:00Z,2020,R,Final,Chicago White Sox,Minnesota Twins,3,1,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631061,2020-09-15T01:10:00Z,2020,R,Final,San Diego Padres,Los Angeles Dodgers,7,2,San Diego Padres,1,0,Petco Park,N,1
+631574,2020-09-15T22:40:00Z,2020,R,Final,Cincinnati Reds,Pittsburgh Pirates,4,1,Cincinnati Reds,1,0,Great American Ball Park,N,1
+630936,2020-09-15T22:40:00Z,2020,R,Final,Tampa Bay Rays,Washington Nationals,6,1,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631314,2020-09-15T22:40:00Z,2020,R,Final,Miami Marlins,Boston Red Sox,0,2,Boston Red Sox,0,1,Marlins Park,N,1
+631144,2020-09-15T23:05:00Z,2020,R,Final,Philadelphia Phillies,New York Mets,4,1,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631195,2020-09-15T23:05:00Z,2020,R,Final,New York Yankees,Toronto Blue Jays,20,6,New York Yankees,1,0,Yankee Stadium,N,1
+631462,2020-09-15T23:10:00Z,2020,R,Final,Detroit Tigers,Kansas City Royals,6,0,Detroit Tigers,1,0,Comerica Park,N,1
+631680,2020-09-15T23:35:00Z,2020,R,Final,Baltimore Orioles,Atlanta Braves,1,5,Atlanta Braves,0,1,Oriole Park at Camden Yards,N,1
+631263,2020-09-15T23:40:00Z,2020,R,Final,Milwaukee Brewers,St. Louis Cardinals,18,3,Milwaukee Brewers,1,0,Miller Park,N,1
+631433,2020-09-16T00:10:00Z,2020,R,Final,Houston Astros,Texas Rangers,4,1,Houston Astros,1,0,Minute Maid Park,N,1
+631483,2020-09-16T00:10:00Z,2020,R,Final,Chicago White Sox,Minnesota Twins,6,2,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631618,2020-09-16T00:15:00Z,2020,R,Final,Chicago Cubs,Cleveland Indians,6,5,Chicago Cubs,1,0,Wrigley Field,N,1
+631520,2020-09-16T00:40:00Z,2020,R,Final,Colorado Rockies,Oakland Athletics,3,1,Colorado Rockies,1,0,Coors Field,N,1
+631062,2020-09-16T01:10:00Z,2020,R,Final,San Diego Padres,Los Angeles Dodgers,1,3,Los Angeles Dodgers,0,1,Petco Park,N,1
+631360,2020-09-16T01:40:00Z,2020,R,Final,Los Angeles Angels,Arizona Diamondbacks,8,9,Arizona Diamondbacks,0,1,Angel Stadium,N,1
+631032,2020-09-16T01:40:00Z,2020,R,Postponed,Seattle Mariners,San Francisco Giants,,,,,,T-Mobile Park,N,1
+630937,2020-09-16T17:10:00Z,2020,R,Final,Tampa Bay Rays,Washington Nationals,2,4,Washington Nationals,0,1,Tropicana Field,N,1
+631509,2020-09-16T19:10:00Z,2020,R,Final,Colorado Rockies,Oakland Athletics,1,3,Oakland Athletics,0,1,Coors Field,N,1
+631063,2020-09-16T20:10:00Z,2020,R,Final,San Diego Padres,Los Angeles Dodgers,5,7,Los Angeles Dodgers,0,1,Petco Park,N,1
+631265,2020-09-16T21:10:00Z,2020,R,Final,Milwaukee Brewers,St. Louis Cardinals,2,4,St. Louis Cardinals,0,1,Miller Park,Y,1
+631289,2020-09-16T21:15:00Z,2020,R,Final,Milwaukee Brewers,St. Louis Cardinals,6,0,Milwaukee Brewers,1,0,Miller Park,Y,2
+631575,2020-09-16T22:40:00Z,2020,R,Final,Cincinnati Reds,Pittsburgh Pirates,1,0,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631315,2020-09-16T22:40:00Z,2020,R,Final,Miami Marlins,Boston Red Sox,8,4,Miami Marlins,1,0,Marlins Park,N,1
+631119,2020-09-16T23:05:00Z,2020,R,Final,Philadelphia Phillies,New York Mets,4,5,New York Mets,0,1,Citizens Bank Park,N,1
+631189,2020-09-16T23:05:00Z,2020,R,Final,New York Yankees,Toronto Blue Jays,13,2,New York Yankees,1,0,Yankee Stadium,N,1
+631463,2020-09-16T23:10:00Z,2020,R,Final,Detroit Tigers,Kansas City Royals,0,4,Kansas City Royals,0,1,Comerica Park,N,1
+631659,2020-09-16T23:35:00Z,2020,R,Final,Baltimore Orioles,Atlanta Braves,5,1,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+631434,2020-09-17T00:10:00Z,2020,R,Final,Houston Astros,Texas Rangers,0,1,Texas Rangers,0,1,Minute Maid Park,N,1
+631484,2020-09-17T00:10:00Z,2020,R,Final,Chicago White Sox,Minnesota Twins,1,5,Minnesota Twins,0,1,Guaranteed Rate Field,N,1
+631619,2020-09-17T00:15:00Z,2020,R,Final,Chicago Cubs,Cleveland Indians,3,2,Chicago Cubs,1,0,Wrigley Field,N,1
+631361,2020-09-17T01:40:00Z,2020,R,Final,Los Angeles Angels,Arizona Diamondbacks,6,9,Arizona Diamondbacks,0,1,Angel Stadium,N,1
+631032,2020-09-17T01:45:00Z,2020,R,Final,Seattle Mariners,San Francisco Giants,3,9,San Francisco Giants,0,1,Oracle Park,N,1
+631034,2020-09-17T01:00:00Z,2020,R,Postponed,Seattle Mariners,San Francisco Giants,,,,,,T-Mobile Park,N,1
+631313,2020-09-17T17:10:00Z,2020,R,Final,Miami Marlins,Boston Red Sox,3,5,Boston Red Sox,0,1,Marlins Park,N,1
+631485,2020-09-17T18:10:00Z,2020,R,Final,Chicago White Sox,Minnesota Twins,4,3,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+631362,2020-09-17T20:10:00Z,2020,R,Final,Los Angeles Angels,Arizona Diamondbacks,7,3,Los Angeles Angels,1,0,Angel Stadium,N,1
+631034,2020-09-17T20:10:00Z,2020,R,Final,Seattle Mariners,San Francisco Giants,4,6,San Francisco Giants,0,1,Oracle Park,N,1
+631660,2020-09-17T20:35:00Z,2020,R,Final,Baltimore Orioles,Tampa Bay Rays,1,3,Tampa Bay Rays,0,1,Oriole Park at Camden Yards,Y,1
+630953,2020-09-17T20:40:00Z,2020,R,Final,Tampa Bay Rays,Baltimore Orioles,10,6,Tampa Bay Rays,1,0,Oriole Park at Camden Yards,Y,2
+631101,2020-09-17T23:05:00Z,2020,R,Final,Pittsburgh Pirates,St. Louis Cardinals,5,1,Pittsburgh Pirates,1,0,PNC Park,N,1
+631117,2020-09-17T23:05:00Z,2020,R,Final,Philadelphia Phillies,New York Mets,6,10,New York Mets,0,1,Citizens Bank Park,N,1
+631190,2020-09-17T23:05:00Z,2020,R,Final,New York Yankees,Toronto Blue Jays,10,7,New York Yankees,1,0,Yankee Stadium,N,1
+631464,2020-09-17T23:10:00Z,2020,R,Final,Detroit Tigers,Cleveland Indians,3,10,Cleveland Indians,0,1,Comerica Park,N,1
+631435,2020-09-17T23:10:00Z,2020,R,Final,Houston Astros,Texas Rangers,2,1,Houston Astros,1,0,Minute Maid Park,N,1
+631510,2020-09-18T00:40:00Z,2020,R,Final,Colorado Rockies,Los Angeles Dodgers,3,9,Los Angeles Dodgers,0,1,Coors Field,N,1
+631102,2020-09-18T20:05:00Z,2020,R,Final,Pittsburgh Pirates,St. Louis Cardinals,5,6,St. Louis Cardinals,0,1,PNC Park,Y,1
+630987,2020-09-18T20:10:00Z,2020,R,Final,St. Louis Cardinals,Pittsburgh Pirates,7,2,St. Louis Cardinals,1,0,PNC Park,Y,2
+630907,2020-09-18T20:05:00Z,2020,R,Final,Toronto Blue Jays,Philadelphia Phillies,0,7,Philadelphia Phillies,0,1,Citizens Bank Park,Y,1
+631122,2020-09-18T20:10:00Z,2020,R,Final,Philadelphia Phillies,Toronto Blue Jays,8,7,Philadelphia Phillies,1,0,Citizens Bank Park,Y,2
+631316,2020-09-18T21:10:00Z,2020,R,Final,Miami Marlins,Washington Nationals,0,5,Washington Nationals,0,1,Marlins Park,Y,1
+631342,2020-09-18T21:15:00Z,2020,R,Final,Miami Marlins,Washington Nationals,14,3,Miami Marlins,1,0,Marlins Park,Y,2
+631465,2020-09-18T23:10:00Z,2020,R,Final,Detroit Tigers,Cleveland Indians,0,1,Cleveland Indians,0,1,Comerica Park,N,1
+631213,2020-09-18T23:10:00Z,2020,R,Final,New York Mets,Atlanta Braves,2,15,Atlanta Braves,0,1,Citi Field,N,1
+631576,2020-09-18T23:10:00Z,2020,R,Final,Cincinnati Reds,Chicago White Sox,7,1,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631627,2020-09-18T23:30:00Z,2020,R,Final,Boston Red Sox,New York Yankees,5,6,New York Yankees,0,1,Fenway Park,N,1
+631661,2020-09-18T23:35:00Z,2020,R,Final,Baltimore Orioles,Tampa Bay Rays,1,2,Tampa Bay Rays,0,1,Oriole Park at Camden Yards,N,1
+631436,2020-09-19T00:10:00Z,2020,R,Final,Houston Astros,Arizona Diamondbacks,3,6,Arizona Diamondbacks,0,1,Minute Maid Park,N,1
+631511,2020-09-19T00:10:00Z,2020,R,Final,Colorado Rockies,Los Angeles Dodgers,6,15,Los Angeles Dodgers,0,1,Coors Field,N,1
+631266,2020-09-19T00:10:00Z,2020,R,Final,Milwaukee Brewers,Kansas City Royals,9,5,Milwaukee Brewers,1,0,Miller Park,N,1
+631629,2020-09-19T00:15:00Z,2020,R,Final,Chicago Cubs,Minnesota Twins,1,0,Chicago Cubs,1,0,Wrigley Field,N,1
+631367,2020-09-19T01:10:00Z,2020,R,Final,Los Angeles Angels,Texas Rangers,6,2,Los Angeles Angels,1,0,Angel Stadium,N,1
+631040,2020-09-19T01:40:00Z,2020,R,Final,Seattle Mariners,San Diego Padres,1,6,San Diego Padres,0,1,Petco Park,N,1
+631163,2020-09-19T01:40:00Z,2020,R,Final,Oakland Athletics,San Francisco Giants,6,0,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631164,2020-09-19T20:10:00Z,2020,R,Final,Oakland Athletics,San Francisco Giants,6,0,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631123,2020-09-19T22:05:00Z,2020,R,Final,Philadelphia Phillies,Toronto Blue Jays,3,1,Philadelphia Phillies,1,0,Citizens Bank Park,N,1
+631466,2020-09-19T22:10:00Z,2020,R,Final,Detroit Tigers,Cleveland Indians,5,2,Detroit Tigers,1,0,Comerica Park,N,1
+631317,2020-09-19T22:10:00Z,2020,R,Final,Miami Marlins,Washington Nationals,7,3,Miami Marlins,1,0,Marlins Park,N,1
+631147,2020-09-19T23:05:00Z,2020,R,Final,Pittsburgh Pirates,St. Louis Cardinals,4,5,St. Louis Cardinals,0,1,PNC Park,N,1
+631214,2020-09-19T23:07:00Z,2020,R,Final,New York Mets,Atlanta Braves,7,2,New York Mets,1,0,Citi Field,N,1
+631577,2020-09-19T23:07:00Z,2020,R,Final,Cincinnati Reds,Chicago White Sox,0,5,Chicago White Sox,0,1,Great American Ball Park,N,1
+631437,2020-09-19T23:10:00Z,2020,R,Final,Houston Astros,Arizona Diamondbacks,3,2,Houston Astros,1,0,Minute Maid Park,N,1
+631267,2020-09-19T23:10:00Z,2020,R,Final,Milwaukee Brewers,Kansas City Royals,5,0,Milwaukee Brewers,1,0,Miller Park,N,1
+631628,2020-09-19T23:30:00Z,2020,R,Final,Boston Red Sox,New York Yankees,0,8,New York Yankees,0,1,Fenway Park,N,1
+631662,2020-09-19T23:35:00Z,2020,R,Final,Baltimore Orioles,Tampa Bay Rays,1,3,Tampa Bay Rays,0,1,Oriole Park at Camden Yards,N,1
+631512,2020-09-20T00:10:00Z,2020,R,Final,Colorado Rockies,Los Angeles Dodgers,1,6,Los Angeles Dodgers,0,1,Coors Field,N,1
+631632,2020-09-20T00:15:00Z,2020,R,Final,Chicago Cubs,Minnesota Twins,1,8,Minnesota Twins,0,1,Wrigley Field,N,1
+631036,2020-09-20T01:10:00Z,2020,R,Final,Seattle Mariners,San Diego Padres,4,1,Seattle Mariners,1,0,Petco Park,N,1
+631372,2020-09-20T01:10:00Z,2020,R,Final,Los Angeles Angels,Texas Rangers,4,3,Los Angeles Angels,1,0,Angel Stadium,N,1
+631672,2020-09-20T17:05:00Z,2020,R,Final,Baltimore Orioles,Tampa Bay Rays,2,1,Baltimore Orioles,1,0,Oriole Park at Camden Yards,N,1
+631635,2020-09-20T17:07:00Z,2020,R,Final,Boston Red Sox,New York Yankees,10,2,Boston Red Sox,1,0,Fenway Park,N,1
+631454,2020-09-20T17:10:00Z,2020,R,Final,Detroit Tigers,Cleveland Indians,4,7,Cleveland Indians,0,1,Comerica Park,N,1
+631215,2020-09-20T17:10:00Z,2020,R,Final,New York Mets,Atlanta Braves,0,7,Atlanta Braves,0,1,Citi Field,N,1
+631578,2020-09-20T17:10:00Z,2020,R,Final,Cincinnati Reds,Chicago White Sox,7,3,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631305,2020-09-20T17:10:00Z,2020,R,Final,Miami Marlins,Washington Nationals,2,1,Miami Marlins,1,0,Marlins Park,Y,1
+631329,2020-09-20T17:15:00Z,2020,R,Final,Miami Marlins,Washington Nationals,0,15,Washington Nationals,0,1,Marlins Park,Y,2
+631424,2020-09-20T18:10:00Z,2020,R,Final,Houston Astros,Arizona Diamondbacks,3,2,Houston Astros,1,0,Minute Maid Park,N,1
+631268,2020-09-20T18:10:00Z,2020,R,Final,Milwaukee Brewers,Kansas City Royals,5,3,Milwaukee Brewers,1,0,Miller Park,N,1
+631128,2020-09-20T19:05:00Z,2020,R,Final,Philadelphia Phillies,Toronto Blue Jays,3,6,Toronto Blue Jays,0,1,Citizens Bank Park,N,1
+631519,2020-09-20T19:10:00Z,2020,R,Final,Colorado Rockies,Los Angeles Dodgers,6,3,Colorado Rockies,1,0,Coors Field,N,1
+631086,2020-09-20T20:05:00Z,2020,R,Final,Pittsburgh Pirates,St. Louis Cardinals,1,2,St. Louis Cardinals,0,1,PNC Park,N,1
+631037,2020-09-20T20:10:00Z,2020,R,Final,Seattle Mariners,San Diego Padres,4,7,San Diego Padres,0,1,Petco Park,N,1
+631166,2020-09-20T20:10:00Z,2020,R,Final,Oakland Athletics,San Francisco Giants,2,14,San Francisco Giants,0,1,Oakland Coliseum,N,1
+631375,2020-09-20T20:10:00Z,2020,R,Final,Los Angeles Angels,Texas Rangers,2,7,Texas Rangers,0,1,Angel Stadium,N,1
+631617,2020-09-20T23:08:00Z,2020,R,Final,Chicago Cubs,Minnesota Twins,0,4,Minnesota Twins,0,1,Wrigley Field,N,1
+631376,2020-09-21T20:10:00Z,2020,R,Final,Los Angeles Angels,Texas Rangers,8,5,Los Angeles Angels,1,0,Angel Stadium,N,1
+630884,2020-09-21T22:05:00Z,2020,R,Final,Washington Nationals,Philadelphia Phillies,5,1,Washington Nationals,1,0,Nationals Park,N,1
+631562,2020-09-21T22:10:00Z,2020,R,Final,Cleveland Indians,Chicago White Sox,7,4,Cleveland Indians,1,0,Progressive Field,N,1
+630876,2020-09-21T22:37:00Z,2020,R,Final,Toronto Blue Jays,New York Yankees,11,5,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631579,2020-09-21T22:40:00Z,2020,R,Final,Cincinnati Reds,Milwaukee Brewers,6,3,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631087,2020-09-21T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Chicago Cubs,0,5,Chicago Cubs,0,1,PNC Park,N,1
+631216,2020-09-21T23:10:00Z,2020,R,Final,New York Mets,Tampa Bay Rays,1,2,Tampa Bay Rays,0,1,Citi Field,N,1
+630440,2020-09-21T23:10:00Z,2020,R,Final,Atlanta Braves,Miami Marlins,5,4,Atlanta Braves,1,0,Truist Park,N,1
+631402,2020-09-22T00:05:00Z,2020,R,Final,Kansas City Royals,St. Louis Cardinals,4,1,Kansas City Royals,1,0,Kauffman Stadium,N,1
+631038,2020-09-22T01:10:00Z,2020,R,Final,Seattle Mariners,Houston Astros,6,1,Seattle Mariners,1,0,T-Mobile Park,N,1
+631009,2020-09-22T01:45:00Z,2020,R,Final,San Francisco Giants,Colorado Rockies,2,7,Colorado Rockies,0,1,Oracle Park,N,1
+630888,2020-09-22T19:05:00Z,2020,R,Final,Washington Nationals,Philadelphia Phillies,5,1,Washington Nationals,1,0,Nationals Park,Y,1
+630896,2020-09-22T19:10:00Z,2020,R,Final,Washington Nationals,Philadelphia Phillies,8,7,Washington Nationals,1,0,Nationals Park,Y,2
+631550,2020-09-22T22:10:00Z,2020,R,Final,Cleveland Indians,Chicago White Sox,5,3,Cleveland Indians,1,0,Progressive Field,N,1
+630881,2020-09-22T22:37:00Z,2020,R,Final,Toronto Blue Jays,New York Yankees,1,12,New York Yankees,0,1,Sahlen Field,N,1
+631580,2020-09-22T22:40:00Z,2020,R,Final,Cincinnati Reds,Milwaukee Brewers,2,3,Milwaukee Brewers,0,1,Great American Ball Park,N,1
+631088,2020-09-22T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Chicago Cubs,3,2,Pittsburgh Pirates,1,0,PNC Park,N,1
+631217,2020-09-22T23:10:00Z,2020,R,Final,New York Mets,Tampa Bay Rays,5,2,New York Mets,1,0,Citi Field,N,1
+630385,2020-09-22T23:10:00Z,2020,R,Final,Atlanta Braves,Miami Marlins,11,1,Atlanta Braves,1,0,Truist Park,N,1
+631636,2020-09-22T23:30:00Z,2020,R,Final,Boston Red Sox,Baltimore Orioles,8,3,Boston Red Sox,1,0,Fenway Park,N,1
+631251,2020-09-22T23:40:00Z,2020,R,Final,Minnesota Twins,Detroit Tigers,5,4,Minnesota Twins,1,0,Target Field,N,1
+631411,2020-09-23T00:05:00Z,2020,R,Final,Kansas City Royals,St. Louis Cardinals,0,5,St. Louis Cardinals,0,1,Kauffman Stadium,N,1
+631064,2020-09-23T01:10:00Z,2020,R,Final,San Diego Padres,Los Angeles Angels,2,4,Los Angeles Angels,0,1,Petco Park,N,1
+631039,2020-09-23T01:10:00Z,2020,R,Final,Seattle Mariners,Houston Astros,1,6,Houston Astros,0,1,T-Mobile Park,N,1
+630243,2020-09-23T01:10:00Z,2020,R,Final,Arizona Diamondbacks,Texas Rangers,7,0,Arizona Diamondbacks,1,0,Chase Field,N,1
+631333,2020-09-23T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Oakland Athletics,7,2,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631010,2020-09-23T01:45:00Z,2020,R,Final,San Francisco Giants,Colorado Rockies,5,2,San Francisco Giants,1,0,Oracle Park,N,1
+631065,2020-09-23T20:10:00Z,2020,R,Final,San Diego Padres,Los Angeles Angels,2,5,Los Angeles Angels,0,1,Petco Park,N,1
+630892,2020-09-23T22:05:00Z,2020,R,Final,Washington Nationals,Philadelphia Phillies,3,12,Philadelphia Phillies,0,1,Nationals Park,N,1
+630263,2020-09-23T22:10:00Z,2020,R,Final,Arizona Diamondbacks,Texas Rangers,7,3,Arizona Diamondbacks,1,0,Chase Field,N,1
+631534,2020-09-23T22:10:00Z,2020,R,Final,Cleveland Indians,Chicago White Sox,3,2,Cleveland Indians,1,0,Progressive Field,N,1
+630885,2020-09-23T22:37:00Z,2020,R,Final,Toronto Blue Jays,New York Yankees,14,1,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631035,2020-09-23T22:40:00Z,2020,R,Final,Seattle Mariners,Houston Astros,3,2,Seattle Mariners,1,0,T-Mobile Park,N,1
+631583,2020-09-23T22:40:00Z,2020,R,Final,Cincinnati Reds,Milwaukee Brewers,6,1,Cincinnati Reds,1,0,Great American Ball Park,N,1
+631089,2020-09-23T23:05:00Z,2020,R,Final,Pittsburgh Pirates,Chicago Cubs,2,1,Pittsburgh Pirates,1,0,PNC Park,N,1
+631218,2020-09-23T23:10:00Z,2020,R,Final,New York Mets,Tampa Bay Rays,5,8,Tampa Bay Rays,0,1,Citi Field,N,1
+630554,2020-09-23T23:10:00Z,2020,R,Final,Atlanta Braves,Miami Marlins,9,4,Atlanta Braves,1,0,Truist Park,N,1
+631637,2020-09-23T23:30:00Z,2020,R,Final,Boston Red Sox,Baltimore Orioles,9,1,Boston Red Sox,1,0,Fenway Park,N,1
+631250,2020-09-23T23:40:00Z,2020,R,Final,Minnesota Twins,Detroit Tigers,7,6,Minnesota Twins,1,0,Target Field,N,1
+631380,2020-09-24T00:05:00Z,2020,R,Final,Kansas City Royals,St. Louis Cardinals,12,3,Kansas City Royals,1,0,Kauffman Stadium,N,1
+631334,2020-09-24T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Oakland Athletics,4,6,Oakland Athletics,0,1,Dodger Stadium,N,1
+631011,2020-09-24T01:45:00Z,2020,R,Final,San Francisco Giants,Colorado Rockies,7,2,San Francisco Giants,1,0,Oracle Park,N,1
+631099,2020-09-24T17:35:00Z,2020,R,Final,Pittsburgh Pirates,Chicago Cubs,7,0,Pittsburgh Pirates,1,0,PNC Park,N,1
+631012,2020-09-24T19:45:00Z,2020,R,Final,San Francisco Giants,Colorado Rockies,4,5,Colorado Rockies,0,1,Oracle Park,N,1
+630893,2020-09-24T22:05:00Z,2020,R,Final,Washington Nationals,New York Mets,2,3,New York Mets,0,1,Nationals Park,N,1
+631549,2020-09-24T22:10:00Z,2020,R,Final,Cleveland Indians,Chicago White Sox,5,4,Cleveland Indians,1,0,Progressive Field,N,1
+630887,2020-09-24T22:37:00Z,2020,R,Final,Toronto Blue Jays,New York Yankees,4,1,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631685,2020-09-24T23:10:00Z,2020,R,Final,Atlanta Braves,Miami Marlins,2,4,Miami Marlins,0,1,Truist Park,N,1
+631640,2020-09-24T23:30:00Z,2020,R,Final,Boston Red Sox,Baltimore Orioles,1,13,Baltimore Orioles,0,1,Fenway Park,N,1
+631398,2020-09-25T00:05:00Z,2020,R,Final,Kansas City Royals,Detroit Tigers,8,7,Kansas City Royals,1,0,Kauffman Stadium,N,1
+630912,2020-09-25T00:05:00Z,2020,R,Final,Texas Rangers,Houston Astros,4,12,Houston Astros,0,1,Globe Life Field,N,1
+630975,2020-09-25T00:15:00Z,2020,R,Final,St. Louis Cardinals,Milwaukee Brewers,4,2,St. Louis Cardinals,1,0,Busch Stadium,N,1
+631335,2020-09-25T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Oakland Athletics,5,1,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+630963,2020-09-25T21:15:00Z,2020,R,Final,St. Louis Cardinals,Milwaukee Brewers,0,3,Milwaukee Brewers,0,1,Busch Stadium,Y,1
+631292,2020-09-25T21:20:00Z,2020,R,Final,Milwaukee Brewers,St. Louis Cardinals,1,9,St. Louis Cardinals,0,1,Busch Stadium,Y,2
+630889,2020-09-25T22:37:00Z,2020,R,Final,Toronto Blue Jays,Baltimore Orioles,10,5,Toronto Blue Jays,1,0,Sahlen Field,N,1
+630270,2020-09-25T22:40:00Z,2020,R,Final,Arizona Diamondbacks,Colorado Rockies,4,0,Arizona Diamondbacks,1,0,Chase Field,Y,1
+630203,2020-09-25T22:45:00Z,2020,R,Final,Arizona Diamondbacks,Colorado Rockies,11,5,Arizona Diamondbacks,1,0,Chase Field,Y,2
+630938,2020-09-25T22:40:00Z,2020,R,Final,Tampa Bay Rays,Philadelphia Phillies,6,4,Tampa Bay Rays,1,0,Tropicana Field,N,1
+631191,2020-09-25T23:05:00Z,2020,R,Final,New York Yankees,Miami Marlins,3,4,Miami Marlins,0,1,Yankee Stadium,N,1
+631536,2020-09-25T23:10:00Z,2020,R,Final,Cleveland Indians,Pittsburgh Pirates,4,3,Cleveland Indians,1,0,Progressive Field,N,1
+631013,2020-09-25T23:10:00Z,2020,R,Final,San Francisco Giants,San Diego Padres,5,4,San Francisco Giants,1,0,Oracle Park,Y,1
+631059,2020-09-25T23:15:00Z,2020,R,Final,San Diego Padres,San Francisco Giants,6,5,San Diego Padres,1,0,Oracle Park,Y,2
+630569,2020-09-25T23:10:00Z,2020,R,Final,Atlanta Braves,Boston Red Sox,8,7,Atlanta Braves,1,0,Truist Park,N,1
+631383,2020-09-26T00:05:00Z,2020,R,Final,Kansas City Royals,Detroit Tigers,3,2,Kansas City Royals,1,0,Kauffman Stadium,N,1
+630913,2020-09-26T00:05:00Z,2020,R,Final,Texas Rangers,Houston Astros,5,4,Texas Rangers,1,0,Globe Life Field,N,1
+631246,2020-09-26T00:10:00Z,2020,R,Final,Minnesota Twins,Cincinnati Reds,2,7,Cincinnati Reds,0,1,Target Field,N,1
+631486,2020-09-26T00:10:00Z,2020,R,Final,Chicago White Sox,Chicago Cubs,0,10,Chicago Cubs,0,1,Guaranteed Rate Field,N,1
+631336,2020-09-26T01:40:00Z,2020,R,Final,Los Angeles Dodgers,Los Angeles Angels,9,5,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631167,2020-09-26T01:40:00Z,2020,R,Final,Oakland Athletics,Seattle Mariners,3,1,Oakland Athletics,1,0,Oakland Coliseum,N,1
+630894,2020-09-25T22:05:00Z,2020,R,Postponed,Washington Nationals,New York Mets,,,,,,Nationals Park,N,1
+631193,2020-09-26T17:05:00Z,2020,R,Final,New York Yankees,Miami Marlins,11,4,New York Yankees,1,0,Yankee Stadium,N,1
+630895,2020-09-26T19:05:00Z,2020,R,Final,Washington Nationals,New York Mets,4,3,Washington Nationals,1,0,Nationals Park,Y,1
+630894,2020-09-26T19:10:00Z,2020,R,Final,Washington Nationals,New York Mets,5,3,Washington Nationals,1,0,Nationals Park,Y,2
+631169,2020-09-26T20:10:00Z,2020,R,Final,Oakland Athletics,Seattle Mariners,1,5,Seattle Mariners,0,1,Oakland Coliseum,Y,1
+631055,2020-09-26T20:15:00Z,2020,R,Final,Seattle Mariners,Oakland Athletics,12,3,Seattle Mariners,1,0,Oakland Coliseum,Y,2
+630891,2020-09-26T22:37:00Z,2020,R,Final,Toronto Blue Jays,Baltimore Orioles,5,2,Toronto Blue Jays,1,0,Sahlen Field,N,1
+631385,2020-09-26T23:05:00Z,2020,R,Final,Kansas City Royals,Detroit Tigers,3,4,Detroit Tigers,0,1,Kauffman Stadium,N,1
+630914,2020-09-26T23:05:00Z,2020,R,Final,Texas Rangers,Houston Astros,6,1,Texas Rangers,1,0,Globe Life Field,N,1
+630939,2020-09-26T23:07:00Z,2020,R,Final,Tampa Bay Rays,Philadelphia Phillies,4,3,Tampa Bay Rays,1,0,Tropicana Field,N,1
+630964,2020-09-26T23:07:00Z,2020,R,Final,St. Louis Cardinals,Milwaukee Brewers,0,3,Milwaukee Brewers,0,1,Busch Stadium,N,1
+631537,2020-09-26T23:10:00Z,2020,R,Final,Cleveland Indians,Pittsburgh Pirates,0,8,Pittsburgh Pirates,0,1,Progressive Field,N,1
+631245,2020-09-26T23:10:00Z,2020,R,Final,Minnesota Twins,Cincinnati Reds,7,3,Minnesota Twins,1,0,Target Field,N,1
+630570,2020-09-26T23:10:00Z,2020,R,Final,Atlanta Braves,Boston Red Sox,2,8,Boston Red Sox,0,1,Truist Park,N,1
+631487,2020-09-26T23:10:00Z,2020,R,Final,Chicago White Sox,Chicago Cubs,9,5,Chicago White Sox,1,0,Guaranteed Rate Field,N,1
+630271,2020-09-27T00:10:00Z,2020,R,Final,Arizona Diamondbacks,Colorado Rockies,3,10,Colorado Rockies,0,1,Chase Field,N,1
+631337,2020-09-27T01:10:00Z,2020,R,Final,Los Angeles Dodgers,Los Angeles Angels,7,6,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631016,2020-09-27T01:15:00Z,2020,R,Final,San Francisco Giants,San Diego Padres,2,6,San Diego Padres,0,1,Oracle Park,N,1
+631386,2020-09-27T17:05:00Z,2020,R,Final,Kansas City Royals,Detroit Tigers,3,1,Kansas City Royals,1,0,Kauffman Stadium,N,1
+630854,2020-09-27T19:05:00Z,2020,R,Final,Washington Nationals,New York Mets,15,5,Washington Nationals,1,0,Nationals Park,N,1
+631002,2020-09-27T19:05:00Z,2020,R,Final,San Francisco Giants,San Diego Padres,4,5,San Diego Padres,0,1,Oracle Park,N,1
+630915,2020-09-27T19:05:00Z,2020,R,Final,Texas Rangers,Houston Astros,8,4,Texas Rangers,1,0,Globe Life Field,N,1
+631188,2020-09-27T19:05:00Z,2020,R,Final,New York Yankees,Miami Marlins,0,5,Miami Marlins,0,1,Yankee Stadium,N,1
+630858,2020-09-27T19:07:00Z,2020,R,Final,Toronto Blue Jays,Baltimore Orioles,5,7,Baltimore Orioles,0,1,Sahlen Field,N,1
+630202,2020-09-27T19:10:00Z,2020,R,Final,Arizona Diamondbacks,Colorado Rockies,11,3,Arizona Diamondbacks,1,0,Chase Field,N,1
+631338,2020-09-27T19:10:00Z,2020,R,Final,Los Angeles Dodgers,Los Angeles Angels,5,0,Los Angeles Dodgers,1,0,Dodger Stadium,N,1
+631538,2020-09-27T19:10:00Z,2020,R,Final,Cleveland Indians,Pittsburgh Pirates,8,6,Cleveland Indians,1,0,Progressive Field,N,1
+631155,2020-09-27T19:10:00Z,2020,R,Final,Oakland Athletics,Seattle Mariners,6,2,Oakland Athletics,1,0,Oakland Coliseum,N,1
+631244,2020-09-27T19:10:00Z,2020,R,Final,Minnesota Twins,Cincinnati Reds,3,5,Cincinnati Reds,0,1,Target Field,N,1
+630945,2020-09-27T19:10:00Z,2020,R,Final,Tampa Bay Rays,Philadelphia Phillies,5,0,Tampa Bay Rays,1,0,Tropicana Field,N,1
+630573,2020-09-27T19:10:00Z,2020,R,Final,Atlanta Braves,Boston Red Sox,1,9,Boston Red Sox,0,1,Truist Park,N,1
+631488,2020-09-27T19:10:00Z,2020,R,Final,Chicago White Sox,Chicago Cubs,8,10,Chicago Cubs,0,1,Guaranteed Rate Field,N,1
+630965,2020-09-27T19:15:00Z,2020,R,Final,St. Louis Cardinals,Milwaukee Brewers,5,2,St. Louis Cardinals,1,0,Busch Stadium,N,1

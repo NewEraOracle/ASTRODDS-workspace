@@ -6,6 +6,7 @@ CLV, calibration, confidence, or win rate are created.
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 from collections import deque
@@ -19,6 +20,8 @@ PROCESSED_DIR = ENGINE_ROOT / "data" / "processed"
 FEATURE_OUTPUT = PROCESSED_DIR / "mlb_moneyline_features.csv"
 REPORT_OUTPUT = PROCESSED_DIR / "mlb_moneyline_features_report.json"
 INPUT_PATTERN = "mlb_games_*.csv"
+DEFAULT_START_YEAR = 2023
+DEFAULT_END_YEAR = 2026
 
 FEATURE_COLUMNS = [
     "game_id",
@@ -100,6 +103,28 @@ def ensure_dirs() -> None:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Build real moneyline features for ASTRODDS MLB Engine.")
+    parser.add_argument(
+        "--start-year",
+        type=int,
+        default=DEFAULT_START_YEAR,
+        choices=sorted(range(2016, 2027)),
+        help="First MLB season year to include. Default: 2023.",
+    )
+    parser.add_argument(
+        "--end-year",
+        type=int,
+        default=DEFAULT_END_YEAR,
+        choices=sorted(range(2016, 2027)),
+        help="Last MLB season year to include. Default: 2026.",
+    )
+    args = parser.parse_args()
+    if args.start_year > args.end_year:
+        parser.error("--start-year must be less than or equal to --end-year.")
+    return args
+
+
 def parse_int(value: str | None) -> int | None:
     if value is None or value == "":
         return None
@@ -126,6 +151,24 @@ def csv_value(value: Any) -> Any:
     if value is None:
         return ""
     return value
+
+
+def extract_year_from_path(path: Path) -> int | None:
+    try:
+        return int(path.stem.rsplit("_", 1)[-1])
+    except ValueError:
+        return None
+
+
+def output_paths(start_year: int, end_year: int) -> tuple[Path, Path, Path | None]:
+    if start_year == DEFAULT_START_YEAR and end_year == DEFAULT_END_YEAR:
+        return FEATURE_OUTPUT, REPORT_OUTPUT, None
+
+    suffix = f"_{start_year}_{end_year}"
+    feature_output = PROCESSED_DIR / f"mlb_moneyline_features{suffix}.csv"
+    report_output = PROCESSED_DIR / f"mlb_moneyline_features{suffix}_report.json"
+    expansion_report_output = PROCESSED_DIR / f"mlb_historical_expansion{suffix}_report.json"
+    return feature_output, report_output, expansion_report_output
 
 
 def round_float(value: float | None) -> float | str:
@@ -185,11 +228,15 @@ def back_to_back(rest: int | None) -> int | str:
     return 1 if rest <= 1 else 0
 
 
-def input_files() -> list[Path]:
+def input_files(start_year: int, end_year: int) -> list[Path]:
     return sorted(
         path
         for path in PROCESSED_DIR.glob(INPUT_PATTERN)
-        if path.name.startswith("mlb_games_") and path.name != FEATURE_OUTPUT.name
+        if path.name.startswith("mlb_games_")
+        and path.name != FEATURE_OUTPUT.name
+        and path.name != REPORT_OUTPUT.name
+        and (year := extract_year_from_path(path)) is not None
+        and start_year <= year <= end_year
     )
 
 
@@ -312,30 +359,37 @@ def build_feature_row(row: dict[str, Any], home_history: TeamSeasonHistory, away
     }
 
 
-def write_features(rows: list[dict[str, Any]]) -> None:
-    with FEATURE_OUTPUT.open("w", encoding="utf-8", newline="") as file:
+def write_features(rows: list[dict[str, Any]], output_path: Path) -> None:
+    with output_path.open("w", encoding="utf-8", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=FEATURE_COLUMNS)
         writer.writeheader()
         writer.writerows(rows)
 
 
-def write_report(report: dict[str, Any]) -> None:
-    with REPORT_OUTPUT.open("w", encoding="utf-8") as file:
+def write_report(report: dict[str, Any], output_path: Path) -> None:
+    with output_path.open("w", encoding="utf-8") as file:
         json.dump(report, file, ensure_ascii=False, indent=2)
 
 
 def main() -> None:
     ensure_dirs()
+    args = parse_args()
+    start_year = args.start_year
+    end_year = args.end_year
+    feature_output, report_output, expansion_report_output = output_paths(start_year, end_year)
     print("ASTRODDS MLB Engine - build_features")
     print("Building real moneyline features only. No model, predictions, ROI, CLV, calibration, or confidence will be created.")
 
-    files = input_files()
+    files = input_files(start_year, end_year)
     warnings: list[str] = []
     if not files:
-        warnings.append("No processed MLB game CSV files found. Run fetch_data.py --year 2023/2024/2025/2026 first.")
+        warnings.append(f"No processed MLB game CSV files found for the requested window {start_year}-{end_year}. Run fetch_data.py for the missing years first.")
         report = {
             "input_files_found": [],
             "seasons_included": [],
+            "historical_window": f"{start_year}-{end_year}",
+            "start_year": start_year,
+            "end_year": end_year,
             "total_games_read": 0,
             "completed_games_used": 0,
             "incomplete_games_skipped": 0,
@@ -343,10 +397,13 @@ def main() -> None:
             "feature_columns": FEATURE_COLUMNS,
             "warnings": warnings,
             "generated_at": datetime.now(timezone.utc).isoformat(),
+            "output_csv": str(feature_output.relative_to(ENGINE_ROOT)),
         }
-        write_report(report)
+        write_report(report, report_output)
+        if expansion_report_output is not None:
+            write_report({**report, "expansion_report": True, "report_type": "historical_expansion"}, expansion_report_output)
         print(warnings[0])
-        print(f"Report written: {REPORT_OUTPUT}")
+        print(f"Report written: {report_output}")
         return
 
     games, total_read, malformed = read_games(files)
@@ -407,16 +464,21 @@ def main() -> None:
     if 2026 in seasons:
         warnings.append("2026 rows are season-to-date only; only completed 2026 games with known winners are included.")
 
-    write_features(feature_rows)
+    write_features(feature_rows, feature_output)
     report = {
         "input_files_found": [str(path.relative_to(ENGINE_ROOT)) for path in files],
         "seasons_included": sorted(seasons),
+        "historical_window": f"{start_year}-{end_year}",
+        "start_year": start_year,
+        "end_year": end_year,
         "total_games_read": total_read,
         "completed_games_used": len(feature_rows),
         "incomplete_games_skipped": incomplete_skipped,
         "malformed_games_skipped": malformed,
         "output_row_count": len(feature_rows),
         "feature_columns": FEATURE_COLUMNS,
+        "output_csv": str(feature_output.relative_to(ENGINE_ROOT)),
+        "report_json": str(report_output.relative_to(ENGINE_ROOT)),
         "limited_history_counts": {
             "home_no_prior_games": no_prior_home,
             "away_no_prior_games": no_prior_away,
@@ -428,15 +490,26 @@ def main() -> None:
         "warnings": warnings,
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
-    write_report(report)
+    write_report(report, report_output)
+    if expansion_report_output is not None:
+        expansion_report = {
+            **report,
+            "report_type": "historical_expansion",
+            "expansion_report": True,
+            "expansion_report_json": str(expansion_report_output.relative_to(ENGINE_ROOT)),
+        }
+        write_report(expansion_report, expansion_report_output)
 
     print("Feature build completed.")
+    print(f"- historical window: {start_year}-{end_year}")
     print(f"- input files: {len(files)}")
     print(f"- total games read: {total_read}")
     print(f"- completed games used: {len(feature_rows)}")
     print(f"- incomplete games skipped: {incomplete_skipped}")
-    print(f"- output CSV: {FEATURE_OUTPUT}")
-    print(f"- report JSON: {REPORT_OUTPUT}")
+    print(f"- output CSV: {feature_output}")
+    print(f"- report JSON: {report_output}")
+    if expansion_report_output is not None:
+        print(f"- expansion report JSON: {expansion_report_output}")
     for warning in warnings:
         print(f"Warning: {warning}")
 

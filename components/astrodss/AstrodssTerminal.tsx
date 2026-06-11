@@ -378,6 +378,25 @@ type PaperWatchlistLedgerActionResponse = {
   recentRows?: PaperWatchlistRowResponse[];
 };
 type PaperPerformanceDiagnosticsResponse = PaperPerformanceAnalysis;
+type HistoricalExpansionDiagnosticsResponse = {
+  status: "available" | "partial" | "missing";
+  available: boolean;
+  historicalWindow: string;
+  startYear: number;
+  endYear: number;
+  yearsIncluded: number[];
+  totalGamesRead: number;
+  completedGamesUsed: number;
+  incompleteGamesSkipped: number;
+  malformedGamesSkipped: number;
+  outputRowCount: number;
+  outputCsv?: string;
+  featureReportPath?: string;
+  expansionReportPath?: string;
+  warnings: string[];
+  generatedAt?: string;
+  sourcePath: string;
+};
 type PitcherFeatureDiagnosticsResponse = {
   status: "available" | "partial" | "missing";
   available: boolean;
@@ -495,6 +514,7 @@ type UnifiedMlbStatusResponse = {
   paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
   paperClvDiagnostics?: PaperWatchlistClvDiagnosticsResponse;
   paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
+  historicalExpansionDiagnostics?: HistoricalExpansionDiagnosticsResponse;
   pitcherFeatureDiagnostics?: PitcherFeatureDiagnosticsResponse;
   weatherBallparkFeatureDiagnostics?: WeatherBallparkFeatureDiagnosticsResponse;
   lineupPlayerFeatureDiagnostics?: LineupPlayerFeatureDiagnosticsResponse;
@@ -1617,6 +1637,8 @@ export default function AstrodssTerminal() {
   const [isUpdatingPaperWatchlistClv, setIsUpdatingPaperWatchlistClv] = useState(false);
   const [paperPerformanceDiagnostics, setPaperPerformanceDiagnostics] = useState<PaperPerformanceDiagnosticsResponse | null>(null);
   const [paperPerformanceDiagnosticsError, setPaperPerformanceDiagnosticsError] = useState("");
+  const [historicalExpansionDiagnostics, setHistoricalExpansionDiagnostics] = useState<HistoricalExpansionDiagnosticsResponse | null>(null);
+  const [historicalExpansionDiagnosticsError, setHistoricalExpansionDiagnosticsError] = useState("");
   const [pitcherFeatureDiagnostics, setPitcherFeatureDiagnostics] = useState<PitcherFeatureDiagnosticsResponse | null>(null);
   const [pitcherFeatureDiagnosticsError, setPitcherFeatureDiagnosticsError] = useState("");
   const [weatherBallparkFeatureDiagnostics, setWeatherBallparkFeatureDiagnostics] = useState<WeatherBallparkFeatureDiagnosticsResponse | null>(null);
@@ -1715,6 +1737,10 @@ export default function AstrodssTerminal() {
   const paperPerformanceWarning = paperPerformanceSummary?.warnings[0] ?? paperPerformanceDiagnosticsError ?? "Waiting for paper performance diagnostics.";
   const paperPerformanceWinRateLabel = percentMetric(paperPerformanceSummary?.winRate ?? undefined);
   const paperPerformancePnLLabel = typeof paperPerformanceSummary?.paperPnLUnits === "number" ? paperPerformanceSummary.paperPnLUnits.toFixed(2) : "--";
+  const historicalExpansionSummary = historicalExpansionDiagnostics;
+  const historicalExpansionWindowLabel = historicalExpansionSummary?.historicalWindow ?? "2016-2026";
+  const historicalExpansionWarning = historicalExpansionSummary?.warnings[0] ?? historicalExpansionDiagnosticsError ?? "Waiting for historical expansion diagnostics.";
+  const historicalExpansionYearsLabel = historicalExpansionSummary?.yearsIncluded.length ? historicalExpansionSummary.yearsIncluded.join(", ") : "2016-2026";
   const pitcherFeatureSummary = pitcherFeatureDiagnostics;
   const pitcherFeatureStatusLabel = pitcherFeatureSummary?.status === "available" ? "Available" : pitcherFeatureSummary?.status === "partial" ? "Partial" : "Missing";
   const pitcherFeatureWarning = pitcherFeatureSummary?.warnings[0] ?? pitcherFeatureDiagnosticsError ?? "Waiting for pitcher feature diagnostics.";
@@ -1889,6 +1915,13 @@ export default function AstrodssTerminal() {
         setPaperPerformanceDiagnostics(null);
         setPaperPerformanceDiagnosticsError("Paper performance diagnostics missing from unified API response.");
       }
+      if (payload.historicalExpansionDiagnostics) {
+        setHistoricalExpansionDiagnostics(payload.historicalExpansionDiagnostics);
+        setHistoricalExpansionDiagnosticsError("");
+      } else {
+        setHistoricalExpansionDiagnostics(null);
+        setHistoricalExpansionDiagnosticsError("Historical expansion diagnostics missing from unified API response.");
+      }
       if (payload.pitcherFeatureDiagnostics) {
         setPitcherFeatureDiagnostics(payload.pitcherFeatureDiagnostics);
         setPitcherFeatureDiagnosticsError("");
@@ -1938,6 +1971,8 @@ export default function AstrodssTerminal() {
       setPaperWatchlistLedgerActionMessage("");
       setPaperPerformanceDiagnostics(null);
       setPaperPerformanceDiagnosticsError(message);
+      setHistoricalExpansionDiagnostics(null);
+      setHistoricalExpansionDiagnosticsError(message);
       setPitcherFeatureDiagnostics(null);
       setPitcherFeatureDiagnosticsError(message);
       setWeatherBallparkFeatureDiagnostics(null);
@@ -2805,6 +2840,42 @@ export default function AstrodssTerminal() {
                             <span>Brier</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.brierScore ?? "--"}</span>
                             <span>ECE</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.expectedCalibrationError ?? "--"}</span>
                           </div>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Historical Data Window</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(historicalExpansionSummary?.status === "available" ? "green" : historicalExpansionSummary?.status === "partial" ? "yellow" : "red")}>
+                              {historicalExpansionSummary?.status === "available" ? "Available" : historicalExpansionSummary?.status === "partial" ? "Partial" : "Missing"}
+                            </Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Historical Window</span>
+                            <span className="font-black text-white">{historicalExpansionWindowLabel}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Completed Games</span>
+                            <span className="font-mono font-black text-emerald-100">{historicalExpansionSummary?.completedGamesUsed ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Years Available</span>
+                            <span className="font-mono font-black text-white">{historicalExpansionSummary?.yearsIncluded.length ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Active Model</span>
+                            <span className="font-black text-white">Unchanged</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Official Use</span>
+                            <span className="font-black text-red-200">Blocked / Research Only</span>
+                          </div>
+                          <p className="leading-5 text-slate-300">This window only expands research coverage. It does not change the active model, official pick gate, or paper-only behavior.</p>
+                          <p className="leading-5 text-slate-500">{historicalExpansionWarning}</p>
+                          {historicalExpansionSummary?.outputCsv ? <p className="leading-5 text-slate-500">Expanded CSV: {historicalExpansionSummary.outputCsv}</p> : null}
+                          {historicalExpansionSummary?.expansionReportPath ? <p className="leading-5 text-slate-500">Expansion report: {historicalExpansionSummary.expansionReportPath}</p> : null}
+                          <p className="leading-5 text-slate-500">Years included: {historicalExpansionYearsLabel}</p>
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">

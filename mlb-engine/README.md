@@ -164,6 +164,31 @@ Split policy:
 
 This step does not create live picks, official picks, betting edge, ROI, CLV, confidence, calibration, Polymarket probabilities, or `today_predictions.json`.
 
+## Expand the Historical Window to 2016-2026
+
+When you want a broader research window for feature generation, fetch the extra seasons and then build a modern-window feature set explicitly:
+
+```bash
+python mlb-engine/scripts/fetch_data.py --year 2016
+python mlb-engine/scripts/fetch_data.py --year 2017
+python mlb-engine/scripts/fetch_data.py --year 2018
+python mlb-engine/scripts/fetch_data.py --year 2019
+python mlb-engine/scripts/fetch_data.py --year 2020
+python mlb-engine/scripts/fetch_data.py --year 2021
+python mlb-engine/scripts/fetch_data.py --year 2022
+python mlb-engine/scripts/build_features.py --start-year 2016 --end-year 2026
+```
+
+This creates:
+
+```text
+mlb-engine/data/processed/mlb_moneyline_features_2016_2026.csv
+mlb-engine/data/processed/mlb_moneyline_features_2016_2026_report.json
+mlb-engine/data/processed/mlb_historical_expansion_2016_2026_report.json
+```
+
+The 2016-2026 window is for research and diagnostics only. It does not change the active ASTRODDS model, official pick gate, or live betting behavior.
+
 ## Measure Baseline Calibration
 
 After generating historical predictions, measure raw model probability calibration:

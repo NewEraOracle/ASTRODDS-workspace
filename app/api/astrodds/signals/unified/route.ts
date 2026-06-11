@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { loadWeatherBallparkFeatureStatus } from "@/lib/astrodss/mlb/weather-ballpark-feature-status";
 import { loadLineupPlayerFeatureStatus } from "@/lib/astrodss/mlb/lineup-player-feature-status";
+import { loadHistoricalExpansionStatus, MLB_HISTORICAL_EXPANSION_REPORT_PATH } from "@/lib/astrodss/mlb/historical-expansion-status";
 import { loadBullpenFeatureStatus } from "@/lib/astrodss/mlb/bullpen-feature-status";
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
 import { loadPitcherFeatureStatus } from "@/lib/astrodss/mlb/pitcher-feature-status";
@@ -304,7 +305,7 @@ export async function GET(request: Request) {
   const telegram = getTelegramConfig();
   if (sport !== "MLB") errors.push("Unified signal MVP is MLB-only for now.");
 
-  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult, modelComparisonResult, weatherBallparkResult, lineupPlayerResult] = await Promise.allSettled([
+  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult, modelComparisonResult, weatherBallparkResult, lineupPlayerResult, historicalExpansionResult] = await Promise.allSettled([
     scanAstroddsSport("MLB"),
     scanWhaleWallets({ sport: "MLB" }),
     loadPythonMlbPredictions(),
@@ -313,6 +314,7 @@ export async function GET(request: Request) {
     loadPitcherModelComparisonStatus(),
     loadWeatherBallparkFeatureStatus(),
     loadLineupPlayerFeatureStatus(),
+    loadHistoricalExpansionStatus(),
   ]);
 
   if (scanResult.status === "rejected") {
@@ -345,6 +347,10 @@ export async function GET(request: Request) {
 
   if (lineupPlayerResult.status === "rejected") {
     errors.push(`Lineup / player feature loader failed: ${lineupPlayerResult.reason instanceof Error ? lineupPlayerResult.reason.message : "Unknown lineup / player loader failure"}`);
+  }
+
+  if (historicalExpansionResult.status === "rejected") {
+    errors.push(`Historical expansion loader failed: ${historicalExpansionResult.reason instanceof Error ? historicalExpansionResult.reason.message : "Unknown historical expansion loader failure"}`);
   }
 
   const scan = scanResult.status === "fulfilled" ? scanResult.value : undefined;
@@ -440,6 +446,24 @@ export async function GET(request: Request) {
         warnings: ["Lineup / player feature loader failed."],
         generatedAt: undefined,
         sourcePath: path.join(process.cwd(), "mlb-engine", "data", "processed", "mlb_lineup_player_features_report.json"),
+      };
+  const historicalExpansionDiagnostics = historicalExpansionResult.status === "fulfilled"
+    ? historicalExpansionResult.value
+    : {
+        status: "missing",
+        available: false,
+        historicalWindow: "2016-2026",
+        startYear: 2016,
+        endYear: 2026,
+        yearsIncluded: [],
+        totalGamesRead: 0,
+        completedGamesUsed: 0,
+        incompleteGamesSkipped: 0,
+        malformedGamesSkipped: 0,
+        outputRowCount: 0,
+        warnings: ["Historical expansion loader failed."],
+        generatedAt: undefined,
+        sourcePath: MLB_HISTORICAL_EXPANSION_REPORT_PATH,
       };
   const marketPriceDiagnostics = {
     status: polymarketMlbMarkets.status,
@@ -561,6 +585,7 @@ export async function GET(request: Request) {
       pitcherFeatureDiagnostics,
       weatherBallparkFeatureDiagnostics,
       lineupPlayerFeatureDiagnostics,
+      historicalExpansionDiagnostics,
       bullpenFeatureDiagnostics,
       modelComparisonDiagnostics,
       marketMatchDiagnostics: {
@@ -597,6 +622,7 @@ export async function GET(request: Request) {
         pitcherFeatureDiagnostics,
         weatherBallparkFeatureDiagnostics,
         lineupPlayerFeatureDiagnostics,
+        historicalExpansionDiagnostics,
         bullpenFeatureDiagnostics,
         officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
@@ -610,7 +636,7 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...weatherBallparkFeatureDiagnostics.warnings, ...lineupPlayerFeatureDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...weatherBallparkFeatureDiagnostics.warnings, ...lineupPlayerFeatureDiagnostics.warnings, ...historicalExpansionDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,
