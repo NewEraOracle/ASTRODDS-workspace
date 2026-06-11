@@ -278,6 +278,25 @@ The bullpen layer uses public linescore snapshots and recent-game stress proxies
 
 If bullpen data is missing, the report marks the layer as missing or partial and keeps the output safe.
 
+## Build Weather / Ballpark Features
+
+Build a research-only weather / ballpark context layer from the processed MLB game history:
+
+```bash
+python mlb-engine/scripts/build_weather_ballpark_features.py
+```
+
+This creates:
+
+```text
+mlb-engine/data/processed/mlb_weather_ballpark_features.csv
+mlb-engine/data/processed/mlb_weather_ballpark_features_report.json
+mlb-engine/data/processed/mlb_moneyline_features_with_weather_ballpark.csv
+mlb-engine/data/processed/mlb_moneyline_features_with_pitchers_bullpen_weather.csv
+```
+
+Weather is not invented from saved schedule snapshots. If historical weather data is not available, the script leaves weather fields null and records the missing source in the report. Static roof/ballpark context is limited to a small documented research mapping and does not create official edge, picks, or real-money behavior.
+
 ## Export Research-Only Today Predictions
 
 After building today features and model status, export safe baseline Moneyline diagnostics:

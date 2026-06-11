@@ -398,6 +398,20 @@ type PitcherFeatureDiagnosticsResponse = {
   sourcePath: string;
   enhancedMoneylineCsv?: string;
 };
+type WeatherBallparkFeatureDiagnosticsResponse = {
+  status: "available" | "partial" | "missing";
+  available: boolean;
+  gamesWithVenueData: number;
+  gamesWithWeatherData: number;
+  gamesMissingWeatherData: number;
+  gamesWithBallparkFactorData: number;
+  dataQuality: "high" | "medium" | "low" | "missing";
+  warnings: string[];
+  generatedAt?: string;
+  sourcePath: string;
+  mergedEnhancedCsv?: string;
+  mergedPitcherBullpenWeatherCsv?: string;
+};
 type BullpenFeatureDiagnosticsResponse = {
   status: "available" | "partial" | "missing";
   available: boolean;
@@ -468,6 +482,7 @@ type UnifiedMlbStatusResponse = {
   paperClvDiagnostics?: PaperWatchlistClvDiagnosticsResponse;
   paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
   pitcherFeatureDiagnostics?: PitcherFeatureDiagnosticsResponse;
+  weatherBallparkFeatureDiagnostics?: WeatherBallparkFeatureDiagnosticsResponse;
   bullpenFeatureDiagnostics?: BullpenFeatureDiagnosticsResponse;
   modelComparisonDiagnostics?: PitcherModelComparisonDiagnosticsResponse;
 };
@@ -1589,6 +1604,8 @@ export default function AstrodssTerminal() {
   const [paperPerformanceDiagnosticsError, setPaperPerformanceDiagnosticsError] = useState("");
   const [pitcherFeatureDiagnostics, setPitcherFeatureDiagnostics] = useState<PitcherFeatureDiagnosticsResponse | null>(null);
   const [pitcherFeatureDiagnosticsError, setPitcherFeatureDiagnosticsError] = useState("");
+  const [weatherBallparkFeatureDiagnostics, setWeatherBallparkFeatureDiagnostics] = useState<WeatherBallparkFeatureDiagnosticsResponse | null>(null);
+  const [weatherBallparkFeatureDiagnosticsError, setWeatherBallparkFeatureDiagnosticsError] = useState("");
   const [bullpenFeatureDiagnostics, setBullpenFeatureDiagnostics] = useState<BullpenFeatureDiagnosticsResponse | null>(null);
   const [bullpenFeatureDiagnosticsError, setBullpenFeatureDiagnosticsError] = useState("");
   const [modelComparisonDiagnostics, setModelComparisonDiagnostics] = useState<PitcherModelComparisonDiagnosticsResponse | null>(null);
@@ -1684,6 +1701,9 @@ export default function AstrodssTerminal() {
   const pitcherFeatureSummary = pitcherFeatureDiagnostics;
   const pitcherFeatureStatusLabel = pitcherFeatureSummary?.status === "available" ? "Available" : pitcherFeatureSummary?.status === "partial" ? "Partial" : "Missing";
   const pitcherFeatureWarning = pitcherFeatureSummary?.warnings[0] ?? pitcherFeatureDiagnosticsError ?? "Waiting for pitcher feature diagnostics.";
+  const weatherBallparkFeatureSummary = weatherBallparkFeatureDiagnostics;
+  const weatherBallparkFeatureStatusLabel = weatherBallparkFeatureSummary?.available ? "Available" : "Missing";
+  const weatherBallparkFeatureWarning = weatherBallparkFeatureSummary?.warnings[0] ?? weatherBallparkFeatureDiagnosticsError ?? "Waiting for weather / ballpark diagnostics.";
   const bullpenFeatureSummary = bullpenFeatureDiagnostics;
   const bullpenFeatureStatusLabel = bullpenFeatureSummary?.status === "available" ? "Available" : bullpenFeatureSummary?.status === "partial" ? "Partial" : "Missing";
   const bullpenFeatureWarning = bullpenFeatureSummary?.warnings[0] ?? bullpenFeatureDiagnosticsError ?? "Waiting for bullpen feature diagnostics.";
@@ -1696,6 +1716,7 @@ export default function AstrodssTerminal() {
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
     { label: "Odds", value: oddsStatus?.status === "CONNECTED" ? "CONNECTED" : oddsStatus?.status === "PARTIAL" ? "PARTIAL" : "MISSING", tone: oddsStatus?.status === "CONNECTED" ? "green" : oddsStatus?.status === "PARTIAL" ? "yellow" : "red" },
     { label: "Pitchers", value: result ? `${result.diagnostics.sportApi.probablePitchersFound} found` : "MISSING", tone: result?.diagnostics.sportApi.probablePitchersFound ? "green" : "red" },
+    { label: "Weather/Ballpark", value: weatherBallparkFeatureSummary ? weatherBallparkFeatureStatusLabel : "MISSING", tone: weatherBallparkFeatureSummary?.available ? "green" : "red" },
     { label: "Bullpen", value: bullpenFeatureSummary ? bullpenFeatureStatusLabel : "MISSING", tone: bullpenFeatureSummary?.status === "available" ? "green" : bullpenFeatureSummary?.status === "partial" ? "yellow" : "red" },
     { label: "Lineups", value: decisionLineupImpact ? lineupStatusLabel(decisionLineupImpact.lineupStatus) : normalizeDecisionStatus(result?.sourceStatus.lineups), tone: decisionLineupImpact ? lineupImpactTone(decisionLineupImpact.lineupStatus) : qualityTone(result?.sourceStatus.lineups) },
     { label: "Lineup Impact", value: decisionLineupImpact ? `${Math.round(decisionLineupImpact.lineupImpactScore * 100)}%` : "MISSING", tone: decisionLineupImpact ? lineupImpactTone(decisionLineupImpact.lineupStatus) : "red" },
@@ -1854,6 +1875,13 @@ export default function AstrodssTerminal() {
         setPitcherFeatureDiagnostics(null);
         setPitcherFeatureDiagnosticsError("Pitcher feature diagnostics missing from unified API response.");
       }
+      if (payload.weatherBallparkFeatureDiagnostics) {
+        setWeatherBallparkFeatureDiagnostics(payload.weatherBallparkFeatureDiagnostics);
+        setWeatherBallparkFeatureDiagnosticsError("");
+      } else {
+        setWeatherBallparkFeatureDiagnostics(null);
+        setWeatherBallparkFeatureDiagnosticsError("Weather / ballpark feature diagnostics missing from unified API response.");
+      }
       if (payload.bullpenFeatureDiagnostics) {
         setBullpenFeatureDiagnostics(payload.bullpenFeatureDiagnostics);
         setBullpenFeatureDiagnosticsError("");
@@ -1884,6 +1912,8 @@ export default function AstrodssTerminal() {
       setPaperPerformanceDiagnosticsError(message);
       setPitcherFeatureDiagnostics(null);
       setPitcherFeatureDiagnosticsError(message);
+      setWeatherBallparkFeatureDiagnostics(null);
+      setWeatherBallparkFeatureDiagnosticsError(message);
       setBullpenFeatureDiagnostics(null);
       setBullpenFeatureDiagnosticsError(message);
       setModelComparisonDiagnostics(null);
@@ -2835,6 +2865,41 @@ export default function AstrodssTerminal() {
                           {bullpenFeatureSummary?.enhancedMoneylineCsv ? (
                             <p className="leading-5 text-slate-500">Enhanced CSV: {bullpenFeatureSummary.enhancedMoneylineCsv}</p>
                           ) : null}
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Weather / Ballpark Feature Layer</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Layer</span>
+                            <Badge className={decisionToneClass(weatherBallparkFeatureSummary?.available ? "green" : "red")}>{weatherBallparkFeatureStatusLabel}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Weather Data</span>
+                            <span className={weatherBallparkFeatureSummary?.gamesWithWeatherData ? "font-black text-emerald-200" : "font-black text-yellow-100"}>{weatherBallparkFeatureSummary?.gamesWithWeatherData ? "Available" : "Missing"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Ballpark Context</span>
+                            <span className="font-black text-white">{weatherBallparkFeatureSummary?.gamesWithVenueData ? "Available" : "Missing"}</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2 text-slate-400">
+                            <span>Games with Venue</span><span className="text-right font-mono text-white">{weatherBallparkFeatureSummary?.gamesWithVenueData ?? 0}</span>
+                            <span>Games with Weather</span><span className="text-right font-mono text-yellow-100">{weatherBallparkFeatureSummary?.gamesWithWeatherData ?? 0}</span>
+                            <span>Ballpark Factors</span><span className="text-right font-mono text-yellow-100">{weatherBallparkFeatureSummary?.gamesWithBallparkFactorData ?? 0}</span>
+                            <span>Data Quality</span><span className="text-right font-mono text-white">{weatherBallparkFeatureSummary?.dataQuality ? weatherBallparkFeatureSummary.dataQuality.toUpperCase() : "MISSING"}</span>
+                          </div>
+                          <p className="leading-5 text-slate-300">Weather is not invented from saved schedule snapshots. Ballpark factors stay null until a documented research mapping is added.</p>
+                          <p className="leading-5 text-slate-500">{weatherBallparkFeatureWarning}</p>
+                          {weatherBallparkFeatureSummary?.mergedEnhancedCsv ? (
+                            <p className="leading-5 text-slate-500">Enhanced CSV: {weatherBallparkFeatureSummary.mergedEnhancedCsv}</p>
+                          ) : null}
+                          {weatherBallparkFeatureSummary?.mergedPitcherBullpenWeatherCsv ? (
+                            <p className="leading-5 text-slate-500">Merged pitcher+bullpen+weather CSV: {weatherBallparkFeatureSummary.mergedPitcherBullpenWeatherCsv}</p>
+                          ) : null}
+                          <div className="flex items-center justify-between gap-2 border-t border-white/10 pt-2">
+                            <span className="text-slate-400">Official Use</span>
+                            <span className="font-black text-red-200">Blocked</span>
+                          </div>
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">
