@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
+import { loadPitcherFeatureStatus } from "@/lib/astrodss/mlb/pitcher-feature-status";
 import { loadPaperWatchlistClvDiagnostics } from "@/lib/astrodss/mlb/paper-watchlist-clv";
 import { buildMlbPaperWatchlist } from "@/lib/astrodss/mlb/paper-watchlist";
 import { loadPaperWatchlistLedgerStatus } from "@/lib/astrodss/mlb/paper-watchlist-ledger";
@@ -435,6 +436,7 @@ export async function GET(request: Request) {
   const paperWatchlistLedgerDiagnostics = await loadPaperWatchlistLedgerStatus();
   const paperClvDiagnostics = await loadPaperWatchlistClvDiagnostics();
   const paperPerformanceDiagnostics = await loadPaperWatchlistPerformanceAnalysis();
+  const pitcherFeatureDiagnostics = await loadPitcherFeatureStatus();
   const matchesByGameId = new Map(marketMatchDiagnostics.matches.map((match) => [match.gameId, match]));
   const signalsWithMarketDiagnostics = signals.map((signal) => {
     const match = signal.gameId ? matchesByGameId.get(signal.gameId) : undefined;
@@ -493,6 +495,7 @@ export async function GET(request: Request) {
       },
       paperClvDiagnostics,
       paperPerformanceDiagnostics,
+      pitcherFeatureDiagnostics,
       marketMatchDiagnostics: {
         ...marketMatchDiagnostics,
         matches: marketMatchDiagnostics.matches.slice(0, 50),
@@ -524,6 +527,7 @@ export async function GET(request: Request) {
         },
         paperClvDiagnostics,
         paperPerformanceDiagnostics,
+        pitcherFeatureDiagnostics,
         officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
         officialPickEligible: pythonMlbEngineStatus.officialPickEligible,
@@ -536,7 +540,7 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,

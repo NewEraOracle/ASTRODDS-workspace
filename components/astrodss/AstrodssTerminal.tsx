@@ -378,6 +378,26 @@ type PaperWatchlistLedgerActionResponse = {
   recentRows?: PaperWatchlistRowResponse[];
 };
 type PaperPerformanceDiagnosticsResponse = PaperPerformanceAnalysis;
+type PitcherFeatureDiagnosticsResponse = {
+  status: "available" | "partial" | "missing";
+  available: boolean;
+  totalGamesRead: number;
+  completedGamesUsed: number;
+  gamesWithPitcherData: number;
+  gamesWithFullPitcherData: number;
+  gamesWithPartialPitcherData: number;
+  gamesMissingPitcherData: number;
+  dataQualitySummary: {
+    high: number;
+    medium: number;
+    low: number;
+    missing: number;
+  };
+  warnings: string[];
+  generatedAt?: string;
+  sourcePath: string;
+  enhancedMoneylineCsv?: string;
+};
 type UnifiedMlbStatusResponse = {
   pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
@@ -388,6 +408,7 @@ type UnifiedMlbStatusResponse = {
   paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
   paperClvDiagnostics?: PaperWatchlistClvDiagnosticsResponse;
   paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
+  pitcherFeatureDiagnostics?: PitcherFeatureDiagnosticsResponse;
 };
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
@@ -1485,6 +1506,8 @@ export default function AstrodssTerminal() {
   const [isUpdatingPaperWatchlistClv, setIsUpdatingPaperWatchlistClv] = useState(false);
   const [paperPerformanceDiagnostics, setPaperPerformanceDiagnostics] = useState<PaperPerformanceDiagnosticsResponse | null>(null);
   const [paperPerformanceDiagnosticsError, setPaperPerformanceDiagnosticsError] = useState("");
+  const [pitcherFeatureDiagnostics, setPitcherFeatureDiagnostics] = useState<PitcherFeatureDiagnosticsResponse | null>(null);
+  const [pitcherFeatureDiagnosticsError, setPitcherFeatureDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1573,6 +1596,9 @@ export default function AstrodssTerminal() {
   const paperPerformanceWarning = paperPerformanceSummary?.warnings[0] ?? paperPerformanceDiagnosticsError ?? "Waiting for paper performance diagnostics.";
   const paperPerformanceWinRateLabel = percentMetric(paperPerformanceSummary?.winRate ?? undefined);
   const paperPerformancePnLLabel = typeof paperPerformanceSummary?.paperPnLUnits === "number" ? paperPerformanceSummary.paperPnLUnits.toFixed(2) : "--";
+  const pitcherFeatureSummary = pitcherFeatureDiagnostics;
+  const pitcherFeatureStatusLabel = pitcherFeatureSummary?.status === "available" ? "Available" : pitcherFeatureSummary?.status === "partial" ? "Partial" : "Missing";
+  const pitcherFeatureWarning = pitcherFeatureSummary?.warnings[0] ?? pitcherFeatureDiagnosticsError ?? "Waiting for pitcher feature diagnostics.";
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1728,6 +1754,13 @@ export default function AstrodssTerminal() {
         setPaperPerformanceDiagnostics(null);
         setPaperPerformanceDiagnosticsError("Paper performance diagnostics missing from unified API response.");
       }
+      if (payload.pitcherFeatureDiagnostics) {
+        setPitcherFeatureDiagnostics(payload.pitcherFeatureDiagnostics);
+        setPitcherFeatureDiagnosticsError("");
+      } else {
+        setPitcherFeatureDiagnostics(null);
+        setPitcherFeatureDiagnosticsError("Pitcher feature diagnostics missing from unified API response.");
+      }
     } catch (statusError) {
       const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
       setPythonMlbEngineStatusError(message);
@@ -1742,6 +1775,8 @@ export default function AstrodssTerminal() {
       setPaperWatchlistLedgerActionMessage("");
       setPaperPerformanceDiagnostics(null);
       setPaperPerformanceDiagnosticsError(message);
+      setPitcherFeatureDiagnostics(null);
+      setPitcherFeatureDiagnosticsError(message);
     }
   }
   async function savePaperWatchlistLedger() {
@@ -2599,6 +2634,31 @@ export default function AstrodssTerminal() {
                             <span>Brier</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.brierScore ?? "--"}</span>
                             <span>ECE</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.expectedCalibrationError ?? "--"}</span>
                           </div>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Pitcher Feature Layer</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(pitcherFeatureSummary?.status === "available" ? "yellow" : pitcherFeatureSummary?.status === "partial" ? "yellow" : "red")}>{pitcherFeatureStatusLabel}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Games with Pitcher Data</span>
+                            <span className="font-mono font-black text-white">{pitcherFeatureSummary?.gamesWithPitcherData ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Games Missing Pitcher Data</span>
+                            <span className="font-mono font-black text-yellow-100">{pitcherFeatureSummary?.gamesMissingPitcherData ?? 0}</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2 text-slate-400">
+                            <span>High</span><span className="text-right font-mono text-white">{pitcherFeatureSummary?.dataQualitySummary.high ?? 0}</span>
+                            <span>Medium</span><span className="text-right font-mono text-yellow-100">{pitcherFeatureSummary?.dataQualitySummary.medium ?? 0}</span>
+                            <span>Low</span><span className="text-right font-mono text-yellow-100">{pitcherFeatureSummary?.dataQualitySummary.low ?? 0}</span>
+                            <span>Missing</span><span className="text-right font-mono text-red-100">{pitcherFeatureSummary?.dataQualitySummary.missing ?? 0}</span>
+                          </div>
+                          <p className="leading-5 text-slate-300">Feature layer only. Starting pitchers can help future model retraining, but they do not change official picks yet.</p>
+                          <p className="leading-5 text-slate-500">{pitcherFeatureWarning}</p>
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">

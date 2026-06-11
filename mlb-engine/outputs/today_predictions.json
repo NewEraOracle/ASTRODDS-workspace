@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-11T11:36:26.288011+00:00",
+  "generatedAt": "2026-06-11T15:53:56.063233+00:00",
   "sourceFeatureFile": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_today_features.csv",
   "modelPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\models\\moneyline_baseline_model.pkl",
   "modelStatusPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\outputs\\model_status.json",
@@ -93,7 +93,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "824996",
@@ -163,7 +163,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "824022",
@@ -233,7 +233,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "823619",
@@ -303,7 +303,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "823855",
@@ -373,7 +373,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "824265",
@@ -443,7 +443,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "824101",
@@ -513,7 +513,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "824346",
@@ -583,7 +583,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "823371",
@@ -653,7 +653,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "824827",
@@ -723,7 +723,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     },
     {
       "gameId": "824589",
@@ -793,7 +793,7 @@
       "isPaperOnly": true,
       "modelVersion": "moneyline_logistic_baseline_v0.1",
       "modelType": "stdlib_logistic_regression",
-      "generatedAt": "2026-06-11T11:36:26.288011+00:00"
+      "generatedAt": "2026-06-11T15:53:56.063233+00:00"
     }
   ]
 }

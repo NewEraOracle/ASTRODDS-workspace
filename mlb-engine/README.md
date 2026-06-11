@@ -204,6 +204,35 @@ Today feature rows:
 - use `0.5` win-percentage defaults only when no prior team history exists;
 - report missing lineup, pitcher, bullpen, and weather data as warnings instead of faking them.
 
+## Build Starting Pitcher Features
+
+Build a safe starting-pitcher feature foundation for future Moneyline retraining:
+
+```bash
+python mlb-engine/scripts/build_pitcher_features.py
+```
+
+This creates:
+
+```text
+mlb-engine/data/processed/mlb_pitcher_features.csv
+mlb-engine/data/processed/mlb_pitcher_features_report.json
+```
+
+If the baseline `mlb_moneyline_features.csv` exists, the pitcher builder also creates an optional merged research file:
+
+```text
+mlb-engine/data/processed/mlb_moneyline_features_with_pitchers.csv
+```
+
+Pitcher feature rules:
+
+- Uses only completed games.
+- Builds trailing pitcher-history features only from prior starts.
+- Leaves pitcher fields blank when data is missing rather than faking them.
+- Falls back to a safe year-level MLB StatsAPI schedule hydrate with `probablePitcher` if the saved raw schedule snapshot does not already include pitcher fields.
+- Remains feature-only and does not train, calibrate, or score a production model.
+
 ## Export Research-Only Today Predictions
 
 After building today features and model status, export safe baseline Moneyline diagnostics:
