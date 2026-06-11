@@ -225,10 +225,31 @@ type MarketMatchDiagnosticsResponse = {
   diagnosticEdgesCalculated: number;
   warnings: string[];
 };
+type TodayPredictionMarketDiagnosticsResponse = {
+  todayPredictionsEvaluated: number;
+  highConfidenceMatches: number;
+  mediumConfidenceMatches: number;
+  lowConfidenceMatches: number;
+  unmatchedPredictions: number;
+  diagnosticEdgesCalculated: number;
+  officialEdgesAllowed: 0;
+  warnings: string[];
+  bestDiagnosticEdge?: {
+    gameId?: string;
+    game?: string;
+    marketQuestion?: string;
+    modelProbability?: number;
+    marketProbability?: number | null;
+    diagnosticRawEdge?: number;
+    diagnosticRawEdgePct?: number;
+    matchConfidence?: string;
+  };
+};
 type UnifiedMlbStatusResponse = {
   pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
   marketMatchDiagnostics?: MarketMatchDiagnosticsResponse;
+  todayPredictionMarketDiagnostics?: TodayPredictionMarketDiagnosticsResponse;
 };
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
@@ -1311,6 +1332,8 @@ export default function AstrodssTerminal() {
   const [marketPriceDiagnosticsError, setMarketPriceDiagnosticsError] = useState("");
   const [marketMatchDiagnostics, setMarketMatchDiagnostics] = useState<MarketMatchDiagnosticsResponse | null>(null);
   const [marketMatchDiagnosticsError, setMarketMatchDiagnosticsError] = useState("");
+  const [todayPredictionMarketDiagnostics, setTodayPredictionMarketDiagnostics] = useState<TodayPredictionMarketDiagnosticsResponse | null>(null);
+  const [todayPredictionMarketDiagnosticsError, setTodayPredictionMarketDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1374,6 +1397,9 @@ export default function AstrodssTerminal() {
   const pythonEngineBlockReasons = pythonMlbEngineStatus?.officialPickBlockReasons.length ? pythonMlbEngineStatus.officialPickBlockReasons : [pythonMlbEngineStatusError || "Model status not loaded yet"];
   const marketPriceWarning = marketPriceDiagnostics?.warnings[0] ?? marketPriceDiagnosticsError ?? "Waiting for public Polymarket MLB moneyline discovery.";
   const marketMatchWarning = marketMatchDiagnostics?.warnings[0] ?? marketMatchDiagnosticsError ?? "Waiting for MLB game to Polymarket market matching.";
+  const todayPredictionMatchedCount = (todayPredictionMarketDiagnostics?.highConfidenceMatches ?? 0) + (todayPredictionMarketDiagnostics?.mediumConfidenceMatches ?? 0);
+  const todayPredictionMarketWarning = todayPredictionMarketDiagnostics?.warnings[0] ?? todayPredictionMarketDiagnosticsError ?? "Waiting for today prediction market diagnostics.";
+  const bestTodayDiagnosticEdge = todayPredictionMarketDiagnostics?.bestDiagnosticEdge;
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1495,11 +1521,18 @@ export default function AstrodssTerminal() {
       } else {
         setMarketMatchDiagnosticsError("Polymarket MLB match diagnostics missing from unified API response.");
       }
+      if (payload.todayPredictionMarketDiagnostics) {
+        setTodayPredictionMarketDiagnostics(payload.todayPredictionMarketDiagnostics);
+        setTodayPredictionMarketDiagnosticsError("");
+      } else {
+        setTodayPredictionMarketDiagnosticsError("Today prediction market diagnostics missing from unified API response.");
+      }
     } catch (statusError) {
       const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
       setPythonMlbEngineStatusError(message);
       setMarketPriceDiagnosticsError(message);
       setMarketMatchDiagnosticsError(message);
+      setTodayPredictionMarketDiagnosticsError(message);
     }
   }
   async function refreshOddsStatus(fetchLiveOdds = false) {
@@ -2327,6 +2360,40 @@ export default function AstrodssTerminal() {
                           </div>
                           <p className="leading-5 text-slate-300">Official Edge: blocked until calibrated probability mapping and verified market prices are available.</p>
                           <p className="leading-5 text-slate-500">{marketPriceWarning}</p>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Today Prediction Market Match</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Matched / Unmatched</span>
+                            <Badge className={decisionToneClass(todayPredictionMatchedCount ? "yellow" : "red")}>{todayPredictionMarketDiagnostics ? `${todayPredictionMatchedCount} / ${todayPredictionMarketDiagnostics.unmatchedPredictions}` : "Not Loaded"}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Research Rows</span>
+                            <span className="font-mono font-black text-white">{todayPredictionMarketDiagnostics?.todayPredictionsEvaluated ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Low Confidence</span>
+                            <span className="font-mono font-black text-yellow-100">{todayPredictionMarketDiagnostics?.lowConfidenceMatches ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Diagnostic Edges</span>
+                            <span className={todayPredictionMarketDiagnostics?.diagnosticEdgesCalculated ? "font-black text-emerald-200" : "font-black text-yellow-100"}>{todayPredictionMarketDiagnostics?.diagnosticEdgesCalculated ? `${todayPredictionMarketDiagnostics.diagnosticEdgesCalculated} available` : "Not Available"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Official Edge</span>
+                            <span className="font-black text-red-100">Blocked</span>
+                          </div>
+                          {bestTodayDiagnosticEdge ? (
+                            <div className="grid gap-1 border-b border-white/10 pb-2">
+                              <p className="font-black uppercase tracking-[0.12em] text-[#f4d274]">Best Diagnostic Edge - Research Only</p>
+                              <p className="leading-5 text-white">{bestTodayDiagnosticEdge.game ?? "MLB prediction"}</p>
+                              <p className="font-mono text-emerald-100">{formatEdge(bestTodayDiagnosticEdge.diagnosticRawEdge)} raw edge vs market probability</p>
+                            </div>
+                          ) : null}
+                          <p className="leading-5 text-slate-300">Reason: calibration weak, no calibrated probability mapping, paper-only safety gate.</p>
+                          <p className="leading-5 text-slate-500">{todayPredictionMarketWarning}</p>
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">

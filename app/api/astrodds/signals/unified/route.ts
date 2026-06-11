@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
-import { loadPythonMlbPredictions, PYTHON_MLB_PREDICTIONS_PATH } from "@/lib/astrodss/mlb/python-predictions";
+import { loadPythonMlbPredictions, PYTHON_MLB_PREDICTIONS_PATH, type PythonMlbPrediction } from "@/lib/astrodss/mlb/python-predictions";
 import { buildPolymarketMlbMatchDiagnostics } from "@/lib/astrodss/sports-data/polymarket-mlb-match";
-import { discoverPolymarketMlbMoneylineMarkets } from "@/lib/astrodss/sports-data/polymarket-mlb-markets";
+import { discoverPolymarketMlbMoneylineMarkets, type PolymarketMlbMoneylineMarket } from "@/lib/astrodss/sports-data/polymarket-mlb-markets";
 import { buildUnifiedSignals, serializeUnifiedSignal } from "@/lib/astrodss/signal-engine";
 import { scanAstroddsSport } from "@/lib/astrodss/sports-data/scanner";
 import { getTelegramConfig } from "@/lib/astrodss/wallets/telegram";
 import { scanWhaleWallets } from "@/lib/astrodss/wallets/wallet-scanner";
+import type { AstroddsGameScan } from "@/lib/astrodss/sports-data/types";
 
 
 type SerializedUnifiedSignal = ReturnType<typeof serializeUnifiedSignal>;
@@ -57,6 +58,199 @@ function buildNoBetReasons(signals: SerializedUnifiedSignal[], scan?: Awaited<Re
   return Array.from(reasons, ([reason, count]) => ({ reason, count }))
     .sort((a, b) => b.count - a.count)
     .slice(0, 8);
+}
+
+type TodayPredictionMarketDiagnostics = {
+  todayPredictionsEvaluated: number;
+  highConfidenceMatches: number;
+  mediumConfidenceMatches: number;
+  lowConfidenceMatches: number;
+  unmatchedPredictions: number;
+  diagnosticEdgesCalculated: number;
+  officialEdgesAllowed: 0;
+  warnings: string[];
+  bestDiagnosticEdge?: {
+    gameId?: string;
+    game?: string;
+    marketQuestion?: string;
+    modelProbability?: number;
+    marketProbability?: number | null;
+    diagnosticRawEdge?: number;
+    diagnosticRawEdgePct?: number;
+    matchConfidence?: string;
+  };
+};
+
+type MarketMetadata = {
+  marketPricesConnected: boolean;
+  cacheUsed?: boolean;
+  cacheStatus?: string;
+  cacheAgeSeconds?: number;
+  cacheGeneratedAt?: string;
+  generatedAt?: string;
+};
+
+function predictionGameId(prediction: PythonMlbPrediction, index: number) {
+  return prediction.gameId ?? `python-mlb-prediction-${index}`;
+}
+
+function predictionGameLabel(prediction: PythonMlbPrediction) {
+  return `${prediction.awayTeam ?? "Away"} vs ${prediction.homeTeam ?? "Home"}`;
+}
+
+function predictionToDiagnosticGame(prediction: PythonMlbPrediction, index: number): AstroddsGameScan | undefined {
+  if (prediction.marketType !== "moneyline") return undefined;
+  if (!prediction.homeTeam || !prediction.awayTeam) return undefined;
+
+  return {
+    id: predictionGameId(prediction, index),
+    sport: "MLB",
+    league: "MLB",
+    game: predictionGameLabel(prediction),
+    homeTeam: prediction.homeTeam,
+    awayTeam: prediction.awayTeam,
+    startTime: prediction.date,
+    liveStatus: "PRE_GAME",
+    keyContext: ["Python MLB research-only today prediction"],
+    keyPlayerStatus: "Lineups, pitchers, bullpen, and weather missing in Python today export",
+    markets: [],
+    dataStatus: "PARTIAL",
+    source: "PYTHON_MLB_RESEARCH_ONLY",
+    modelPick: {
+      modelLeanSide: "HOME",
+      modelLeanTeam: prediction.homeTeam,
+      modelConfidence: 0,
+      modelScore: 0,
+      dataQuality: "F",
+      dataQualityScore: 0,
+      pitcherScore: 0,
+      lineupScore: 0,
+      injuryScore: 0,
+      teamFormScore: 0,
+      weatherScore: 0,
+      modelReason: "Raw home-win probability from Python baseline model; research only.",
+      missingDataWarnings: prediction.risks ?? ["Market price and calibration mapping unavailable."],
+      officialBetBlockedReason: "Research-only Python prediction; official edge gate remains closed.",
+      action: "WAIT_FOR_ODDS",
+    },
+  };
+}
+
+function uniqueStrings(values: Array<string | undefined>) {
+  return Array.from(new Set(values.filter((value): value is string => Boolean(value && value.trim()))));
+}
+
+function marketPriceSource(metadata: MarketMetadata) {
+  if (metadata.cacheUsed) return "polymarket_cache";
+  if (metadata.marketPricesConnected) return "polymarket_live";
+  return "unavailable";
+}
+
+function enrichTodayPredictionsWithMarketDiagnostics(
+  predictions: PythonMlbPrediction[],
+  markets: PolymarketMlbMoneylineMarket[],
+  calibrationQuality: string | undefined,
+  metadata: MarketMetadata,
+) {
+  const diagnosticGames = predictions
+    .map((prediction, index) => predictionToDiagnosticGame(prediction, index))
+    .filter((game): game is AstroddsGameScan => Boolean(game));
+  const modelProbabilitiesByGameId = Object.fromEntries(
+    predictions
+      .map((prediction, index) => [predictionGameId(prediction, index), prediction.rawModelProbability] as const)
+      .filter((entry): entry is [string, number] => typeof entry[1] === "number"),
+  );
+  const rawDiagnostics = buildPolymarketMlbMatchDiagnostics(diagnosticGames, markets, {
+    calibrationQuality,
+    modelProbabilitiesByGameId,
+  });
+  const matchesByGameId = new Map(rawDiagnostics.matches.map((match) => [match.gameId, match]));
+  const source = marketPriceSource(metadata);
+  const timestamp = metadata.cacheGeneratedAt ?? metadata.generatedAt;
+
+  const enrichedPredictions = predictions.map((prediction, index) => {
+    const gameId = predictionGameId(prediction, index);
+    const match = matchesByGameId.get(gameId);
+    const diagnosticEdgeAvailable = typeof match?.diagnosticRawEdge === "number";
+    const matchWarnings = uniqueStrings([
+      ...(match
+        ? match.matchWarnings
+        : [prediction.marketType === "moneyline" ? "No Polymarket MLB moneyline market match found for this prediction." : "Only moneyline predictions are supported for market diagnostics."]),
+      !match || match.matchConfidence === "low" || match.matchConfidence === "none" ? "Market match not reliable enough" : undefined,
+      match?.marketProbability === null ? "Market probability unavailable" : undefined,
+    ]);
+    const officialEdgeBlockReasons = uniqueStrings([
+      ...(prediction.officialEdgeBlockReasons ?? []),
+      ...(match?.officialEdgeBlockReasons ?? []),
+      calibrationQuality === "weak" ? "Calibration weak - diagnostic only" : undefined,
+      "No calibrated probability mapping",
+      "Official edge gate remains closed",
+      "Raw model edge is diagnostics-only",
+    ]);
+
+    return {
+      ...prediction,
+      polymarketMatch: match && match.matchConfidence !== "none"
+        ? {
+            marketId: match.matchedMarketId,
+            question: match.matchedMarketQuestion,
+            slug: match.matchedMarketSlug,
+            outcome: match.matchedOutcome,
+          }
+        : null,
+      marketProbability: match?.marketProbability ?? null,
+      diagnosticRawEdge: diagnosticEdgeAvailable ? match?.diagnosticRawEdge : null,
+      diagnosticRawEdgePct: diagnosticEdgeAvailable ? match?.diagnosticRawEdgePct : null,
+      diagnosticOnly: true,
+      diagnosticEdgeAllowed: diagnosticEdgeAvailable,
+      officialEdgeAllowed: false,
+      officialEdgeBlockReasons,
+      matchConfidence: match?.matchConfidence ?? "none",
+      matchWarnings,
+      marketPriceSource: source,
+      marketPriceTimestamp: timestamp,
+      marketPriceCacheUsed: Boolean(metadata.cacheUsed),
+      marketPriceCacheStatus: metadata.cacheStatus,
+      marketPriceCacheAgeSeconds: metadata.cacheAgeSeconds,
+    };
+  });
+  const edgeCandidates = enrichedPredictions
+    .filter((prediction) => typeof prediction.diagnosticRawEdge === "number")
+    .sort((a, b) => (b.diagnosticRawEdge ?? -Infinity) - (a.diagnosticRawEdge ?? -Infinity));
+  const best = edgeCandidates[0];
+  const bestDiagnosticRawEdge = typeof best?.diagnosticRawEdge === "number" ? best.diagnosticRawEdge : undefined;
+  const bestDiagnosticRawEdgePct = typeof best?.diagnosticRawEdgePct === "number" ? best.diagnosticRawEdgePct : undefined;
+  const warnings = uniqueStrings([
+    ...rawDiagnostics.warnings,
+    calibrationQuality === "weak" ? "Calibration weak - diagnostic only; official edge remains blocked." : undefined,
+    !metadata.marketPricesConnected ? "Polymarket market prices are not connected; today prediction market diagnostics may be unmatched." : undefined,
+    "Today prediction market comparison is research-only and cannot create official picks.",
+  ]).slice(0, 25);
+
+  const diagnostics: TodayPredictionMarketDiagnostics = {
+    todayPredictionsEvaluated: predictions.length,
+    highConfidenceMatches: rawDiagnostics.highConfidenceMatches,
+    mediumConfidenceMatches: rawDiagnostics.mediumConfidenceMatches,
+    lowConfidenceMatches: rawDiagnostics.lowConfidenceMatches,
+    unmatchedPredictions: predictions.length - rawDiagnostics.highConfidenceMatches - rawDiagnostics.mediumConfidenceMatches - rawDiagnostics.lowConfidenceMatches,
+    diagnosticEdgesCalculated: rawDiagnostics.diagnosticEdgesCalculated,
+    officialEdgesAllowed: 0,
+    warnings,
+    bestDiagnosticEdge: best && typeof bestDiagnosticRawEdge === "number"
+      ? {
+          gameId: best.gameId,
+          game: `${best.awayTeam ?? "Away"} vs ${best.homeTeam ?? "Home"}`,
+          marketQuestion: best.polymarketMatch?.question,
+          modelProbability: best.rawModelProbability,
+          marketProbability: best.marketProbability,
+          diagnosticRawEdge: bestDiagnosticRawEdge,
+          diagnosticRawEdgePct: bestDiagnosticRawEdgePct,
+          matchConfidence: best.matchConfidence,
+        }
+      : undefined,
+  };
+
+  return { predictions: enrichedPredictions, diagnostics };
 }
 export const dynamic = "force-dynamic";
 
@@ -190,6 +384,14 @@ export async function GET(request: Request) {
         warnings: ["No MLB scan rows available for Polymarket market matching."],
         matches: [],
       };
+  const todayPredictionMarketMatch = enrichTodayPredictionsWithMarketDiagnostics(
+    pythonMlbPredictions.predictions,
+    polymarketMlbMarkets.markets,
+    pythonMlbEngineStatus.calibrationQuality,
+    polymarketMlbMarkets,
+  );
+  const enrichedPythonMlbPredictions = todayPredictionMarketMatch.predictions;
+  const todayPredictionMarketDiagnostics = todayPredictionMarketMatch.diagnostics;
   const matchesByGameId = new Map(marketMatchDiagnostics.matches.map((match) => [match.gameId, match]));
   const signalsWithMarketDiagnostics = signals.map((signal) => {
     const match = signal.gameId ? matchesByGameId.get(signal.gameId) : undefined;
@@ -230,6 +432,7 @@ export async function GET(request: Request) {
         markets: polymarketMlbMarkets.markets.slice(0, 30),
       },
       marketPriceDiagnostics,
+      todayPredictionMarketDiagnostics,
       marketMatchDiagnostics: {
         ...marketMatchDiagnostics,
         matches: marketMatchDiagnostics.matches.slice(0, 50),
@@ -237,13 +440,14 @@ export async function GET(request: Request) {
       pythonMlbEngine: {
         available: pythonMlbPredictions.available,
         sourcePath: pythonMlbPredictions.sourcePath,
-        predictions: pythonMlbPredictions.predictions,
+        predictions: enrichedPythonMlbPredictions,
         warnings: pythonMlbPredictions.warnings,
         activeMarkets: ["moneyline", "total_runs"],
         officialPickOverride: false,
         modelAvailable: pythonMlbEngineStatus.modelAvailable,
         todayPredictionsAvailable: pythonTodayPredictionStatus.todayPredictionsAvailable,
         todayPredictionCount: pythonTodayPredictionStatus.todayPredictionCount,
+        todayPredictionMarketDiagnostics,
         officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
         officialPickEligible: pythonMlbEngineStatus.officialPickEligible,
@@ -256,7 +460,7 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,
