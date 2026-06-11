@@ -197,8 +197,19 @@ type PythonMlbEngineStatusResponse = {
   generatedAt?: string;
 };
 
+type MarketPriceDiagnosticsResponse = {
+  status: "CONNECTED" | "PARTIAL" | "FAILED" | "NOT_CONNECTED";
+  marketPricesConnected: boolean;
+  moneylineMarketsFound: number;
+  supportedMarkets: string[];
+  disabledMarkets: string[];
+  futureMarkets: string[];
+  warnings: string[];
+  generatedAt?: string;
+};
 type UnifiedMlbStatusResponse = {
   pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
+  marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
 };
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
@@ -872,6 +883,12 @@ function pythonEngineTone(status: PythonMlbEngineStatusResponse | null) {
   return "red";
 }
 
+function marketPriceTone(status: MarketPriceDiagnosticsResponse | null) {
+  if (status?.marketPricesConnected) return "green";
+  if (status?.status === "PARTIAL") return "yellow";
+  return "red";
+}
+
 function percentMetric(value?: number) {
   if (typeof value !== "number" || !Number.isFinite(value)) return "--";
   return `${Math.round(value * 1000) / 10}%`;
@@ -1250,6 +1267,8 @@ export default function AstrodssTerminal() {
   const [oddsStatus, setOddsStatus] = useState<OddsLayerResponse | null>(null);
   const [pythonMlbEngineStatus, setPythonMlbEngineStatus] = useState<PythonMlbEngineStatusResponse | null>(null);
   const [pythonMlbEngineStatusError, setPythonMlbEngineStatusError] = useState("");
+  const [marketPriceDiagnostics, setMarketPriceDiagnostics] = useState<MarketPriceDiagnosticsResponse | null>(null);
+  const [marketPriceDiagnosticsError, setMarketPriceDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1311,6 +1330,7 @@ export default function AstrodssTerminal() {
     hiddenSeriesGames: topModelPickSeries.hiddenSeriesGames,
   });
   const pythonEngineBlockReasons = pythonMlbEngineStatus?.officialPickBlockReasons.length ? pythonMlbEngineStatus.officialPickBlockReasons : [pythonMlbEngineStatusError || "Model status not loaded yet"];
+  const marketPriceWarning = marketPriceDiagnostics?.warnings[0] ?? marketPriceDiagnosticsError ?? "Waiting for public Polymarket MLB moneyline discovery.";
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1420,8 +1440,16 @@ export default function AstrodssTerminal() {
       } else {
         setPythonMlbEngineStatusError("Python MLB model status missing from unified API response.");
       }
+      if (payload.marketPriceDiagnostics) {
+        setMarketPriceDiagnostics(payload.marketPriceDiagnostics);
+        setMarketPriceDiagnosticsError("");
+      } else {
+        setMarketPriceDiagnosticsError("Polymarket MLB price diagnostics missing from unified API response.");
+      }
     } catch (statusError) {
-      setPythonMlbEngineStatusError(statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.");
+      const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
+      setPythonMlbEngineStatusError(message);
+      setMarketPriceDiagnosticsError(message);
     }
   }
   async function refreshOddsStatus(fetchLiveOdds = false) {
@@ -2080,7 +2108,7 @@ export default function AstrodssTerminal() {
                       <Badge className="border-cyan-300/40 bg-cyan-400/10 text-cyan-100">Model first | Whales bonus only</Badge>
                     </div>
 
-                    <div className="grid gap-3 xl:grid-cols-6">
+                    <div className="grid gap-3 xl:grid-cols-7">
                       <div className="border border-white/10 bg-black/35 p-3">
                         <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Best Official Pick</p>
                         {bestFinalSignal ? (
@@ -2206,6 +2234,29 @@ export default function AstrodssTerminal() {
                             <span>Brier</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.brierScore ?? "--"}</span>
                             <span>ECE</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.expectedCalibrationError ?? "--"}</span>
                           </div>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Polymarket MLB Prices</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(marketPriceTone(marketPriceDiagnostics))}>{marketPriceDiagnostics?.marketPricesConnected ? "Connected" : "Not Connected"}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Moneyline Markets Found</span>
+                            <span className="font-mono font-black text-white">{marketPriceDiagnostics?.moneylineMarketsFound ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Runline</span>
+                            <span className="font-black text-red-100">Disabled</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Over/Under</span>
+                            <span className="font-black text-yellow-100">Future / Secondary</span>
+                          </div>
+                          <p className="leading-5 text-slate-300">Official Edge: blocked until calibrated probability mapping and verified market prices are available.</p>
+                          <p className="leading-5 text-slate-500">{marketPriceWarning}</p>
                         </div>
                       </div>
                     </div>

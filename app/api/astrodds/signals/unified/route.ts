@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
 import { loadPythonMlbPredictions, PYTHON_MLB_PREDICTIONS_PATH } from "@/lib/astrodss/mlb/python-predictions";
+import { discoverPolymarketMlbMoneylineMarkets } from "@/lib/astrodss/sports-data/polymarket-mlb-markets";
 import { buildUnifiedSignals, serializeUnifiedSignal } from "@/lib/astrodss/signal-engine";
 import { scanAstroddsSport } from "@/lib/astrodss/sports-data/scanner";
 import { getTelegramConfig } from "@/lib/astrodss/wallets/telegram";
@@ -65,11 +66,12 @@ export async function GET(request: Request) {
   const telegram = getTelegramConfig();
   if (sport !== "MLB") errors.push("Unified signal MVP is MLB-only for now.");
 
-  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult] = await Promise.allSettled([
+  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult] = await Promise.allSettled([
     scanAstroddsSport("MLB"),
     scanWhaleWallets({ sport: "MLB" }),
     loadPythonMlbPredictions(),
     loadPythonMlbEngineStatus(),
+    discoverPolymarketMlbMoneylineMarkets(),
   ]);
 
   if (scanResult.status === "rejected") {
@@ -86,6 +88,10 @@ export async function GET(request: Request) {
 
   if (pythonStatusResult.status === "rejected") {
     errors.push(`Python MLB model status loader failed: ${pythonStatusResult.reason instanceof Error ? pythonStatusResult.reason.message : "Unknown status loader failure"}`);
+  }
+
+  if (polymarketMarketResult.status === "rejected") {
+    errors.push(`Polymarket MLB market discovery failed: ${polymarketMarketResult.reason instanceof Error ? polymarketMarketResult.reason.message : "Unknown market discovery failure"}`);
   }
 
   const scan = scanResult.status === "fulfilled" ? scanResult.value : undefined;
@@ -109,6 +115,30 @@ export async function GET(request: Request) {
         generatedAt: undefined,
         sourcePath: PYTHON_MLB_MODEL_STATUS_PATH,
       };
+  const polymarketMlbMarkets = polymarketMarketResult.status === "fulfilled"
+    ? polymarketMarketResult.value
+    : {
+        status: "FAILED",
+        marketPricesConnected: false,
+        supportedMarkets: ["moneyline"],
+        disabledMarkets: ["runline"],
+        futureMarkets: ["total_runs"],
+        markets: [],
+        sourceDiagnostics: [],
+        warnings: ["Polymarket MLB market discovery failed."],
+        generatedAt: new Date().toISOString(),
+      };
+  const marketPriceDiagnostics = {
+    status: polymarketMlbMarkets.status,
+    marketPricesConnected: polymarketMlbMarkets.marketPricesConnected,
+    moneylineMarketsFound: polymarketMlbMarkets.markets.length,
+    supportedMarkets: polymarketMlbMarkets.supportedMarkets,
+    disabledMarkets: polymarketMlbMarkets.disabledMarkets,
+    futureMarkets: polymarketMlbMarkets.futureMarkets,
+    warnings: polymarketMlbMarkets.warnings,
+    sourceDiagnostics: polymarketMlbMarkets.sourceDiagnostics,
+    generatedAt: polymarketMlbMarkets.generatedAt,
+  };
   const signals = scan
     ? buildUnifiedSignals(scan.games, {
         whaleConsensus: whale?.consensus ?? [],
@@ -137,6 +167,11 @@ export async function GET(request: Request) {
         dataOnly: signals.filter((signal) => signal.signalType === "DATA_ONLY").length,
       },
       sourceDiagnostics,
+      polymarketMlbMarkets: {
+        ...polymarketMlbMarkets,
+        markets: polymarketMlbMarkets.markets.slice(0, 30),
+      },
+      marketPriceDiagnostics,
       pythonMlbEngine: {
         available: pythonMlbPredictions.available,
         sourcePath: pythonMlbPredictions.sourcePath,
@@ -156,7 +191,7 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,
