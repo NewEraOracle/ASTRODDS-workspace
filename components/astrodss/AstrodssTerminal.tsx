@@ -47,6 +47,7 @@ import type {
   WhalePositionCopyability,
   WhaleStrategyMetrics,
 } from "@/lib/astrodss/wallets/types";
+import type { PaperPerformanceAnalysis } from "@/lib/astrodss/mlb/paper-performance-analysis";
 
 type ScanStatus = "Idle" | "Scanning" | "Completed" | "Failed" | "Button test OK";
 
@@ -317,6 +318,7 @@ type PaperWatchlistLedgerActionResponse = {
   paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
   recentRows?: PaperWatchlistRowResponse[];
 };
+type PaperPerformanceDiagnosticsResponse = PaperPerformanceAnalysis;
 type UnifiedMlbStatusResponse = {
   pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
@@ -325,6 +327,7 @@ type UnifiedMlbStatusResponse = {
   paperWatchlistDiagnostics?: PaperWatchlistDiagnosticsResponse;
   paperWatchlistRows?: PaperWatchlistRowResponse[];
   paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
+  paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
 };
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
@@ -1417,6 +1420,8 @@ export default function AstrodssTerminal() {
   const [paperWatchlistLedgerActionMessage, setPaperWatchlistLedgerActionMessage] = useState("");
   const [isSavingPaperWatchlist, setIsSavingPaperWatchlist] = useState(false);
   const [isSettlingPaperWatchlist, setIsSettlingPaperWatchlist] = useState(false);
+  const [paperPerformanceDiagnostics, setPaperPerformanceDiagnostics] = useState<PaperPerformanceDiagnosticsResponse | null>(null);
+  const [paperPerformanceDiagnosticsError, setPaperPerformanceDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1496,6 +1501,11 @@ export default function AstrodssTerminal() {
   const paperWatchlistLedgerPnL = paperWatchlistLedgerDiagnostics?.paperPnLUnits;
   const paperWatchlistLedgerPnLLabel = typeof paperWatchlistLedgerPnL === "number" ? paperWatchlistLedgerPnL.toFixed(2) : "--";
   const paperWatchlistLedgerWarning = paperWatchlistLedgerDiagnostics?.warnings[0] ?? paperWatchlistLedgerDiagnosticsError ?? "Waiting for paper watchlist ledger diagnostics.";
+  const paperPerformanceSummary = paperPerformanceDiagnostics?.summary;
+  const paperPerformanceBuckets = paperPerformanceDiagnostics?.byEdgeBucket ?? [];
+  const paperPerformanceWarning = paperPerformanceSummary?.warnings[0] ?? paperPerformanceDiagnosticsError ?? "Waiting for paper performance diagnostics.";
+  const paperPerformanceWinRateLabel = percentMetric(paperPerformanceSummary?.winRate ?? undefined);
+  const paperPerformancePnLLabel = typeof paperPerformanceSummary?.paperPnLUnits === "number" ? paperPerformanceSummary.paperPnLUnits.toFixed(2) : "--";
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1637,6 +1647,13 @@ export default function AstrodssTerminal() {
       } else {
         setPaperWatchlistLedgerDiagnosticsError("Paper Watchlist ledger diagnostics missing from unified API response.");
       }
+      if (payload.paperPerformanceDiagnostics) {
+        setPaperPerformanceDiagnostics(payload.paperPerformanceDiagnostics);
+        setPaperPerformanceDiagnosticsError("");
+      } else {
+        setPaperPerformanceDiagnostics(null);
+        setPaperPerformanceDiagnosticsError("Paper performance diagnostics missing from unified API response.");
+      }
     } catch (statusError) {
       const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
       setPythonMlbEngineStatusError(message);
@@ -1647,6 +1664,8 @@ export default function AstrodssTerminal() {
       setPaperWatchlistRows([]);
       setPaperWatchlistLedgerDiagnosticsError(message);
       setPaperWatchlistLedgerActionMessage("");
+      setPaperPerformanceDiagnostics(null);
+      setPaperPerformanceDiagnosticsError(message);
     }
   }
   async function savePaperWatchlistLedger() {
@@ -2658,6 +2677,61 @@ export default function AstrodssTerminal() {
                         </div>
                         <p className="mt-3 text-[11px] leading-5 text-slate-300">{paperWatchlistLedgerActionMessage || "Paper watchlist ledger is local and research-only."}</p>
                         <p className="mt-1 text-[11px] leading-5 text-slate-500">{paperWatchlistLedgerWarning}</p>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Paper Performance</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(paperPerformanceDiagnostics?.status === "available" ? "yellow" : "red")}>{paperPerformanceDiagnostics?.status ?? "missing"}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Total Ledger Rows</span>
+                            <span className="font-mono font-black text-white">{paperPerformanceSummary?.totalRows ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Settled Rows</span>
+                            <span className="font-mono font-black text-emerald-200">{paperPerformanceSummary?.settledRows ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Win Rate</span>
+                            <span className="font-mono font-black text-white">{paperPerformanceWinRateLabel}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Paper PnL Units</span>
+                            <span className="font-mono font-black text-cyan-100">{paperPerformancePnLLabel}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Best Edge Bucket</span>
+                            <span className="font-black text-white">{paperPerformanceSummary?.bestEdgeBucket ?? "No settled rows yet"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Best Watchlist Tier</span>
+                            <span className="font-black text-white">{paperPerformanceSummary?.bestWatchlistTier ?? "No settled rows yet"}</span>
+                          </div>
+                          <p className="leading-5 text-slate-300">Research only / small sample size. This is not official performance, Strong Buy evidence, or real-money ROI.</p>
+                          <p className="leading-5 text-slate-500">{paperPerformanceWarning}</p>
+                        </div>
+                        {paperPerformanceBuckets.length ? (
+                          <div className="mt-3 border-t border-white/10 pt-2">
+                            <div className="grid grid-cols-[1.3fr_0.7fr_0.8fr_0.8fr] gap-2 text-[10px] font-black uppercase tracking-[0.12em] text-slate-500">
+                              <span>Edge Bucket</span>
+                              <span className="text-right">Settled</span>
+                              <span className="text-right">Win Rate</span>
+                              <span className="text-right">Paper PnL</span>
+                            </div>
+                            <div className="mt-2 grid gap-1 text-[11px]">
+                              {paperPerformanceBuckets.map((bucket) => (
+                                <div key={bucket.key} className="grid grid-cols-[1.3fr_0.7fr_0.8fr_0.8fr] gap-2 border-b border-white/10 pb-1.5 last:border-b-0">
+                                  <span className="text-slate-300">{bucket.label}</span>
+                                  <span className="text-right font-mono text-white">{bucket.settledRows}</span>
+                                  <span className="text-right font-mono text-emerald-100">{percentMetric(bucket.winRate ?? undefined)}</span>
+                                  <span className="text-right font-mono text-cyan-100">{typeof bucket.paperPnLUnits === "number" ? bucket.paperPnLUnits.toFixed(2) : "--"}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : null}
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">
                         <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Game to Polymarket Match</p>
