@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
+import { loadPaperWatchlistClvDiagnostics } from "@/lib/astrodss/mlb/paper-watchlist-clv";
 import { buildMlbPaperWatchlist } from "@/lib/astrodss/mlb/paper-watchlist";
 import { loadPaperWatchlistLedgerStatus } from "@/lib/astrodss/mlb/paper-watchlist-ledger";
 import { loadPaperWatchlistPerformanceAnalysis } from "@/lib/astrodss/mlb/paper-performance-analysis";
@@ -432,6 +433,7 @@ export async function GET(request: Request) {
     calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
   });
   const paperWatchlistLedgerDiagnostics = await loadPaperWatchlistLedgerStatus();
+  const paperClvDiagnostics = await loadPaperWatchlistClvDiagnostics();
   const paperPerformanceDiagnostics = await loadPaperWatchlistPerformanceAnalysis();
   const matchesByGameId = new Map(marketMatchDiagnostics.matches.map((match) => [match.gameId, match]));
   const signalsWithMarketDiagnostics = signals.map((signal) => {
@@ -476,7 +478,20 @@ export async function GET(request: Request) {
       todayPredictionMarketDiagnostics,
       paperWatchlistDiagnostics: paperWatchlist.watchlistSummary,
       paperWatchlistRows: paperWatchlist.watchlistRows,
-      paperWatchlistLedgerDiagnostics,
+      paperWatchlistLedgerDiagnostics: {
+        ...paperWatchlistLedgerDiagnostics,
+        rowsWithEntryPrice: paperClvDiagnostics.summary.rowsWithEntryPrice,
+        rowsWithLatestPrice: paperClvDiagnostics.summary.rowsWithLatestPrice,
+        rowsWithClosingPrice: paperClvDiagnostics.summary.rowsWithClosingPrice,
+        positiveClvRows: paperClvDiagnostics.summary.positiveClvRows,
+        negativeClvRows: paperClvDiagnostics.summary.negativeClvRows,
+        neutralClvRows: paperClvDiagnostics.summary.neutralClvRows,
+        missingClvRows: paperClvDiagnostics.summary.missingClvRows,
+        averageClv: paperClvDiagnostics.summary.averageClv,
+        averageClvPct: paperClvDiagnostics.summary.averageClvPct,
+        clvWarnings: paperClvDiagnostics.summary.warnings,
+      },
+      paperClvDiagnostics,
       paperPerformanceDiagnostics,
       marketMatchDiagnostics: {
         ...marketMatchDiagnostics,
@@ -494,7 +509,20 @@ export async function GET(request: Request) {
         todayPredictionCount: pythonTodayPredictionStatus.todayPredictionCount,
         todayPredictionMarketDiagnostics,
         paperWatchlistDiagnostics: paperWatchlist.watchlistSummary,
-        paperWatchlistLedgerDiagnostics,
+        paperWatchlistLedgerDiagnostics: {
+          ...paperWatchlistLedgerDiagnostics,
+          rowsWithEntryPrice: paperClvDiagnostics.summary.rowsWithEntryPrice,
+          rowsWithLatestPrice: paperClvDiagnostics.summary.rowsWithLatestPrice,
+          rowsWithClosingPrice: paperClvDiagnostics.summary.rowsWithClosingPrice,
+          positiveClvRows: paperClvDiagnostics.summary.positiveClvRows,
+          negativeClvRows: paperClvDiagnostics.summary.negativeClvRows,
+          neutralClvRows: paperClvDiagnostics.summary.neutralClvRows,
+          missingClvRows: paperClvDiagnostics.summary.missingClvRows,
+          averageClv: paperClvDiagnostics.summary.averageClv,
+          averageClvPct: paperClvDiagnostics.summary.averageClvPct,
+          clvWarnings: paperClvDiagnostics.summary.warnings,
+        },
+        paperClvDiagnostics,
         paperPerformanceDiagnostics,
         officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,

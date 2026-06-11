@@ -18,6 +18,9 @@ export type PaperPerformanceGroup = {
   winRate: number | null;
   paperPnLUnits: number | null;
   averageEdge: number | null;
+  averageClv: number | null;
+  averageClvPct: number | null;
+  positiveClvRate: number | null;
   warnings: string[];
 };
 
@@ -36,6 +39,9 @@ export type PaperPerformanceSummary = {
   averageRawModelProbability: number | null;
   averageCalibratedProbability: number | null;
   averageDiagnosticCalibratedEdge: number | null;
+  averageClv: number | null;
+  averageClvPct: number | null;
+  positiveClvRate: number | null;
   bestEdgeBucket: string;
   bestWatchlistTier: string;
   warnings: string[];
@@ -149,6 +155,11 @@ function buildGroup(rows: PaperWatchlistLedgerRow[], key: string, label: string,
   const numericPaperPnLRows = settled.filter((row) => isUsefulNumber(row.paperPnLUnits));
   const numericEdgeRows = settledForAverages.filter((row) => isUsefulNumber(row.diagnosticCalibratedEdge));
   const averageEdge = averageOf(numericEdgeRows.map((row) => Number(row.diagnosticCalibratedEdge)));
+  const clvRows = groupRows.filter((row) => isUsefulNumber(row.clv));
+  const clvPctRows = groupRows.filter((row) => isUsefulNumber(row.clvPct));
+  const averageClv = averageOf(clvRows.map((row) => Number(row.clv)));
+  const averageClvPct = averageOf(clvPctRows.map((row) => Number(row.clvPct)));
+  const positiveClvRate = clvRows.length ? clvRows.filter((row) => Number(row.clv) > 0).length / clvRows.length : null;
   const paperPnLUnits = settledCount
     ? numericPaperPnLRows.reduce((total, row) => total + Number(row.paperPnLUnits), 0)
     : null;
@@ -157,6 +168,7 @@ function buildGroup(rows: PaperWatchlistLedgerRow[], key: string, label: string,
     settledCount === 0 && groupRows.length ? "No settled rows yet; averages use available research rows only." : undefined,
     settledCount && numericPaperPnLRows.length !== settledCount ? "Some settled rows are missing paper PnL units; totals use available values only." : undefined,
     settledCount && numericEdgeRows.length !== settledCount ? "Some settled rows are missing diagnostic edge values; averages use available values only." : undefined,
+    clvRows.length < 3 && groupRows.length ? "Small CLV sample size - research only" : undefined,
   ]);
 
   return {
@@ -172,6 +184,9 @@ function buildGroup(rows: PaperWatchlistLedgerRow[], key: string, label: string,
     winRate: settledWinRate(wins, losses),
     paperPnLUnits,
     averageEdge,
+    averageClv,
+    averageClvPct,
+    positiveClvRate,
     warnings,
   } satisfies PaperPerformanceGroup;
 }
@@ -259,6 +274,10 @@ export async function loadPaperWatchlistPerformanceAnalysis(limit = 10): Promise
   const averageRawModelProbability = averageRows(rowsForAverages, (row) => toNumber(row.rawModelProbability));
   const averageCalibratedProbability = averageRows(rowsForAverages, (row) => toNumber(row.calibratedProbability));
   const averageDiagnosticCalibratedEdge = averageRows(rowsForAverages, (row) => toNumber(row.diagnosticCalibratedEdge));
+  const averageClv = averageRows(rowsForAverages, (row) => toNumber(row.clv));
+  const averageClvPct = averageRows(rowsForAverages, (row) => toNumber(row.clvPct));
+  const clvRows = rowsForAverages.filter((row) => isUsefulNumber(row.clv));
+  const positiveClvRate = clvRows.length ? clvRows.filter((row) => Number(row.clv) > 0).length / clvRows.length : null;
 
   const byWatchlistTier = WATCHLIST_TIER_BUCKETS.map((bucket) =>
     buildGroup(rows, bucket.key, bucket.label, (row) => row.watchlistTier === bucket.key),
@@ -284,6 +303,7 @@ export async function loadPaperWatchlistPerformanceAnalysis(limit = 10): Promise
     settledCount === 0 && rows.length ? "No settled rows yet; paper performance is not fully measurable." : undefined,
     settledCount && paperPnLValues.length !== settledCount ? "Some settled rows are missing paper PnL units; totals use available values only." : undefined,
     settledCount && settledEdgeValues.length !== settledCount ? "Some settled rows are missing diagnostic edge values; averages use available values only." : undefined,
+    clvRows.length < 5 && rows.length ? "Small CLV sample size - research only." : undefined,
   ]);
 
   const summary: PaperPerformanceSummary = {
@@ -301,6 +321,9 @@ export async function loadPaperWatchlistPerformanceAnalysis(limit = 10): Promise
     averageRawModelProbability,
     averageCalibratedProbability,
     averageDiagnosticCalibratedEdge,
+    averageClv,
+    averageClvPct,
+    positiveClvRate,
     bestEdgeBucket: bestGroupLabel(byEdgeBucket),
     bestWatchlistTier: bestGroupLabel(byWatchlistTier),
     warnings: summaryWarnings,

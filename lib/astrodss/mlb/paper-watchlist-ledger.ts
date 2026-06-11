@@ -17,6 +17,16 @@ export type PaperWatchlistLedgerRow = MlbPaperWatchlistRow & {
   updatedAt: string;
   status: PaperWatchlistLedgerStatus;
   result: PaperWatchlistLedgerResult;
+  entryMarketProbability?: number | null;
+  latestMarketProbability?: number | null;
+  latestMarketCheckedAt?: string;
+  latestMarketSource?: string;
+  closingMarketProbability?: number | null;
+  closingMarketCheckedAt?: string;
+  clv?: number | null;
+  clvPct?: number | null;
+  clvStatus?: "positive" | "negative" | "neutral" | "missing";
+  clvWarnings?: string[];
   finalHomeScore: number | null;
   finalAwayScore: number | null;
   winner: string;
@@ -37,6 +47,14 @@ export type PaperWatchlistLedgerDiagnostics = {
   pushes: number;
   unknown: number;
   paperPnLUnits: number | null;
+  rowsWithEntryPrice?: number;
+  rowsWithLatestPrice?: number;
+  positiveClvRows?: number;
+  negativeClvRows?: number;
+  neutralClvRows?: number;
+  averageClv?: number | null;
+  averageClvPct?: number | null;
+  clvWarnings?: string[];
   warnings: string[];
   generatedAt: string;
   ledgerPath: string;
@@ -225,7 +243,7 @@ function ledgerSummary(rows: PaperWatchlistLedgerRow[], ledgerAvailable: boolean
   };
 }
 
-async function loadLedgerRows(): Promise<{ rows: PaperWatchlistLedgerRow[]; available: boolean; warnings: string[] }> {
+export async function loadPaperWatchlistLedgerRows(): Promise<{ rows: PaperWatchlistLedgerRow[]; available: boolean; warnings: string[] }> {
   try {
     const raw = await readFile(PAPER_WATCHLIST_LEDGER_PATH, "utf8");
     const parsed = JSON.parse(raw.replace(/^\uFEFF/, "")) as unknown;
@@ -244,7 +262,7 @@ async function loadLedgerRows(): Promise<{ rows: PaperWatchlistLedgerRow[]; avai
   }
 }
 
-async function writeLedgerRows(rows: PaperWatchlistLedgerRow[]) {
+export async function writePaperWatchlistLedgerRows(rows: PaperWatchlistLedgerRow[]) {
   await writeJson(PAPER_WATCHLIST_LEDGER_PATH, rows.slice(-2500));
 }
 
@@ -266,6 +284,8 @@ function fromPaperWatchlistRow(row: MlbPaperWatchlistRow, now: string, existing?
   );
 
   if (existing) {
+    const entryMarketProbability = existing.entryMarketProbability ?? row.marketProbability ?? existing.marketProbability ?? null;
+    const latestMarketProbability = existing.latestMarketProbability ?? entryMarketProbability;
     return {
       ...existing,
       ...row,
@@ -274,6 +294,16 @@ function fromPaperWatchlistRow(row: MlbPaperWatchlistRow, now: string, existing?
       updatedAt: now,
       status: existing.status,
       result: existing.result,
+      entryMarketProbability,
+      latestMarketProbability,
+      latestMarketCheckedAt: existing.latestMarketCheckedAt ?? (latestMarketProbability !== null ? now : undefined),
+      latestMarketSource: existing.latestMarketSource ?? (latestMarketProbability !== null ? "entry_snapshot" : undefined),
+      closingMarketProbability: existing.closingMarketProbability ?? null,
+      closingMarketCheckedAt: existing.closingMarketCheckedAt,
+      clv: existing.clv ?? null,
+      clvPct: existing.clvPct ?? null,
+      clvStatus: existing.clvStatus ?? "missing",
+      clvWarnings: existing.clvWarnings ?? [],
       finalHomeScore: existing.finalHomeScore,
       finalAwayScore: existing.finalAwayScore,
       winner: existing.winner,
@@ -292,6 +322,16 @@ function fromPaperWatchlistRow(row: MlbPaperWatchlistRow, now: string, existing?
     updatedAt: now,
     status: "open",
     result: "unknown",
+    entryMarketProbability: row.marketProbability ?? null,
+    latestMarketProbability: row.marketProbability ?? null,
+    latestMarketCheckedAt: row.marketProbability !== null ? now : undefined,
+    latestMarketSource: row.marketProbability !== null ? "entry_snapshot" : undefined,
+    closingMarketProbability: null,
+    closingMarketCheckedAt: undefined,
+    clv: null,
+    clvPct: null,
+    clvStatus: "missing",
+    clvWarnings: [],
     finalHomeScore: null,
     finalAwayScore: null,
     winner: "",
@@ -443,7 +483,7 @@ function matchGameResult(row: PaperWatchlistLedgerRow, games: MlbProcessedGameRo
 }
 
 export async function loadPaperWatchlistLedgerStatus(limit = 10): Promise<PaperWatchlistLedgerStatusResult> {
-  const { rows, available, warnings } = await loadLedgerRows();
+  const { rows, available, warnings } = await loadPaperWatchlistLedgerRows();
   const summary = ledgerSummary(rows, available, warnings);
   return {
     ...summary,
@@ -453,7 +493,7 @@ export async function loadPaperWatchlistLedgerStatus(limit = 10): Promise<PaperW
 
 export async function savePaperWatchlistRows(rows: MlbPaperWatchlistRow[]) {
   const now = new Date().toISOString();
-  const { rows: existingRows, warnings } = await loadLedgerRows();
+  const { rows: existingRows, warnings } = await loadPaperWatchlistLedgerRows();
   const ledgerMap = new Map(existingRows.map((row) => [rowKey(row), row]));
   let savedCount = 0;
   let updatedCount = 0;
@@ -474,7 +514,7 @@ export async function savePaperWatchlistRows(rows: MlbPaperWatchlistRow[]) {
   }
 
   const nextRows = Array.from(ledgerMap.values()).sort((left, right) => new Date(left.updatedAt).getTime() - new Date(right.updatedAt).getTime());
-  await writeLedgerRows(nextRows);
+  await writePaperWatchlistLedgerRows(nextRows);
   const status = ledgerSummary(nextRows, true, warnings);
 
   return {
@@ -493,7 +533,7 @@ export async function savePaperWatchlistRows(rows: MlbPaperWatchlistRow[]) {
 }
 
 export async function settlePaperWatchlistRows() {
-  const { rows: existingRows, available, warnings } = await loadLedgerRows();
+  const { rows: existingRows, available, warnings } = await loadPaperWatchlistLedgerRows();
   const openRows = existingRows.filter((row) => row.status === "open");
   if (!openRows.length) {
     const status = ledgerSummary(existingRows, available, warnings);
@@ -516,7 +556,7 @@ export async function settlePaperWatchlistRows() {
     return settlePaperWatchlistRow(row, matched);
   });
 
-  await writeLedgerRows(nextRows);
+  await writePaperWatchlistLedgerRows(nextRows);
   const status = ledgerSummary(nextRows, true, uniqueStrings([...warnings, ...resultWarnings]));
 
   return {

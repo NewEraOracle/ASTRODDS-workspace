@@ -273,6 +273,16 @@ type PaperWatchlistRowResponse = {
   rawModelProbability: number;
   calibratedProbability: number;
   marketProbability: number;
+  entryMarketProbability?: number | null;
+  latestMarketProbability?: number | null;
+  latestMarketCheckedAt?: string;
+  latestMarketSource?: string;
+  closingMarketProbability?: number | null;
+  closingMarketCheckedAt?: string;
+  clv?: number | null;
+  clvPct?: number | null;
+  clvStatus?: "positive" | "negative" | "neutral" | "missing";
+  clvWarnings?: string[];
   diagnosticRawEdge?: number | null;
   diagnosticCalibratedEdge: number;
   diagnosticCalibratedEdgePct: number;
@@ -300,10 +310,59 @@ type PaperWatchlistLedgerDiagnosticsResponse = {
   pushes: number;
   unknown: number;
   paperPnLUnits: number | null;
+  rowsWithEntryPrice?: number;
+  rowsWithLatestPrice?: number;
+  rowsWithClosingPrice?: number;
+  positiveClvRows?: number;
+  negativeClvRows?: number;
+  neutralClvRows?: number;
+  missingClvRows?: number;
+  averageClv?: number | null;
+  averageClvPct?: number | null;
+  clvWarnings?: string[];
   warnings: string[];
   generatedAt: string;
   ledgerPath: string;
   recentRows?: PaperWatchlistRowResponse[];
+};
+type PaperWatchlistClvSummaryResponse = {
+  totalRows: number;
+  openRows: number;
+  settledRows: number;
+  rowsWithEntryPrice: number;
+  rowsWithLatestPrice: number;
+  rowsWithClosingPrice: number;
+  positiveClvRows: number;
+  negativeClvRows: number;
+  neutralClvRows: number;
+  missingClvRows: number;
+  averageClv: number | null;
+  averageClvPct: number | null;
+  warnings: string[];
+};
+type PaperWatchlistClvDiagnosticsResponse = {
+  status: "available" | "empty" | "missing";
+  summary: PaperWatchlistClvSummaryResponse;
+  recentRows?: PaperWatchlistRowResponse[];
+  warnings: string[];
+  generatedAt: string;
+  ledgerPath: string;
+  ok?: boolean;
+  scannedCount?: number;
+  updatedCount?: number;
+  skippedCount?: number;
+  marketDiscovery?: {
+    status: AstroddsDiagnosticStatus;
+    marketPricesConnected: boolean;
+    cacheUsed: boolean;
+    cacheStatus: "fresh" | "stale" | "missing" | "not_used";
+    cacheAgeSeconds?: number;
+    cacheGeneratedAt?: string;
+    moneylineMarketsFound: number;
+    sourceDiagnostics: Array<Record<string, unknown>>;
+    warnings: string[];
+    generatedAt: string;
+  };
 };
 type PaperWatchlistLedgerActionResponse = {
   ok: boolean;
@@ -327,6 +386,7 @@ type UnifiedMlbStatusResponse = {
   paperWatchlistDiagnostics?: PaperWatchlistDiagnosticsResponse;
   paperWatchlistRows?: PaperWatchlistRowResponse[];
   paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
+  paperClvDiagnostics?: PaperWatchlistClvDiagnosticsResponse;
   paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
 };
 type OddsLayerResponse = {
@@ -1417,9 +1477,12 @@ export default function AstrodssTerminal() {
   const [paperWatchlistDiagnosticsError, setPaperWatchlistDiagnosticsError] = useState("");
   const [paperWatchlistLedgerDiagnostics, setPaperWatchlistLedgerDiagnostics] = useState<PaperWatchlistLedgerDiagnosticsResponse | null>(null);
   const [paperWatchlistLedgerDiagnosticsError, setPaperWatchlistLedgerDiagnosticsError] = useState("");
+  const [paperClvDiagnostics, setPaperClvDiagnostics] = useState<PaperWatchlistClvDiagnosticsResponse | null>(null);
+  const [paperClvDiagnosticsError, setPaperClvDiagnosticsError] = useState("");
   const [paperWatchlistLedgerActionMessage, setPaperWatchlistLedgerActionMessage] = useState("");
   const [isSavingPaperWatchlist, setIsSavingPaperWatchlist] = useState(false);
   const [isSettlingPaperWatchlist, setIsSettlingPaperWatchlist] = useState(false);
+  const [isUpdatingPaperWatchlistClv, setIsUpdatingPaperWatchlistClv] = useState(false);
   const [paperPerformanceDiagnostics, setPaperPerformanceDiagnostics] = useState<PaperPerformanceDiagnosticsResponse | null>(null);
   const [paperPerformanceDiagnosticsError, setPaperPerformanceDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
@@ -1501,6 +1564,10 @@ export default function AstrodssTerminal() {
   const paperWatchlistLedgerPnL = paperWatchlistLedgerDiagnostics?.paperPnLUnits;
   const paperWatchlistLedgerPnLLabel = typeof paperWatchlistLedgerPnL === "number" ? paperWatchlistLedgerPnL.toFixed(2) : "--";
   const paperWatchlistLedgerWarning = paperWatchlistLedgerDiagnostics?.warnings[0] ?? paperWatchlistLedgerDiagnosticsError ?? "Waiting for paper watchlist ledger diagnostics.";
+  const paperClvSummary = paperClvDiagnostics?.summary;
+  const paperClvAverageLabel = formatEdge(paperClvSummary?.averageClv ?? undefined);
+  const paperClvAveragePctLabel = typeof paperClvSummary?.averageClvPct === "number" ? `${paperClvSummary.averageClvPct.toFixed(2)}%` : "--";
+  const paperClvWarning = paperClvSummary?.warnings[0] ?? paperClvDiagnosticsError ?? "Waiting for paper watchlist CLV diagnostics.";
   const paperPerformanceSummary = paperPerformanceDiagnostics?.summary;
   const paperPerformanceBuckets = paperPerformanceDiagnostics?.byEdgeBucket ?? [];
   const paperPerformanceWarning = paperPerformanceSummary?.warnings[0] ?? paperPerformanceDiagnosticsError ?? "Waiting for paper performance diagnostics.";
@@ -1647,6 +1714,13 @@ export default function AstrodssTerminal() {
       } else {
         setPaperWatchlistLedgerDiagnosticsError("Paper Watchlist ledger diagnostics missing from unified API response.");
       }
+      if (payload.paperClvDiagnostics) {
+        setPaperClvDiagnostics(payload.paperClvDiagnostics);
+        setPaperClvDiagnosticsError("");
+      } else {
+        setPaperClvDiagnostics(null);
+        setPaperClvDiagnosticsError("Paper watchlist CLV diagnostics missing from unified API response.");
+      }
       if (payload.paperPerformanceDiagnostics) {
         setPaperPerformanceDiagnostics(payload.paperPerformanceDiagnostics);
         setPaperPerformanceDiagnosticsError("");
@@ -1663,6 +1737,8 @@ export default function AstrodssTerminal() {
       setPaperWatchlistDiagnosticsError(message);
       setPaperWatchlistRows([]);
       setPaperWatchlistLedgerDiagnosticsError(message);
+      setPaperClvDiagnostics(null);
+      setPaperClvDiagnosticsError(message);
       setPaperWatchlistLedgerActionMessage("");
       setPaperPerformanceDiagnostics(null);
       setPaperPerformanceDiagnosticsError(message);
@@ -1706,6 +1782,27 @@ export default function AstrodssTerminal() {
       setPaperWatchlistLedgerActionMessage(error instanceof Error ? error.message : "Unknown paper watchlist settle failure.");
     } finally {
       setIsSettlingPaperWatchlist(false);
+    }
+  }
+
+  async function updatePaperWatchlistClv() {
+    try {
+      setIsUpdatingPaperWatchlistClv(true);
+      const response = await fetch("/api/astrodds/paper-watchlist/clv", {
+        method: "POST",
+      });
+      if (!response.ok) throw new Error(`Paper watchlist CLV update failed with ${response.status}`);
+      const payload = (await response.json()) as PaperWatchlistLedgerActionResponse & { paperWatchlistClvDiagnostics?: PaperWatchlistClvDiagnosticsResponse };
+      setPaperWatchlistLedgerActionMessage(payload.message ?? `Updated CLV snapshots for ${payload.updatedCount ?? 0} rows.`);
+      if (payload.paperWatchlistClvDiagnostics) {
+        setPaperClvDiagnostics(payload.paperWatchlistClvDiagnostics);
+        setPaperClvDiagnosticsError("");
+      }
+      await refreshPythonMlbEngineStatus();
+    } catch (error) {
+      setPaperWatchlistLedgerActionMessage(error instanceof Error ? error.message : "Unknown paper watchlist CLV update failure.");
+    } finally {
+      setIsUpdatingPaperWatchlistClv(false);
     }
   }
   async function refreshOddsStatus(fetchLiveOdds = false) {
@@ -2702,6 +2799,14 @@ export default function AstrodssTerminal() {
                             <span className="font-mono font-black text-cyan-100">{paperPerformancePnLLabel}</span>
                           </div>
                           <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Average CLV</span>
+                            <span className="font-mono font-black text-emerald-100">{paperPerformanceSummary?.averageClv === null || paperPerformanceSummary?.averageClv === undefined ? "--" : formatEdge(paperPerformanceSummary.averageClv)}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Positive CLV Rate</span>
+                            <span className="font-mono font-black text-white">{percentMetric(paperPerformanceSummary?.positiveClvRate ?? undefined)}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
                             <span className="text-slate-400">Best Edge Bucket</span>
                             <span className="font-black text-white">{paperPerformanceSummary?.bestEdgeBucket ?? "No settled rows yet"}</span>
                           </div>
@@ -2732,6 +2837,50 @@ export default function AstrodssTerminal() {
                             </div>
                           </div>
                         ) : null}
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Paper CLV</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(paperClvDiagnostics?.status === "available" ? "yellow" : paperClvDiagnostics?.status === "empty" ? "yellow" : "red")}>{paperClvDiagnostics?.status ?? "missing"}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Rows with Entry Price</span>
+                            <span className="font-mono font-black text-white">{paperClvSummary?.rowsWithEntryPrice ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Rows with Latest Price</span>
+                            <span className="font-mono font-black text-emerald-200">{paperClvSummary?.rowsWithLatestPrice ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Positive / Negative</span>
+                            <span className="font-mono font-black text-white">{paperClvSummary?.positiveClvRows ?? 0} / {paperClvSummary?.negativeClvRows ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Average CLV</span>
+                            <span className="font-mono font-black text-cyan-100">{paperClvAverageLabel}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Average CLV %</span>
+                            <span className="font-mono font-black text-cyan-100">{paperClvAveragePctLabel}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Research Only</span>
+                            <span className="font-black text-red-100">Yes</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={updatePaperWatchlistClv}
+                            disabled={isUpdatingPaperWatchlistClv}
+                            className="inline-flex min-h-10 w-full items-center justify-center border border-cyan-300/35 bg-cyan-400/10 px-3 text-[10px] font-black uppercase tracking-[0.14em] text-cyan-100 disabled:opacity-45"
+                          >
+                            {isUpdatingPaperWatchlistClv ? <Loader2 className="mr-2 size-4 animate-spin" aria-hidden="true" /> : null}
+                            Update CLV
+                          </button>
+                          <p className="leading-5 text-slate-300">CLV is a research-only snapshot of entry vs current Polymarket probability. It does not create official picks or real-money actions.</p>
+                          <p className="leading-5 text-slate-500">{paperClvWarning}</p>
+                        </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">
                         <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Game to Polymarket Match</p>
