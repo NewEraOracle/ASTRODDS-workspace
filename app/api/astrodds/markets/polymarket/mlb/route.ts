@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { discoverPolymarketMlbMoneylineMarkets } from "@/lib/astrodss/sports-data/polymarket-mlb-markets";
 
@@ -21,6 +21,10 @@ export async function GET() {
         disabledMarkets: ["runline"],
         futureMarkets: ["total_runs"],
         markets: [],
+        cacheUsed: false,
+        cacheStatus: "missing",
+        cacheAgeSeconds: undefined,
+        cacheGeneratedAt: undefined,
         sourceDiagnostics: [
           {
             source: "Polymarket Gamma",

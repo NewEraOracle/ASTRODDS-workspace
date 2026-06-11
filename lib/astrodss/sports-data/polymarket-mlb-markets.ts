@@ -1,4 +1,5 @@
-﻿import { MLB_TEAMS, mlbTeamHits } from "./mlb-teams";
+import { loadPolymarketMlbMarketsCache, writePolymarketMlbMarketsCache, type PolymarketMlbCacheStatus } from "./polymarket-mlb-market-cache";
+import { MLB_TEAMS, mlbTeamHits } from "./mlb-teams";
 import { normalizeText, safeArray, safeNumber } from "./normalize";
 import { POLYMARKET_GAMMA_BASE_URL, type GammaEvent, type GammaMarket } from "./polymarket";
 
@@ -60,6 +61,10 @@ export type PolymarketMlbMoneylineDiscoveryResult = {
   sourceDiagnostics: PolymarketMlbSourceDiagnostic[];
   warnings: string[];
   generatedAt: string;
+  cacheUsed: boolean;
+  cacheStatus: PolymarketMlbCacheStatus;
+  cacheAgeSeconds?: number;
+  cacheGeneratedAt?: string;
 };
 
 type FetchJsonResult = {
@@ -344,7 +349,7 @@ function dedupeMarkets(markets: PolymarketMlbMoneylineMarket[]) {
   });
 }
 
-export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs?: number } = {}): Promise<PolymarketMlbMoneylineDiscoveryResult> {
+export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs?: number; cacheFreshnessSeconds?: number } = {}): Promise<PolymarketMlbMoneylineDiscoveryResult> {
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   const terms = marketSearchTerms();
   const eventRequests = terms.map((term) => fetchJsonArray(polymarketUrl("/events", term), `Gamma events: ${term}`, timeoutMs));
@@ -371,7 +376,8 @@ export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs
       ? "PARTIAL"
       : "CONNECTED";
 
-  return {
+  const generatedAt = new Date().toISOString();
+  const liveResult: PolymarketMlbMoneylineDiscoveryResult = {
     status,
     marketPricesConnected: markets.length > 0,
     supportedMarkets: ["moneyline"],
@@ -380,6 +386,47 @@ export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs
     markets,
     sourceDiagnostics: diagnostics,
     warnings: Array.from(warnings),
-    generatedAt: new Date().toISOString(),
+    generatedAt,
+    cacheUsed: false,
+    cacheStatus: "not_used",
+  };
+
+  if (liveResult.marketPricesConnected) {
+    await writePolymarketMlbMarketsCache({
+      generatedAt: liveResult.generatedAt,
+      marketPricesConnected: liveResult.marketPricesConnected,
+      markets: liveResult.markets,
+      warnings: liveResult.warnings,
+      sourceDiagnostics: liveResult.sourceDiagnostics,
+    });
+    return liveResult;
+  }
+
+  if (liveResult.status !== "FAILED") return liveResult;
+
+  const cached = await loadPolymarketMlbMarketsCache({ freshnessSeconds: options.cacheFreshnessSeconds });
+  if (!cached.snapshot) {
+    return {
+      ...liveResult,
+      markets: [],
+      marketPricesConnected: false,
+      warnings: [],
+      cacheUsed: false,
+      cacheStatus: cached.metadata.cacheStatus,
+      cacheAgeSeconds: cached.metadata.cacheAgeSeconds,
+      cacheGeneratedAt: cached.metadata.cacheGeneratedAt,
+    };
+  }
+
+  return {
+    ...liveResult,
+    status: "PARTIAL",
+    marketPricesConnected: true,
+    markets: cached.snapshot.markets,
+    warnings: ["Live Polymarket discovery failed; using fresh cached MLB moneyline market diagnostics snapshot.", ...cached.snapshot.warnings],
+    cacheUsed: true,
+    cacheStatus: cached.metadata.cacheStatus,
+    cacheAgeSeconds: cached.metadata.cacheAgeSeconds,
+    cacheGeneratedAt: cached.metadata.cacheGeneratedAt,
   };
 }

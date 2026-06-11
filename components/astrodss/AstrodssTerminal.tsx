@@ -201,6 +201,10 @@ type MarketPriceDiagnosticsResponse = {
   status: "CONNECTED" | "PARTIAL" | "FAILED" | "NOT_CONNECTED";
   marketPricesConnected: boolean;
   moneylineMarketsFound: number;
+  cacheUsed: boolean;
+  cacheStatus: "fresh" | "stale" | "missing" | "not_used";
+  cacheAgeSeconds?: number;
+  cacheGeneratedAt?: string;
   supportedMarkets: string[];
   disabledMarkets: string[];
   futureMarkets: string[];
@@ -900,6 +904,21 @@ function marketPriceTone(status: MarketPriceDiagnosticsResponse | null) {
   return "red";
 }
 
+function cacheStatusLabel(status?: string, used?: boolean) {
+  if (!status || status === "not_used") return "Not Used";
+  if (status === "fresh") return used ? "Fresh" : "Fresh / Not Used";
+  if (status === "stale") return "Stale";
+  if (status === "missing") return "Missing";
+  return status.replace(/_/g, " ");
+}
+
+function cacheAgeLabel(seconds?: number) {
+  if (typeof seconds !== "number" || !Number.isFinite(seconds)) return "--";
+  if (seconds < 60) return `${seconds}s`;
+  const minutes = Math.round(seconds / 60);
+  if (minutes < 60) return `${minutes}m`;
+  return `${Math.round(minutes / 60)}h`;
+}
 function marketMatchTone(status: MarketMatchDiagnosticsResponse | null) {
   if ((status?.highConfidenceMatches ?? 0) > 0) return "green";
   if ((status?.mediumConfidenceMatches ?? 0) > 0 || (status?.lowConfidenceMatches ?? 0) > 0) return "yellow";
@@ -2269,6 +2288,14 @@ export default function AstrodssTerminal() {
                           <div className="flex items-center justify-between gap-2">
                             <span className="text-slate-400">Status</span>
                             <Badge className={decisionToneClass(marketPriceTone(marketPriceDiagnostics))}>{marketPriceDiagnostics?.marketPricesConnected ? "Connected" : "Not Connected"}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Cache</span>
+                            <span className="font-black text-white">{cacheStatusLabel(marketPriceDiagnostics?.cacheStatus, marketPriceDiagnostics?.cacheUsed)}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Cache Age</span>
+                            <span className="font-mono font-black text-white">{cacheAgeLabel(marketPriceDiagnostics?.cacheAgeSeconds)}</span>
                           </div>
                           <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
                             <span className="text-slate-400">Moneyline Markets Found</span>
