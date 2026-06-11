@@ -1,0 +1,39 @@
+{
+  "engineAvailable": true,
+  "modelAvailable": true,
+  "modelVersion": "moneyline_logistic_baseline_v0.1",
+  "modelType": "stdlib_logistic_regression",
+  "trainingRows": 4869,
+  "validationRows": 2434,
+  "holdout2026Rows": 964,
+  "validationAccuracy": 0.549302,
+  "baselineHomeTeamAccuracy": 0.543139,
+  "brierScore": 0.248344,
+  "logLoss": 0.689773,
+  "expectedCalibrationError": 0.036499,
+  "maxCalibrationError": 0.07429,
+  "calibrationQuality": "weak",
+  "supportedMarkets": [
+    "moneyline"
+  ],
+  "disabledMarkets": [
+    "runline"
+  ],
+  "officialPickEligible": false,
+  "officialPickBlockReasons": [
+    "Calibration quality is weak",
+    "No market prices connected",
+    "No calibrated probability mapping available"
+  ],
+  "warnings": [
+    "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable production training: python -m pip install scikit-learn",
+    "Calibration metrics use validation + holdout_2026 rows when available; train rows are not used for calibration quality.",
+    "This is calibration measurement only. No calibrated probability mapping or calibrator pickle was created.",
+    "Betting ROI/edge requires market price or Polymarket implied probability later.",
+    "2026 is season-to-date holdout only, not a completed full-season calibration set.",
+    "2026 rows are holdout_2026 season-to-date only; they are not live picks and not official ASTRODDS bets.",
+    "Python baseline model is exposed for status only; it cannot create official ASTRODDS picks yet.",
+    "total_runs remains future secondary; runline remains disabled."
+  ],
+  "generatedAt": "2026-06-07T19:36:09.904325+00:00"
+}

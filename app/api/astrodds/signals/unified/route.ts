@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
 import { loadPythonMlbPredictions, PYTHON_MLB_PREDICTIONS_PATH } from "@/lib/astrodss/mlb/python-predictions";
 import { buildUnifiedSignals, serializeUnifiedSignal } from "@/lib/astrodss/signal-engine";
 import { scanAstroddsSport } from "@/lib/astrodss/sports-data/scanner";
@@ -64,10 +65,11 @@ export async function GET(request: Request) {
   const telegram = getTelegramConfig();
   if (sport !== "MLB") errors.push("Unified signal MVP is MLB-only for now.");
 
-  const [scanResult, whaleResult, pythonPredictionResult] = await Promise.allSettled([
+  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult] = await Promise.allSettled([
     scanAstroddsSport("MLB"),
     scanWhaleWallets({ sport: "MLB" }),
     loadPythonMlbPredictions(),
+    loadPythonMlbEngineStatus(),
   ]);
 
   if (scanResult.status === "rejected") {
@@ -82,11 +84,31 @@ export async function GET(request: Request) {
     errors.push(`Python MLB prediction loader failed: ${pythonPredictionResult.reason instanceof Error ? pythonPredictionResult.reason.message : "Unknown loader failure"}`);
   }
 
+  if (pythonStatusResult.status === "rejected") {
+    errors.push(`Python MLB model status loader failed: ${pythonStatusResult.reason instanceof Error ? pythonStatusResult.reason.message : "Unknown status loader failure"}`);
+  }
+
   const scan = scanResult.status === "fulfilled" ? scanResult.value : undefined;
   const whale = whaleResult.status === "fulfilled" ? whaleResult.value : undefined;
   const pythonMlbPredictions = pythonPredictionResult.status === "fulfilled"
     ? pythonPredictionResult.value
     : { available: false, sourcePath: PYTHON_MLB_PREDICTIONS_PATH, predictions: [], warnings: ["Python MLB prediction loader failed."] };
+  const pythonMlbEngineStatus = pythonStatusResult.status === "fulfilled"
+    ? pythonStatusResult.value
+    : {
+        engineAvailable: false,
+        modelAvailable: false,
+        modelVersion: "unknown",
+        modelType: "unknown",
+        calibrationQuality: "missing",
+        supportedMarkets: ["moneyline"],
+        disabledMarkets: ["runline"],
+        officialPickEligible: false,
+        officialPickBlockReasons: ["Python MLB model status loader failed"],
+        warnings: ["Python MLB model status loader failed."],
+        generatedAt: undefined,
+        sourcePath: PYTHON_MLB_MODEL_STATUS_PATH,
+      };
   const signals = scan
     ? buildUnifiedSignals(scan.games, {
         whaleConsensus: whale?.consensus ?? [],
@@ -121,12 +143,20 @@ export async function GET(request: Request) {
         predictions: pythonMlbPredictions.predictions,
         warnings: pythonMlbPredictions.warnings,
         activeMarkets: ["moneyline", "total_runs"],
-        disabledMarkets: ["runline"],
         officialPickOverride: false,
+        modelAvailable: pythonMlbEngineStatus.modelAvailable,
+        calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
+        officialPickEligible: pythonMlbEngineStatus.officialPickEligible,
+        officialPickBlockReasons: pythonMlbEngineStatus.officialPickBlockReasons,
+        supportedMarkets: pythonMlbEngineStatus.supportedMarkets,
+        disabledMarkets: pythonMlbEngineStatus.disabledMarkets,
+        modelVersion: pythonMlbEngineStatus.modelVersion,
+        generatedAt: pythonMlbEngineStatus.generatedAt,
       },
+      pythonMlbEngineStatus,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,

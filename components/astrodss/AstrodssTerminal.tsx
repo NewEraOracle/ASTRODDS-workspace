@@ -173,6 +173,33 @@ type TelegramActionResult = {
   reason: string;
   messageId?: number;
 };
+
+type PythonMlbEngineStatusResponse = {
+  engineAvailable: boolean;
+  modelAvailable: boolean;
+  modelVersion: string;
+  modelType: string;
+  trainingRows?: number;
+  validationRows?: number;
+  holdout2026Rows?: number;
+  validationAccuracy?: number;
+  baselineHomeTeamAccuracy?: number;
+  brierScore?: number;
+  logLoss?: number;
+  expectedCalibrationError?: number;
+  maxCalibrationError?: number;
+  calibrationQuality: "strong" | "medium" | "weak" | "not_enough_history" | "missing";
+  supportedMarkets: string[];
+  disabledMarkets: string[];
+  officialPickEligible: boolean;
+  officialPickBlockReasons: string[];
+  warnings: string[];
+  generatedAt?: string;
+};
+
+type UnifiedMlbStatusResponse = {
+  pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
+};
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
   provider: string;
@@ -832,6 +859,23 @@ type DecisionCenterReason = { reason: string; count: number };
 type DecisionQualityItem = { label: string; value: string; tone: "green" | "yellow" | "red" };
 
 
+
+function calibrationLabel(quality?: string) {
+  if (!quality) return "Missing";
+  return quality.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function pythonEngineTone(status: PythonMlbEngineStatusResponse | null) {
+  if (!status?.modelAvailable) return "red";
+  if (status.officialPickEligible) return "green";
+  if (status.calibrationQuality === "weak" || status.calibrationQuality === "medium") return "yellow";
+  return "red";
+}
+
+function percentMetric(value?: number) {
+  if (typeof value !== "number" || !Number.isFinite(value)) return "--";
+  return `${Math.round(value * 1000) / 10}%`;
+}
 function lineupStatusLabel(status?: string) {
   if (status === "confirmed") return "Confirmed";
   if (status === "projected") return "Projected";
@@ -1204,6 +1248,8 @@ export default function AstrodssTerminal() {
   const [isTestingTelegram, setIsTestingTelegram] = useState(false);
   const [isTestingWhaleAlert, setIsTestingWhaleAlert] = useState(false);
   const [oddsStatus, setOddsStatus] = useState<OddsLayerResponse | null>(null);
+  const [pythonMlbEngineStatus, setPythonMlbEngineStatus] = useState<PythonMlbEngineStatusResponse | null>(null);
+  const [pythonMlbEngineStatusError, setPythonMlbEngineStatusError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1264,6 +1310,7 @@ export default function AstrodssTerminal() {
     missingDataWarnings,
     hiddenSeriesGames: topModelPickSeries.hiddenSeriesGames,
   });
+  const pythonEngineBlockReasons = pythonMlbEngineStatus?.officialPickBlockReasons.length ? pythonMlbEngineStatus.officialPickBlockReasons : [pythonMlbEngineStatusError || "Model status not loaded yet"];
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1361,6 +1408,22 @@ export default function AstrodssTerminal() {
   }, []);
 
 
+
+  async function refreshPythonMlbEngineStatus() {
+    try {
+      const response = await fetch("/api/astrodds/signals/unified?sport=MLB", { cache: "no-store" });
+      if (!response.ok) throw new Error(`Unified status failed with ${response.status}`);
+      const payload = (await response.json()) as UnifiedMlbStatusResponse;
+      if (payload.pythonMlbEngineStatus) {
+        setPythonMlbEngineStatus(payload.pythonMlbEngineStatus);
+        setPythonMlbEngineStatusError("");
+      } else {
+        setPythonMlbEngineStatusError("Python MLB model status missing from unified API response.");
+      }
+    } catch (statusError) {
+      setPythonMlbEngineStatusError(statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.");
+    }
+  }
   async function refreshOddsStatus(fetchLiveOdds = false) {
     const route = fetchLiveOdds ? "/api/astrodds/odds/status?fetch=true&sportKey=baseball_mlb" : "/api/astrodds/odds/status";
     try {
@@ -1448,6 +1511,7 @@ export default function AstrodssTerminal() {
 
   useEffect(() => {
     void refreshOddsStatus(false);
+    void refreshPythonMlbEngineStatus();
     void refreshPaperLedger();
     void refreshDailyReport();
   }, []);
@@ -1511,6 +1575,7 @@ export default function AstrodssTerminal() {
       setResult(finalResult);
       void persistModelLeansFromResult(finalResult);
       void refreshOddsStatus(false);
+      void refreshPythonMlbEngineStatus();
       setScanStatus("Completed");
       setScanDebugMessage("Scan completed. Backend response mapped into dashboard.");
       setActiveStep(SCAN_STEPS.length - 1);
@@ -1534,6 +1599,7 @@ export default function AstrodssTerminal() {
           setResult(fallbackResult);
           void persistModelLeansFromResult(fallbackResult);
           void refreshOddsStatus(false);
+          void refreshPythonMlbEngineStatus();
           setScanStatus("Completed");
           setScanDebugMessage("Scan completed through browser fallback. Backend response mapped into dashboard.");
           setActiveStep(SCAN_STEPS.length - 1);
@@ -2014,7 +2080,7 @@ export default function AstrodssTerminal() {
                       <Badge className="border-cyan-300/40 bg-cyan-400/10 text-cyan-100">Model first | Whales bonus only</Badge>
                     </div>
 
-                    <div className="grid gap-3 xl:grid-cols-5">
+                    <div className="grid gap-3 xl:grid-cols-6">
                       <div className="border border-white/10 bg-black/35 p-3">
                         <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Best Official Pick</p>
                         {bestFinalSignal ? (
@@ -2109,6 +2175,37 @@ export default function AstrodssTerminal() {
                         <div className="mt-3 border-t border-white/10 pt-2 text-[11px] leading-5 text-slate-300">
                           <p className="font-black uppercase tracking-[0.14em] text-[#f4d274]">Key lineup reasons</p>
                           {decisionLineupReasons.map((reason) => <p key={reason}>{reason}</p>)}
+                        </div>
+                      </div>
+
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Python MLB Engine</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(pythonEngineTone(pythonMlbEngineStatus))}>{pythonMlbEngineStatus?.engineAvailable ? "Available" : "Not Available"}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Model</span>
+                            <span className="text-right font-bold text-white">{pythonMlbEngineStatus?.modelAvailable ? "Baseline Moneyline" : "Not loaded"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Calibration</span>
+                            <span className="font-bold text-yellow-100">{calibrationLabel(pythonMlbEngineStatus?.calibrationQuality)}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Official Pick Eligible</span>
+                            <span className={pythonMlbEngineStatus?.officialPickEligible ? "font-black text-emerald-200" : "font-black text-red-200"}>{pythonMlbEngineStatus?.officialPickEligible ? "Yes" : "No"}</span>
+                          </div>
+                          <div className="grid gap-1 border-b border-white/10 pb-2">
+                            <p className="font-black uppercase tracking-[0.12em] text-[#f4d274]">Reason</p>
+                            {pythonEngineBlockReasons.slice(0, 3).map((reason) => <p key={reason} className="leading-5 text-slate-300">{reason}</p>)}
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-slate-400">
+                            <span>Validation</span><span className="text-right font-mono text-white">{percentMetric(pythonMlbEngineStatus?.validationAccuracy)}</span>
+                            <span>Brier</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.brierScore ?? "--"}</span>
+                            <span>ECE</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.expectedCalibrationError ?? "--"}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
