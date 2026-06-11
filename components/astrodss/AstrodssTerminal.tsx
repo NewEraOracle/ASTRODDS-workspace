@@ -289,6 +289,34 @@ type PaperWatchlistRowResponse = {
   risks: string[];
   isPaperOnly: true;
 };
+type PaperWatchlistLedgerDiagnosticsResponse = {
+  ledgerAvailable: boolean;
+  totalRows: number;
+  openRows: number;
+  settledRows: number;
+  wins: number;
+  losses: number;
+  pushes: number;
+  unknown: number;
+  paperPnLUnits: number | null;
+  warnings: string[];
+  generatedAt: string;
+  ledgerPath: string;
+  recentRows?: PaperWatchlistRowResponse[];
+};
+type PaperWatchlistLedgerActionResponse = {
+  ok: boolean;
+  message: string;
+  savedCount?: number;
+  updatedCount?: number;
+  skippedCount?: number;
+  settledCount?: number;
+  openCount?: number;
+  errorCount?: number;
+  warnings?: string[];
+  paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
+  recentRows?: PaperWatchlistRowResponse[];
+};
 type UnifiedMlbStatusResponse = {
   pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
@@ -296,6 +324,7 @@ type UnifiedMlbStatusResponse = {
   todayPredictionMarketDiagnostics?: TodayPredictionMarketDiagnosticsResponse;
   paperWatchlistDiagnostics?: PaperWatchlistDiagnosticsResponse;
   paperWatchlistRows?: PaperWatchlistRowResponse[];
+  paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
 };
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
@@ -1383,6 +1412,11 @@ export default function AstrodssTerminal() {
   const [paperWatchlistDiagnostics, setPaperWatchlistDiagnostics] = useState<PaperWatchlistDiagnosticsResponse | null>(null);
   const [paperWatchlistRows, setPaperWatchlistRows] = useState<PaperWatchlistRowResponse[]>([]);
   const [paperWatchlistDiagnosticsError, setPaperWatchlistDiagnosticsError] = useState("");
+  const [paperWatchlistLedgerDiagnostics, setPaperWatchlistLedgerDiagnostics] = useState<PaperWatchlistLedgerDiagnosticsResponse | null>(null);
+  const [paperWatchlistLedgerDiagnosticsError, setPaperWatchlistLedgerDiagnosticsError] = useState("");
+  const [paperWatchlistLedgerActionMessage, setPaperWatchlistLedgerActionMessage] = useState("");
+  const [isSavingPaperWatchlist, setIsSavingPaperWatchlist] = useState(false);
+  const [isSettlingPaperWatchlist, setIsSettlingPaperWatchlist] = useState(false);
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1454,6 +1488,14 @@ export default function AstrodssTerminal() {
   const paperWatchlistTotal = (paperWatchlistDiagnostics?.monitorCount ?? 0) + (paperWatchlistDiagnostics?.paperWatchlistCount ?? 0) + (paperWatchlistDiagnostics?.priorityPaperWatchlistCount ?? 0);
   const paperWatchlistWarning = paperWatchlistDiagnostics?.warnings[0] ?? paperWatchlistDiagnosticsError ?? "Waiting for Paper Watchlist diagnostics.";
   const topPaperWatchlistRows = paperWatchlistRows.slice(0, 3);
+  const paperWatchlistLedgerRows = paperWatchlistLedgerDiagnostics?.totalRows ?? 0;
+  const paperWatchlistLedgerOpen = paperWatchlistLedgerDiagnostics?.openRows ?? 0;
+  const paperWatchlistLedgerSettled = paperWatchlistLedgerDiagnostics?.settledRows ?? 0;
+  const paperWatchlistLedgerWins = paperWatchlistLedgerDiagnostics?.wins ?? 0;
+  const paperWatchlistLedgerLosses = paperWatchlistLedgerDiagnostics?.losses ?? 0;
+  const paperWatchlistLedgerPnL = paperWatchlistLedgerDiagnostics?.paperPnLUnits;
+  const paperWatchlistLedgerPnLLabel = typeof paperWatchlistLedgerPnL === "number" ? paperWatchlistLedgerPnL.toFixed(2) : "--";
+  const paperWatchlistLedgerWarning = paperWatchlistLedgerDiagnostics?.warnings[0] ?? paperWatchlistLedgerDiagnosticsError ?? "Waiting for paper watchlist ledger diagnostics.";
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1589,6 +1631,12 @@ export default function AstrodssTerminal() {
         setPaperWatchlistDiagnosticsError("Paper Watchlist diagnostics missing from unified API response.");
         setPaperWatchlistRows([]);
       }
+      if (payload.paperWatchlistLedgerDiagnostics) {
+        setPaperWatchlistLedgerDiagnostics(payload.paperWatchlistLedgerDiagnostics);
+        setPaperWatchlistLedgerDiagnosticsError("");
+      } else {
+        setPaperWatchlistLedgerDiagnosticsError("Paper Watchlist ledger diagnostics missing from unified API response.");
+      }
     } catch (statusError) {
       const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
       setPythonMlbEngineStatusError(message);
@@ -1597,6 +1645,48 @@ export default function AstrodssTerminal() {
       setTodayPredictionMarketDiagnosticsError(message);
       setPaperWatchlistDiagnosticsError(message);
       setPaperWatchlistRows([]);
+      setPaperWatchlistLedgerDiagnosticsError(message);
+      setPaperWatchlistLedgerActionMessage("");
+    }
+  }
+  async function savePaperWatchlistLedger() {
+    if (!paperWatchlistRows.length) {
+      setPaperWatchlistLedgerActionMessage("No paper watchlist rows are currently loaded to save.");
+      return;
+    }
+
+    try {
+      setIsSavingPaperWatchlist(true);
+      const response = await fetch("/api/astrodds/paper-watchlist/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rows: paperWatchlistRows }),
+      });
+      if (!response.ok) throw new Error(`Paper watchlist save failed with ${response.status}`);
+      const payload = (await response.json()) as PaperWatchlistLedgerActionResponse;
+      setPaperWatchlistLedgerActionMessage(payload.message ?? `Saved ${payload.savedCount ?? 0} rows, updated ${payload.updatedCount ?? 0}, skipped ${payload.skippedCount ?? 0}.`);
+      await refreshPythonMlbEngineStatus();
+    } catch (error) {
+      setPaperWatchlistLedgerActionMessage(error instanceof Error ? error.message : "Unknown paper watchlist save failure.");
+    } finally {
+      setIsSavingPaperWatchlist(false);
+    }
+  }
+
+  async function settlePaperWatchlistLedger() {
+    try {
+      setIsSettlingPaperWatchlist(true);
+      const response = await fetch("/api/astrodds/paper-watchlist/settle", {
+        method: "POST",
+      });
+      if (!response.ok) throw new Error(`Paper watchlist settle failed with ${response.status}`);
+      const payload = (await response.json()) as PaperWatchlistLedgerActionResponse;
+      setPaperWatchlistLedgerActionMessage(payload.message ?? `Settled ${payload.settledCount ?? 0} rows.`);
+      await refreshPythonMlbEngineStatus();
+    } catch (error) {
+      setPaperWatchlistLedgerActionMessage(error instanceof Error ? error.message : "Unknown paper watchlist settle failure.");
+    } finally {
+      setIsSettlingPaperWatchlist(false);
     }
   }
   async function refreshOddsStatus(fetchLiveOdds = false) {
@@ -2517,6 +2607,57 @@ export default function AstrodssTerminal() {
                           )}
                           <p className="leading-5 text-slate-500">{paperWatchlistWarning}</p>
                         </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Paper Record</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Ledger Rows</span>
+                            <Badge className={decisionToneClass(paperWatchlistLedgerRows ? "yellow" : "red")}>{paperWatchlistLedgerRows}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Open</span>
+                            <span className="font-mono font-black text-white">{paperWatchlistLedgerOpen}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Settled</span>
+                            <span className="font-mono font-black text-emerald-200">{paperWatchlistLedgerSettled}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Wins / Losses</span>
+                            <span className="font-mono font-black text-white">{paperWatchlistLedgerWins} / {paperWatchlistLedgerLosses}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Paper PnL Units</span>
+                            <span className="font-mono font-black text-cyan-100">{paperWatchlistLedgerPnLLabel}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Research Only / Not Official</span>
+                            <span className="font-black text-red-100">Yes</span>
+                          </div>
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            onClick={savePaperWatchlistLedger}
+                            disabled={isSavingPaperWatchlist || !paperWatchlistRows.length}
+                            className="inline-flex min-h-10 flex-1 items-center justify-center border border-cyan-300/35 bg-cyan-400/10 px-3 text-[10px] font-black uppercase tracking-[0.14em] text-cyan-100 disabled:opacity-45"
+                          >
+                            {isSavingPaperWatchlist ? <Loader2 className="mr-2 size-4 animate-spin" aria-hidden="true" /> : null}
+                            Save Paper Watchlist
+                          </button>
+                          <button
+                            type="button"
+                            onClick={settlePaperWatchlistLedger}
+                            disabled={isSettlingPaperWatchlist}
+                            className="inline-flex min-h-10 flex-1 items-center justify-center border border-emerald-300/35 bg-emerald-400/10 px-3 text-[10px] font-black uppercase tracking-[0.14em] text-emerald-100 disabled:opacity-45"
+                          >
+                            {isSettlingPaperWatchlist ? <Loader2 className="mr-2 size-4 animate-spin" aria-hidden="true" /> : null}
+                            Settle Paper Watchlist
+                          </button>
+                        </div>
+                        <p className="mt-3 text-[11px] leading-5 text-slate-300">{paperWatchlistLedgerActionMessage || "Paper watchlist ledger is local and research-only."}</p>
+                        <p className="mt-1 text-[11px] leading-5 text-slate-500">{paperWatchlistLedgerWarning}</p>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">
                         <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Game to Polymarket Match</p>

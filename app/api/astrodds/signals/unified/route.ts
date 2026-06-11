@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
 import { buildMlbPaperWatchlist } from "@/lib/astrodss/mlb/paper-watchlist";
+import { loadPaperWatchlistLedgerStatus } from "@/lib/astrodss/mlb/paper-watchlist-ledger";
 import { loadPythonMlbPredictions, PYTHON_MLB_PREDICTIONS_PATH, type PythonMlbPrediction } from "@/lib/astrodss/mlb/python-predictions";
 import { buildPolymarketMlbMatchDiagnostics } from "@/lib/astrodss/sports-data/polymarket-mlb-match";
 import { discoverPolymarketMlbMoneylineMarkets, type PolymarketMlbMoneylineMarket } from "@/lib/astrodss/sports-data/polymarket-mlb-markets";
@@ -429,6 +430,7 @@ export async function GET(request: Request) {
   const paperWatchlist = buildMlbPaperWatchlist(enrichedPythonMlbPredictions, {
     calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
   });
+  const paperWatchlistLedgerDiagnostics = await loadPaperWatchlistLedgerStatus();
   const matchesByGameId = new Map(marketMatchDiagnostics.matches.map((match) => [match.gameId, match]));
   const signalsWithMarketDiagnostics = signals.map((signal) => {
     const match = signal.gameId ? matchesByGameId.get(signal.gameId) : undefined;
@@ -472,6 +474,7 @@ export async function GET(request: Request) {
       todayPredictionMarketDiagnostics,
       paperWatchlistDiagnostics: paperWatchlist.watchlistSummary,
       paperWatchlistRows: paperWatchlist.watchlistRows,
+      paperWatchlistLedgerDiagnostics,
       marketMatchDiagnostics: {
         ...marketMatchDiagnostics,
         matches: marketMatchDiagnostics.matches.slice(0, 50),
@@ -488,6 +491,7 @@ export async function GET(request: Request) {
         todayPredictionCount: pythonTodayPredictionStatus.todayPredictionCount,
         todayPredictionMarketDiagnostics,
         paperWatchlistDiagnostics: paperWatchlist.watchlistSummary,
+        paperWatchlistLedgerDiagnostics,
         officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
         officialPickEligible: pythonMlbEngineStatus.officialPickEligible,
