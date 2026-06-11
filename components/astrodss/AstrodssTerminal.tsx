@@ -252,11 +252,50 @@ type TodayPredictionMarketDiagnosticsResponse = {
     matchConfidence?: string;
   };
 };
+type PaperWatchlistDiagnosticsResponse = {
+  totalCandidatesEvaluated: number;
+  monitorCount: number;
+  paperWatchlistCount: number;
+  priorityPaperWatchlistCount: number;
+  skippedCount: number;
+  officialPicksAllowed: 0;
+  warnings: string[];
+};
+type PaperWatchlistRowResponse = {
+  gameId?: string;
+  date?: string;
+  homeTeam?: string;
+  awayTeam?: string;
+  marketType: "moneyline";
+  selectedSide?: string;
+  researchSide?: string;
+  rawModelProbability: number;
+  calibratedProbability: number;
+  marketProbability: number;
+  diagnosticRawEdge?: number | null;
+  diagnosticCalibratedEdge: number;
+  diagnosticCalibratedEdgePct: number;
+  matchConfidence: "high" | "medium";
+  matchWarnings: string[];
+  calibrationQuality: string;
+  calibrationMappingStatus: string;
+  watchlistTier: "monitor" | "paper_watchlist" | "priority_paper_watchlist";
+  watchlistDecision: "monitor" | "paper_watchlist" | "priority_paper_watchlist";
+  officialDecision: "research_only" | "watchlist_only";
+  officialPickEligible: false;
+  officialEdgeAllowed: false;
+  blockReasons: string[];
+  reasons: string[];
+  risks: string[];
+  isPaperOnly: true;
+};
 type UnifiedMlbStatusResponse = {
   pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
   marketMatchDiagnostics?: MarketMatchDiagnosticsResponse;
   todayPredictionMarketDiagnostics?: TodayPredictionMarketDiagnosticsResponse;
+  paperWatchlistDiagnostics?: PaperWatchlistDiagnosticsResponse;
+  paperWatchlistRows?: PaperWatchlistRowResponse[];
 };
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
@@ -1341,6 +1380,9 @@ export default function AstrodssTerminal() {
   const [marketMatchDiagnosticsError, setMarketMatchDiagnosticsError] = useState("");
   const [todayPredictionMarketDiagnostics, setTodayPredictionMarketDiagnostics] = useState<TodayPredictionMarketDiagnosticsResponse | null>(null);
   const [todayPredictionMarketDiagnosticsError, setTodayPredictionMarketDiagnosticsError] = useState("");
+  const [paperWatchlistDiagnostics, setPaperWatchlistDiagnostics] = useState<PaperWatchlistDiagnosticsResponse | null>(null);
+  const [paperWatchlistRows, setPaperWatchlistRows] = useState<PaperWatchlistRowResponse[]>([]);
+  const [paperWatchlistDiagnosticsError, setPaperWatchlistDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1409,6 +1451,9 @@ export default function AstrodssTerminal() {
   const bestTodayDiagnosticEdge = todayPredictionMarketDiagnostics?.bestDiagnosticEdge;
   const todayPredictionCalibrationMappingLabel = todayPredictionMarketDiagnostics?.calibrationMappingStatus === "research_only" ? "Research Only" : "Missing";
   const todayPredictionCalibratedAvailable = (todayPredictionMarketDiagnostics?.calibratedProbabilitiesAvailable ?? 0) > 0;
+  const paperWatchlistTotal = (paperWatchlistDiagnostics?.monitorCount ?? 0) + (paperWatchlistDiagnostics?.paperWatchlistCount ?? 0) + (paperWatchlistDiagnostics?.priorityPaperWatchlistCount ?? 0);
+  const paperWatchlistWarning = paperWatchlistDiagnostics?.warnings[0] ?? paperWatchlistDiagnosticsError ?? "Waiting for Paper Watchlist diagnostics.";
+  const topPaperWatchlistRows = paperWatchlistRows.slice(0, 3);
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1536,12 +1581,22 @@ export default function AstrodssTerminal() {
       } else {
         setTodayPredictionMarketDiagnosticsError("Today prediction market diagnostics missing from unified API response.");
       }
+      if (payload.paperWatchlistDiagnostics) {
+        setPaperWatchlistDiagnostics(payload.paperWatchlistDiagnostics);
+        setPaperWatchlistRows(payload.paperWatchlistRows ?? []);
+        setPaperWatchlistDiagnosticsError("");
+      } else {
+        setPaperWatchlistDiagnosticsError("Paper Watchlist diagnostics missing from unified API response.");
+        setPaperWatchlistRows([]);
+      }
     } catch (statusError) {
       const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
       setPythonMlbEngineStatusError(message);
       setMarketPriceDiagnosticsError(message);
       setMarketMatchDiagnosticsError(message);
       setTodayPredictionMarketDiagnosticsError(message);
+      setPaperWatchlistDiagnosticsError(message);
+      setPaperWatchlistRows([]);
     }
   }
   async function refreshOddsStatus(fetchLiveOdds = false) {
@@ -2416,6 +2471,51 @@ export default function AstrodssTerminal() {
                           ) : null}
                           <p className="leading-5 text-slate-300">Reason: calibration weak, calibration mapping research-only, paper-only safety gate.</p>
                           <p className="leading-5 text-slate-500">{todayPredictionMarketWarning}</p>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Paper Watchlist</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Paper Watchlist</span>
+                            <Badge className={decisionToneClass(paperWatchlistTotal ? "yellow" : "red")}>{paperWatchlistTotal}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Priority Paper Watchlist</span>
+                            <span className="font-mono font-black text-white">{paperWatchlistDiagnostics?.priorityPaperWatchlistCount ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Monitor</span>
+                            <span className="font-mono font-black text-yellow-100">{paperWatchlistDiagnostics?.monitorCount ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Skipped</span>
+                            <span className="font-mono font-black text-slate-300">{paperWatchlistDiagnostics?.skippedCount ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Official Picks</span>
+                            <span className="font-black text-red-100">Blocked</span>
+                          </div>
+                          <p className="leading-5 text-slate-300">Main reason: calibration weak / research-only mapping. These rows are not official bets.</p>
+                          {topPaperWatchlistRows.length ? (
+                            <div className="grid gap-2 border-y border-white/10 py-2">
+                              <p className="font-black uppercase tracking-[0.12em] text-[#f4d274]">Top Research Only Rows</p>
+                              {topPaperWatchlistRows.map((row) => (
+                                <div key={row.gameId ?? `${row.awayTeam}-${row.homeTeam}-${row.researchSide}`} className="border border-white/10 bg-black/25 p-2">
+                                  <div className="flex items-start justify-between gap-2">
+                                    <p className="font-bold leading-5 text-white">{row.awayTeam ?? "Away"} vs {row.homeTeam ?? "Home"}</p>
+                                    <Badge className="border-yellow-300/55 bg-yellow-400/12 text-yellow-100">Research Only</Badge>
+                                  </div>
+                                  <p className="mt-1 text-slate-300">{row.researchSide ?? row.selectedSide ?? "Moneyline side"} moneyline</p>
+                                  <p className="mt-1 font-mono text-cyan-100">{formatEdge(row.diagnosticCalibratedEdge)} calibrated diagnostic edge</p>
+                                  <p className="mt-1 text-slate-500">{row.watchlistTier.replace(/_/g, " ")} - {row.matchConfidence} confidence match</p>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="border-y border-white/10 py-2 leading-5 text-slate-400">No research-only rows passed calibrated edge and match-confidence requirements.</p>
+                          )}
+                          <p className="leading-5 text-slate-500">{paperWatchlistWarning}</p>
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">
