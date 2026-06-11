@@ -192,6 +192,10 @@ type PythonMlbEngineStatusResponse = {
   supportedMarkets: string[];
   disabledMarkets: string[];
   officialPickEligible: boolean;
+  todayPredictionsAvailable?: boolean;
+  todayPredictionCount?: number;
+  officialUseBlocked?: boolean;
+  officialUseBlockReasons?: string[];
   officialPickBlockReasons: string[];
   warnings: string[];
   generatedAt?: string;
@@ -2266,6 +2270,18 @@ export default function AstrodssTerminal() {
                           <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
                             <span className="text-slate-400">Calibration</span>
                             <span className="font-bold text-yellow-100">{calibrationLabel(pythonMlbEngineStatus?.calibrationQuality)}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Today Predictions</span>
+                            <span className={pythonMlbEngineStatus?.todayPredictionsAvailable ? "font-black text-emerald-200" : "font-black text-slate-300"}>{pythonMlbEngineStatus?.todayPredictionsAvailable ? "Available" : "Not Available"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Research Rows</span>
+                            <span className="font-mono font-black text-white">{pythonMlbEngineStatus?.todayPredictionCount ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Official Use</span>
+                            <span className="font-black text-red-200">Blocked</span>
                           </div>
                           <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
                             <span className="text-slate-400">Official Pick Eligible</span>

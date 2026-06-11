@@ -34,8 +34,14 @@ export type PythonMlbPrediction = {
   bullpenStatus?: string;
   weatherImpact?: string;
   officialDecision?: string;
+  officialPickEligible?: boolean;
+  officialEdgeAllowed?: boolean;
+  officialEdgeBlockReasons?: string[];
   reasons?: string[];
   risks?: string[];
+  modelVersion?: string;
+  modelType?: string;
+  generatedAt?: string;
   isPaperOnly: boolean;
 };
 
@@ -124,8 +130,14 @@ function normalizePrediction(raw: unknown, index: number, warnings: string[]): P
     bullpenStatus: optionalString(raw.bullpenStatus),
     weatherImpact: optionalString(raw.weatherImpact),
     officialDecision: optionalString(raw.officialDecision),
+    officialPickEligible: typeof raw.officialPickEligible === "boolean" ? raw.officialPickEligible : false,
+    officialEdgeAllowed: typeof raw.officialEdgeAllowed === "boolean" ? raw.officialEdgeAllowed : false,
+    officialEdgeBlockReasons: optionalStringArray(raw.officialEdgeBlockReasons),
     reasons: optionalStringArray(raw.reasons),
     risks: optionalStringArray(raw.risks),
+    modelVersion: optionalString(raw.modelVersion),
+    modelType: optionalString(raw.modelType),
+    generatedAt: optionalString(raw.generatedAt),
     isPaperOnly: typeof raw.isPaperOnly === "boolean" ? raw.isPaperOnly : true,
   };
 }

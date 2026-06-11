@@ -180,6 +180,51 @@ Calibration quality is conservative and can be:
 - `missing`
 
 This is probability calibration measurement only. It is not betting ROI, not CLV, not market edge, not an official pick, and not a live signal. Betting ROI and edge require market prices or Polymarket implied probabilities later.
+
+## Build Today Moneyline Features
+
+Build safe research-only feature rows for today or the next scheduled MLB date found in the latest 2026 processed schedule:
+
+```bash
+python mlb-engine/scripts/build_today_features.py
+```
+
+This creates:
+
+```text
+mlb-engine/data/processed/mlb_today_features.csv
+mlb-engine/data/processed/mlb_today_features_report.json
+```
+
+Today feature rows:
+
+- use only completed games before each scheduled game;
+- leave current-game result, winner, and target fields empty;
+- use the same baseline moneyline feature columns where possible;
+- use `0.5` win-percentage defaults only when no prior team history exists;
+- report missing lineup, pitcher, bullpen, and weather data as warnings instead of faking them.
+
+## Export Research-Only Today Predictions
+
+After building today features and model status, export safe baseline Moneyline diagnostics:
+
+```bash
+python mlb-engine/scripts/predict_today.py
+```
+
+This creates `mlb-engine/outputs/today_predictions.json` only when valid today features and model artifacts exist.
+
+The exported predictions are research-only/watchlist diagnostics:
+
+- raw model probability is included;
+- calibrated probability remains `null` until a real calibration mapping exists;
+- market probability and edge remain `null` until a real market price is matched;
+- confidence remains `null`;
+- official use is blocked;
+- real-money trading remains OFF;
+- Telegram alerts are not sent;
+- no official ASTRODDS picks or Strong Buys are created.
+
 ## Other Commands
 
 ```bash

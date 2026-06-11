@@ -116,6 +116,20 @@ export async function GET(request: Request) {
         generatedAt: undefined,
         sourcePath: PYTHON_MLB_MODEL_STATUS_PATH,
       };
+  const pythonTodayPredictionStatus = {
+    todayPredictionsAvailable: pythonMlbPredictions.available,
+    todayPredictionCount: pythonMlbPredictions.predictions.length,
+    officialUseBlocked: true,
+    officialUseBlockReasons: [
+      "Python today predictions are research-only diagnostics",
+      "Calibration is not production-ready",
+      "No market prices or calibrated probability mapping are attached",
+    ],
+  };
+  const pythonMlbEngineStatusForResponse = {
+    ...pythonMlbEngineStatus,
+    ...pythonTodayPredictionStatus,
+  };
   const polymarketMlbMarkets = polymarketMarketResult.status === "fulfilled"
     ? polymarketMarketResult.value
     : {
@@ -228,6 +242,9 @@ export async function GET(request: Request) {
         activeMarkets: ["moneyline", "total_runs"],
         officialPickOverride: false,
         modelAvailable: pythonMlbEngineStatus.modelAvailable,
+        todayPredictionsAvailable: pythonTodayPredictionStatus.todayPredictionsAvailable,
+        todayPredictionCount: pythonTodayPredictionStatus.todayPredictionCount,
+        officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
         officialPickEligible: pythonMlbEngineStatus.officialPickEligible,
         officialPickBlockReasons: pythonMlbEngineStatus.officialPickBlockReasons,
@@ -236,7 +253,7 @@ export async function GET(request: Request) {
         modelVersion: pythonMlbEngineStatus.modelVersion,
         generatedAt: pythonMlbEngineStatus.generatedAt,
       },
-      pythonMlbEngineStatus,
+      pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
       errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings],
