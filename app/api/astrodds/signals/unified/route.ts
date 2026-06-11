@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
+import path from "node:path";
 
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
 import { loadPitcherFeatureStatus } from "@/lib/astrodss/mlb/pitcher-feature-status";
+import { loadPitcherModelComparisonStatus } from "@/lib/astrodss/mlb/pitcher-model-comparison-status";
 import { loadPaperWatchlistClvDiagnostics } from "@/lib/astrodss/mlb/paper-watchlist-clv";
 import { buildMlbPaperWatchlist } from "@/lib/astrodss/mlb/paper-watchlist";
 import { loadPaperWatchlistLedgerStatus } from "@/lib/astrodss/mlb/paper-watchlist-ledger";
@@ -299,12 +301,13 @@ export async function GET(request: Request) {
   const telegram = getTelegramConfig();
   if (sport !== "MLB") errors.push("Unified signal MVP is MLB-only for now.");
 
-  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult] = await Promise.allSettled([
+  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult, modelComparisonResult] = await Promise.allSettled([
     scanAstroddsSport("MLB"),
     scanWhaleWallets({ sport: "MLB" }),
     loadPythonMlbPredictions(),
     loadPythonMlbEngineStatus(),
     discoverPolymarketMlbMoneylineMarkets(),
+    loadPitcherModelComparisonStatus(),
   ]);
 
   if (scanResult.status === "rejected") {
@@ -325,6 +328,10 @@ export async function GET(request: Request) {
 
   if (polymarketMarketResult.status === "rejected") {
     errors.push(`Polymarket MLB market discovery failed: ${polymarketMarketResult.reason instanceof Error ? polymarketMarketResult.reason.message : "Unknown market discovery failure"}`);
+  }
+
+  if (modelComparisonResult.status === "rejected") {
+    errors.push(`Pitcher model comparison loader failed: ${modelComparisonResult.reason instanceof Error ? modelComparisonResult.reason.message : "Unknown comparison loader failure"}`);
   }
 
   const scan = scanResult.status === "fulfilled" ? scanResult.value : undefined;
@@ -378,6 +385,20 @@ export async function GET(request: Request) {
         sourceDiagnostics: [],
         warnings: ["Polymarket MLB market discovery failed."],
         generatedAt: new Date().toISOString(),
+      };
+  const modelComparisonDiagnostics = modelComparisonResult.status === "fulfilled"
+    ? modelComparisonResult.value
+    : {
+        status: "missing",
+        recommendation: "needs_more_data",
+        baselineModelVersion: "unknown",
+        baselineModelType: "unknown",
+        pitcherModelVersion: "unknown",
+        pitcherModelType: "unknown",
+        reasons: [],
+        warnings: ["Pitcher model comparison loader failed."],
+        generatedAt: undefined,
+        sourcePath: path.join(process.cwd(), "mlb-engine", "models", "moneyline_model_comparison_report.json"),
       };
   const marketPriceDiagnostics = {
     status: polymarketMlbMarkets.status,
@@ -496,6 +517,7 @@ export async function GET(request: Request) {
       paperClvDiagnostics,
       paperPerformanceDiagnostics,
       pitcherFeatureDiagnostics,
+      modelComparisonDiagnostics,
       marketMatchDiagnostics: {
         ...marketMatchDiagnostics,
         matches: marketMatchDiagnostics.matches.slice(0, 50),
@@ -540,7 +562,7 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,

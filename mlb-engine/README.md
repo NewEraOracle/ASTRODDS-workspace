@@ -106,6 +106,25 @@ This is a baseline Moneyline model only. It is not calibrated yet. Betting edge 
 
 The training report contains model metrics only, such as validation accuracy, log loss, Brier score, and home-team baseline accuracy. It does not report ROI, CLV, profit, or betting performance.
 
+## Train Pitcher-Enhanced Comparison Model
+
+After the pitcher feature layer is built, evaluate whether it improves the baseline Moneyline model:
+
+```bash
+python mlb-engine/scripts/train_pitcher_model.py
+```
+
+This creates:
+
+```text
+mlb-engine/models/moneyline_pitcher_model.pkl
+mlb-engine/models/moneyline_pitcher_feature_columns.json
+mlb-engine/models/moneyline_pitcher_training_report.json
+mlb-engine/models/moneyline_model_comparison_report.json
+```
+
+This step is research only. It compares the pitcher-enhanced model against the current baseline and reports honest validation / holdout deltas. It does not switch the active model used by `predict_today.py`, and it does not create official picks, live betting outputs, ROI, CLV, or calibration mapping for live use.
+
 
 ## Generate Historical Model Predictions
 

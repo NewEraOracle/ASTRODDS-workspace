@@ -398,6 +398,42 @@ type PitcherFeatureDiagnosticsResponse = {
   sourcePath: string;
   enhancedMoneylineCsv?: string;
 };
+type PitcherModelComparisonDiagnosticsResponse = {
+  status: "available" | "missing" | "empty";
+  recommendation: "keep_baseline" | "candidate_pitcher_model" | "needs_more_data";
+  baselineModelVersion: string;
+  baselineModelType: string;
+  pitcherModelVersion: string;
+  pitcherModelType: string;
+  trainRows?: number;
+  validationRows?: number;
+  holdout2026Rows?: number;
+  baselineValidationAccuracy?: number;
+  baselineValidationLogLoss?: number;
+  baselineValidationBrierScore?: number;
+  pitcherValidationAccuracy?: number;
+  pitcherValidationLogLoss?: number;
+  pitcherValidationBrierScore?: number;
+  baselineHoldout2026Accuracy?: number;
+  baselineHoldout2026LogLoss?: number;
+  baselineHoldout2026BrierScore?: number;
+  pitcherHoldout2026Accuracy?: number;
+  pitcherHoldout2026LogLoss?: number;
+  pitcherHoldout2026BrierScore?: number;
+  accuracyDelta?: number;
+  logLossDelta?: number;
+  brierScoreDelta?: number;
+  holdoutAccuracyDelta?: number;
+  holdoutLogLossDelta?: number;
+  holdoutBrierScoreDelta?: number;
+  featureCount?: number;
+  pitcherFeatureCount?: number;
+  missingPitcherFeatureRows?: number;
+  reasons: string[];
+  warnings: string[];
+  generatedAt?: string;
+  sourcePath: string;
+};
 type UnifiedMlbStatusResponse = {
   pythonMlbEngineStatus?: PythonMlbEngineStatusResponse;
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
@@ -409,6 +445,7 @@ type UnifiedMlbStatusResponse = {
   paperClvDiagnostics?: PaperWatchlistClvDiagnosticsResponse;
   paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
   pitcherFeatureDiagnostics?: PitcherFeatureDiagnosticsResponse;
+  modelComparisonDiagnostics?: PitcherModelComparisonDiagnosticsResponse;
 };
 type OddsLayerResponse = {
   status: "CONNECTED" | "PARTIAL" | "NOT_CONNECTED" | "FAILED";
@@ -749,6 +786,12 @@ function formatEdge(value?: number) {
   return `${sign}${(value * 100).toFixed(1)}%`;
 }
 
+function formatDecimalDelta(value?: number, digits = 4) {
+  if (typeof value !== "number" || !Number.isFinite(value)) return "--";
+  const sign = value > 0 ? "+" : "";
+  return `${sign}${value.toFixed(digits)}`;
+}
+
 function formatExpectedValue(value?: number) {
   if (typeof value !== "number" || !Number.isFinite(value)) return "--";
   const sign = value > 0 ? "+" : "";
@@ -1073,6 +1116,20 @@ type DecisionQualityItem = { label: string; value: string; tone: "green" | "yell
 function calibrationLabel(quality?: string) {
   if (!quality) return "Missing";
   return quality.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function pitcherModelComparisonTone(status: PitcherModelComparisonDiagnosticsResponse | null) {
+  if (!status) return "red";
+  if (status.recommendation === "candidate_pitcher_model") return "green";
+  if (status.recommendation === "needs_more_data") return "yellow";
+  return "red";
+}
+
+function pitcherModelRecommendationLabel(recommendation?: PitcherModelComparisonDiagnosticsResponse["recommendation"]) {
+  if (recommendation === "candidate_pitcher_model") return "Candidate Pitcher Model";
+  if (recommendation === "keep_baseline") return "Keep Baseline";
+  if (recommendation === "needs_more_data") return "Needs More Data";
+  return "Missing";
 }
 
 function pythonEngineTone(status: PythonMlbEngineStatusResponse | null) {
@@ -1508,6 +1565,8 @@ export default function AstrodssTerminal() {
   const [paperPerformanceDiagnosticsError, setPaperPerformanceDiagnosticsError] = useState("");
   const [pitcherFeatureDiagnostics, setPitcherFeatureDiagnostics] = useState<PitcherFeatureDiagnosticsResponse | null>(null);
   const [pitcherFeatureDiagnosticsError, setPitcherFeatureDiagnosticsError] = useState("");
+  const [modelComparisonDiagnostics, setModelComparisonDiagnostics] = useState<PitcherModelComparisonDiagnosticsResponse | null>(null);
+  const [modelComparisonDiagnosticsError, setModelComparisonDiagnosticsError] = useState("");
   const [paperLedgerReport, setPaperLedgerReport] = useState<PaperPerformanceResponse | null>(null);
   const [dailyReport, setDailyReport] = useState<DailyReportResponse | null>(null);
   const [isStartingPaperTest, setIsStartingPaperTest] = useState(false);
@@ -1599,6 +1658,10 @@ export default function AstrodssTerminal() {
   const pitcherFeatureSummary = pitcherFeatureDiagnostics;
   const pitcherFeatureStatusLabel = pitcherFeatureSummary?.status === "available" ? "Available" : pitcherFeatureSummary?.status === "partial" ? "Partial" : "Missing";
   const pitcherFeatureWarning = pitcherFeatureSummary?.warnings[0] ?? pitcherFeatureDiagnosticsError ?? "Waiting for pitcher feature diagnostics.";
+  const modelComparisonSummary = modelComparisonDiagnostics;
+  const modelComparisonStatusLabel = modelComparisonSummary?.status === "available" ? "Available" : modelComparisonSummary?.status === "empty" ? "Empty" : "Missing";
+  const modelComparisonWarning = modelComparisonSummary?.warnings[0] ?? modelComparisonDiagnosticsError ?? "Waiting for pitcher model comparison diagnostics.";
+  const modelComparisonReasons = modelComparisonSummary?.reasons.length ? modelComparisonSummary.reasons : ["Pitcher model comparison report not loaded yet."];
   const decisionQualityItems: DecisionQualityItem[] = [
     { label: "MLB Schedule", value: normalizeDecisionStatus(result?.diagnostics.sportApi.status), tone: qualityTone(result?.diagnostics.sportApi.status) },
     { label: "Polymarket", value: normalizeDecisionStatus(result?.diagnostics.polymarket.status), tone: qualityTone(result?.diagnostics.polymarket.status) },
@@ -1761,6 +1824,13 @@ export default function AstrodssTerminal() {
         setPitcherFeatureDiagnostics(null);
         setPitcherFeatureDiagnosticsError("Pitcher feature diagnostics missing from unified API response.");
       }
+      if (payload.modelComparisonDiagnostics) {
+        setModelComparisonDiagnostics(payload.modelComparisonDiagnostics);
+        setModelComparisonDiagnosticsError("");
+      } else {
+        setModelComparisonDiagnostics(null);
+        setModelComparisonDiagnosticsError("Pitcher model comparison diagnostics missing from unified API response.");
+      }
     } catch (statusError) {
       const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
       setPythonMlbEngineStatusError(message);
@@ -1777,6 +1847,8 @@ export default function AstrodssTerminal() {
       setPaperPerformanceDiagnosticsError(message);
       setPitcherFeatureDiagnostics(null);
       setPitcherFeatureDiagnosticsError(message);
+      setModelComparisonDiagnostics(null);
+      setModelComparisonDiagnosticsError(message);
     }
   }
   async function savePaperWatchlistLedger() {
@@ -2634,6 +2706,37 @@ export default function AstrodssTerminal() {
                             <span>Brier</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.brierScore ?? "--"}</span>
                             <span>ECE</span><span className="text-right font-mono text-white">{pythonMlbEngineStatus?.expectedCalibrationError ?? "--"}</span>
                           </div>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Pitcher Model Comparison</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Status</span>
+                            <Badge className={decisionToneClass(pitcherModelComparisonTone(modelComparisonSummary))}>{modelComparisonStatusLabel}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Baseline vs Pitcher</span>
+                            <span className="font-bold text-white">{pitcherModelRecommendationLabel(modelComparisonSummary?.recommendation)}</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2 text-slate-400">
+                            <span>Validation Log Loss</span><span className="text-right font-mono text-white">{formatDecimalDelta(modelComparisonSummary?.logLossDelta)}</span>
+                            <span>Validation Brier</span><span className="text-right font-mono text-white">{formatDecimalDelta(modelComparisonSummary?.brierScoreDelta)}</span>
+                            <span>Validation Accuracy</span><span className="text-right font-mono text-white">{formatEdge(modelComparisonSummary?.accuracyDelta)}</span>
+                            <span>Pitcher Features</span><span className="text-right font-mono text-white">{modelComparisonSummary?.pitcherFeatureCount ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5 text-slate-400">
+                            <span>Missing Pitcher Rows</span>
+                            <span className="font-mono font-black text-yellow-100">{modelComparisonSummary?.missingPitcherFeatureRows ?? 0}</span>
+                          </div>
+                          <div className="grid gap-1 border-b border-white/10 pb-2">
+                            <p className="font-black uppercase tracking-[0.12em] text-[#f4d274]">Reason</p>
+                            {modelComparisonReasons.slice(0, 3).map((reason) => (
+                              <p key={reason} className="leading-5 text-slate-300">{reason}</p>
+                            ))}
+                          </div>
+                          <p className="leading-5 text-slate-300">Active model unchanged. This comparison is research only and does not change official picks.</p>
+                          <p className="leading-5 text-slate-500">{modelComparisonWarning}</p>
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">

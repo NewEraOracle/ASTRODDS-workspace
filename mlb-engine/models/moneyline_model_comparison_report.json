@@ -1,0 +1,51 @@
+{
+  "model_family": "moneyline",
+  "delta_convention": "positive_is_better",
+  "generated_at": "2026-06-11T16:41:18.754814+00:00",
+  "baseline_model": {
+    "model_version": "moneyline_logistic_baseline_v0.1",
+    "model_type": "stdlib_logistic_regression",
+    "train_rows": 4869,
+    "validation_rows": 2434,
+    "holdout_2026_rows": 964,
+    "validation_accuracy": 0.549302,
+    "validation_log_loss": 0.686715,
+    "validation_brier_score": 0.246843,
+    "holdout_2026_accuracy": 0.514523,
+    "holdout_2026_log_loss": 0.697495,
+    "holdout_2026_brier_score": 0.252135,
+    "baseline_home_team_accuracy": 0.543139
+  },
+  "pitcher_model": {
+    "model_version": "moneyline_pitcher_candidate_v0.1",
+    "model_type": "stdlib_logistic_regression",
+    "train_rows": 4869,
+    "validation_rows": 2434,
+    "holdout_2026_rows": 964,
+    "validation_accuracy": 0.5341,
+    "validation_log_loss": 0.691206,
+    "validation_brier_score": 0.248589,
+    "holdout_2026_accuracy": 0.518672,
+    "holdout_2026_log_loss": 0.701311,
+    "holdout_2026_brier_score": 0.253318,
+    "baseline_home_team_accuracy": 0.543139,
+    "feature_count": 51,
+    "pitcher_feature_count": 17,
+    "missing_pitcher_feature_rows": 306
+  },
+  "accuracy_delta": -0.015202,
+  "log_loss_delta": -0.004491,
+  "brier_score_delta": -0.001746,
+  "holdout_accuracy_delta": 0.004149,
+  "holdout_log_loss_delta": -0.003816,
+  "holdout_brier_score_delta": -0.001183,
+  "recommendation": "keep_baseline",
+  "reasons": [
+    "Pitcher model underperformed baseline on calibration-sensitive validation metrics."
+  ],
+  "warnings": [
+    "scikit-learn is not installed; used ASTRODDS stdlib logistic regression fallback. Install scikit-learn later for comparable training: python -m pip install scikit-learn",
+    "Pitcher model comparison is research only and does not switch the active prediction path.",
+    "No official picks, Strong Buys, ROI, CLV, or calibration mapping were created."
+  ]
+}
