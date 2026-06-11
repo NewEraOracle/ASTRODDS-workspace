@@ -412,6 +412,20 @@ type WeatherBallparkFeatureDiagnosticsResponse = {
   mergedEnhancedCsv?: string;
   mergedPitcherBullpenWeatherCsv?: string;
 };
+type LineupPlayerFeatureDiagnosticsResponse = {
+  status: "available" | "partial" | "missing";
+  available: boolean;
+  gamesWithConfirmedLineupData: number;
+  gamesWithProjectedOrProxyLineupData: number;
+  gamesMissingLineupData: number;
+  dataQuality: "high" | "medium" | "low" | "missing";
+  proxyUsed: boolean;
+  warnings: string[];
+  generatedAt?: string;
+  sourcePath: string;
+  mergedMoneylineCsv?: string;
+  mergedPitcherBullpenWeatherLineupCsv?: string;
+};
 type BullpenFeatureDiagnosticsResponse = {
   status: "available" | "partial" | "missing";
   available: boolean;
@@ -483,6 +497,7 @@ type UnifiedMlbStatusResponse = {
   paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
   pitcherFeatureDiagnostics?: PitcherFeatureDiagnosticsResponse;
   weatherBallparkFeatureDiagnostics?: WeatherBallparkFeatureDiagnosticsResponse;
+  lineupPlayerFeatureDiagnostics?: LineupPlayerFeatureDiagnosticsResponse;
   bullpenFeatureDiagnostics?: BullpenFeatureDiagnosticsResponse;
   modelComparisonDiagnostics?: PitcherModelComparisonDiagnosticsResponse;
 };
@@ -1606,6 +1621,8 @@ export default function AstrodssTerminal() {
   const [pitcherFeatureDiagnosticsError, setPitcherFeatureDiagnosticsError] = useState("");
   const [weatherBallparkFeatureDiagnostics, setWeatherBallparkFeatureDiagnostics] = useState<WeatherBallparkFeatureDiagnosticsResponse | null>(null);
   const [weatherBallparkFeatureDiagnosticsError, setWeatherBallparkFeatureDiagnosticsError] = useState("");
+  const [lineupPlayerFeatureDiagnostics, setLineupPlayerFeatureDiagnostics] = useState<LineupPlayerFeatureDiagnosticsResponse | null>(null);
+  const [lineupPlayerFeatureDiagnosticsError, setLineupPlayerFeatureDiagnosticsError] = useState("");
   const [bullpenFeatureDiagnostics, setBullpenFeatureDiagnostics] = useState<BullpenFeatureDiagnosticsResponse | null>(null);
   const [bullpenFeatureDiagnosticsError, setBullpenFeatureDiagnosticsError] = useState("");
   const [modelComparisonDiagnostics, setModelComparisonDiagnostics] = useState<PitcherModelComparisonDiagnosticsResponse | null>(null);
@@ -1704,6 +1721,9 @@ export default function AstrodssTerminal() {
   const weatherBallparkFeatureSummary = weatherBallparkFeatureDiagnostics;
   const weatherBallparkFeatureStatusLabel = weatherBallparkFeatureSummary?.available ? "Available" : "Missing";
   const weatherBallparkFeatureWarning = weatherBallparkFeatureSummary?.warnings[0] ?? weatherBallparkFeatureDiagnosticsError ?? "Waiting for weather / ballpark diagnostics.";
+  const lineupPlayerFeatureSummary = lineupPlayerFeatureDiagnostics;
+  const lineupPlayerFeatureStatusLabel = lineupPlayerFeatureSummary?.status === "available" ? "Available" : lineupPlayerFeatureSummary?.status === "partial" ? "Partial" : "Missing";
+  const lineupPlayerFeatureWarning = lineupPlayerFeatureSummary?.warnings[0] ?? lineupPlayerFeatureDiagnosticsError ?? "Waiting for lineup / player diagnostics.";
   const bullpenFeatureSummary = bullpenFeatureDiagnostics;
   const bullpenFeatureStatusLabel = bullpenFeatureSummary?.status === "available" ? "Available" : bullpenFeatureSummary?.status === "partial" ? "Partial" : "Missing";
   const bullpenFeatureWarning = bullpenFeatureSummary?.warnings[0] ?? bullpenFeatureDiagnosticsError ?? "Waiting for bullpen feature diagnostics.";
@@ -1717,6 +1737,7 @@ export default function AstrodssTerminal() {
     { label: "Odds", value: oddsStatus?.status === "CONNECTED" ? "CONNECTED" : oddsStatus?.status === "PARTIAL" ? "PARTIAL" : "MISSING", tone: oddsStatus?.status === "CONNECTED" ? "green" : oddsStatus?.status === "PARTIAL" ? "yellow" : "red" },
     { label: "Pitchers", value: result ? `${result.diagnostics.sportApi.probablePitchersFound} found` : "MISSING", tone: result?.diagnostics.sportApi.probablePitchersFound ? "green" : "red" },
     { label: "Weather/Ballpark", value: weatherBallparkFeatureSummary ? weatherBallparkFeatureStatusLabel : "MISSING", tone: weatherBallparkFeatureSummary?.available ? "green" : "red" },
+    { label: "Lineup / Player", value: lineupPlayerFeatureSummary ? lineupPlayerFeatureStatusLabel : "MISSING", tone: lineupPlayerFeatureSummary?.available ? "green" : "red" },
     { label: "Bullpen", value: bullpenFeatureSummary ? bullpenFeatureStatusLabel : "MISSING", tone: bullpenFeatureSummary?.status === "available" ? "green" : bullpenFeatureSummary?.status === "partial" ? "yellow" : "red" },
     { label: "Lineups", value: decisionLineupImpact ? lineupStatusLabel(decisionLineupImpact.lineupStatus) : normalizeDecisionStatus(result?.sourceStatus.lineups), tone: decisionLineupImpact ? lineupImpactTone(decisionLineupImpact.lineupStatus) : qualityTone(result?.sourceStatus.lineups) },
     { label: "Lineup Impact", value: decisionLineupImpact ? `${Math.round(decisionLineupImpact.lineupImpactScore * 100)}%` : "MISSING", tone: decisionLineupImpact ? lineupImpactTone(decisionLineupImpact.lineupStatus) : "red" },
@@ -1882,6 +1903,13 @@ export default function AstrodssTerminal() {
         setWeatherBallparkFeatureDiagnostics(null);
         setWeatherBallparkFeatureDiagnosticsError("Weather / ballpark feature diagnostics missing from unified API response.");
       }
+      if (payload.lineupPlayerFeatureDiagnostics) {
+        setLineupPlayerFeatureDiagnostics(payload.lineupPlayerFeatureDiagnostics);
+        setLineupPlayerFeatureDiagnosticsError("");
+      } else {
+        setLineupPlayerFeatureDiagnostics(null);
+        setLineupPlayerFeatureDiagnosticsError("Lineup / player feature diagnostics missing from unified API response.");
+      }
       if (payload.bullpenFeatureDiagnostics) {
         setBullpenFeatureDiagnostics(payload.bullpenFeatureDiagnostics);
         setBullpenFeatureDiagnosticsError("");
@@ -1914,6 +1942,8 @@ export default function AstrodssTerminal() {
       setPitcherFeatureDiagnosticsError(message);
       setWeatherBallparkFeatureDiagnostics(null);
       setWeatherBallparkFeatureDiagnosticsError(message);
+      setLineupPlayerFeatureDiagnostics(null);
+      setLineupPlayerFeatureDiagnosticsError(message);
       setBullpenFeatureDiagnostics(null);
       setBullpenFeatureDiagnosticsError(message);
       setModelComparisonDiagnostics(null);
@@ -2900,6 +2930,47 @@ export default function AstrodssTerminal() {
                             <span className="text-slate-400">Official Use</span>
                             <span className="font-black text-red-200">Blocked</span>
                           </div>
+                        </div>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Lineup / Player Feature Layer</p>
+                        <div className="mt-3 grid gap-2 text-[11px]">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-slate-400">Layer</span>
+                            <Badge className={decisionToneClass(lineupPlayerFeatureSummary?.available ? "green" : "red")}>{lineupPlayerFeatureSummary?.available ? "Available" : "Missing"}</Badge>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Confirmed Lineups</span>
+                            <span className="font-mono font-black text-white">{lineupPlayerFeatureSummary?.gamesWithConfirmedLineupData ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Proxy Lineups</span>
+                            <span className="font-mono font-black text-emerald-100">{lineupPlayerFeatureSummary?.gamesWithProjectedOrProxyLineupData ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Missing Lineups</span>
+                            <span className="font-mono font-black text-yellow-100">{lineupPlayerFeatureSummary?.gamesMissingLineupData ?? 0}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Data Quality</span>
+                            <span className="font-black text-white">{lineupPlayerFeatureSummary?.dataQuality ? lineupPlayerFeatureSummary.dataQuality.toUpperCase() : "MISSING"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Proxy Used</span>
+                            <span className={lineupPlayerFeatureSummary?.proxyUsed ? "font-black text-yellow-100" : "font-black text-emerald-200"}>{lineupPlayerFeatureSummary?.proxyUsed ? "Yes" : "No"}</span>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                            <span className="text-slate-400">Official Use</span>
+                            <span className="font-black text-red-200">Blocked / Research Only</span>
+                          </div>
+                          <p className="leading-5 text-slate-300">Confirmed player lineups are not available in the saved MLB snapshots. This layer uses team-level offense proxies only and stays research only.</p>
+                          <p className="leading-5 text-slate-500">{lineupPlayerFeatureWarning}</p>
+                          {lineupPlayerFeatureSummary?.mergedMoneylineCsv ? (
+                            <p className="leading-5 text-slate-500">Merged moneyline CSV: {lineupPlayerFeatureSummary.mergedMoneylineCsv}</p>
+                          ) : null}
+                          {lineupPlayerFeatureSummary?.mergedPitcherBullpenWeatherLineupCsv ? (
+                            <p className="leading-5 text-slate-500">Merged richer CSV: {lineupPlayerFeatureSummary.mergedPitcherBullpenWeatherLineupCsv}</p>
+                          ) : null}
                         </div>
                       </div>
                       <div className="border border-white/10 bg-black/35 p-3">

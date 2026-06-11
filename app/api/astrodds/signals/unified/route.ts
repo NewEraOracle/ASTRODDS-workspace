@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import path from "node:path";
 
 import { loadWeatherBallparkFeatureStatus } from "@/lib/astrodss/mlb/weather-ballpark-feature-status";
+import { loadLineupPlayerFeatureStatus } from "@/lib/astrodss/mlb/lineup-player-feature-status";
 import { loadBullpenFeatureStatus } from "@/lib/astrodss/mlb/bullpen-feature-status";
 import { loadPythonMlbEngineStatus, PYTHON_MLB_MODEL_STATUS_PATH } from "@/lib/astrodss/mlb/python-engine-status";
 import { loadPitcherFeatureStatus } from "@/lib/astrodss/mlb/pitcher-feature-status";
@@ -303,7 +304,7 @@ export async function GET(request: Request) {
   const telegram = getTelegramConfig();
   if (sport !== "MLB") errors.push("Unified signal MVP is MLB-only for now.");
 
-  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult, modelComparisonResult, weatherBallparkResult] = await Promise.allSettled([
+  const [scanResult, whaleResult, pythonPredictionResult, pythonStatusResult, polymarketMarketResult, modelComparisonResult, weatherBallparkResult, lineupPlayerResult] = await Promise.allSettled([
     scanAstroddsSport("MLB"),
     scanWhaleWallets({ sport: "MLB" }),
     loadPythonMlbPredictions(),
@@ -311,6 +312,7 @@ export async function GET(request: Request) {
     discoverPolymarketMlbMoneylineMarkets(),
     loadPitcherModelComparisonStatus(),
     loadWeatherBallparkFeatureStatus(),
+    loadLineupPlayerFeatureStatus(),
   ]);
 
   if (scanResult.status === "rejected") {
@@ -339,6 +341,10 @@ export async function GET(request: Request) {
 
   if (weatherBallparkResult.status === "rejected") {
     errors.push(`Weather / ballpark feature loader failed: ${weatherBallparkResult.reason instanceof Error ? weatherBallparkResult.reason.message : "Unknown weather / ballpark loader failure"}`);
+  }
+
+  if (lineupPlayerResult.status === "rejected") {
+    errors.push(`Lineup / player feature loader failed: ${lineupPlayerResult.reason instanceof Error ? lineupPlayerResult.reason.message : "Unknown lineup / player loader failure"}`);
   }
 
   const scan = scanResult.status === "fulfilled" ? scanResult.value : undefined;
@@ -420,6 +426,20 @@ export async function GET(request: Request) {
         warnings: ["Weather / ballpark feature loader failed."],
         generatedAt: undefined,
         sourcePath: path.join(process.cwd(), "mlb-engine", "data", "processed", "mlb_weather_ballpark_features_report.json"),
+      };
+  const lineupPlayerFeatureDiagnostics = lineupPlayerResult.status === "fulfilled"
+    ? lineupPlayerResult.value
+    : {
+        status: "missing",
+        available: false,
+        gamesWithConfirmedLineupData: 0,
+        gamesWithProjectedOrProxyLineupData: 0,
+        gamesMissingLineupData: 0,
+        dataQuality: "missing",
+        proxyUsed: false,
+        warnings: ["Lineup / player feature loader failed."],
+        generatedAt: undefined,
+        sourcePath: path.join(process.cwd(), "mlb-engine", "data", "processed", "mlb_lineup_player_features_report.json"),
       };
   const marketPriceDiagnostics = {
     status: polymarketMlbMarkets.status,
@@ -540,6 +560,7 @@ export async function GET(request: Request) {
       paperPerformanceDiagnostics,
       pitcherFeatureDiagnostics,
       weatherBallparkFeatureDiagnostics,
+      lineupPlayerFeatureDiagnostics,
       bullpenFeatureDiagnostics,
       modelComparisonDiagnostics,
       marketMatchDiagnostics: {
@@ -575,6 +596,7 @@ export async function GET(request: Request) {
         paperPerformanceDiagnostics,
         pitcherFeatureDiagnostics,
         weatherBallparkFeatureDiagnostics,
+        lineupPlayerFeatureDiagnostics,
         bullpenFeatureDiagnostics,
         officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
@@ -588,7 +610,7 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...weatherBallparkFeatureDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings],
+      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...weatherBallparkFeatureDiagnostics.warnings, ...lineupPlayerFeatureDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,
