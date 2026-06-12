@@ -463,7 +463,7 @@ type CombinedRiskGateDiagnosticsResponse = {
     note: string;
   }>;
 };
-type BestBetStatusResponse = "strong_buy" | "buy" | "watch" | "blocked";
+type BestBetStatusResponse = "strong_buy" | "daily_pick" | "buy" | "watch" | "blocked";
 type BestBetRowResponse = {
   bestBetId: string;
   strongBuyId?: string;
@@ -506,6 +506,7 @@ type BestBetRowResponse = {
   reasons: string[];
   mainReason?: string;
   whyNotStrongBuy?: string;
+  whyDailyPick?: string;
   warnings: string[];
   blockReasons: string[];
   downgradeReasons: string[];
@@ -520,11 +521,16 @@ type BestBetsDiagnosticsResponse = {
   available: boolean;
   totalRowsEvaluated: number;
   strongBuyCount: number;
+  dailyPickCount: number;
   buyCount: number;
   watchCount: number;
   blockedCount: number;
   actionableCount?: number;
   visibleBoardCount?: number;
+  targetDailyPickMin?: number;
+  targetDailyPickMax?: number;
+  validCandidateCount?: number;
+  whyNoDailyPicks?: string[];
   bankroll: number;
   currentBankroll: number;
   startingBankroll: number;
@@ -1590,6 +1596,7 @@ function combinedRiskRiskLabel(level?: CombinedRiskGateRiskLevel | string) {
 
 function bestBetTone(status?: BestBetStatusResponse | string) {
   if (status === "strong_buy") return "green";
+  if (status === "daily_pick") return "green";
   if (status === "buy") return "green";
   if (status === "watch") return "yellow";
   return "red";
@@ -1597,6 +1604,7 @@ function bestBetTone(status?: BestBetStatusResponse | string) {
 
 function bestBetStatusLabel(status?: BestBetStatusResponse | string) {
   if (status === "strong_buy") return "Strong Buy";
+  if (status === "daily_pick") return "Daily Pick";
   if (status === "buy") return "Buy";
   if (status === "watch") return "Watch";
   return "Blocked";
@@ -2144,7 +2152,8 @@ export default function AstrodssTerminal() {
   const combinedRiskTopRows = combinedRiskRows.slice(0, 3);
   const bestBetsSummary = bestBetsDiagnostics;
   const bestBetsWarning = bestBetsSummary?.warnings[0] ?? bestBetsDiagnosticsError ?? "Waiting for Best Bets diagnostics.";
-  const bestBetsActionableCount = bestBetsSummary?.actionableCount ?? ((bestBetsSummary?.strongBuyCount ?? 0) + (bestBetsSummary?.buyCount ?? 0));
+  const bestBetsDailyPickCount = bestBetsSummary?.dailyPickCount ?? 0;
+  const bestBetsActionableCount = bestBetsSummary?.actionableCount ?? ((bestBetsSummary?.strongBuyCount ?? 0) + bestBetsDailyPickCount + (bestBetsSummary?.buyCount ?? 0));
   const bestBetsVisibleCount = bestBetsSummary?.visibleBoardCount ?? (bestBetsActionableCount + (bestBetsSummary?.watchCount ?? 0));
   const bestBetTopRows = bestBetRows.slice(0, 6);
   const strongBuyLedgerSummary = strongBuyLedgerDiagnostics;
@@ -3266,9 +3275,9 @@ export default function AstrodssTerminal() {
                       <div className="flex flex-col gap-3 border-b border-white/10 pb-3 lg:flex-row lg:items-start lg:justify-between">
                         <div>
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Best Bets Board</p>
-                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Strong Buy First | Buy and Watch Included</h3>
+                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Strong Buy First | Daily Picks Included</h3>
                           <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300">
-                            Strict moneyline-only gate built from the Combined Risk rows. Strong Buy stays rare. Buy appears as a manual-only dashboard candidate. Watch stays monitor-only.
+                            Strict moneyline-only gate built from the Combined Risk rows. Strong Buy stays rare. Daily Picks surface the best valid manual-review candidates when the board can support them. Buy appears as a dashboard candidate. Watch stays monitor-only.
                             No auto-betting. Real-money automation remains OFF.
                           </p>
                         </div>
@@ -3279,10 +3288,15 @@ export default function AstrodssTerminal() {
                         </div>
                       </div>
 
-                      <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-12">
+                      <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-5 2xl:[grid-template-columns:repeat(13,minmax(0,1fr))]">
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Strong Buy</p>
                           <p className="mt-2 text-3xl font-black text-emerald-100">{bestBetsSummary?.strongBuyCount ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Daily Picks</p>
+                          <p className="mt-2 text-3xl font-black text-cyan-100">{bestBetsDailyPickCount}</p>
+                          <p className="mt-1 text-[11px] text-slate-400">Target {bestBetsSummary?.targetDailyPickMin ?? 2} - {bestBetsSummary?.targetDailyPickMax ?? 6}</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Buy</p>
@@ -3299,12 +3313,12 @@ export default function AstrodssTerminal() {
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Actionable</p>
                           <p className="mt-2 text-3xl font-black text-emerald-100">{bestBetsActionableCount}</p>
-                          <p className="mt-1 text-[11px] text-slate-400">Strong Buy + Buy</p>
+                          <p className="mt-1 text-[11px] text-slate-400">Strong Buy + Daily Picks + Buy</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Visible Board</p>
                           <p className="mt-2 text-3xl font-black text-cyan-100">{bestBetsVisibleCount}</p>
-                          <p className="mt-1 text-[11px] text-slate-400">Strong Buy + Buy + Watch</p>
+                          <p className="mt-1 text-[11px] text-slate-400">Strong Buy + Daily Picks + Buy + Watch</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Bankroll</p>
@@ -3336,9 +3350,13 @@ export default function AstrodssTerminal() {
                       </div>
                       {bestBetsSummary?.strongBuyCount === 0 ? (
                         <p className="mt-4 border border-yellow-300/25 bg-yellow-400/10 p-3 text-xs font-bold text-yellow-100">
-                          {bestBetsVisibleCount > 0
-                            ? "No Strong Buy today — showing best Buy/Watch candidates for review."
-                            : "No Strong Buy today — no Buy/Watch candidates passed the dashboard thresholds."}
+                          {bestBetsDailyPickCount > 0
+                            ? "No Strong Buy today — showing best Daily Picks for manual review."
+                            : bestBetsSummary?.whyNoDailyPicks?.length
+                              ? `No Strong Buy today — ${bestBetsSummary.whyNoDailyPicks[0]}`
+                              : bestBetsVisibleCount > 0
+                                ? "No Strong Buy today — showing best Buy/Watch candidates for review."
+                                : "No Strong Buy today — no Buy/Watch candidates passed the dashboard thresholds."}
                         </p>
                       ) : null}
 
@@ -3383,7 +3401,14 @@ export default function AstrodssTerminal() {
                                       <p className="text-[11px] text-slate-400">{row.saveEligible ? "Manual dashboard only" : "Monitor only"}</p>
                                     )}
                                   </td>
-                                  <td className="max-w-[340px] p-2 text-slate-300">{row.mainReason ?? row.reasons[0] ?? row.warnings[0] ?? row.blockReasons[0] ?? "Manual-only diagnostics."}</td>
+                                  <td className="max-w-[340px] p-2 text-slate-300">
+                                    <div className="grid gap-1">
+                                      <p>{row.mainReason ?? row.reasons[0] ?? row.warnings[0] ?? row.blockReasons[0] ?? "Manual-only diagnostics."}</p>
+                                      {row.status === "daily_pick" ? (
+                                        <p className="text-[11px] leading-4 text-cyan-100">{row.whyDailyPick ?? "Daily Pick selected as best available manual-review candidate."}</p>
+                                      ) : null}
+                                    </div>
+                                  </td>
                                   <td className="max-w-[320px] p-2 text-slate-400">{row.whyNotStrongBuy ?? "--"}</td>
                                   <td className="p-2">
                                     <div className="flex flex-col gap-1">
@@ -3425,7 +3450,7 @@ export default function AstrodssTerminal() {
                                           {activeStrongBuyTelegramId === row.bestBetId ? <Loader2 className="mr-2 size-3.5 animate-spin" aria-hidden="true" /> : null}
                                           Send Strong Buy Telegram
                                         </button>
-                                      ) : row.status === "buy" ? (
+                                      ) : row.status === "daily_pick" || row.status === "buy" ? (
                                         <Badge className="border-cyan-300/35 bg-cyan-400/10 text-cyan-100">Manual Only</Badge>
                                       ) : null}
                                     </div>

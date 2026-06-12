@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 type BestBetRowResponse = {
-  status: "strong_buy" | "buy" | "watch" | "blocked";
+  status: "strong_buy" | "daily_pick" | "buy" | "watch" | "blocked";
   gameStatusValidation?: {
     available: boolean;
     mlbStatus: string;
@@ -48,11 +48,16 @@ type BestBetsTodayResponse = {
     available: boolean;
     totalRowsEvaluated: number;
     strongBuyCount: number;
+    dailyPickCount: number;
     buyCount: number;
     watchCount: number;
     blockedCount: number;
     actionableCount: number;
     visibleBoardCount: number;
+    targetDailyPickMin?: number;
+    targetDailyPickMax?: number;
+    validCandidateCount?: number;
+    whyNoDailyPicks?: string[];
     bankroll?: number;
     stakePercent?: number;
     stakeAmount?: number;
@@ -72,9 +77,10 @@ type BestBetsTodayResponse = {
 
 function statusRank(status: BestBetRowResponse["status"]) {
   if (status === "strong_buy") return 4;
-  if (status === "buy") return 3;
-  if (status === "watch") return 2;
-  return 1;
+  if (status === "daily_pick") return 3;
+  if (status === "buy") return 2;
+  if (status === "watch") return 1;
+  return 0;
 }
 
 function buildFallbackResponse(
@@ -93,11 +99,16 @@ function buildFallbackResponse(
       available: true,
       totalRowsEvaluated: 0,
       strongBuyCount: 0,
+      dailyPickCount: 0,
       buyCount: 0,
       watchCount: 0,
       blockedCount: 0,
       actionableCount: 0,
       visibleBoardCount: 0,
+      targetDailyPickMin: 2,
+      targetDailyPickMax: 6,
+      validCandidateCount: 0,
+      whyNoDailyPicks: warnings,
       warnings,
       generatedAt: new Date().toISOString(),
     },
@@ -199,11 +210,16 @@ export async function GET(request: Request) {
       available: true,
       totalRowsEvaluated: rows.length,
       strongBuyCount: rows.filter((row) => row.status === "strong_buy").length,
+      dailyPickCount: rows.filter((row) => row.status === "daily_pick").length,
       buyCount: rows.filter((row) => row.status === "buy").length,
       watchCount: rows.filter((row) => row.status === "watch").length,
       blockedCount: rows.filter((row) => row.status === "blocked").length,
-      actionableCount: rows.filter((row) => row.status === "strong_buy" || row.status === "buy").length,
+      actionableCount: rows.filter((row) => row.status === "strong_buy" || row.status === "daily_pick" || row.status === "buy").length,
       visibleBoardCount: rows.filter((row) => row.status !== "blocked").length,
+      targetDailyPickMin: typeof unified.payload?.bestBetsDiagnostics?.targetDailyPickMin === "number" ? unified.payload.bestBetsDiagnostics.targetDailyPickMin : 2,
+      targetDailyPickMax: typeof unified.payload?.bestBetsDiagnostics?.targetDailyPickMax === "number" ? unified.payload.bestBetsDiagnostics.targetDailyPickMax : 6,
+      validCandidateCount: typeof unified.payload?.bestBetsDiagnostics?.validCandidateCount === "number" ? unified.payload.bestBetsDiagnostics.validCandidateCount : rows.filter((row) => row.status === "daily_pick" || row.status === "buy" || row.status === "watch" || row.status === "strong_buy").length,
+      whyNoDailyPicks: Array.isArray(unified.payload?.bestBetsDiagnostics?.whyNoDailyPicks) ? (unified.payload.bestBetsDiagnostics.whyNoDailyPicks as string[]) : (rows.some((row) => row.status === "daily_pick") ? [] : warnings),
       bankroll: typeof unified.payload?.bestBetsDiagnostics?.bankroll === "number" ? unified.payload.bestBetsDiagnostics.bankroll : ledgerDiagnostics?.currentBankroll,
       stakePercent: typeof unified.payload?.bestBetsDiagnostics?.stakePercent === "number" ? unified.payload.bestBetsDiagnostics.stakePercent : 5,
       stakeAmount: typeof unified.payload?.bestBetsDiagnostics?.stakeAmount === "number" ? unified.payload.bestBetsDiagnostics.stakeAmount : 50,
