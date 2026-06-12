@@ -16,6 +16,8 @@ import { buildMlbPaperWatchlist } from "@/lib/astrodss/mlb/paper-watchlist";
 import { loadPaperWatchlistLedgerStatus } from "@/lib/astrodss/mlb/paper-watchlist-ledger";
 import { loadPaperWatchlistPerformanceAnalysis } from "@/lib/astrodss/mlb/paper-performance-analysis";
 import { buildCombinedRiskGate } from "@/lib/astrodss/mlb/combined-risk-gate";
+import { buildStrongBuyGate } from "@/lib/astrodss/mlb/strong-buy-gate";
+import { loadStrongBuyLedgerRows, loadStrongBuyLedgerStatus } from "@/lib/astrodss/mlb/strong-buy-ledger";
 import { loadPythonMlbPredictions, PYTHON_MLB_PREDICTIONS_PATH, type PythonMlbPrediction } from "@/lib/astrodss/mlb/python-predictions";
 import { buildPolymarketMlbMatchDiagnostics } from "@/lib/astrodss/sports-data/polymarket-mlb-match";
 import { discoverPolymarketMlbMoneylineMarkets, type PolymarketMlbMoneylineMarket } from "@/lib/astrodss/sports-data/polymarket-mlb-markets";
@@ -589,6 +591,14 @@ export async function GET(request: Request) {
     bullpenFeatureDiagnostics,
     paperPerformanceDiagnostics,
   });
+  const strongBuyLedgerRowsResult = await loadStrongBuyLedgerRows();
+  const strongBuyLedgerDiagnostics = await loadStrongBuyLedgerStatus();
+  const bestBets = buildStrongBuyGate({
+    combinedRiskRows: combinedRiskGate.rows,
+    combinedRiskDiagnostics: combinedRiskGate.diagnostics,
+    realizedSettledPaperPnL: strongBuyLedgerDiagnostics.paperPnL,
+    openLedgerRows: strongBuyLedgerRowsResult.rows.filter((row) => row.status === "open"),
+  });
   const matchesByGameId = new Map(marketMatchDiagnostics.matches.map((match) => [match.gameId, match]));
   const signalsWithMarketDiagnostics = signals.map((signal) => {
     const match = signal.gameId ? matchesByGameId.get(signal.gameId) : undefined;
@@ -650,6 +660,11 @@ export async function GET(request: Request) {
       dailyDataCaptureDiagnostics,
       combinedRiskGateDiagnostics: combinedRiskGate.diagnostics,
       combinedRiskRows: combinedRiskGate.rows,
+      bestBetsDiagnostics: bestBets.bestBetsDiagnostics,
+      bestBetRows: bestBets.bestBetRows,
+      strongBuyDiagnostics: bestBets.bestBetsDiagnostics,
+      strongBuyRows: bestBets.bestBetRows.filter((row) => row.status === "strong_buy"),
+      strongBuyLedgerDiagnostics,
       pitcherFeatureDiagnostics,
       weatherBallparkFeatureDiagnostics,
       lineupPlayerFeatureDiagnostics,
@@ -697,6 +712,9 @@ export async function GET(request: Request) {
         historicalExpansionDiagnostics,
         bullpenFeatureDiagnostics,
         modernModelComparisonDiagnostics,
+        bestBetsDiagnostics: bestBets.bestBetsDiagnostics,
+        bestBetRows: bestBets.bestBetRows,
+        strongBuyLedgerDiagnostics,
         officialUseBlocked: pythonTodayPredictionStatus.officialUseBlocked,
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
         officialPickEligible: pythonMlbEngineStatus.officialPickEligible,
@@ -709,7 +727,25 @@ export async function GET(request: Request) {
       pythonMlbEngineStatus: pythonMlbEngineStatusForResponse,
       scanStatus: scan?.sourceStatus,
       whaleStatus: whale?.sourceStatus ?? "NOT_CONNECTED",
-      errors: [...errors, ...(scan?.warnings ?? []), ...(whale?.errors ?? []), ...pythonMlbPredictions.warnings, ...pythonMlbEngineStatus.warnings, ...marketPriceDiagnostics.warnings, ...todayPredictionMarketDiagnostics.warnings, ...pitcherFeatureDiagnostics.warnings, ...weatherBallparkFeatureDiagnostics.warnings, ...lineupPlayerFeatureDiagnostics.warnings, ...injuryAvailabilityDiagnostics.warnings, ...historicalExpansionDiagnostics.warnings, ...bullpenFeatureDiagnostics.warnings, ...modelComparisonDiagnostics.warnings, ...modernModelComparisonDiagnostics.warnings],
+      errors: [
+        ...errors,
+        ...(scan?.warnings ?? []),
+        ...(whale?.errors ?? []),
+        ...pythonMlbPredictions.warnings,
+        ...pythonMlbEngineStatus.warnings,
+        ...marketPriceDiagnostics.warnings,
+        ...todayPredictionMarketDiagnostics.warnings,
+        ...pitcherFeatureDiagnostics.warnings,
+        ...weatherBallparkFeatureDiagnostics.warnings,
+        ...lineupPlayerFeatureDiagnostics.warnings,
+        ...injuryAvailabilityDiagnostics.warnings,
+        ...historicalExpansionDiagnostics.warnings,
+        ...bullpenFeatureDiagnostics.warnings,
+        ...modelComparisonDiagnostics.warnings,
+        ...modernModelComparisonDiagnostics.warnings,
+        ...bestBets.bestBetsDiagnostics.warnings,
+        ...strongBuyLedgerDiagnostics.warnings,
+      ],
       telegram: {
         configured: telegram.configured,
         signalsEnabled: telegram.signalsEnabled,

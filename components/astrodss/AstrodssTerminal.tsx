@@ -174,6 +174,19 @@ type TelegramActionResult = {
   reason: string;
   messageId?: number;
 };
+type BestBetActionResponse = {
+  ok?: boolean;
+  status?: string;
+  reason?: string;
+  message?: string;
+  warnings?: string[];
+  saved?: StrongBuyLedgerStatusResponse["recentBets"][number];
+  rows?: Array<{ bestBetId: string; status: string; reason: string; messageId?: number }>;
+  strongBuyLedgerDiagnostics?: StrongBuyLedgerStatusResponse;
+  statusSummary?: StrongBuyLedgerStatusResponse;
+  statusDetails?: StrongBuyLedgerStatusResponse;
+  sentCount?: number;
+};
 
 type PythonMlbEngineStatusResponse = {
   engineAvailable: boolean;
@@ -435,6 +448,93 @@ type CombinedRiskGateDiagnosticsResponse = {
     note: string;
   }>;
 };
+type BestBetStatusResponse = "strong_buy" | "buy" | "watch" | "blocked";
+type BestBetRowResponse = {
+  bestBetId: string;
+  strongBuyId?: string;
+  gameId?: string;
+  date?: string;
+  homeTeam?: string;
+  awayTeam?: string;
+  selectedSide?: string;
+  marketType: "moneyline";
+  status: BestBetStatusResponse;
+  calibratedProbability?: number | null;
+  marketProbability?: number | null;
+  diagnosticCalibratedEdge?: number | null;
+  diagnosticCalibratedEdgePct?: number | null;
+  matchConfidence?: string;
+  riskLevel: CombinedRiskGateRiskLevel;
+  riskScore: number;
+  bankroll: number;
+  stakePercent: number;
+  stakeAmount: number;
+  totalOpenExposurePercent: number;
+  exposureLabel: string;
+  reasons: string[];
+  warnings: string[];
+  blockReasons: string[];
+  downgradeReasons: string[];
+  telegramEligible: boolean;
+  manualOnly: true;
+  paperOnly: true;
+  realMoneyDisabled: true;
+};
+type BestBetsDiagnosticsResponse = {
+  available: boolean;
+  totalRowsEvaluated: number;
+  strongBuyCount: number;
+  buyCount: number;
+  watchCount: number;
+  blockedCount: number;
+  bankroll: number;
+  currentBankroll: number;
+  startingBankroll: number;
+  stakePercent: number;
+  stakeAmount: number;
+  totalOpenStakeAmount: number;
+  totalOpenExposurePercent: number;
+  remainingUnexposedBankroll: number;
+  openStrongBuyCount: number;
+  exposureLabel: string;
+  warnings: string[];
+  generatedAt: string;
+};
+type StrongBuyLedgerStatusResponse = {
+  ledgerAvailable: boolean;
+  totalTracked: number;
+  open: number;
+  settled: number;
+  wins: number;
+  losses: number;
+  pushes: number;
+  unknown: number;
+  winRate: number | null;
+  paperPnL: number | null;
+  currentBankroll: number;
+  averageCLV: number | null;
+  averageStake: number | null;
+  openStrongBuyCount: number;
+  totalOpenStakeAmount: number;
+  totalOpenExposurePercent: number;
+  remainingUnexposedBankroll: number;
+  exposureLabel: string;
+  warnings: string[];
+  generatedAt: string;
+  ledgerPath: string;
+  recentBets: Array<{
+    ledgerId: string;
+    bestBetId: string;
+    awayTeam?: string;
+    homeTeam?: string;
+    selectedSide?: string;
+    stakeAmount: number;
+    status: string;
+    result: string;
+    sentToTelegramAt?: string;
+    createdAt: string;
+  }>;
+};
 type HistoricalExpansionDiagnosticsResponse = {
   status: "available" | "partial" | "missing";
   available: boolean;
@@ -623,6 +723,11 @@ type UnifiedMlbStatusResponse = {
   dailyDataCaptureDiagnostics?: DailyDataCaptureDiagnosticsResponse;
   combinedRiskGateDiagnostics?: CombinedRiskGateDiagnosticsResponse;
   combinedRiskRows?: CombinedRiskGateRowResponse[];
+  bestBetsDiagnostics?: BestBetsDiagnosticsResponse;
+  bestBetRows?: BestBetRowResponse[];
+  strongBuyDiagnostics?: BestBetsDiagnosticsResponse;
+  strongBuyRows?: BestBetRowResponse[];
+  strongBuyLedgerDiagnostics?: StrongBuyLedgerStatusResponse;
   historicalExpansionDiagnostics?: HistoricalExpansionDiagnosticsResponse;
   pitcherFeatureDiagnostics?: PitcherFeatureDiagnosticsResponse;
   weatherBallparkFeatureDiagnostics?: WeatherBallparkFeatureDiagnosticsResponse;
@@ -1419,6 +1524,19 @@ function combinedRiskRiskLabel(level?: CombinedRiskGateRiskLevel | string) {
   return "Unknown Risk";
 }
 
+function bestBetTone(status?: BestBetStatusResponse | string) {
+  if (status === "strong_buy") return "green";
+  if (status === "buy" || status === "watch") return "yellow";
+  return "red";
+}
+
+function bestBetStatusLabel(status?: BestBetStatusResponse | string) {
+  if (status === "strong_buy") return "Strong Buy";
+  if (status === "buy") return "Buy";
+  if (status === "watch") return "Watch";
+  return "Blocked";
+}
+
 function percentMetric(value?: number) {
   if (typeof value !== "number" || !Number.isFinite(value)) return "--";
   return `${Math.round(value * 1000) / 10}%`;
@@ -1823,6 +1941,14 @@ export default function AstrodssTerminal() {
   const [combinedRiskGateDiagnostics, setCombinedRiskGateDiagnostics] = useState<CombinedRiskGateDiagnosticsResponse | null>(null);
   const [combinedRiskGateDiagnosticsError, setCombinedRiskGateDiagnosticsError] = useState("");
   const [combinedRiskRows, setCombinedRiskRows] = useState<CombinedRiskGateRowResponse[]>([]);
+  const [bestBetsDiagnostics, setBestBetsDiagnostics] = useState<BestBetsDiagnosticsResponse | null>(null);
+  const [bestBetsDiagnosticsError, setBestBetsDiagnosticsError] = useState("");
+  const [bestBetRows, setBestBetRows] = useState<BestBetRowResponse[]>([]);
+  const [strongBuyLedgerDiagnostics, setStrongBuyLedgerDiagnostics] = useState<StrongBuyLedgerStatusResponse | null>(null);
+  const [strongBuyLedgerDiagnosticsError, setStrongBuyLedgerDiagnosticsError] = useState("");
+  const [bestBetActionMessage, setBestBetActionMessage] = useState("");
+  const [activeBestBetSaveId, setActiveBestBetSaveId] = useState<string | null>(null);
+  const [activeStrongBuyTelegramId, setActiveStrongBuyTelegramId] = useState<string | null>(null);
   const [historicalExpansionDiagnostics, setHistoricalExpansionDiagnostics] = useState<HistoricalExpansionDiagnosticsResponse | null>(null);
   const [historicalExpansionDiagnosticsError, setHistoricalExpansionDiagnosticsError] = useState("");
   const [pitcherFeatureDiagnostics, setPitcherFeatureDiagnostics] = useState<PitcherFeatureDiagnosticsResponse | null>(null);
@@ -1930,6 +2056,11 @@ export default function AstrodssTerminal() {
   const combinedRiskSummary = combinedRiskGateDiagnostics;
   const combinedRiskWarning = combinedRiskSummary?.warnings[0] ?? combinedRiskGateDiagnosticsError ?? "Waiting for combined risk diagnostics.";
   const combinedRiskTopRows = combinedRiskRows.slice(0, 3);
+  const bestBetsSummary = bestBetsDiagnostics;
+  const bestBetsWarning = bestBetsSummary?.warnings[0] ?? bestBetsDiagnosticsError ?? "Waiting for Best Bets diagnostics.";
+  const bestBetTopRows = bestBetRows.slice(0, 6);
+  const strongBuyLedgerSummary = strongBuyLedgerDiagnostics;
+  const strongBuyLedgerWarning = strongBuyLedgerSummary?.warnings[0] ?? strongBuyLedgerDiagnosticsError ?? "Waiting for Strong Buy ledger diagnostics.";
   const historicalExpansionSummary = historicalExpansionDiagnostics;
   const historicalExpansionWindowLabel = historicalExpansionSummary?.historicalWindow ?? "2016-2026";
   const historicalExpansionWarning = historicalExpansionSummary?.warnings[0] ?? historicalExpansionDiagnosticsError ?? "Waiting for historical expansion diagnostics.";
@@ -2147,6 +2278,22 @@ export default function AstrodssTerminal() {
         setCombinedRiskRows([]);
         setCombinedRiskGateDiagnosticsError("Combined risk gate diagnostics missing from unified API response.");
       }
+      if (payload.bestBetsDiagnostics) {
+        setBestBetsDiagnostics(payload.bestBetsDiagnostics);
+        setBestBetRows(payload.bestBetRows ?? []);
+        setBestBetsDiagnosticsError("");
+      } else {
+        setBestBetsDiagnostics(null);
+        setBestBetRows([]);
+        setBestBetsDiagnosticsError("Best Bets diagnostics missing from unified API response.");
+      }
+      if (payload.strongBuyLedgerDiagnostics) {
+        setStrongBuyLedgerDiagnostics(payload.strongBuyLedgerDiagnostics);
+        setStrongBuyLedgerDiagnosticsError("");
+      } else {
+        setStrongBuyLedgerDiagnostics(null);
+        setStrongBuyLedgerDiagnosticsError("Strong Buy ledger diagnostics missing from unified API response.");
+      }
       if (payload.historicalExpansionDiagnostics) {
         setHistoricalExpansionDiagnostics(payload.historicalExpansionDiagnostics);
         setHistoricalExpansionDiagnosticsError("");
@@ -2221,6 +2368,12 @@ export default function AstrodssTerminal() {
       setDailyDataCaptureDiagnosticsError(message);
       setHistoricalExpansionDiagnostics(null);
       setHistoricalExpansionDiagnosticsError(message);
+      setBestBetsDiagnostics(null);
+      setBestBetsDiagnosticsError(message);
+      setBestBetRows([]);
+      setStrongBuyLedgerDiagnostics(null);
+      setStrongBuyLedgerDiagnosticsError(message);
+      setBestBetActionMessage("");
       setPitcherFeatureDiagnostics(null);
       setPitcherFeatureDiagnosticsError(message);
       setWeatherBallparkFeatureDiagnostics(null);
@@ -2296,6 +2449,46 @@ export default function AstrodssTerminal() {
       setPaperWatchlistLedgerActionMessage(error instanceof Error ? error.message : "Unknown paper watchlist CLV update failure.");
     } finally {
       setIsUpdatingPaperWatchlistClv(false);
+    }
+  }
+
+  async function saveBestBetTaken(row: BestBetRowResponse) {
+    try {
+      setActiveBestBetSaveId(row.bestBetId);
+      const response = await fetch("/api/astrodds/best-bets/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ row }),
+      });
+      const payload = (await response.json().catch(() => ({}))) as BestBetActionResponse & {
+        status?: StrongBuyLedgerStatusResponse;
+      };
+      if (!response.ok) throw new Error(payload.message ?? `Best bet save failed with ${response.status}`);
+      setBestBetActionMessage(payload.message ?? `Saved ${row.awayTeam ?? "Away"} @ ${row.homeTeam ?? "Home"} as manually tracked.`);
+      await refreshPythonMlbEngineStatus();
+    } catch (error) {
+      setBestBetActionMessage(error instanceof Error ? error.message : "Unknown Best Bet save failure.");
+    } finally {
+      setActiveBestBetSaveId(null);
+    }
+  }
+
+  async function sendStrongBuyTelegramAlert(row: BestBetRowResponse) {
+    try {
+      setActiveStrongBuyTelegramId(row.bestBetId);
+      const response = await fetch("/api/astrodds/telegram/strong-buy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ row }),
+      });
+      const payload = (await response.json().catch(() => ({}))) as BestBetActionResponse;
+      if (!response.ok) throw new Error(payload.reason ?? `Strong Buy Telegram failed with ${response.status}`);
+      setBestBetActionMessage(payload.reason ?? `Processed Strong Buy Telegram request for ${row.bestBetId}.`);
+      await refreshPythonMlbEngineStatus();
+    } catch (error) {
+      setBestBetActionMessage(error instanceof Error ? error.message : "Unknown Strong Buy Telegram failure.");
+    } finally {
+      setActiveStrongBuyTelegramId(null);
     }
   }
   async function refreshOddsStatus(fetchLiveOdds = false) {
@@ -2979,6 +3172,159 @@ export default function AstrodssTerminal() {
                         <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Bet Decision Snapshot</h3>
                       </div>
                       <Badge className="border-cyan-300/40 bg-cyan-400/10 text-cyan-100">Model first | Whales bonus only</Badge>
+                    </div>
+
+                    <div className="mb-4 border border-[#d6af55]/30 bg-black/35 p-4">
+                      <div className="flex flex-col gap-3 border-b border-white/10 pb-3 lg:flex-row lg:items-start lg:justify-between">
+                        <div>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Best Bets Board</p>
+                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Strong Buy First | Manual Alerts Only</h3>
+                          <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300">
+                            Strict moneyline-only gate built from the Combined Risk rows. Strong Buy stays rare. Buy and Watch remain dashboard-only.
+                            No auto-betting. Real-money automation remains OFF.
+                          </p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge className={decisionToneClass(bestBetsSummary?.available ? "green" : "red")}>{bestBetsSummary?.available ? "Available" : "Missing"}</Badge>
+                          <Badge className="border-red-300/55 bg-red-500/12 text-red-100">Real Money OFF</Badge>
+                          <Badge className="border-cyan-300/45 bg-cyan-400/10 text-cyan-100">Manual / Paper Only</Badge>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-10">
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Strong Buy</p>
+                          <p className="mt-2 text-3xl font-black text-emerald-100">{bestBetsSummary?.strongBuyCount ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Buy</p>
+                          <p className="mt-2 text-3xl font-black text-yellow-100">{bestBetsSummary?.buyCount ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Watch</p>
+                          <p className="mt-2 text-3xl font-black text-yellow-100">{bestBetsSummary?.watchCount ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Blocked</p>
+                          <p className="mt-2 text-3xl font-black text-red-100">{bestBetsSummary?.blockedCount ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Bankroll</p>
+                          <p className="mt-2 text-2xl font-black text-white">${bestBetsSummary?.bankroll?.toFixed(2) ?? "1000.00"}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Stake %</p>
+                          <p className="mt-2 text-2xl font-black text-white">{bestBetsSummary?.stakePercent ?? 5}%</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Stake Amount</p>
+                          <p className="mt-2 text-2xl font-black text-cyan-100">${bestBetsSummary?.stakeAmount?.toFixed(2) ?? "50.00"}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Open Exposure</p>
+                          <p className="mt-2 text-2xl font-black text-white">{bestBetsSummary?.totalOpenExposurePercent?.toFixed(1) ?? "0.0"}%</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Exposure Label</p>
+                          <p className="mt-2 text-sm font-black uppercase text-white">{bestBetsSummary?.exposureLabel ?? "normal exposure"}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Tracked Bets</p>
+                          <p className="mt-2 text-2xl font-black text-white">{strongBuyLedgerSummary?.totalTracked ?? 0}</p>
+                          <p className="mt-1 text-[11px] text-slate-400">
+                            {strongBuyLedgerSummary?.settled ?? 0} settled | {strongBuyLedgerSummary?.wins ?? 0}-{strongBuyLedgerSummary?.losses ?? 0}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 overflow-x-auto">
+                        <table className="min-w-[1240px] w-full text-left text-xs">
+                          <thead>
+                            <tr className="border-b border-white/10 text-[10px] uppercase tracking-[0.16em] text-slate-400">
+                              <th className="p-2">Game</th>
+                              <th className="p-2">Market</th>
+                              <th className="p-2">Selected Side</th>
+                              <th className="p-2">Edge</th>
+                              <th className="p-2">Risk</th>
+                              <th className="p-2">Stake</th>
+                              <th className="p-2">Reason</th>
+                              <th className="p-2">Status</th>
+                              <th className="p-2">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {bestBetTopRows.length ? (
+                              bestBetTopRows.map((row) => (
+                                <tr key={row.bestBetId} className="border-b border-white/[0.08] align-top">
+                                  <td className="p-2 text-white">
+                                    <p className="font-black">{row.awayTeam ?? "Away"} @ {row.homeTeam ?? "Home"}</p>
+                                    <p className="text-[11px] text-slate-400">{row.date ?? "Date unavailable"}</p>
+                                  </td>
+                                  <td className="p-2 text-slate-300">{row.marketType}</td>
+                                  <td className="p-2 text-cyan-100">
+                                    <p className="font-bold text-white">{row.selectedSide ?? "--"}</p>
+                                    <p className="text-[11px] text-slate-400">{row.matchConfidence ?? "none"} match</p>
+                                  </td>
+                                  <td className="p-2 font-mono text-emerald-100">{formatEdge(typeof row.diagnosticCalibratedEdgePct === "number" ? row.diagnosticCalibratedEdgePct / 100 : undefined)}</td>
+                                  <td className="p-2">
+                                    <Badge className={decisionToneClass(combinedRiskRiskTone(row.riskLevel))}>{combinedRiskRiskLabel(row.riskLevel)} / {row.riskScore}</Badge>
+                                  </td>
+                                  <td className="p-2 text-cyan-100">
+                                    <p className="font-black">${row.stakeAmount.toFixed(2)}</p>
+                                    <p className="text-[11px] text-slate-400">{row.stakePercent}% | {row.totalOpenExposurePercent.toFixed(1)}% open</p>
+                                  </td>
+                                  <td className="max-w-[340px] p-2 text-slate-300">{row.reasons[0] ?? row.warnings[0] ?? row.blockReasons[0] ?? "Manual-only diagnostics."}</td>
+                                  <td className="p-2">
+                                    <Badge className={decisionToneClass(bestBetTone(row.status))}>{bestBetStatusLabel(row.status)}</Badge>
+                                  </td>
+                                  <td className="p-2">
+                                    <div className="flex flex-col gap-2">
+                                      <button
+                                        type="button"
+                                        onClick={() => saveBestBetTaken(row)}
+                                        disabled={activeBestBetSaveId === row.bestBetId}
+                                        className="inline-flex min-h-9 items-center justify-center border border-cyan-300/35 bg-cyan-400/10 px-3 text-[10px] font-black uppercase tracking-[0.14em] text-cyan-100 disabled:opacity-45"
+                                      >
+                                        {activeBestBetSaveId === row.bestBetId ? <Loader2 className="mr-2 size-3.5 animate-spin" aria-hidden="true" /> : null}
+                                        Save Bet Taken
+                                      </button>
+                                      {row.telegramEligible ? (
+                                        <button
+                                          type="button"
+                                          onClick={() => sendStrongBuyTelegramAlert(row)}
+                                          disabled={activeStrongBuyTelegramId === row.bestBetId}
+                                          className="inline-flex min-h-9 items-center justify-center border border-[#d6af55]/45 bg-[#d6af55]/10 px-3 text-[10px] font-black uppercase tracking-[0.14em] text-[#ffe7a1] disabled:opacity-45"
+                                        >
+                                          {activeStrongBuyTelegramId === row.bestBetId ? <Loader2 className="mr-2 size-3.5 animate-spin" aria-hidden="true" /> : null}
+                                          Send Strong Buy Telegram
+                                        </button>
+                                      ) : (
+                                        <Badge className="border-slate-300/35 bg-slate-400/10 text-slate-200">Dashboard Only</Badge>
+                                      )}
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))
+                            ) : (
+                              <tr>
+                                <td colSpan={9} className="p-4 text-center text-sm font-bold text-slate-400">
+                                  No Best Bet rows are available yet. Run Scan MLB to populate the Strong Buy gate.
+                                </td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div className="mt-3 flex flex-wrap items-center gap-3 text-[11px] text-slate-400">
+                        <span>Manual only</span>
+                        <span>Telegram: Strong Buy only</span>
+                        <span>Whales: bonus only</span>
+                        <span>Runline: disabled</span>
+                        <span>Ledger win rate: {strongBuyLedgerSummary?.winRate === null || strongBuyLedgerSummary?.winRate === undefined ? "--" : `${(strongBuyLedgerSummary.winRate * 100).toFixed(1)}%`}</span>
+                        <span>Ledger PnL: {typeof strongBuyLedgerSummary?.paperPnL === "number" ? `$${strongBuyLedgerSummary.paperPnL.toFixed(2)}` : "--"}</span>
+                      </div>
+                      <p className="mt-3 text-xs leading-5 text-slate-400">{bestBetActionMessage || bestBetsWarning || strongBuyLedgerWarning}</p>
                     </div>
 
                     <div className="border border-white/10 bg-black/35 p-4">
