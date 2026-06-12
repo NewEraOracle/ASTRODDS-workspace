@@ -1,3 +1,5 @@
+import type { MLBGameStatusSnapshot, MLBGameStatusValidation } from "../mlb/game-status-validation";
+
 export type AstroddsSport = "MLB" | "NFL" | "NBA" | "NHL" | "SOCCER" | "TENNIS" | "MMA" | "OTHER";
 
 export type AstroddsSportFilter = "ALL" | AstroddsSport;
@@ -200,6 +202,9 @@ export type AstroddsMarketScan = {
   orderBook?: AstroddsOrderBookMetrics;
   marketAgeHours?: number;
   timeToStartHours?: number;
+  marketDate?: string;
+  gameDate?: string;
+  gameStatusValidation?: MLBGameStatusValidation;
   status: AstroddsMarketStatus;
   category?: string;
   walletSupport?: AstroddsWalletSupport;
@@ -293,6 +298,8 @@ export type AstroddsGameScan = {
   score?: string;
   period?: string;
   venue?: string;
+  mlbStatus?: MLBGameStatusSnapshot;
+  gameStatusValidation?: MLBGameStatusValidation;
   weather?: AstroddsWeatherContext;
   injuries?: AstroddsInjuryContext;
   lineups?: AstroddsLineupContext;
@@ -328,6 +335,28 @@ export type AstroddsSourceDiagnostic = {
   retryCount: number;
 };
 export type AstroddsScanDiagnostics = {
+  gameStatusValidationDiagnostics?: {
+    available: boolean;
+    status: "available" | "partial" | "missing";
+    totalGamesEvaluated: number;
+    activeGames: number;
+    blockedGames: number;
+    postponedGames: number;
+    suspendedGames: number;
+    cancelledGames: number;
+    finalGames: number;
+    liveGames: number;
+    dateMismatchGames: number;
+    missingMarketDateGames: number;
+    gameStatusBlockReasons: Array<{ reason: string; count: number }>;
+    warnings: string[];
+    generatedAt: string;
+    source: string;
+    officialPickEligible: false;
+    officialEdgeAllowed: false;
+    isPaperOnly: true;
+    realMoneyDisabled: true;
+  };
   polymarket: {
     status: AstroddsDiagnosticStatus;
     sourceMode?: AstroddsSourceMode;
@@ -433,6 +462,7 @@ export type RawPolymarketMarket = {
   createdAt?: string;
   eventTitle?: string;
   eventSlug?: string;
+  marketDate?: string;
   sport?: AstroddsSport | "OTHER";
   sourceUrl?: string;
   rejectedReason?: string;

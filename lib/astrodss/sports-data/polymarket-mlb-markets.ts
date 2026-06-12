@@ -48,6 +48,7 @@ export type PolymarketMlbMoneylineMarket = {
   volume?: number;
   endDate?: string;
   gameDate?: string;
+  marketDate?: string;
   active: boolean;
   closed: boolean;
   warnings: string[];
@@ -347,6 +348,7 @@ function normalizeMarket(market: GammaMarket, event?: GammaEvent): PolymarketMlb
     volume: safeNumber(market.volumeNum ?? market.volume ?? event?.volume),
     endDate: market.endDate ?? event?.endDate,
     gameDate: market.startDate ?? event?.startDate ?? market.endDate ?? event?.endDate,
+    marketDate: market.startDate ?? event?.startDate ?? market.endDate ?? event?.endDate,
     active: market.active ?? event?.active ?? false,
     closed: market.closed ?? event?.closed ?? false,
     warnings,

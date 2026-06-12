@@ -1,4 +1,5 @@
 import { applyDecisionEngine, rankedPicks } from "./decision-engine";
+import { buildMlbGameStatusValidation, buildMlbGameStatusValidationDiagnostics } from "../mlb/game-status-validation";
 import { scanMLBGames, scanMLBGamesWithDiagnostics } from "./mlb";
 import { scanMMAMarkets } from "./mma";
 import { scanNBAGames } from "./nba";
@@ -216,6 +217,33 @@ function attachMarketsToGames(
   };
 }
 
+function attachGameStatusValidationDiagnostics(diagnostics: AstroddsScanDiagnostics, games: AstroddsGameScan[]) {
+  const validations = games
+    .map((game) => game.gameStatusValidation)
+    .filter((validation): validation is NonNullable<AstroddsGameScan["gameStatusValidation"]> => Boolean(validation));
+  diagnostics.gameStatusValidationDiagnostics = buildMlbGameStatusValidationDiagnostics(validations);
+}
+
+function attachMlbGameStatusValidation(games: AstroddsGameScan[]) {
+  return games.map((game) => {
+    if (game.sport !== "MLB") return game;
+    const marketDate = game.markets.find((market) => Boolean(market.marketDate))?.marketDate ?? game.startTime;
+    return {
+      ...game,
+      gameStatusValidation: buildMlbGameStatusValidation({
+        gameId: game.id,
+        game: game.game,
+        startTime: game.startTime,
+        marketDate,
+        liveStatus: game.liveStatus,
+        mlbStatus: game.mlbStatus,
+        marketTitle: game.markets[0]?.marketTitle ?? game.game,
+        marketPick: game.markets[0]?.pick,
+      }),
+    };
+  });
+}
+
 async function scanSportData(sport: AstroddsSport, markets: AstroddsMarketScan[], signal?: AbortSignal) {
   if (sport === "TENNIS") return scanTennisMatches(markets);
   if (sport === "MMA") return scanMMAMarkets(markets);
@@ -226,7 +254,8 @@ async function scanSportData(sport: AstroddsSport, markets: AstroddsMarketScan[]
   try {
     const games = await scanFn(signal);
     if (!games.length) return markets.map((market) => marketOnlyGame(sport, market));
-    return attachMarketsToGames(games, markets, sport).games;
+    const matched = attachMarketsToGames(games, markets, sport).games;
+    return sport === "MLB" ? attachMlbGameStatusValidation(matched) : matched;
   } catch (error) {
     return markets.length
       ? markets.map((market) => ({
@@ -387,9 +416,10 @@ export async function scanAstroddsSport(sport: AstroddsSportFilter, signal?: Abo
     }
 
     const matched = attachMarketsToGames(mlbGames, marketPayload.markets, "MLB");
-    const decisionGames = applyDecisionEngine(matched.games);
+    const decisionGames = applyDecisionEngine(attachMlbGameStatusValidation(matched.games));
     const bestPicks = rankedPicks(decisionGames, 10);
     diagnostics.matching = matched.matching;
+    attachGameStatusValidationDiagnostics(diagnostics, decisionGames);
     diagnostics.polymarket.marketsMatchedToGames = diagnostics.matching.matchedMarketsCount;
     diagnostics.polymarket.matchedMarketSamples = matched.games
       .flatMap((game) => game.markets.map((market) => `${game.game} | ${market.marketTitle} | ${market.pick}`))
@@ -457,7 +487,9 @@ export async function scanAstroddsSport(sport: AstroddsSportFilter, signal?: Abo
           diagnostics.weather = mlbPayload.weather;
           diagnostics.sourceDiagnostics = mlbPayload.sourceDiagnostics;
           diagnostics.matching = matched.matching;
-          return matched.games;
+          const games = attachMlbGameStatusValidation(matched.games);
+          attachGameStatusValidationDiagnostics(diagnostics, games);
+          return games;
         } catch (error) {
           const message = `MLB API fetch failed: ${error instanceof Error ? error.message : "unknown error"}.`;
           diagnostics.sportApi = {
@@ -469,7 +501,9 @@ export async function scanAstroddsSport(sport: AstroddsSportFilter, signal?: Abo
           };
           const matched = attachMarketsToGames([], sportMarkets, selectedSport);
           diagnostics.matching = matched.matching;
-          return matched.games;
+          const games = attachMlbGameStatusValidation(matched.games);
+          attachGameStatusValidationDiagnostics(diagnostics, games);
+          return games;
         }
       }
 

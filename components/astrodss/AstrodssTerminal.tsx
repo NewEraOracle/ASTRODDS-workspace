@@ -399,6 +399,21 @@ type CombinedRiskGateRowResponse = {
   date?: string;
   homeTeam?: string;
   awayTeam?: string;
+  gameStatusValidation?: {
+    available: boolean;
+    mlbStatus: string;
+    isGameActiveForBetting: boolean;
+    isPostponed: boolean;
+    isSuspended: boolean;
+    isCancelled: boolean;
+    isFinal: boolean;
+    isLive: boolean;
+    isDateMismatch: boolean;
+    gameStatusBlockReasons: string[];
+    warnings: string[];
+  };
+  mlbStatus?: string;
+  gameStatusBlockReasons?: string[];
   marketType: "moneyline";
   selectedSide?: string;
   researchSide?: string;
@@ -456,6 +471,21 @@ type BestBetRowResponse = {
   date?: string;
   homeTeam?: string;
   awayTeam?: string;
+  gameStatusValidation?: {
+    available: boolean;
+    mlbStatus: string;
+    isGameActiveForBetting: boolean;
+    isPostponed: boolean;
+    isSuspended: boolean;
+    isCancelled: boolean;
+    isFinal: boolean;
+    isLive: boolean;
+    isDateMismatch: boolean;
+    gameStatusBlockReasons: string[];
+    warnings: string[];
+  };
+  mlbStatus?: string;
+  gameStatusBlockReasons?: string[];
   selectedSide?: string;
   marketType: "moneyline";
   status: BestBetStatusResponse;
@@ -623,6 +653,31 @@ type InjuryAvailabilityDiagnosticsResponse = {
   mergedInjuriesCsv?: string;
   mergedPitcherBullpenWeatherLineupInjuriesCsv?: string;
 };
+type GameStatusValidationDiagnosticsResponse = {
+  available: boolean;
+  status: "available" | "partial" | "missing";
+  totalGamesEvaluated: number;
+  activeGames: number;
+  blockedGames: number;
+  postponedGames: number;
+  suspendedGames: number;
+  cancelledGames: number;
+  finalGames: number;
+  liveGames: number;
+  dateMismatchGames: number;
+  missingMarketDateGames: number;
+  gameStatusBlockReasons: Array<{
+    reason: string;
+    count: number;
+  }>;
+  warnings: string[];
+  generatedAt: string;
+  source: string;
+  officialPickEligible: false;
+  officialEdgeAllowed: false;
+  isPaperOnly: true;
+  realMoneyDisabled: true;
+};
 type BullpenFeatureDiagnosticsResponse = {
   status: "available" | "partial" | "missing";
   available: boolean;
@@ -722,6 +777,7 @@ type UnifiedMlbStatusResponse = {
   marketPriceDiagnostics?: MarketPriceDiagnosticsResponse;
   marketMatchDiagnostics?: MarketMatchDiagnosticsResponse;
   todayPredictionMarketDiagnostics?: TodayPredictionMarketDiagnosticsResponse;
+  gameStatusValidationDiagnostics?: GameStatusValidationDiagnosticsResponse;
   injuryAvailabilityDiagnostics?: InjuryAvailabilityDiagnosticsResponse;
   paperWatchlistDiagnostics?: PaperWatchlistDiagnosticsResponse;
   paperWatchlistRows?: PaperWatchlistRowResponse[];
@@ -1616,6 +1672,7 @@ function deriveNoBetReasons(input: {
   const lineupMissing = rows.filter((row) => dataStatuses(row.game, row.market).lineups !== "CONNECTED").length;
   const injuryMissing = rows.filter((row) => dataStatuses(row.game, row.market).injuries !== "CONNECTED").length;
   const pitcherMissing = rows.filter((row) => dataStatuses(row.game, row.market).pitchers !== "CONNECTED").length;
+  const gameStatusBlocked = rows.filter((row) => row.game.gameStatusValidation && !row.game.gameStatusValidation.isGameActiveForBetting).length;
   const lowEdgeSignals = rows.filter((row) => row.market && ((row.market.probability?.edge ?? row.market.edge?.edge ?? 0) < 0.05)).length;
 
   if (gamesFetched > 0 && matchedGames === 0) appendReason(reasons, "No clean matched Polymarket MLB market", gamesFetched);
@@ -1626,6 +1683,7 @@ function deriveNoBetReasons(input: {
   appendReason(reasons, "Lineup not confirmed yet", lineupMissing);
   appendReason(reasons, "Injury/news source missing or partial", injuryMissing);
   appendReason(reasons, "Pitcher data missing or partial", pitcherMissing);
+  appendReason(reasons, "MLB game status validation blocked official use", gameStatusBlocked);
   appendReason(reasons, "Series games hidden by display filter", hiddenSeriesGames);
 
   for (const warning of missingDataWarnings.slice(0, 3)) appendReason(reasons, warning, 1);
@@ -1721,6 +1779,25 @@ function diagnosticCards(result?: AstroddsScanResult | null) {
       sourceUrl: undefined,
       sourceMode: diagnostics?.matching.sourceMode,
       rawDetail: undefined,
+    },
+    {
+      label: "Game Status",
+      icon: ShieldAlert,
+      status: diagnostics?.gameStatusValidationDiagnostics?.status === "available"
+        ? "CONNECTED"
+        : diagnostics?.gameStatusValidationDiagnostics?.status === "partial"
+          ? "PARTIAL"
+          : "NOT_CONNECTED",
+      primary: `Active games: ${diagnostics?.gameStatusValidationDiagnostics?.activeGames ?? 0} | Blocked: ${diagnostics?.gameStatusValidationDiagnostics?.blockedGames ?? 0}`,
+      secondary: `Postponed: ${diagnostics?.gameStatusValidationDiagnostics?.postponedGames ?? 0} | Suspended: ${diagnostics?.gameStatusValidationDiagnostics?.suspendedGames ?? 0} | Cancelled: ${diagnostics?.gameStatusValidationDiagnostics?.cancelledGames ?? 0} | Final: ${diagnostics?.gameStatusValidationDiagnostics?.finalGames ?? 0}`,
+      issue: diagnostics?.gameStatusValidationDiagnostics?.warnings[0],
+      sourceUrl: diagnostics?.gameStatusValidationDiagnostics?.source,
+      sourceMode: diagnostics?.gameStatusValidationDiagnostics?.status === "available"
+        ? "SERVER"
+        : diagnostics?.gameStatusValidationDiagnostics?.status === "partial"
+          ? "SERVER"
+          : "FAILED",
+      rawDetail: `Date mismatch: ${diagnostics?.gameStatusValidationDiagnostics?.dateMismatchGames ?? 0} | Missing market dates: ${diagnostics?.gameStatusValidationDiagnostics?.missingMarketDateGames ?? 0} | Block reasons: ${diagnostics?.gameStatusValidationDiagnostics?.gameStatusBlockReasons?.slice(0, 3).map((item) => `${item.reason} (${item.count})`).join(" | ") ?? "--"}`,
     },
     {
       label: "Order Book",
@@ -3309,7 +3386,17 @@ export default function AstrodssTerminal() {
                                   <td className="max-w-[340px] p-2 text-slate-300">{row.mainReason ?? row.reasons[0] ?? row.warnings[0] ?? row.blockReasons[0] ?? "Manual-only diagnostics."}</td>
                                   <td className="max-w-[320px] p-2 text-slate-400">{row.whyNotStrongBuy ?? "--"}</td>
                                   <td className="p-2">
-                                    <Badge className={decisionToneClass(bestBetTone(row.status))}>{bestBetStatusLabel(row.status)}</Badge>
+                                    <div className="flex flex-col gap-1">
+                                      <Badge className={decisionToneClass(bestBetTone(row.status))}>{bestBetStatusLabel(row.status)}</Badge>
+                                      {row.gameStatusValidation ? (
+                                        <Badge className="border-cyan-300/35 bg-cyan-400/10 text-cyan-100">
+                                          MLB {row.gameStatusValidation.mlbStatus.replace(/_/g, " ")}
+                                        </Badge>
+                                      ) : null}
+                                      {row.gameStatusBlockReasons?.[0] ? (
+                                        <p className="max-w-[220px] text-[10px] leading-4 text-red-200">{row.gameStatusBlockReasons[0]}</p>
+                                      ) : null}
+                                    </div>
                                   </td>
                                   <td className="p-2">
                                     <div className="flex flex-col gap-2">
@@ -4274,7 +4361,7 @@ export default function AstrodssTerminal() {
                       </div>
                     </div>
 
-                    <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                    <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
                       {diagnosticCards(result).map((card) => {
                         const Icon = card.icon;
 

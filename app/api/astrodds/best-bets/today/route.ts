@@ -7,12 +7,28 @@ export const runtime = "nodejs";
 
 type BestBetRowResponse = {
   status: "strong_buy" | "buy" | "watch" | "blocked";
+  gameStatusValidation?: {
+    available: boolean;
+    mlbStatus: string;
+    isGameActiveForBetting: boolean;
+    isPostponed: boolean;
+    isSuspended: boolean;
+    isCancelled: boolean;
+    isFinal: boolean;
+    isLive: boolean;
+    isDateMismatch: boolean;
+    gameStatusBlockReasons: string[];
+    warnings: string[];
+  };
+  mlbStatus?: string;
+  gameStatusBlockReasons?: string[];
 };
 
 type UnifiedBestBetsPayload = {
   bestBetsDiagnostics?: Record<string, unknown>;
   bestBetRows?: BestBetRowResponse[];
   strongBuyLedgerDiagnostics?: Record<string, unknown>;
+  gameStatusValidationDiagnostics?: Record<string, unknown>;
   errors?: string[];
 };
 
@@ -50,6 +66,7 @@ type BestBetsTodayResponse = {
   bestBetRows: BestBetRowResponse[];
   strongBuyRows: BestBetRowResponse[];
   strongBuyLedgerDiagnostics: Record<string, unknown> | null;
+  gameStatusValidationDiagnostics: Record<string, unknown> | null;
   warnings: string[];
 };
 
@@ -60,7 +77,12 @@ function statusRank(status: BestBetRowResponse["status"]) {
   return 1;
 }
 
-function buildFallbackResponse(status: BestBetsTodayResponse["status"], warnings: string[], strongBuyLedgerDiagnostics: Record<string, unknown> | null): BestBetsTodayResponse {
+function buildFallbackResponse(
+  status: BestBetsTodayResponse["status"],
+  warnings: string[],
+  strongBuyLedgerDiagnostics: Record<string, unknown> | null,
+  gameStatusValidationDiagnostics: Record<string, unknown> | null,
+): BestBetsTodayResponse {
   return {
     status,
     ok: true,
@@ -82,6 +104,7 @@ function buildFallbackResponse(status: BestBetsTodayResponse["status"], warnings
     bestBetRows: [],
     strongBuyRows: [],
     strongBuyLedgerDiagnostics,
+    gameStatusValidationDiagnostics,
     warnings,
   };
 }
@@ -163,7 +186,7 @@ export async function GET(request: Request) {
   ];
 
   const fallback = !unified.payload
-    ? buildFallbackResponse(unified.status, warnings.length ? warnings : ["Best Bets diagnostics unavailable."], ledgerDiagnostics)
+    ? buildFallbackResponse(unified.status, warnings.length ? warnings : ["Best Bets diagnostics unavailable."], ledgerDiagnostics, null)
     : null;
 
   const responseBody: BestBetsTodayResponse = fallback ?? {
@@ -194,6 +217,7 @@ export async function GET(request: Request) {
     bestBetRows: rows,
     strongBuyRows: rows.filter((row) => row.status === "strong_buy"),
     strongBuyLedgerDiagnostics: unified.payload?.strongBuyLedgerDiagnostics ?? ledgerDiagnostics,
+    gameStatusValidationDiagnostics: unified.payload?.gameStatusValidationDiagnostics ?? null,
     warnings: warnings.length ? warnings : [],
   };
 

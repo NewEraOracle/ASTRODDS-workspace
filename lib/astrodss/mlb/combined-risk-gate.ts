@@ -7,6 +7,7 @@ import type { PitcherFeatureDiagnostics } from "./pitcher-feature-status";
 import type { PythonMlbEngineStatus } from "./python-engine-status";
 import type { MlbPaperWatchlistRow } from "./paper-watchlist";
 import type { WeatherBallparkFeatureDiagnostics } from "./weather-ballpark-feature-status";
+import type { MLBGameStatusValidation } from "./game-status-validation";
 
 export type CombinedRiskGateDecision = "bet_candidate" | "watchlist" | "research_only" | "blocked";
 
@@ -18,6 +19,9 @@ export type CombinedRiskGateRow = {
   date?: string;
   homeTeam?: string;
   awayTeam?: string;
+  gameStatusValidation?: MLBGameStatusValidation;
+  mlbStatus?: MLBGameStatusValidation["mlbStatus"];
+  gameStatusBlockReasons: string[];
   marketType: "moneyline";
   selectedSide?: string;
   researchSide?: string;
@@ -45,6 +49,9 @@ export type CombinedRiskGatePrediction = {
   date?: string;
   homeTeam?: string;
   awayTeam?: string;
+  gameStatusValidation?: MLBGameStatusValidation;
+  mlbStatus?: MLBGameStatusValidation["mlbStatus"];
+  gameStatusBlockReasons?: string[];
   marketType?: string;
   pick?: string;
   rawModelProbability?: number | null;
@@ -111,6 +118,7 @@ export type CombinedRiskGateInput = {
   pitcherFeatureDiagnostics?: PitcherFeatureDiagnostics;
   bullpenFeatureDiagnostics?: BullpenFeatureDiagnostics;
   paperPerformanceDiagnostics?: PaperPerformanceAnalysis;
+  gameStatusValidationByGameId?: Record<string, MLBGameStatusValidation | undefined>;
 };
 
 export type CombinedRiskGateDiagnostics = {
@@ -258,6 +266,9 @@ function buildRow(
   const hasCalibratedProbability = isUsefulNumber(calibratedProbability) && calibratedProbability > 0 && calibratedProbability < 1;
   const hasRawModelProbability = isUsefulNumber(rawModelProbability) && rawModelProbability > 0 && rawModelProbability < 1;
   const liveMarketReady = marketSourceAvailable(input) && (marketMatchCount(input) > 0 || Boolean(watchlistRow));
+  const gameStatusValidation = prediction.gameStatusValidation ?? (prediction.gameId ? input.gameStatusValidationByGameId?.[prediction.gameId] : undefined);
+  const gameStatusBlockReasons = gameStatusValidation?.gameStatusBlockReasons ?? [];
+  const gameStatusBlocked = Boolean(gameStatusValidation && !gameStatusValidation.isGameActiveForBetting);
 
   const lineupStatus = normalizeText(input.lineupPlayerFeatureDiagnostics?.status ?? "");
   const injuryStatus = normalizeText(input.injuryAvailabilityDiagnostics?.status ?? "");
@@ -278,6 +289,7 @@ function buildRow(
     bullpenStatus === "available" ? "Bullpen layer is connected" : bullpenStatus === "partial" ? "Bullpen layer is partial" : undefined,
     watchlistRow?.watchlistTier ? `Paper watchlist tier: ${watchlistRow.watchlistTier}` : undefined,
     paperSettledRows >= 10 ? "Paper performance sample is large enough for research context" : undefined,
+    gameStatusValidation?.isGameActiveForBetting ? "MLB game status is active for betting" : undefined,
   ]);
 
   const downgradeReasons = uniqueStrings([
@@ -290,6 +302,8 @@ function buildRow(
     input.marketPriceDiagnostics?.cacheUsed && input.marketPriceDiagnostics.cacheStatus === "stale" ? "Polymarket cache is stale" : undefined,
     !marketSourceAvailable(input) ? "No verified live market source available" : undefined,
     marketMatchCount(input) === 0 ? "No clean matched Polymarket MLB market" : undefined,
+    ...gameStatusBlockReasons,
+    gameStatusBlocked ? "Blocked: MLB game status validation failed" : undefined,
   ]);
 
   const blockReasons = uniqueStrings([
@@ -344,6 +358,8 @@ function buildRow(
     }
   }
 
+  if (gameStatusBlocked) decision = "blocked";
+
   if (lineupStatus === "missing" && decision === "bet_candidate") decision = "watchlist";
   if ((injuryStatus === "missing" || weatherStatus === "missing" || pitcherStatus === "missing" || bullpenStatus === "missing") && decision === "bet_candidate") {
     decision = "watchlist";
@@ -360,6 +376,9 @@ function buildRow(
     date: prediction.date,
     homeTeam: prediction.homeTeam,
     awayTeam: prediction.awayTeam,
+    gameStatusValidation,
+    mlbStatus: gameStatusValidation?.mlbStatus,
+    gameStatusBlockReasons,
     marketType: "moneyline",
     selectedSide,
     researchSide,
@@ -415,6 +434,10 @@ export function buildCombinedRiskGate(input: CombinedRiskGateInput): CombinedRis
   for (const row of watchlistRows) {
     watchlistMap.set(rowKey({ gameId: row.gameId, date: row.date, awayTeam: row.awayTeam, homeTeam: row.homeTeam, side: row.selectedSide ?? row.researchSide }), row);
   }
+  const gameStatusValidationEntries = Object.values(input.gameStatusValidationByGameId ?? {}).filter(
+    (validation): validation is MLBGameStatusValidation => Boolean(validation),
+  );
+  const gameStatusValidationBlocked = gameStatusValidationEntries.filter((validation) => !validation.isGameActiveForBetting).length;
 
   const sourceRows: CombinedRiskGateRow[] = [];
   if (predictions.length) {
@@ -507,6 +530,13 @@ export function buildCombinedRiskGate(input: CombinedRiskGateInput): CombinedRis
       note: `${marketMatchCount(input)} matched MLB markets.`,
     },
     {
+      label: "Game status validation",
+      status: gameStatusValidationEntries.length ? (gameStatusValidationBlocked > 0 ? "partial" : "available") : "missing",
+      note: gameStatusValidationEntries.length
+        ? `${gameStatusValidationEntries.length} MLB rows validated; ${gameStatusValidationBlocked} blocked by status.`
+        : "MLB game status validation not attached yet.",
+    },
+    {
       label: "Lineup layer",
       status: input.lineupPlayerFeatureDiagnostics?.status ?? "missing",
       note: input.lineupPlayerFeatureDiagnostics?.warnings?.[0] ?? `Lineup status ${statusLabel(input.lineupPlayerFeatureDiagnostics?.status)}.`,
@@ -554,10 +584,11 @@ export function buildCombinedRiskGate(input: CombinedRiskGateInput): CombinedRis
     officialEdgeAllowed: false,
     isPaperOnly: true,
     realMoneyDisabled: true,
-    warnings: uniqueStrings([
+      warnings: uniqueStrings([
       ...warnings,
       totalRows === 0 ? "No combined risk rows available yet." : undefined,
       marketMatchCount(input) === 0 ? "No clean matched Polymarket MLB market." : undefined,
+      gameStatusValidationBlocked > 0 ? `${gameStatusValidationBlocked} MLB rows blocked by status validation.` : undefined,
       !input.marketPriceDiagnostics?.marketPricesConnected && !input.marketPriceDiagnostics?.cacheUsed
         ? "Polymarket prices are not connected."
         : undefined,

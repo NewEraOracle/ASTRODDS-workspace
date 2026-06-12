@@ -1,4 +1,5 @@
 import { applyDecisionEngine, rankedPicks } from "./decision-engine";
+import { buildMlbGameStatusValidation, buildMlbGameStatusValidationDiagnostics } from "../mlb/game-status-validation";
 import { mlbScheduleUrl } from "./mlb";
 import { describeMlbMarketTeams, matchMlbMarketToGame } from "./mlb-teams";
 import { compactId, dataStatusRank, safeNumber } from "./normalize";
@@ -554,6 +555,26 @@ function warningList(games: AstroddsGameScan[], diagnostics: AstroddsScanDiagnos
   return warnings;
 }
 
+function attachMlbGameStatusValidation(games: AstroddsGameScan[]) {
+  return games.map((game) => {
+    if (game.sport !== "MLB") return game;
+    const marketDate = game.markets.find((market) => Boolean(market.marketDate))?.marketDate ?? game.startTime;
+    return {
+      ...game,
+      gameStatusValidation: buildMlbGameStatusValidation({
+        gameId: game.id,
+        game: game.game,
+        startTime: game.startTime,
+        marketDate,
+        liveStatus: game.liveStatus,
+        mlbStatus: game.mlbStatus,
+        marketTitle: game.markets[0]?.marketTitle ?? game.game,
+        marketPick: game.markets[0]?.pick,
+      }),
+    };
+  });
+}
+
 export async function scanMlbWithBrowserFallback(serverResult?: AstroddsScanResult | null): Promise<AstroddsScanResult> {
   const generatedAt = new Date().toISOString();
   const sourceUrls = polymarketSportQueryTerms("MLB").map((term) => polymarketEventsUrl(term).toString()).join(" | ");
@@ -577,7 +598,7 @@ export async function scanMlbWithBrowserFallback(serverResult?: AstroddsScanResu
           },
         };
   const matched = attachMlbMarketsToGames(mlbPayload.games, polymarketPayload.markets);
-  const decisionGames = applyDecisionEngine(matched.games);
+  const decisionGames = applyDecisionEngine(attachMlbGameStatusValidation(matched.games));
   const bestPicks = rankedPicks(decisionGames, 10);
   const diagnostics: AstroddsScanDiagnostics = {
     polymarket: {
@@ -591,6 +612,11 @@ export async function scanMlbWithBrowserFallback(serverResult?: AstroddsScanResu
     weather: mlbPayload.weather,
     matching: matched.matching,
     orderBook: polymarketPayload.orderBookDiagnostics,
+    gameStatusValidationDiagnostics: buildMlbGameStatusValidationDiagnostics(
+      decisionGames
+        .map((game) => game.gameStatusValidation)
+        .filter((validation): validation is NonNullable<AstroddsGameScan["gameStatusValidation"]> => Boolean(validation)),
+    ),
     lastErrors: [
       polymarketPayload.diagnostics.error,
       polymarketPayload.orderBookDiagnostics.error,

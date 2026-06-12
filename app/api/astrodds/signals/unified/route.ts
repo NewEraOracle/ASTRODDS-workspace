@@ -12,6 +12,7 @@ import { loadPitcherModelComparisonStatus } from "@/lib/astrodss/mlb/pitcher-mod
 import { loadModernModelComparisonStatus } from "@/lib/astrodss/mlb/modern-model-comparison-status";
 import { loadPaperWatchlistClvDiagnostics } from "@/lib/astrodss/mlb/paper-watchlist-clv";
 import { loadDailyMlbResearchCaptureStatus } from "@/lib/astrodss/mlb/daily-data-capture";
+import { buildMlbGameStatusValidation, buildMlbGameStatusValidationDiagnostics } from "@/lib/astrodss/mlb/game-status-validation";
 import { buildMlbPaperWatchlist } from "@/lib/astrodss/mlb/paper-watchlist";
 import { loadPaperWatchlistLedgerStatus } from "@/lib/astrodss/mlb/paper-watchlist-ledger";
 import { loadPaperWatchlistPerformanceAnalysis } from "@/lib/astrodss/mlb/paper-performance-analysis";
@@ -84,6 +85,27 @@ function buildNoBetReasons(
   return Array.from(reasons, ([reason, count]) => ({ reason, count }))
     .sort((a, b) => b.count - a.count)
     .slice(0, 8);
+}
+
+function buildGameStatusValidationMap(games: AstroddsGameScan[]) {
+  return new Map(
+    games
+      .filter((game) => game.sport === "MLB")
+      .map((game) => {
+        const marketDate = game.markets.find((market) => Boolean(market.marketDate))?.marketDate ?? game.startTime;
+        const validation = game.gameStatusValidation ?? buildMlbGameStatusValidation({
+          gameId: game.id,
+          game: game.game,
+          startTime: game.startTime,
+          marketDate,
+          liveStatus: game.liveStatus,
+          mlbStatus: game.mlbStatus,
+          marketTitle: game.markets[0]?.marketTitle ?? game.game,
+          marketPick: game.markets[0]?.pick,
+        });
+        return [game.id, validation] as const;
+      }),
+  );
 }
 
 type TodayPredictionMarketDiagnostics = {
@@ -533,6 +555,9 @@ export async function GET(request: Request) {
     sourceDiagnostics: polymarketMlbMarkets.sourceDiagnostics,
     generatedAt: polymarketMlbMarkets.generatedAt,
   };
+  const gameStatusValidationMap = buildGameStatusValidationMap(scan?.games ?? []);
+  const gameStatusValidations = Array.from(gameStatusValidationMap.values());
+  const gameStatusValidationDiagnostics = buildMlbGameStatusValidationDiagnostics(gameStatusValidations);
   const signals = scan
     ? buildUnifiedSignals(scan.games, {
         whaleConsensus: whale?.consensus ?? [],
@@ -584,6 +609,7 @@ export async function GET(request: Request) {
     pythonMlbEngineStatus,
     marketPriceDiagnostics,
     marketMatchDiagnostics,
+    gameStatusValidationByGameId: Object.fromEntries(gameStatusValidationMap),
     lineupPlayerFeatureDiagnostics,
     injuryAvailabilityDiagnostics,
     weatherBallparkFeatureDiagnostics,
@@ -614,6 +640,12 @@ export async function GET(request: Request) {
     };
   });
   const noBetReasons = buildNoBetReasons(signalsWithMarketDiagnostics, scan, injuryAvailabilityDiagnostics);
+  if (gameStatusValidationDiagnostics.blockedGames > 0) {
+    noBetReasons.unshift({
+      reason: "No Bet - MLB game status validation blocked one or more rows",
+      count: gameStatusValidationDiagnostics.blockedGames,
+    });
+  }
   const noLiveData = !scan || scan.diagnostics.sportApi.status === "FAILED" || (scan.diagnostics.sportApi.gamesFetched === 0 && signals.length === 0);
   const sourceDiagnostics = scan?.diagnostics.sourceDiagnostics ?? [];
 
@@ -634,6 +666,7 @@ export async function GET(request: Request) {
         dataOnly: signalsWithMarketDiagnostics.filter((signal) => signal.signalType === "DATA_ONLY").length,
       },
       sourceDiagnostics,
+      gameStatusValidationDiagnostics,
       polymarketMlbMarkets: {
         ...polymarketMlbMarkets,
         markets: polymarketMlbMarkets.markets.slice(0, 30),

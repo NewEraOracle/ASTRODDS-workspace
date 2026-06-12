@@ -1,3 +1,4 @@
+import { buildMlbGameStatusValidation, type MLBGameStatusSnapshot, type MLBGameStatusValidation } from "./mlb/game-status-validation";
 import { calculateMLBLineupImpact, type MLBLineupImpact } from "./mlb/lineup-impact";
 import { compactId } from "./sports-data/normalize";
 import type {
@@ -45,6 +46,9 @@ export type UnifiedAstroddsSignal = {
   expectedValue?: number;
   dataQuality: AstroddsDataQuality | "DATA_ONLY";
   lineupImpact: MLBLineupImpact;
+  gameStatusValidation?: MLBGameStatusValidation;
+  mlbStatus?: MLBGameStatusSnapshot;
+  gameStatusBlockReasons: string[];
   orderBookQuality: string;
   whaleSupport: UnifiedWhaleSupport;
   copyability: string;
@@ -97,6 +101,10 @@ function hasUsablePrice(price?: number) {
   return typeof price === "number" && Number.isFinite(price) && price > 0 && price < 1;
 }
 
+function uniqueStrings(values: Array<string | undefined | null>) {
+  return Array.from(new Set(values.filter((value): value is string => Boolean(value))));
+}
+
 function marketTypeLabel(market?: AstroddsMarketScan) {
   if (!market) return "Not Matched";
   if (market.betType === "MONEYLINE") return "Moneyline";
@@ -140,6 +148,25 @@ function confidence(market: AstroddsMarketScan | undefined, decision: UnifiedSig
 function isFuturesOrWrongMarket(market: AstroddsMarketScan) {
   const text = `${market.marketTitle} ${market.category ?? ""}`.toLowerCase();
   return futuresKeywords.some((keyword) => text.includes(keyword));
+}
+
+function buildGameStatusValidation(game: AstroddsGameScan, market?: AstroddsMarketScan) {
+  return game.gameStatusValidation ?? buildMlbGameStatusValidation({
+    gameId: game.id,
+    game: game.game,
+    startTime: game.startTime,
+    marketDate: market?.marketDate ?? market?.gameDate ?? game.startTime,
+    liveStatus: game.liveStatus,
+    mlbStatus: game.mlbStatus,
+    marketTitle: market?.marketTitle ?? game.game,
+    marketPick: market?.pick,
+  });
+}
+
+function blockedByGameStatus(validation: MLBGameStatusValidation): UnifiedSignalDecision {
+  if (validation.isGameActiveForBetting) return "WAIT";
+  if (validation.isPostponed || validation.isSuspended || validation.isCancelled || validation.isFinal || validation.isLive) return "AVOID";
+  return "WAIT";
 }
 
 function mappedMarketDecision(decision?: AstroddsDecision): UnifiedSignalDecision | undefined {
@@ -186,6 +213,7 @@ function signalType(input: {
   bookAcceptable: boolean;
 }): UnifiedSignalType {
   if (!input.market) return "DATA_ONLY";
+  if (input.market.gameStatusValidation && !input.market.gameStatusValidation.isGameActiveForBetting) return "DATA_ONLY";
   if (input.support === "CONFLICT" || input.support === "STALE_ENTRY") return "WHALE_ONLY_WATCH";
   if (input.support === "NONE") return "MODEL_ONLY";
   if ((input.edge ?? 0) <= 0 || input.decision === "WATCH" || input.decision === "WAIT" || input.decision === "AVOID") return "WHALE_ONLY_WATCH";
@@ -196,7 +224,8 @@ function signalType(input: {
   return "WHALE_CONFIRMED";
 }
 
-function exactPick(market?: AstroddsMarketScan) {
+function exactPick(market?: AstroddsMarketScan, validation?: MLBGameStatusValidation) {
+  if (validation && !validation.isGameActiveForBetting) return "No bet - MLB game status blocked";
   if (!market) return "--";
   if (market.edge?.exactPick) return market.edge.exactPick;
   const price = hasUsablePrice(market.currentPrice) ? market.currentPrice.toFixed(2) : "--";
@@ -212,8 +241,12 @@ function deriveDecision(input: {
   bookQuality: string;
   support: UnifiedWhaleSupport;
   lineupImpact: MLBLineupImpact;
+  gameStatusValidation?: MLBGameStatusValidation;
 }) {
-  const { market, dataQuality: quality, bookQuality, support, lineupImpact } = input;
+  const { market, dataQuality: quality, bookQuality, support, lineupImpact, gameStatusValidation } = input;
+  if (gameStatusValidation && !gameStatusValidation.isGameActiveForBetting) {
+    return blockedByGameStatus(gameStatusValidation);
+  }
   if (!market) return "WAIT" as UnifiedSignalDecision;
   if (isFuturesOrWrongMarket(market)) return "AVOID" as UnifiedSignalDecision;
   if (!market.matchReason || market.unmatchedReason || !hasUsablePrice(market.currentPrice)) return "WAIT" as UnifiedSignalDecision;
@@ -255,16 +288,25 @@ function deriveDecision(input: {
   return decision;
 }
 
-function whyLines(game: AstroddsGameScan, market: AstroddsMarketScan | undefined, consensus: WhaleConsensusSignal | undefined, decision: UnifiedSignalDecision, lineupImpact: MLBLineupImpact) {
+function whyLines(
+  game: AstroddsGameScan,
+  market: AstroddsMarketScan | undefined,
+  consensus: WhaleConsensusSignal | undefined,
+  decision: UnifiedSignalDecision,
+  lineupImpact: MLBLineupImpact,
+  validation?: MLBGameStatusValidation,
+) {
   if (!market) {
-    return [
+    return uniqueStrings([
+      ...(validation && !validation.isGameActiveForBetting ? validation.gameStatusBlockReasons : []),
       "Real MLB game found, but no matching Polymarket single-game market was found.",
       "ASTRODDS is in MLB DATA ONLY mode for this row.",
       "Best action is WAIT until a clean price and token are available.",
-    ];
+    ]);
   }
 
   const lines = [
+    ...(validation && !validation.isGameActiveForBetting ? validation.gameStatusBlockReasons : []),
     market.edge
       ? `Model probability ${Math.round(market.edge.modelProbability * 100)}% vs market ${Math.round(market.edge.marketImpliedProbability * 100)}%; edge ${(market.edge.edge * 100).toFixed(1)}%.`
       : market.probability
@@ -290,8 +332,9 @@ function whyLines(game: AstroddsGameScan, market: AstroddsMarketScan | undefined
   return Array.from(new Set(lines)).slice(0, 6);
 }
 
-function warningLines(game: AstroddsGameScan, market: AstroddsMarketScan | undefined, support: UnifiedWhaleSupport) {
+function warningLines(game: AstroddsGameScan, market: AstroddsMarketScan | undefined, support: UnifiedWhaleSupport, validation?: MLBGameStatusValidation) {
   const warnings = new Set<string>();
+  validation?.warnings.forEach((warning) => warnings.add(warning));
   if (!market) {
     warnings.add("Missing Polymarket price and order book.");
     return Array.from(warnings);
@@ -318,10 +361,11 @@ export function buildUnifiedSignal(
 ): UnifiedAstroddsSignal {
   const consensus = market ? consensusForMarket(market, options.whaleConsensus ?? []) : undefined;
   const support = whaleSupportFor(consensus);
+  const gameStatusValidation = buildGameStatusValidation(game, market);
   const lineupImpact = calculateMLBLineupImpact(game, market);
   const bookQuality = orderBookQuality(market);
   const quality = dataQuality(market);
-  const decision = deriveDecision({ market, dataQuality: quality, bookQuality, support, lineupImpact });
+  const decision = deriveDecision({ market, dataQuality: quality, bookQuality, support, lineupImpact, gameStatusValidation });
   const edge = market?.probability?.edge ?? market?.edge?.edge;
   const modelProbability = market?.probability?.modelProbability ?? market?.edge?.modelProbability;
   const marketProbability = market?.probability?.marketImpliedProbability ?? market?.edge?.marketImpliedProbability;
@@ -334,13 +378,15 @@ export function buildUnifiedSignal(
     edge,
     bookAcceptable: bookOk,
   });
-  const warnings = warningLines(game, market, support);
+  const warnings = warningLines(game, market, support, gameStatusValidation);
+  const blockedReasons = gameStatusValidation.gameStatusBlockReasons;
   const telegramEligible =
     Boolean(options.telegramSignalsEnabled && options.telegramWhaleAlertsEnabled) &&
     (decision === "ELITE" || decision === "STRONG_BUY") &&
     bookOk &&
     support !== "STALE_ENTRY" &&
     support !== "CONFLICT" &&
+    gameStatusValidation.isGameActiveForBetting &&
     lineupImpact.lineupStatus !== "missing" &&
     (whaleConfirms(support, consensus) || (edge ?? 0) >= 0.12);
   const paperTradeEligible =
@@ -350,6 +396,7 @@ export function buildUnifiedSignal(
     bookOk &&
     quality !== "LOW" &&
     quality !== "VERY_LOW" &&
+    gameStatusValidation.isGameActiveForBetting &&
     lineupImpact.lineupStatus !== "missing" &&
     lineupImpact.lineupImpactScore >= 0.5 &&
     support !== "STALE_ENTRY" &&
@@ -366,20 +413,23 @@ export function buildUnifiedSignal(
     conditionId: market?.conditionId,
     assetId: market?.assetId,
     marketType: marketTypeLabel(market),
-    pick: exactPick(market),
+    pick: exactPick(market, gameStatusValidation),
     entryPrice: hasUsablePrice(market?.currentPrice) ? market?.currentPrice : undefined,
     modelProbability,
     marketProbability,
     edge,
     expectedValue: market?.probability?.expectedValue ?? market?.edge?.expectedValue,
     dataQuality: quality,
+    gameStatusValidation,
+    mlbStatus: game.mlbStatus,
+    gameStatusBlockReasons: blockedReasons,
     orderBookQuality: bookQuality,
     lineupImpact,
     whaleSupport: support,
     copyability: consensus?.copyabilityStatus ?? "NONE",
     confidence: confidence(market, decision),
     decision,
-    why: whyLines(game, market, consensus, decision, lineupImpact),
+    why: whyLines(game, market, consensus, decision, lineupImpact, gameStatusValidation),
     warnings,
     telegramEligible,
     paperTradeEligible,
@@ -427,6 +477,9 @@ export function serializeUnifiedSignal(signal: UnifiedAstroddsSignal) {
     edge: signal.edge,
     expectedValue: signal.expectedValue,
     dataQuality: signal.dataQuality,
+    gameStatusValidation: signal.gameStatusValidation,
+    mlbStatus: signal.mlbStatus,
+    gameStatusBlockReasons: signal.gameStatusBlockReasons,
     orderBookQuality: signal.orderBookQuality,
     lineupImpact: signal.lineupImpact,
     whaleSupport: signal.whaleSupport,

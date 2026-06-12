@@ -74,7 +74,7 @@ function timestamp(value?: string) {
 
 function dateDistanceHours(game: AstroddsGameScan, market: PolymarketMlbMoneylineMarket) {
   const gameTs = timestamp(game.startTime);
-  const marketTs = timestamp(market.gameDate ?? market.endDate);
+  const marketTs = timestamp(market.marketDate ?? market.gameDate ?? market.endDate);
   if (typeof gameTs !== "number" || typeof marketTs !== "number") return undefined;
   return Math.abs(gameTs - marketTs) / 36e5;
 }

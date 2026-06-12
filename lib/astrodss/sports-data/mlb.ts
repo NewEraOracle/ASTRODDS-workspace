@@ -30,6 +30,7 @@ type MlbGame = {
   status?: {
     abstractGameState?: string;
     detailedState?: string;
+    codedGameState?: string;
   };
   teams?: {
     away?: MlbGameTeam;
@@ -674,6 +675,13 @@ export async function scanMLBGamesWithDiagnostics(signal?: AbortSignal): Promise
           : game.status?.detailedState ?? "Pregame",
         venue,
         weather,
+        mlbStatus: {
+          abstractGameState: game.status?.abstractGameState,
+          detailedState: game.status?.detailedState,
+          codedGameState: game.status?.codedGameState,
+          officialDate: game.gameDate,
+          normalized: status,
+        },
         injuries: {
           status: "NOT_CONNECTED",
           source: "Source needed",

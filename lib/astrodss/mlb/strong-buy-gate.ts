@@ -11,6 +11,9 @@ export type BestBetRow = {
   date?: string;
   homeTeam?: string;
   awayTeam?: string;
+  gameStatusValidation?: CombinedRiskGateRow["gameStatusValidation"];
+  mlbStatus?: CombinedRiskGateRow["mlbStatus"];
+  gameStatusBlockReasons: string[];
   selectedSide?: string;
   marketType: "moneyline";
   status: BestBetStatus;
@@ -93,6 +96,10 @@ function hasHighContextRisk(row: CombinedRiskGateRow) {
   );
 }
 
+function hasGameStatusBlock(row: CombinedRiskGateRow) {
+  return Boolean(row.gameStatusValidation && !row.gameStatusValidation.isGameActiveForBetting);
+}
+
 function edgePctFromRaw(row: CombinedRiskGateRow) {
   if (typeof row.rawModelProbability !== "number" || !Number.isFinite(row.rawModelProbability)) return null;
   if (typeof row.marketProbability !== "number" || !Number.isFinite(row.marketProbability)) return null;
@@ -120,6 +127,7 @@ function classifyBestBetStatus(row: CombinedRiskGateRow) {
     || matchConfidence === "low"
     || hasSevereDataQualityWarning(row)
     || hasHighContextRisk(row)
+    || hasGameStatusBlock(row)
     || row.riskLevel === "high"
     || (!hasAnyModelSignal && row.decision !== "research_only");
 
@@ -133,6 +141,7 @@ function classifyBestBetStatus(row: CombinedRiskGateRow) {
     && calibratedEdgePct >= 6
     && matchConfidenceStrong
     && !hasHighContextRisk(row)
+    && !hasGameStatusBlock(row)
     && !hasSevereDataQualityWarning(row)
   ) {
     return "strong_buy" satisfies BestBetStatus;
@@ -188,6 +197,7 @@ function buildReasons(row: CombinedRiskGateRow, status: BestBetStatus) {
 
   return uniqueStrings([
     statusReason,
+    ...(row.gameStatusValidation && !row.gameStatusValidation.isGameActiveForBetting ? row.gameStatusBlockReasons : []),
     ...row.positiveReasons,
   ]).slice(0, 6);
 }
@@ -221,7 +231,8 @@ function buildWhyNotStrongBuy(row: CombinedRiskGateRow, status: BestBetStatus, e
         ? "Edge is positive, but the setup is still partial."
         : "Edge is weak or missing, so this remains on watch.");
   }
-  return row.blockReasons[0]
+  return row.gameStatusBlockReasons[0]
+    ?? row.blockReasons[0]
     ?? row.downgradeReasons[0]
     ?? "Blocked by missing market data, high risk, or unsupported market conditions.";
 }
@@ -236,6 +247,7 @@ function buildStakeRecommendation(status: BestBetStatus): BestBetStakeRecommenda
 function buildWarnings(row: CombinedRiskGateRow, status: BestBetStatus, bankroll: StrongBuyBankrollSnapshot) {
   return uniqueStrings([
     ...row.downgradeReasons,
+    ...row.gameStatusBlockReasons,
     ...(status === "blocked" ? row.blockReasons : []),
     ...bankroll.warnings,
     status !== "strong_buy" ? "Telegram Strong Buy alerts are blocked for non-Strong Buy rows." : undefined,
@@ -263,6 +275,9 @@ export function buildStrongBuyGate(input: BuildBestBetsInput = {}): BestBetsResu
       date: row.date,
       homeTeam: row.homeTeam,
       awayTeam: row.awayTeam,
+      gameStatusValidation: row.gameStatusValidation,
+      mlbStatus: row.mlbStatus,
+      gameStatusBlockReasons: row.gameStatusBlockReasons ?? [],
       selectedSide,
       marketType: "moneyline",
       status,
