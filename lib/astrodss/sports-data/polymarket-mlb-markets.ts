@@ -156,6 +156,39 @@ function responseSnippet(text: string) {
   return text.replace(/\s+/g, " ").slice(0, 240);
 }
 
+function toUsefulNumber(...values: Array<number | string | undefined>) {
+  for (const value of values) {
+    const number = safeNumber(value);
+    if (typeof number === "number" && Number.isFinite(number)) {
+      return Math.max(0, Math.min(1, number));
+    }
+  }
+  return undefined;
+}
+
+function alignOutcomePrices(market: GammaMarket, outcomeCount: number) {
+  const explicitPrices = safeArray<unknown>(market.outcomePrices)
+    .map((value) => safeNumber(value))
+    .filter((value): value is number => typeof value === "number" && Number.isFinite(value))
+    .map((value) => Math.max(0, Math.min(1, value)));
+  const fallbackPrice = toUsefulNumber(market.currentPrice, market.price, market.bestAsk, market.lastTradePrice, market.bestBid);
+  const prices = explicitPrices.slice(0, Math.max(0, outcomeCount));
+
+  if (!prices.length && typeof fallbackPrice === "number") {
+    return outcomeCount >= 2 ? [fallbackPrice, Math.max(0, Math.min(1, 1 - fallbackPrice))] : [fallbackPrice];
+  }
+
+  if (prices.length === 1 && outcomeCount >= 2) {
+    prices.push(Math.max(0, Math.min(1, 1 - prices[0])));
+  }
+
+  while (prices.length < outcomeCount && typeof fallbackPrice === "number") {
+    prices.push(fallbackPrice);
+  }
+
+  return prices.slice(0, Math.max(1, outcomeCount));
+}
+
 function isAbortError(error: unknown) {
   return error instanceof Error && error.name === "AbortError";
 }
@@ -228,11 +261,13 @@ async function fetchJsonArray(url: URL, endpointLabel: string, timeoutMs: number
 
 function marketSearchTerms() {
   const terms = new Set<string>(["MLB", "baseball", "Major League Baseball", "MLB moneyline", "MLB game winner"]);
-  for (const team of MLB_TEAMS) {
+  const featuredTeams = MLB_TEAMS.filter((team) =>
+    ["Yankees", "Dodgers", "Red Sox", "Mets", "Braves", "Cubs", "Astros", "Phillies", "Mariners", "Blue Jays", "Rangers", "Padres"].includes(team.nickname),
+  );
+  for (const team of featuredTeams) {
     terms.add(`${team.nickname} MLB`);
-    terms.add(`${team.canonicalName} baseball`);
   }
-  return Array.from(terms).slice(0, 70);
+  return Array.from(terms).slice(0, 20);
 }
 
 function tagText(tags: GammaEvent["tags"] | GammaMarket["tags"]) {
@@ -266,12 +301,13 @@ function isWrongSport(text: string) {
 function isMoneylineCandidate(text: string) {
   const teamHits = mlbTeamHits(text);
   const uniqueTeams = Array.from(new Set(teamHits.map((hit) => hit.profile.canonicalName)));
-  if (uniqueTeams.length < 2) return false;
+  if (!uniqueTeams.length) return false;
   if (isWrongSport(text)) return false;
   if (futuresPatterns.some((pattern) => pattern.test(text))) return false;
   if (disabledMarketPatterns.some((pattern) => pattern.test(text))) return false;
   if (futureSecondaryPatterns.some((pattern) => pattern.test(text))) return false;
-  return moneylineContextPatterns.some((pattern) => pattern.test(text)) || /\bwin\b/i.test(text);
+  if (uniqueTeams.length >= 2) return true;
+  return moneylineContextPatterns.some((pattern) => pattern.test(text)) || /\bwin\b/i.test(text) || /\bbeat\b/i.test(text);
 }
 
 function orderedTeams(text: string) {
@@ -316,7 +352,7 @@ function normalizeMarket(market: GammaMarket, event?: GammaEvent): PolymarketMlb
 
   const teams = orderedTeams(text).slice(0, 2);
   const outcomes = safeArray<string>(market.outcomes).map(String);
-  const prices = safeArray<unknown>(market.outcomePrices).map((value) => safeNumber(value)).filter((value): value is number => typeof value === "number");
+  const prices = alignOutcomePrices(market, outcomes.length || 2);
   const tokenIds = safeArray<string>(market.clobTokenIds).map(String);
   const outcomeProbabilities = (outcomes.length ? outcomes : [teams[0] ?? "Yes", teams[1] ?? "No"]).map((outcome, index) => probabilityForOutcome(outcome, index, teams, prices, tokenIds));
   const firstProbability = outcomeProbabilities.find((outcome) => outcome.marketProbability !== null)?.marketProbability ?? null;
@@ -368,12 +404,23 @@ function dedupeMarkets(markets: PolymarketMlbMoneylineMarket[]) {
 export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs?: number; cacheFreshnessSeconds?: number; signal?: AbortSignal } = {}): Promise<PolymarketMlbMoneylineDiscoveryResult> {
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   const terms = marketSearchTerms();
-  const eventRequests = terms.map((term) => fetchJsonArray(polymarketUrl("/events", term), `Gamma events: ${term}`, timeoutMs, options.signal));
-  const marketRequests = terms.map((term) => fetchJsonArray(polymarketUrl("/markets", term), `Gamma markets: ${term}`, timeoutMs, options.signal));
-  const results = await Promise.all([...eventRequests, ...marketRequests]);
-  const diagnostics = results.map((result) => result.diagnostic);
-  const events = results.slice(0, eventRequests.length).flatMap((result) => result.data as GammaEvent[]);
-  const directMarkets = results.slice(eventRequests.length).flatMap((result) => result.data as GammaMarket[]);
+  const eventResults: FetchJsonResult[] = [];
+  const marketResults: FetchJsonResult[] = [];
+  const batchSize = 8;
+
+  for (let index = 0; index < terms.length; index += batchSize) {
+    const batch = terms.slice(index, index + batchSize);
+    const [batchEvents, batchMarkets] = await Promise.all([
+      Promise.all(batch.map((term) => fetchJsonArray(polymarketUrl("/events", term), `Gamma events: ${term}`, timeoutMs, options.signal))),
+      Promise.all(batch.map((term) => fetchJsonArray(polymarketUrl("/markets", term), `Gamma markets: ${term}`, timeoutMs, options.signal))),
+    ]);
+    eventResults.push(...batchEvents);
+    marketResults.push(...batchMarkets);
+  }
+
+  const diagnostics = [...eventResults, ...marketResults].map((result) => result.diagnostic);
+  const events = eventResults.flatMap((result) => result.data as GammaEvent[]);
+  const directMarkets = marketResults.flatMap((result) => result.data as GammaMarket[]);
 
   const eventMarkets = events.flatMap((event) => (event.markets ?? []).map((market) => normalizeMarket(market, event))).filter(Boolean) as PolymarketMlbMoneylineMarket[];
   const normalizedDirectMarkets = directMarkets.map((market) => normalizeMarket(market)).filter(Boolean) as PolymarketMlbMoneylineMarket[];

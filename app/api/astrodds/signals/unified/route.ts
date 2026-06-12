@@ -26,7 +26,7 @@ import { buildUnifiedSignals, serializeUnifiedSignal } from "@/lib/astrodss/sign
 import { scanAstroddsSport } from "@/lib/astrodss/sports-data/scanner";
 import { getTelegramConfig } from "@/lib/astrodss/wallets/telegram";
 import { scanWhaleWallets } from "@/lib/astrodss/wallets/wallet-scanner";
-import type { AstroddsGameScan } from "@/lib/astrodss/sports-data/types";
+import type { AstroddsGameScan, AstroddsMarketScan } from "@/lib/astrodss/sports-data/types";
 
 
 type SerializedUnifiedSignal = ReturnType<typeof serializeUnifiedSignal>;
@@ -199,6 +199,78 @@ function marketPriceSource(metadata: MarketMetadata) {
   if (metadata.cacheUsed) return "polymarket_cache";
   if (metadata.marketPricesConnected) return "polymarket_live";
   return "unavailable";
+}
+
+function polymarketMarketKey(market: PolymarketMlbMoneylineMarket) {
+  return [
+    market.marketId,
+    market.conditionId ?? "",
+    market.question,
+    market.slug ?? "",
+    market.detectedAwayTeam ?? "",
+    market.detectedHomeTeam ?? "",
+    market.outcomes.join("|"),
+    market.clobTokenIds.join("|"),
+  ].join("::");
+}
+
+function scanMarketToPolymarketMarket(game: AstroddsGameScan, market: AstroddsMarketScan): PolymarketMlbMoneylineMarket {
+  const marketDate = market.marketDate ?? market.gameDate ?? game.startTime;
+  const outcomes = market.outcomes.length ? market.outcomes : [market.pick];
+  const price = typeof market.currentPrice === "number" && Number.isFinite(market.currentPrice) ? Math.max(0, Math.min(1, market.currentPrice)) : null;
+  const outcomeProbabilities = outcomes.map((outcome, index) => ({
+    outcome,
+    tokenId: market.assetId,
+    price: index === 0 && price !== null ? price : price !== null && outcomes.length > 1 ? Math.max(0, Math.min(1, 1 - price)) : undefined,
+    marketProbability: index === 0 && price !== null ? price : price !== null && outcomes.length > 1 ? Math.max(0, Math.min(1, 1 - price)) : null,
+    mappedTeam: market.pick,
+  }));
+
+  return {
+    marketId: market.marketId,
+    conditionId: market.conditionId,
+    question: market.marketTitle,
+    title: market.marketTitle,
+    slug: undefined,
+    sourceUrl: market.sourceUrl,
+    eventTitle: game.game,
+    eventSlug: undefined,
+    category: market.category,
+    detectedHomeTeam: game.homeTeam,
+    detectedAwayTeam: game.awayTeam,
+    detectedTeams: [game.awayTeam, game.homeTeam].filter((team): team is string => Boolean(team)),
+    outcomes,
+    clobTokenIds: market.assetId ? [market.assetId] : [],
+    outcomeProbabilities,
+    marketProbability: price,
+    liquidity: market.liquidity,
+    volume: market.volume,
+    endDate: marketDate,
+    gameDate: marketDate,
+    marketDate,
+    active: market.status === "ACTIVE" || market.status === "PENDING",
+    closed: market.status === "RESOLVED" || market.status === "CLOSED",
+    warnings: uniqueStrings([
+      market.unmatchedReason,
+      market.matchReason ? undefined : "Scan-derived market used because Polymarket discovery returned no usable MLB market.",
+    ]),
+  };
+}
+
+function buildScanDerivedPolymarketMarkets(scan?: Awaited<ReturnType<typeof scanAstroddsSport>>) {
+  if (!scan) return [];
+  const seen = new Set<string>();
+  const markets = scan.games.flatMap((game) =>
+    game.markets
+      .filter((market) => market.betType === "MONEYLINE" && typeof market.currentPrice === "number" && Number.isFinite(market.currentPrice))
+      .map((market) => scanMarketToPolymarketMarket(game, market)),
+  );
+  return markets.filter((market) => {
+    const key = polymarketMarketKey(market);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function enrichTodayPredictionsWithMarketDiagnostics(
@@ -452,6 +524,13 @@ export async function GET(request: Request) {
         warnings: ["Polymarket MLB market discovery failed."],
         generatedAt: new Date().toISOString(),
       };
+  const scanDerivedPolymarketMarkets = buildScanDerivedPolymarketMarkets(scan);
+  const effectivePolymarketMarkets = Array.from(
+    new Map(
+      [...polymarketMlbMarkets.markets, ...scanDerivedPolymarketMarkets].map((market) => [polymarketMarketKey(market), market] as const),
+    ).values(),
+  );
+  const marketFallbackUsed = polymarketMlbMarkets.markets.length === 0 && scanDerivedPolymarketMarkets.length > 0;
   const modelComparisonDiagnostics = modelComparisonResult.status === "fulfilled"
     ? modelComparisonResult.value
     : {
@@ -541,9 +620,9 @@ export async function GET(request: Request) {
         sourcePath: MLB_HISTORICAL_EXPANSION_REPORT_PATH,
       };
   const marketPriceDiagnostics = {
-    status: polymarketMlbMarkets.status,
-    marketPricesConnected: polymarketMlbMarkets.marketPricesConnected,
-    moneylineMarketsFound: polymarketMlbMarkets.markets.length,
+    status: marketFallbackUsed ? "PARTIAL" : polymarketMlbMarkets.status,
+    marketPricesConnected: polymarketMlbMarkets.marketPricesConnected || effectivePolymarketMarkets.length > 0,
+    moneylineMarketsFound: effectivePolymarketMarkets.length,
     cacheUsed: polymarketMlbMarkets.cacheUsed,
     cacheStatus: polymarketMlbMarkets.cacheStatus,
     cacheAgeSeconds: polymarketMlbMarkets.cacheAgeSeconds,
@@ -551,7 +630,10 @@ export async function GET(request: Request) {
     supportedMarkets: polymarketMlbMarkets.supportedMarkets,
     disabledMarkets: polymarketMlbMarkets.disabledMarkets,
     futureMarkets: polymarketMlbMarkets.futureMarkets,
-    warnings: polymarketMlbMarkets.warnings,
+    warnings: uniqueStrings([
+      ...polymarketMlbMarkets.warnings,
+      marketFallbackUsed ? "Polymarket discovery fell back to scan-derived MLB markets." : undefined,
+    ]),
     sourceDiagnostics: polymarketMlbMarkets.sourceDiagnostics,
     generatedAt: polymarketMlbMarkets.generatedAt,
   };
@@ -571,7 +653,7 @@ export async function GET(request: Request) {
       .map((signal) => [signal.gameId as string, signal.modelProbability]),
   );
   const marketMatchDiagnostics = scan
-    ? buildPolymarketMlbMatchDiagnostics(scan.games, polymarketMlbMarkets.markets, {
+    ? buildPolymarketMlbMatchDiagnostics(scan.games, effectivePolymarketMarkets, {
         calibrationQuality: pythonMlbEngineStatus.calibrationQuality,
         modelProbabilitiesByGameId,
       })
@@ -588,9 +670,17 @@ export async function GET(request: Request) {
       };
   const todayPredictionMarketMatch = enrichTodayPredictionsWithMarketDiagnostics(
     pythonMlbPredictions.predictions,
-    polymarketMlbMarkets.markets,
+    effectivePolymarketMarkets,
     pythonMlbEngineStatus.calibrationQuality,
-    polymarketMlbMarkets,
+    {
+      ...polymarketMlbMarkets,
+      marketPricesConnected: marketPriceDiagnostics.marketPricesConnected,
+      cacheUsed: polymarketMlbMarkets.cacheUsed,
+      cacheStatus: polymarketMlbMarkets.cacheStatus,
+      cacheAgeSeconds: polymarketMlbMarkets.cacheAgeSeconds,
+      cacheGeneratedAt: polymarketMlbMarkets.cacheGeneratedAt,
+      generatedAt: marketPriceDiagnostics.generatedAt,
+    },
   );
   const enrichedPythonMlbPredictions = todayPredictionMarketMatch.predictions;
   const todayPredictionMarketDiagnostics = todayPredictionMarketMatch.diagnostics;
@@ -669,7 +759,7 @@ export async function GET(request: Request) {
       gameStatusValidationDiagnostics,
       polymarketMlbMarkets: {
         ...polymarketMlbMarkets,
-        markets: polymarketMlbMarkets.markets.slice(0, 30),
+        markets: effectivePolymarketMarkets.slice(0, 30),
       },
       marketPriceDiagnostics,
       todayPredictionMarketDiagnostics,

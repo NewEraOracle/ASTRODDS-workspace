@@ -463,6 +463,7 @@ export type RawPolymarketMarket = {
   eventTitle?: string;
   eventSlug?: string;
   marketDate?: string;
+  gameDate?: string;
   sport?: AstroddsSport | "OTHER";
   sourceUrl?: string;
   rejectedReason?: string;

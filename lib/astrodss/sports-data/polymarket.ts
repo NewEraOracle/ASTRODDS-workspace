@@ -33,6 +33,11 @@ export type GammaMarket = {
   clobTokenIds?: string[] | string;
   outcomes?: string[] | string;
   outcomePrices?: number[] | string[] | string;
+  currentPrice?: number | string;
+  price?: number | string;
+  bestBid?: number | string;
+  bestAsk?: number | string;
+  lastTradePrice?: number | string;
   volume?: string | number;
   volumeNum?: string | number;
   liquidity?: string | number;
@@ -172,12 +177,45 @@ function tagText(tags: GammaEvent["tags"]) {
     .join(" ");
 }
 
+function toUsefulNumber(...values: Array<number | string | undefined>) {
+  for (const value of values) {
+    const number = safeNumber(value);
+    if (typeof number === "number" && Number.isFinite(number)) {
+      return Math.max(0, Math.min(1, number));
+    }
+  }
+  return undefined;
+}
+
+function alignOutcomePrices(market: GammaMarket, outcomeCount: number) {
+  const explicitPrices = safeArray<unknown>(market.outcomePrices)
+    .map((value) => safeNumber(value))
+    .filter((value): value is number => typeof value === "number" && Number.isFinite(value))
+    .map((value) => Math.max(0, Math.min(1, value)));
+  const fallbackPrice = toUsefulNumber(market.currentPrice, market.price, market.bestAsk, market.lastTradePrice, market.bestBid);
+  const prices = explicitPrices.slice(0, Math.max(0, outcomeCount));
+
+  if (!prices.length && typeof fallbackPrice === "number") {
+    return outcomeCount >= 2 ? [fallbackPrice, Math.max(0, Math.min(1, 1 - fallbackPrice))] : [fallbackPrice];
+  }
+
+  if (prices.length === 1 && outcomeCount >= 2) {
+    prices.push(Math.max(0, Math.min(1, 1 - prices[0])));
+  }
+
+  while (prices.length < outcomeCount && typeof fallbackPrice === "number") {
+    prices.push(fallbackPrice);
+  }
+
+  return prices.slice(0, Math.max(1, outcomeCount));
+}
+
 function normalizeGammaMarket(market: GammaMarket, event?: GammaEvent): RawPolymarketMarket | undefined {
   const title = market.question ?? market.title ?? event?.title;
   if (!title) return undefined;
 
   const outcomes = safeArray<string>(market.outcomes).map(String);
-  const outcomePrices = safeArray<unknown>(market.outcomePrices).map((value) => safeNumber(value) ?? 0);
+  const outcomePrices = alignOutcomePrices(market, outcomes.length || 2);
   const assetIds = safeArray<string>(market.clobTokenIds).map(String);
   const eventTitle = event?.title ?? "";
   const combinedText = `${eventTitle} ${title} ${event?.category ?? ""} ${market.category ?? ""} ${tagText(event?.tags)} ${tagText(market.tags)}`;
@@ -313,7 +351,7 @@ export function mlbScheduleSearchTerms(games: AstroddsGameScan[] = []) {
     }
   });
 
-  return Array.from(terms).filter(Boolean).slice(0, 60);
+  return Array.from(terms).filter(Boolean).slice(0, 24);
 }
 
 function marketDisplayTitle(raw: Pick<RawPolymarketMarket, "eventTitle" | "title">) {
@@ -458,18 +496,20 @@ export function rawToMarketScans(raw: RawPolymarketMarket): AstroddsMarketScan[]
         outcomes,
         betType,
         pick,
-        currentPrice: Math.max(0, Math.min(1, price)),
-        volume: raw.volume,
-        liquidity: raw.liquidity,
-        priceMovement: undefined,
-        status,
-        category: raw.category,
-        sourceUrl: raw.sourceUrl,
-        unmatchedReason: raw.rejectedReason,
-        walletSupport: {
-          status: "WALLET_LED",
-          rank: "NONE",
-          supportingWallets: 0,
+    currentPrice: Math.max(0, Math.min(1, price)),
+    volume: raw.volume,
+    liquidity: raw.liquidity,
+    priceMovement: undefined,
+    status,
+    category: raw.category,
+    sourceUrl: raw.sourceUrl,
+    marketDate: raw.marketDate ?? raw.gameDate ?? raw.endDate ?? raw.startDate,
+    gameDate: raw.gameDate ?? raw.marketDate ?? raw.startDate ?? raw.endDate,
+    unmatchedReason: raw.rejectedReason,
+    walletSupport: {
+      status: "WALLET_LED",
+      rank: "NONE",
+      supportingWallets: 0,
           summary: "Wallet layer is separate; no tracked wallet confirmation attached to this market yet.",
         },
       },
@@ -549,30 +589,46 @@ export async function fetchPolymarketSportsMarkets(
   const sourceUrl = terms
     .flatMap((term) => [polymarketEventsUrl(term).toString(), polymarketMarketsUrl(term).toString()])
     .join(" | ");
-  const eventGroups = await Promise.allSettled(terms.map((term) => fetchGammaEvents(term, signal)));
-  const marketGroups = await Promise.allSettled(terms.map((term) => fetchGammaMarkets(term, signal)));
-  const events = eventGroups.flatMap((result) => (result.status === "fulfilled" ? result.value : []));
-  const directMarkets = marketGroups.flatMap((result) => (result.status === "fulfilled" ? result.value : []));
-  const errors = eventGroups.flatMap((result) =>
-    result.status === "rejected" ? [result.reason instanceof Error ? result.reason.message : "Unknown Polymarket query failure"] : [],
-  ).concat(
-    marketGroups.flatMap((result) =>
-      result.status === "rejected" ? [result.reason instanceof Error ? result.reason.message : "Unknown Polymarket markets query failure"] : [],
-    ),
-  );
+  const events: GammaEvent[] = [];
+  const directMarkets: GammaMarket[] = [];
+  const errors: string[] = [];
+  const batchSize = sport === "MLB" ? 8 : 12;
+
+  for (let index = 0; index < terms.length; index += batchSize) {
+    const batch = terms.slice(index, index + batchSize);
+    const [batchEvents, batchMarkets] = await Promise.all([
+      Promise.allSettled(batch.map((term) => fetchGammaEvents(term, signal))),
+      Promise.allSettled(batch.map((term) => fetchGammaMarkets(term, signal))),
+    ]);
+    events.push(
+      ...batchEvents.flatMap((result) => {
+        if (result.status === "fulfilled") return result.value;
+        errors.push(result.reason instanceof Error ? result.reason.message : "Unknown Polymarket query failure");
+        return [];
+      }),
+    );
+    directMarkets.push(
+      ...batchMarkets.flatMap((result) => {
+        if (result.status === "fulfilled") return result.value;
+        errors.push(result.reason instanceof Error ? result.reason.message : "Unknown Polymarket markets query failure");
+        return [];
+      }),
+    );
+  }
   const normalized = normalizePolymarketSources(events, directMarkets, sport);
   const hydrated = await hydrateMarketsWithOrderBooks(normalized.markets, signal, "SERVER");
+  const hadErrors = errors.length > 0;
   const diagnosticStatus: AstroddsDiagnosticStatus =
-    eventGroups.every((result) => result.status === "rejected") && marketGroups.every((result) => result.status === "rejected")
+    !events.length && !directMarkets.length
       ? "FAILED"
-      : eventGroups.some((result) => result.status === "rejected") || marketGroups.some((result) => result.status === "rejected") || (sport === "MLB" && normalized.acceptedRawMarkets.length === 0)
+      : hadErrors || (sport === "MLB" && normalized.acceptedRawMarkets.length === 0)
         ? "PARTIAL"
         : "CONNECTED_SERVER";
 
   return {
     rawMarkets: normalized.acceptedRawMarkets,
     markets: hydrated.markets,
-    status: eventGroups.some((result) => result.status === "rejected") || marketGroups.some((result) => result.status === "rejected") || normalized.acceptedRawMarkets.length === 0 ? "PARTIAL" : "CONNECTED",
+    status: !events.length && !directMarkets.length || hadErrors || normalized.acceptedRawMarkets.length === 0 ? "PARTIAL" : "CONNECTED",
     diagnostics: {
       status: diagnosticStatus,
       sourceMode: diagnosticStatus === "FAILED" ? "FAILED" : "SERVER",

@@ -84,10 +84,12 @@ function evaluateMarketMatch(game: AstroddsGameScan, market: AstroddsMarketScan,
       awayTeam: game.awayTeam,
       homeTeam: game.homeTeam,
       game: game.game,
+      gameDate: game.startTime,
       marketTitle: market.marketTitle,
       marketPick: market.pick,
       marketOutcomes: market.outcomes,
       betType: market.betType,
+      marketDate: market.marketDate ?? market.gameDate,
     });
   }
 

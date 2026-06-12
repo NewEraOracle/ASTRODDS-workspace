@@ -158,16 +158,20 @@ export function matchMlbMarketToGame(input: {
   awayTeam?: string;
   homeTeam?: string;
   game: string;
+  gameDate?: string;
   marketTitle: string;
   marketPick: string;
   marketOutcomes?: string[];
   betType?: string;
+  marketDate?: string;
 }): MlbGameMarketMatch {
   const away = findMlbTeamProfile(input.awayTeam);
   const home = findMlbTeamProfile(input.homeTeam);
   const marketText = `${input.marketTitle} ${input.marketPick} ${(input.marketOutcomes ?? []).join(" ")}`;
   const normalizedMarketText = normalizeText(marketText);
   const hits = mlbTeamHits(marketText);
+  const gameDate = dateOnly(input.gameDate);
+  const marketDate = dateOnly(input.marketDate);
 
   if (!away || !home) {
     return {
@@ -195,6 +199,15 @@ export function matchMlbMarketToGame(input: {
   }
 
   if (awayHit && homeHit) {
+    if (gameDate && marketDate && gameDate !== marketDate) {
+      return {
+        matched: false,
+        score: 0.12,
+        reason: "",
+        unmatchedReason: `Market date ${marketDate} does not match MLB game date ${gameDate}.`,
+      };
+    }
+
     return {
       matched: true,
       score: 1,
@@ -212,6 +225,15 @@ export function matchMlbMarketToGame(input: {
     Boolean(homeHit && normalizedMarketText.includes(normalizeText(away.canonicalName)));
 
   if (singleHit && input.betType === "MONEYLINE" && (hasBaseballContext || hasDateLikeContext(input.marketTitle) || hasSingleGameWinContext(input.marketTitle))) {
+    if (gameDate && marketDate && gameDate !== marketDate) {
+      return {
+        matched: false,
+        score: 0.18,
+        reason: "",
+        unmatchedReason: `Market date ${marketDate} does not match MLB game date ${gameDate}.`,
+      };
+    }
+
     return {
       matched: true,
       score: hasDateLikeContext(input.marketTitle) ? 0.78 : 0.66,
@@ -230,6 +252,15 @@ export function matchMlbMarketToGame(input: {
   }
 
   if (singleHit && input.betType === "SPREAD" && (hasBaseballContext || hasOpponentContext || hasDateLikeContext(input.marketTitle) || singleHit.strength >= 4)) {
+    if (gameDate && marketDate && gameDate !== marketDate) {
+      return {
+        matched: false,
+        score: 0.18,
+        reason: "",
+        unmatchedReason: `Market date ${marketDate} does not match MLB game date ${gameDate}.`,
+      };
+    }
+
     return {
       matched: true,
       score: 0.72,
@@ -271,4 +302,11 @@ export function matchMlbMarketToGame(input: {
     reason: "",
     unmatchedReason: "No MLB team alias found in market title, pick, or outcomes.",
   };
+}
+
+function dateOnly(value?: string) {
+  if (!value) return undefined;
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return undefined;
+  return parsed.toISOString().slice(0, 10);
 }
