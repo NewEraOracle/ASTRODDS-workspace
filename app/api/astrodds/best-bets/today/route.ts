@@ -35,6 +35,8 @@ type BestBetsTodayResponse = {
     buyCount: number;
     watchCount: number;
     blockedCount: number;
+    actionableCount: number;
+    visibleBoardCount: number;
     bankroll?: number;
     stakePercent?: number;
     stakeAmount?: number;
@@ -72,6 +74,8 @@ function buildFallbackResponse(status: BestBetsTodayResponse["status"], warnings
       buyCount: 0,
       watchCount: 0,
       blockedCount: 0,
+      actionableCount: 0,
+      visibleBoardCount: 0,
       warnings,
       generatedAt: new Date().toISOString(),
     },
@@ -175,6 +179,8 @@ export async function GET(request: Request) {
       buyCount: rows.filter((row) => row.status === "buy").length,
       watchCount: rows.filter((row) => row.status === "watch").length,
       blockedCount: rows.filter((row) => row.status === "blocked").length,
+      actionableCount: rows.filter((row) => row.status === "strong_buy" || row.status === "buy").length,
+      visibleBoardCount: rows.filter((row) => row.status !== "blocked").length,
       bankroll: typeof unified.payload?.bestBetsDiagnostics?.bankroll === "number" ? unified.payload.bestBetsDiagnostics.bankroll : ledgerDiagnostics?.currentBankroll,
       stakePercent: typeof unified.payload?.bestBetsDiagnostics?.stakePercent === "number" ? unified.payload.bestBetsDiagnostics.stakePercent : 5,
       stakeAmount: typeof unified.payload?.bestBetsDiagnostics?.stakeAmount === "number" ? unified.payload.bestBetsDiagnostics.stakeAmount : 50,

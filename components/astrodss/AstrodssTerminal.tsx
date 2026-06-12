@@ -459,8 +459,10 @@ type BestBetRowResponse = {
   selectedSide?: string;
   marketType: "moneyline";
   status: BestBetStatusResponse;
+  statusRank?: number;
   calibratedProbability?: number | null;
   marketProbability?: number | null;
+  diagnosticRawEdgePct?: number | null;
   diagnosticCalibratedEdge?: number | null;
   diagnosticCalibratedEdgePct?: number | null;
   matchConfidence?: string;
@@ -472,10 +474,14 @@ type BestBetRowResponse = {
   totalOpenExposurePercent: number;
   exposureLabel: string;
   reasons: string[];
+  mainReason?: string;
+  whyNotStrongBuy?: string;
   warnings: string[];
   blockReasons: string[];
   downgradeReasons: string[];
   telegramEligible: boolean;
+  saveEligible?: boolean;
+  stakeRecommendation?: string;
   manualOnly: true;
   paperOnly: true;
   realMoneyDisabled: true;
@@ -487,6 +493,8 @@ type BestBetsDiagnosticsResponse = {
   buyCount: number;
   watchCount: number;
   blockedCount: number;
+  actionableCount?: number;
+  visibleBoardCount?: number;
   bankroll: number;
   currentBankroll: number;
   startingBankroll: number;
@@ -1526,7 +1534,8 @@ function combinedRiskRiskLabel(level?: CombinedRiskGateRiskLevel | string) {
 
 function bestBetTone(status?: BestBetStatusResponse | string) {
   if (status === "strong_buy") return "green";
-  if (status === "buy" || status === "watch") return "yellow";
+  if (status === "buy") return "green";
+  if (status === "watch") return "yellow";
   return "red";
 }
 
@@ -2058,6 +2067,8 @@ export default function AstrodssTerminal() {
   const combinedRiskTopRows = combinedRiskRows.slice(0, 3);
   const bestBetsSummary = bestBetsDiagnostics;
   const bestBetsWarning = bestBetsSummary?.warnings[0] ?? bestBetsDiagnosticsError ?? "Waiting for Best Bets diagnostics.";
+  const bestBetsActionableCount = bestBetsSummary?.actionableCount ?? ((bestBetsSummary?.strongBuyCount ?? 0) + (bestBetsSummary?.buyCount ?? 0));
+  const bestBetsVisibleCount = bestBetsSummary?.visibleBoardCount ?? (bestBetsActionableCount + (bestBetsSummary?.watchCount ?? 0));
   const bestBetTopRows = bestBetRows.slice(0, 6);
   const strongBuyLedgerSummary = strongBuyLedgerDiagnostics;
   const strongBuyLedgerWarning = strongBuyLedgerSummary?.warnings[0] ?? strongBuyLedgerDiagnosticsError ?? "Waiting for Strong Buy ledger diagnostics.";
@@ -3178,9 +3189,9 @@ export default function AstrodssTerminal() {
                       <div className="flex flex-col gap-3 border-b border-white/10 pb-3 lg:flex-row lg:items-start lg:justify-between">
                         <div>
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Best Bets Board</p>
-                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Strong Buy First | Manual Alerts Only</h3>
+                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Strong Buy First | Buy and Watch Included</h3>
                           <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300">
-                            Strict moneyline-only gate built from the Combined Risk rows. Strong Buy stays rare. Buy and Watch remain dashboard-only.
+                            Strict moneyline-only gate built from the Combined Risk rows. Strong Buy stays rare. Buy appears as a manual-only dashboard candidate. Watch stays monitor-only.
                             No auto-betting. Real-money automation remains OFF.
                           </p>
                         </div>
@@ -3191,7 +3202,7 @@ export default function AstrodssTerminal() {
                         </div>
                       </div>
 
-                      <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-10">
+                      <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-12">
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Strong Buy</p>
                           <p className="mt-2 text-3xl font-black text-emerald-100">{bestBetsSummary?.strongBuyCount ?? 0}</p>
@@ -3207,6 +3218,16 @@ export default function AstrodssTerminal() {
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Blocked</p>
                           <p className="mt-2 text-3xl font-black text-red-100">{bestBetsSummary?.blockedCount ?? 0}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Actionable</p>
+                          <p className="mt-2 text-3xl font-black text-emerald-100">{bestBetsActionableCount}</p>
+                          <p className="mt-1 text-[11px] text-slate-400">Strong Buy + Buy</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/35 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Visible Board</p>
+                          <p className="mt-2 text-3xl font-black text-cyan-100">{bestBetsVisibleCount}</p>
+                          <p className="mt-1 text-[11px] text-slate-400">Strong Buy + Buy + Watch</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Bankroll</p>
@@ -3236,6 +3257,13 @@ export default function AstrodssTerminal() {
                           </p>
                         </div>
                       </div>
+                      {bestBetsSummary?.strongBuyCount === 0 ? (
+                        <p className="mt-4 border border-yellow-300/25 bg-yellow-400/10 p-3 text-xs font-bold text-yellow-100">
+                          {bestBetsVisibleCount > 0
+                            ? "No Strong Buy today — showing best Buy/Watch candidates for review."
+                            : "No Strong Buy today — no Buy/Watch candidates passed the dashboard thresholds."}
+                        </p>
+                      ) : null}
 
                       <div className="mt-4 overflow-x-auto">
                         <table className="min-w-[1240px] w-full text-left text-xs">
@@ -3248,6 +3276,7 @@ export default function AstrodssTerminal() {
                               <th className="p-2">Risk</th>
                               <th className="p-2">Stake</th>
                               <th className="p-2">Reason</th>
+                              <th className="p-2">Not Strong Buy</th>
                               <th className="p-2">Status</th>
                               <th className="p-2">Actions</th>
                             </tr>
@@ -3265,29 +3294,40 @@ export default function AstrodssTerminal() {
                                     <p className="font-bold text-white">{row.selectedSide ?? "--"}</p>
                                     <p className="text-[11px] text-slate-400">{row.matchConfidence ?? "none"} match</p>
                                   </td>
-                                  <td className="p-2 font-mono text-emerald-100">{formatEdge(typeof row.diagnosticCalibratedEdgePct === "number" ? row.diagnosticCalibratedEdgePct / 100 : undefined)}</td>
+                                  <td className="p-2 font-mono text-emerald-100">{formatEdge(typeof row.diagnosticCalibratedEdgePct === "number" ? row.diagnosticCalibratedEdgePct / 100 : typeof row.diagnosticRawEdgePct === "number" ? row.diagnosticRawEdgePct / 100 : undefined)}</td>
                                   <td className="p-2">
                                     <Badge className={decisionToneClass(combinedRiskRiskTone(row.riskLevel))}>{combinedRiskRiskLabel(row.riskLevel)} / {row.riskScore}</Badge>
                                   </td>
                                   <td className="p-2 text-cyan-100">
-                                    <p className="font-black">${row.stakeAmount.toFixed(2)}</p>
-                                    <p className="text-[11px] text-slate-400">{row.stakePercent}% | {row.totalOpenExposurePercent.toFixed(1)}% open</p>
+                                    <p className="font-black">{row.stakeRecommendation ?? (row.status === "strong_buy" ? `$${row.stakeAmount.toFixed(2)}` : "Manual only")}</p>
+                                    {row.status === "strong_buy" ? (
+                                      <p className="text-[11px] text-slate-400">{row.stakePercent}% | {row.totalOpenExposurePercent.toFixed(1)}% open</p>
+                                    ) : (
+                                      <p className="text-[11px] text-slate-400">{row.saveEligible ? "Manual dashboard only" : "Monitor only"}</p>
+                                    )}
                                   </td>
-                                  <td className="max-w-[340px] p-2 text-slate-300">{row.reasons[0] ?? row.warnings[0] ?? row.blockReasons[0] ?? "Manual-only diagnostics."}</td>
+                                  <td className="max-w-[340px] p-2 text-slate-300">{row.mainReason ?? row.reasons[0] ?? row.warnings[0] ?? row.blockReasons[0] ?? "Manual-only diagnostics."}</td>
+                                  <td className="max-w-[320px] p-2 text-slate-400">{row.whyNotStrongBuy ?? "--"}</td>
                                   <td className="p-2">
                                     <Badge className={decisionToneClass(bestBetTone(row.status))}>{bestBetStatusLabel(row.status)}</Badge>
                                   </td>
                                   <td className="p-2">
                                     <div className="flex flex-col gap-2">
-                                      <button
-                                        type="button"
-                                        onClick={() => saveBestBetTaken(row)}
-                                        disabled={activeBestBetSaveId === row.bestBetId}
-                                        className="inline-flex min-h-9 items-center justify-center border border-cyan-300/35 bg-cyan-400/10 px-3 text-[10px] font-black uppercase tracking-[0.14em] text-cyan-100 disabled:opacity-45"
-                                      >
-                                        {activeBestBetSaveId === row.bestBetId ? <Loader2 className="mr-2 size-3.5 animate-spin" aria-hidden="true" /> : null}
-                                        Save Bet Taken
-                                      </button>
+                                      {row.saveEligible ? (
+                                        <button
+                                          type="button"
+                                          onClick={() => saveBestBetTaken(row)}
+                                          disabled={activeBestBetSaveId === row.bestBetId}
+                                          className="inline-flex min-h-9 items-center justify-center border border-cyan-300/35 bg-cyan-400/10 px-3 text-[10px] font-black uppercase tracking-[0.14em] text-cyan-100 disabled:opacity-45"
+                                        >
+                                          {activeBestBetSaveId === row.bestBetId ? <Loader2 className="mr-2 size-3.5 animate-spin" aria-hidden="true" /> : null}
+                                          Save Bet Taken
+                                        </button>
+                                      ) : row.status === "watch" ? (
+                                        <Badge className="border-yellow-300/40 bg-yellow-400/10 text-yellow-100">Monitor Only</Badge>
+                                      ) : (
+                                        <Badge className="border-red-300/40 bg-red-500/10 text-red-100">Blocked</Badge>
+                                      )}
                                       {row.telegramEligible ? (
                                         <button
                                           type="button"
@@ -3298,16 +3338,16 @@ export default function AstrodssTerminal() {
                                           {activeStrongBuyTelegramId === row.bestBetId ? <Loader2 className="mr-2 size-3.5 animate-spin" aria-hidden="true" /> : null}
                                           Send Strong Buy Telegram
                                         </button>
-                                      ) : (
-                                        <Badge className="border-slate-300/35 bg-slate-400/10 text-slate-200">Dashboard Only</Badge>
-                                      )}
+                                      ) : row.status === "buy" ? (
+                                        <Badge className="border-cyan-300/35 bg-cyan-400/10 text-cyan-100">Manual Only</Badge>
+                                      ) : null}
                                     </div>
                                   </td>
                                 </tr>
                               ))
                             ) : (
                               <tr>
-                                <td colSpan={9} className="p-4 text-center text-sm font-bold text-slate-400">
+                                <td colSpan={10} className="p-4 text-center text-sm font-bold text-slate-400">
                                   No Best Bet rows are available yet. Run Scan MLB to populate the Strong Buy gate.
                                 </td>
                               </tr>
