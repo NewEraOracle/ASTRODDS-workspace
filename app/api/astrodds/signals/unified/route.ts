@@ -11,6 +11,7 @@ import { loadPitcherFeatureStatus, type PitcherFeatureDiagnostics } from "@/lib/
 import { loadPitcherModelComparisonStatus } from "@/lib/astrodss/mlb/pitcher-model-comparison-status";
 import { loadModernModelComparisonStatus } from "@/lib/astrodss/mlb/modern-model-comparison-status";
 import { loadPaperWatchlistClvDiagnostics } from "@/lib/astrodss/mlb/paper-watchlist-clv";
+import { loadDailyMlbResearchCaptureStatus } from "@/lib/astrodss/mlb/daily-data-capture";
 import { buildMlbPaperWatchlist } from "@/lib/astrodss/mlb/paper-watchlist";
 import { loadPaperWatchlistLedgerStatus } from "@/lib/astrodss/mlb/paper-watchlist-ledger";
 import { loadPaperWatchlistPerformanceAnalysis } from "@/lib/astrodss/mlb/paper-performance-analysis";
@@ -572,6 +573,7 @@ export async function GET(request: Request) {
   const paperWatchlistLedgerDiagnostics = await loadPaperWatchlistLedgerStatus();
   const paperClvDiagnostics = await loadPaperWatchlistClvDiagnostics();
   const paperPerformanceDiagnostics = await loadPaperWatchlistPerformanceAnalysis();
+  const dailyDataCaptureDiagnostics = await loadDailyMlbResearchCaptureStatus();
   const pitcherFeatureDiagnostics: PitcherFeatureDiagnostics = await loadPitcherFeatureStatus();
   const bullpenFeatureDiagnostics: BullpenFeatureDiagnostics = await loadBullpenFeatureStatus();
   const combinedRiskGate = buildCombinedRiskGate({
@@ -645,6 +647,7 @@ export async function GET(request: Request) {
       },
       paperClvDiagnostics,
       paperPerformanceDiagnostics,
+      dailyDataCaptureDiagnostics,
       combinedRiskGateDiagnostics: combinedRiskGate.diagnostics,
       combinedRiskRows: combinedRiskGate.rows,
       pitcherFeatureDiagnostics,
@@ -686,6 +689,7 @@ export async function GET(request: Request) {
         },
         paperClvDiagnostics,
         paperPerformanceDiagnostics,
+        dailyDataCaptureDiagnostics,
         pitcherFeatureDiagnostics,
         weatherBallparkFeatureDiagnostics,
         lineupPlayerFeatureDiagnostics,

@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ASTRODDS runtime snapshots and logs
+.astrodds/daily/
+.astrodds/*.jsonl
+astrodss-dev*.log

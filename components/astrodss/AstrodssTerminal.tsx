@@ -620,6 +620,7 @@ type UnifiedMlbStatusResponse = {
   paperWatchlistLedgerDiagnostics?: PaperWatchlistLedgerDiagnosticsResponse;
   paperClvDiagnostics?: PaperWatchlistClvDiagnosticsResponse;
   paperPerformanceDiagnostics?: PaperPerformanceDiagnosticsResponse;
+  dailyDataCaptureDiagnostics?: DailyDataCaptureDiagnosticsResponse;
   combinedRiskGateDiagnostics?: CombinedRiskGateDiagnosticsResponse;
   combinedRiskRows?: CombinedRiskGateRowResponse[];
   historicalExpansionDiagnostics?: HistoricalExpansionDiagnosticsResponse;
@@ -700,6 +701,35 @@ type DailyReportResponse = {
   paperLedger?: PaperLedgerSummary;
   paperTest?: PaperTestState;
   noBetReasons?: { reason: string; count: number }[];
+};
+
+type DailyDataCaptureDiagnosticsResponse = {
+  status: "active" | "partial" | "missing";
+  available: boolean;
+  latestCaptureDate?: string;
+  dailyFolders: number;
+  observationRows: number;
+  predictionSnapshotRows: number;
+  marketPriceSnapshotRows: number;
+  riskGateSnapshotRows: number;
+  latestWarnings: string[];
+  dataLineageStatus: "active" | "missing";
+  officialUseBlocked: true;
+  researchOnly: true;
+  generatedAt: string;
+  sourcePath: string;
+};
+
+type DailyDataCaptureResponse = {
+  captureId: string;
+  date: string;
+  status: "active" | "partial";
+  generatedAt: string;
+  filesWritten: string[];
+  jsonlRowsAppended: number;
+  warnings: string[];
+  durationMs: number;
+  dailyDataCaptureDiagnostics?: DailyDataCaptureDiagnosticsResponse;
 };
 
 function Badge({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -1786,6 +1816,10 @@ export default function AstrodssTerminal() {
   const [isUpdatingPaperWatchlistClv, setIsUpdatingPaperWatchlistClv] = useState(false);
   const [paperPerformanceDiagnostics, setPaperPerformanceDiagnostics] = useState<PaperPerformanceDiagnosticsResponse | null>(null);
   const [paperPerformanceDiagnosticsError, setPaperPerformanceDiagnosticsError] = useState("");
+  const [dailyDataCaptureDiagnostics, setDailyDataCaptureDiagnostics] = useState<DailyDataCaptureDiagnosticsResponse | null>(null);
+  const [dailyDataCaptureDiagnosticsError, setDailyDataCaptureDiagnosticsError] = useState("");
+  const [dailyCaptureActionMessage, setDailyCaptureActionMessage] = useState("");
+  const [isCapturingDailyData, setIsCapturingDailyData] = useState(false);
   const [combinedRiskGateDiagnostics, setCombinedRiskGateDiagnostics] = useState<CombinedRiskGateDiagnosticsResponse | null>(null);
   const [combinedRiskGateDiagnosticsError, setCombinedRiskGateDiagnosticsError] = useState("");
   const [combinedRiskRows, setCombinedRiskRows] = useState<CombinedRiskGateRowResponse[]>([]);
@@ -1958,6 +1992,22 @@ export default function AstrodssTerminal() {
   const serverPaperSummary = paperLedgerReport;
   const sevenDayPaperTest = paperLedgerReport?.paperTest ?? dailyReport?.paperTest;
   const dailyNoBetReasons = dailyReport?.noBetReasons?.slice(0, 4) ?? [];
+  const dailyDataCaptureSummary = dailyDataCaptureDiagnostics;
+  const dailyDataCaptureStatusLabel =
+    dailyDataCaptureSummary?.status === "active"
+      ? "Active"
+      : dailyDataCaptureSummary?.status === "partial"
+        ? "Partial"
+        : "Missing";
+  const dailyDataCaptureTone =
+    dailyDataCaptureSummary?.status === "active"
+      ? "green"
+      : dailyDataCaptureSummary?.status === "partial"
+        ? "yellow"
+        : "red";
+  const dailyDataCaptureLineageLabel = dailyDataCaptureSummary?.dataLineageStatus === "active" ? "Active" : "Missing";
+  const dailyDataCaptureLatestCaptureLabel = dailyDataCaptureSummary?.latestCaptureDate ?? "No capture yet";
+  const dailyDataCaptureWarning = dailyDataCaptureSummary?.latestWarnings[0] ?? dailyDataCaptureDiagnosticsError ?? "Waiting for daily data capture diagnostics.";
   const displayedPaperTrades = useMemo(
     () =>
       [...paperTrades].sort((a, b) => {
@@ -2081,6 +2131,13 @@ export default function AstrodssTerminal() {
         setPaperPerformanceDiagnostics(null);
         setPaperPerformanceDiagnosticsError("Paper performance diagnostics missing from unified API response.");
       }
+      if (payload.dailyDataCaptureDiagnostics) {
+        setDailyDataCaptureDiagnostics(payload.dailyDataCaptureDiagnostics);
+        setDailyDataCaptureDiagnosticsError("");
+      } else {
+        setDailyDataCaptureDiagnostics(null);
+        setDailyDataCaptureDiagnosticsError("Daily data capture diagnostics missing from unified API response.");
+      }
       if (payload.combinedRiskGateDiagnostics) {
         setCombinedRiskGateDiagnostics(payload.combinedRiskGateDiagnostics);
         setCombinedRiskRows(payload.combinedRiskRows ?? []);
@@ -2160,6 +2217,8 @@ export default function AstrodssTerminal() {
       setPaperWatchlistLedgerActionMessage("");
       setPaperPerformanceDiagnostics(null);
       setPaperPerformanceDiagnosticsError(message);
+      setDailyDataCaptureDiagnostics(null);
+      setDailyDataCaptureDiagnosticsError(message);
       setHistoricalExpansionDiagnostics(null);
       setHistoricalExpansionDiagnosticsError(message);
       setPitcherFeatureDiagnostics(null);
@@ -2275,6 +2334,33 @@ export default function AstrodssTerminal() {
       setDailyReport((await response.json()) as DailyReportResponse);
     } catch (dailyError) {
       setError((previous) => previous || (dailyError instanceof Error ? dailyError.message : "Unknown daily report failure."));
+    }
+  }
+
+  async function captureTodaySnapshot() {
+    if (isCapturingDailyData) return;
+
+    try {
+      setIsCapturingDailyData(true);
+      setDailyCaptureActionMessage("Capturing today snapshot...");
+      const response = await fetch("/api/astrodds/data/daily-capture", { method: "POST", cache: "no-store" });
+      if (!response.ok) throw new Error(`Daily capture failed with ${response.status}`);
+
+      const payload = (await response.json()) as DailyDataCaptureResponse;
+      setDailyCaptureActionMessage(
+        `${payload.status.toUpperCase()} capture finished in ${payload.durationMs}ms with ${payload.filesWritten.length} files and ${payload.jsonlRowsAppended} JSONL rows.`,
+      );
+      if (payload.dailyDataCaptureDiagnostics) {
+        setDailyDataCaptureDiagnostics(payload.dailyDataCaptureDiagnostics);
+        setDailyDataCaptureDiagnosticsError("");
+      }
+      await refreshPythonMlbEngineStatus();
+    } catch (captureError) {
+      const message = captureError instanceof Error ? captureError.message : "Unknown daily capture failure.";
+      setDailyCaptureActionMessage(message);
+      setDailyDataCaptureDiagnosticsError(message);
+    } finally {
+      setIsCapturingDailyData(false);
     }
   }
 
@@ -3003,12 +3089,82 @@ export default function AstrodssTerminal() {
                         <span>Real money: OFF</span>
                       </div>
 
-                      <p className="mt-3 text-xs leading-5 text-slate-400">{combinedRiskWarning}</p>
+                    <p className="mt-3 text-xs leading-5 text-slate-400">{combinedRiskWarning}</p>
+                  </div>
+
+                  <div className="mt-4 border border-white/10 bg-black/35 p-4">
+                    <div className="flex flex-col gap-3 border-b border-white/10 pb-3 lg:flex-row lg:items-start lg:justify-between">
+                      <div>
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Daily Data Capture</p>
+                        <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Data Lineage Snapshot</h3>
+                        <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300">
+                          Research-only capture of today&apos;s MLB observation rows, prediction snapshots, market price snapshots, and risk gate snapshots.
+                          Official use stays blocked.
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <Badge className={decisionToneClass(dailyDataCaptureTone)}>{dailyDataCaptureStatusLabel.toUpperCase()}</Badge>
+                        <Badge className="border-red-300/55 bg-red-500/12 text-red-100">Official Use Blocked</Badge>
+                        <Badge className="border-cyan-300/45 bg-cyan-400/10 text-cyan-100">Research Only</Badge>
+                      </div>
                     </div>
 
-                    <div className="grid gap-3 xl:grid-cols-4 2xl:grid-cols-8">
+                    <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-8">
                       <div className="border border-white/10 bg-black/35 p-3">
-                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Best Official Pick</p>
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Latest Capture</p>
+                        <p className="mt-2 text-sm font-black text-white">{dailyDataCaptureLatestCaptureLabel}</p>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Daily Folders</p>
+                        <p className="mt-2 text-3xl font-black text-white">{dailyDataCaptureSummary?.dailyFolders ?? 0}</p>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Observation Rows</p>
+                        <p className="mt-2 text-3xl font-black text-white">{dailyDataCaptureSummary?.observationRows ?? 0}</p>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Prediction Snapshots</p>
+                        <p className="mt-2 text-3xl font-black text-white">{dailyDataCaptureSummary?.predictionSnapshotRows ?? 0}</p>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Market Price Snapshots</p>
+                        <p className="mt-2 text-3xl font-black text-white">{dailyDataCaptureSummary?.marketPriceSnapshotRows ?? 0}</p>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Risk Gate Snapshots</p>
+                        <p className="mt-2 text-3xl font-black text-white">{dailyDataCaptureSummary?.riskGateSnapshotRows ?? 0}</p>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Data Lineage</p>
+                        <p className="mt-2 text-sm font-black text-white">{dailyDataCaptureLineageLabel}</p>
+                        <p className="mt-1 text-[11px] leading-5 text-slate-400">{dailyDataCaptureSummary?.sourcePath ?? ".astrodds"}</p>
+                      </div>
+                      <div className="border border-white/10 bg-black/35 p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Official Use</p>
+                        <p className="mt-2 text-sm font-black text-red-100">Blocked / Research Only</p>
+                        <p className="mt-1 text-[11px] leading-5 text-slate-400">This capture is for lineage and research diagnostics only.</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={captureTodaySnapshot}
+                        disabled={isCapturingDailyData}
+                        className="inline-flex items-center justify-center gap-2 border border-[#f4d274]/55 bg-[#f4d274]/10 px-4 py-2 text-xs font-black uppercase tracking-[0.15em] text-[#f7e0a4] transition hover:bg-[#f4d274]/20 disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        {isCapturingDailyData ? <Loader2 className="size-3.5 animate-spin" aria-hidden="true" /> : <DatabaseZap className="size-3.5" aria-hidden="true" />}
+                        Capture Today Snapshot
+                      </button>
+                      <p className="text-[11px] leading-5 text-slate-400">
+                        {dailyCaptureActionMessage || dailyDataCaptureWarning}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-3 xl:grid-cols-4 2xl:grid-cols-8">
+                    <div className="border border-white/10 bg-black/35 p-3">
+                      <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Best Official Pick</p>
                         {bestFinalSignal ? (
                           <div className="mt-3 grid gap-2 text-xs">
                             <DecisionBadge decision={bestFinalSignal.decision as AstroddsDecision} />

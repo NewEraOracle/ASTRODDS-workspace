@@ -164,7 +164,7 @@ function buildGroup(rows: PaperWatchlistLedgerRow[], key: string, label: string,
     ? numericPaperPnLRows.reduce((total, row) => total + Number(row.paperPnLUnits), 0)
     : null;
   const warnings = uniqueStrings([
-    settledCount < 3 && groupRows.length ? "Small sample size — research only" : undefined,
+    settledCount < 3 && groupRows.length ? "Small sample size - research only" : undefined,
     settledCount === 0 && groupRows.length ? "No settled rows yet; averages use available research rows only." : undefined,
     settledCount && numericPaperPnLRows.length !== settledCount ? "Some settled rows are missing paper PnL units; totals use available values only." : undefined,
     settledCount && numericEdgeRows.length !== settledCount ? "Some settled rows are missing diagnostic edge values; averages use available values only." : undefined,
@@ -299,7 +299,7 @@ export async function loadPaperWatchlistPerformanceAnalysis(limit = 10): Promise
   const summaryWarnings = uniqueStrings([
     ...loaded.warnings,
     "Paper performance is research only and does not represent official picks, Strong Buys, Telegram signals, or real-money performance.",
-    settledCount < 10 ? "Small sample size — research only" : undefined,
+    settledCount < 10 ? "Small sample size - research only" : undefined,
     settledCount === 0 && rows.length ? "No settled rows yet; paper performance is not fully measurable." : undefined,
     settledCount && paperPnLValues.length !== settledCount ? "Some settled rows are missing paper PnL units; totals use available values only." : undefined,
     settledCount && settledEdgeValues.length !== settledCount ? "Some settled rows are missing diagnostic edge values; averages use available values only." : undefined,

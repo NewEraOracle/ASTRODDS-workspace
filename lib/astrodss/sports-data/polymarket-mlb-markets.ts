@@ -1,3 +1,5 @@
+import { setMaxListeners } from "node:events";
+
 import { loadPolymarketMlbMarketsCache, writePolymarketMlbMarketsCache, type PolymarketMlbCacheStatus } from "./polymarket-mlb-market-cache";
 import { MLB_TEAMS, mlbTeamHits } from "./mlb-teams";
 import { normalizeText, safeArray, safeNumber } from "./normalize";
@@ -153,15 +155,26 @@ function responseSnippet(text: string) {
   return text.replace(/\s+/g, " ").slice(0, 240);
 }
 
-async function fetchJsonArray(url: URL, endpointLabel: string, timeoutMs: number): Promise<FetchJsonResult> {
+function isAbortError(error: unknown) {
+  return error instanceof Error && error.name === "AbortError";
+}
+
+async function fetchJsonArray(url: URL, endpointLabel: string, timeoutMs: number, signal?: AbortSignal): Promise<FetchJsonResult> {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  const timeout = setTimeout(() => controller.abort(timeoutMs), timeoutMs);
+  const abortFromParent = () => controller.abort(signal?.reason);
   const baseDiagnostic: Omit<PolymarketMlbSourceDiagnostic, "status" | "timeout"> = {
     source: "Polymarket Gamma",
     endpointLabel,
     sanitizedUrl: sanitizedUrl(url),
     retryCount: 0,
   };
+
+  if (signal) {
+    setMaxListeners(0, signal);
+    if (signal.aborted) controller.abort(signal.reason);
+    else signal.addEventListener("abort", abortFromParent, { once: true });
+  }
 
   try {
     const response = await fetch(url, {
@@ -196,18 +209,19 @@ async function fetchJsonArray(url: URL, endpointLabel: string, timeoutMs: number
       },
     };
   } catch (error) {
-    const timeout = error instanceof Error && error.name === "AbortError";
+    const timedOut = isAbortError(error);
     return {
       data: [],
       diagnostic: {
         ...baseDiagnostic,
-        status: timeout ? "TIMEOUT" : "FAILED",
-        timeout,
+        status: timedOut ? "TIMEOUT" : "FAILED",
+        timeout: timedOut,
         error: error instanceof Error ? error.message : "Unknown Polymarket fetch failure",
       },
     };
   } finally {
     clearTimeout(timeout);
+    if (signal) signal.removeEventListener("abort", abortFromParent);
   }
 }
 
@@ -349,11 +363,11 @@ function dedupeMarkets(markets: PolymarketMlbMoneylineMarket[]) {
   });
 }
 
-export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs?: number; cacheFreshnessSeconds?: number } = {}): Promise<PolymarketMlbMoneylineDiscoveryResult> {
+export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs?: number; cacheFreshnessSeconds?: number; signal?: AbortSignal } = {}): Promise<PolymarketMlbMoneylineDiscoveryResult> {
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   const terms = marketSearchTerms();
-  const eventRequests = terms.map((term) => fetchJsonArray(polymarketUrl("/events", term), `Gamma events: ${term}`, timeoutMs));
-  const marketRequests = terms.map((term) => fetchJsonArray(polymarketUrl("/markets", term), `Gamma markets: ${term}`, timeoutMs));
+  const eventRequests = terms.map((term) => fetchJsonArray(polymarketUrl("/events", term), `Gamma events: ${term}`, timeoutMs, options.signal));
+  const marketRequests = terms.map((term) => fetchJsonArray(polymarketUrl("/markets", term), `Gamma markets: ${term}`, timeoutMs, options.signal));
   const results = await Promise.all([...eventRequests, ...marketRequests]);
   const diagnostics = results.map((result) => result.diagnostic);
   const events = results.slice(0, eventRequests.length).flatMap((result) => result.data as GammaEvent[]);

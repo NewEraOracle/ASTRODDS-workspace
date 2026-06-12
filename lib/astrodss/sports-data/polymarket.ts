@@ -1,9 +1,12 @@
+import { setMaxListeners } from "node:events";
+
 import type { AstroddsDiagnosticStatus, AstroddsGameScan, AstroddsMarketScan, AstroddsScanDiagnostics, AstroddsSportFilter, RawPolymarketMarket } from "./types";
 import { findMlbTeamProfile, mlbTeamHits } from "./mlb-teams";
 import { hydrateMarketsWithOrderBooks } from "./orderbook";
 import { detectSport, inferBetType, inferMarketStatus, normalizeText, safeArray, safeNumber } from "./normalize";
 
 export const POLYMARKET_GAMMA_BASE_URL = "https://gamma-api.polymarket.com";
+const POLYMARKET_GAMMA_FETCH_TIMEOUT_MS = 7500;
 
 export type GammaEvent = {
   id?: string | number;
@@ -88,42 +91,75 @@ export function polymarketMarketsUrl(query: string) {
   return url;
 }
 
-async function fetchGammaEvents(query: string, signal?: AbortSignal): Promise<GammaEvent[]> {
-  const url = polymarketEventsUrl(query);
+function createTimedSignal(parentSignal?: AbortSignal, timeoutMs = POLYMARKET_GAMMA_FETCH_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(new Error(`Polymarket Gamma request timed out after ${timeoutMs}ms`)), timeoutMs);
+  const abortFromParent = () => controller.abort(parentSignal?.reason);
 
-  const response = await fetch(url, {
-    signal,
-    next: { revalidate: 45 },
-    headers: {
-      accept: "application/json",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Polymarket Gamma API returned ${response.status}`);
+  if (parentSignal) {
+    setMaxListeners(0, parentSignal);
+    if (parentSignal.aborted) {
+      controller.abort(parentSignal.reason);
+    } else {
+      parentSignal.addEventListener("abort", abortFromParent, { once: true });
+    }
   }
 
-  const data = (await response.json()) as unknown;
-  return Array.isArray(data) ? (data as GammaEvent[]) : [];
+  return {
+    signal: controller.signal,
+    cleanup() {
+      clearTimeout(timeoutId);
+      if (parentSignal) parentSignal.removeEventListener("abort", abortFromParent);
+    },
+  };
+}
+
+async function fetchGammaEvents(query: string, signal?: AbortSignal): Promise<GammaEvent[]> {
+  const url = polymarketEventsUrl(query);
+  const timedSignal = createTimedSignal(signal);
+
+  try {
+    const response = await fetch(url, {
+      signal: timedSignal.signal,
+      cache: "no-store",
+      headers: {
+        accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Polymarket Gamma API returned ${response.status}`);
+    }
+
+    const data = (await response.json()) as unknown;
+    return Array.isArray(data) ? (data as GammaEvent[]) : [];
+  } finally {
+    timedSignal.cleanup();
+  }
 }
 
 async function fetchGammaMarkets(query: string, signal?: AbortSignal): Promise<GammaMarket[]> {
   const url = polymarketMarketsUrl(query);
+  const timedSignal = createTimedSignal(signal);
 
-  const response = await fetch(url, {
-    signal,
-    next: { revalidate: 45 },
-    headers: {
-      accept: "application/json",
-    },
-  });
+  try {
+    const response = await fetch(url, {
+      signal: timedSignal.signal,
+      cache: "no-store",
+      headers: {
+        accept: "application/json",
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error(`Polymarket Gamma markets API returned ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`Polymarket Gamma markets API returned ${response.status}`);
+    }
+
+    const data = (await response.json()) as unknown;
+    return Array.isArray(data) ? (data as GammaMarket[]) : [];
+  } finally {
+    timedSignal.cleanup();
   }
-
-  const data = (await response.json()) as unknown;
-  return Array.isArray(data) ? (data as GammaMarket[]) : [];
 }
 
 function tagText(tags: GammaEvent["tags"]) {
