@@ -1,0 +1,27 @@
+ASTRODDS 24 CLV AND LINE MOVEMENT REPORT
+================================================
+
+Goal:
+Measure opening vs latest market probability to estimate line movement and CLV.
+
+Input snapshot rows: 20
+Tracked game/pick pairs: 5
+
+CLV status counts:
+- flat: 5
+
+Line movement:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Snapshots=4 | OpenMarket=50.98% | LatestMarket=50.98% | MarketMove=0.0 pts | OpenEdge=12.47% | LatestEdge=12.47% | EdgeDecay=0.0 pts | CLV=flat | Decision=ENGINE_BUY | Grade=A+
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Snapshots=4 | OpenMarket=55.75% | LatestMarket=55.75% | MarketMove=0.0 pts | OpenEdge=7.7% | LatestEdge=7.7% | EdgeDecay=0.0 pts | CLV=flat | Decision=MANUAL_REVIEW | Grade=A
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Snapshots=4 | OpenMarket=58.68% | LatestMarket=58.68% | MarketMove=0.0 pts | OpenEdge=4.78% | LatestEdge=4.78% | EdgeDecay=0.0 pts | CLV=flat | Decision=MANUAL_REVIEW | Grade=B
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Snapshots=4 | OpenMarket=58.68% | LatestMarket=58.68% | MarketMove=0.0 pts | OpenEdge=4.78% | LatestEdge=4.78% | EdgeDecay=0.0 pts | CLV=flat | Decision=MANUAL_REVIEW | Grade=B
+- Colorado Rockies @ Athletics | Pick: Athletics | Snapshots=4 | OpenMarket=63.24% | LatestMarket=63.24% | MarketMove=0.0 pts | OpenEdge=0.22% | LatestEdge=0.22% | EdgeDecay=0.0 pts | CLV=flat | Decision=WATCH | Grade=WATCH
+
+Interpretation:
+- Positive CLV means the market moved toward ASTRODDS pick after the snapshot.
+- Negative CLV means the market moved against ASTRODDS pick.
+- Flat means not enough movement yet.
+- This is not final ROI; it is market validation / line movement tracking.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-clv-line-movement-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-clv-line-movement-latest.csv

@@ -1,6 +1,6 @@
 ASTRODDS 21 ENGINE V2 FULL PIPELINE RUN REPORT
 ====================================================
-Started: 2026-06-13T22:43:30.425505Z
+Started: 2026-06-13T23:48:46.681155Z
 
 Goal:
 Run full engine pipeline: context -> calibrated decision -> ledger -> resolver.
@@ -17,8 +17,8 @@ Output rows: 5
 
 Context rows:
 - Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Pitchers: Aaron Nola vs Shane Drohan | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
-- Colorado Rockies @ Athletics | Pick: Athletics | Pitchers: Kyle Freeland vs Joey Estes | Lineups: away=confirmed home=missing | Weather: available | Missing: confirmed_lineup|bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
-- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Pitchers: Griffin Jax vs José Soriano | Lineups: away=missing home=confirmed | Weather: available | Missing: confirmed_lineup|bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Colorado Rockies @ Athletics | Pick: Athletics | Pitchers: Kyle Freeland vs Joey Estes | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Pitchers: Griffin Jax vs José Soriano | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
 - Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Pitchers: Mike Burrows vs Noah Cameron | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
 - Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Pitchers: Michael Soroka vs Rhett Lowder | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
 
@@ -38,10 +38,10 @@ Input rows: 5
 Output rows: 5
 
 Pitcher context:
-- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Away SP: Aaron Nola ERA=5.86 WHIP=1.45 | Home SP: Shane Drohan ERA=3.11 WHIP=1.12 | Flags: away_pitcher_high_era|away_pitcher_high_whip
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Away SP: Aaron Nola ERA=5.69 WHIP=1.44 | Home SP: Shane Drohan ERA=3.10 WHIP=1.11 | Flags: away_pitcher_high_era
 - Colorado Rockies @ Athletics | Pick: Athletics | Away SP: Kyle Freeland ERA=7.81 WHIP=1.70 | Home SP: Joey Estes ERA=- WHIP=- | Flags: away_pitcher_high_era|away_pitcher_high_whip|home_pitcher_stats_missing
 - Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Away SP: Griffin Jax ERA=4.15 WHIP=1.41 | Home SP: José Soriano ERA=2.96 WHIP=1.24 | Flags: none
-- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Away SP: Mike Burrows ERA=5.77 WHIP=1.57 | Home SP: Noah Cameron ERA=3.84 WHIP=1.19 | Flags: away_pitcher_high_era|away_pitcher_high_whip
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Away SP: Mike Burrows ERA=5.73 WHIP=1.55 | Home SP: Noah Cameron ERA=3.71 WHIP=1.15 | Flags: away_pitcher_high_era|away_pitcher_high_whip
 - Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Away SP: Michael Soroka ERA=3.11 WHIP=1.07 | Home SP: Rhett Lowder ERA=4.60 WHIP=1.43 | Flags: none
 
 Important:
@@ -89,11 +89,12 @@ Replace raw overconfident model probability with calibrated historical probabili
 Input rows: 5
 
 Decision counts:
-- manual_review: 4
+- manual_review: 3
+- vvs_buy: 1
 - watch: 1
 
 Calibrated picks:
-- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | RawModel=65.0% | Calibrated=63.45% | RawEdge=14.02% | CalEdge=12.47% | Decision=manual_review | Reason=good calibrated edge 12.47% but lineup not fully confirmed
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | RawModel=65.0% | Calibrated=63.45% | RawEdge=14.02% | CalEdge=12.47% | Decision=vvs_buy | Reason=strong calibrated edge 12.47% with clean context
 - Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=55.75% | RawModel=67.0% | Calibrated=63.45% | RawEdge=11.25% | CalEdge=7.7% | Decision=manual_review | Reason=good calibrated edge 7.70% but bullpen fatigue warning
 - Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=58.68% | RawModel=76.0% | Calibrated=63.45% | RawEdge=17.32% | CalEdge=4.78% | Decision=manual_review | Reason=small calibrated edge 4.78% but bullpen fatigue warning
 - Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Market=58.68% | RawModel=64.0% | Calibrated=63.45% | RawEdge=5.32% | CalEdge=4.78% | Decision=manual_review | Reason=small calibrated edge 4.78% but bullpen fatigue warning
@@ -124,11 +125,12 @@ Create final engine signal file using calibrated edge + context gates.
 Input rows: 5
 
 Decision counts:
-- MANUAL_REVIEW: 4
+- ENGINE_BUY: 1
+- MANUAL_REVIEW: 3
 - WATCH: 1
 
 Final engine signals:
-- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Final=MANUAL_REVIEW | Grade=A | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Reason=Calibrated edge exists, but review required: lineup not fully confirmed
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Final=ENGINE_BUY | Grade=A+ | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Reason=Clean calibrated edge with no major context warnings.
 - Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Final=MANUAL_REVIEW | Grade=A | Market=55.75% | Calibrated=63.45% | CalEdge=7.7% | Reason=Calibrated edge exists, but review required: bullpen warning, pitcher warning
 - Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Final=MANUAL_REVIEW | Grade=B | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Reason=Calibrated edge exists, but review required: bullpen warning, pitcher warning
 - Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Final=MANUAL_REVIEW | Grade=B | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Reason=Calibrated edge exists, but review required: bullpen warning
@@ -157,14 +159,14 @@ ASTRODDS 22 ODDS SNAPSHOT LEDGER REPORT
 Goal:
 Create a free historical odds/edge ledger from every engine scan.
 
-Snapshot time: 2026-06-13T22:44:10.568919Z
+Snapshot time: 2026-06-13T23:49:25.570218Z
 Input signals: 5
 Added snapshots: 5
-Total snapshot rows: 10
+Total snapshot rows: 20
 Tracked game/pick pairs: 5
 
 Latest snapshots:
-- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Decision=MANUAL_REVIEW | Grade=A
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Decision=ENGINE_BUY | Grade=A+
 - Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=55.75% | Calibrated=63.45% | CalEdge=7.7% | Decision=MANUAL_REVIEW | Grade=A
 - Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Decision=MANUAL_REVIEW | Grade=B
 - Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Decision=MANUAL_REVIEW | Grade=B
@@ -179,6 +181,144 @@ JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-odds-
 CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-odds-snapshot-ledger.csv
 
 Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\22_odds_snapshot_ledger_report.txt
+
+STEP — CLV and line movement report
+--------------------------------
+Script: 24_clv_and_line_movement_report.py
+Status: OK
+
+ASTRODDS 24 CLV AND LINE MOVEMENT REPORT
+================================================
+
+Goal:
+Measure opening vs latest market probability to estimate line movement and CLV.
+
+Input snapshot rows: 20
+Tracked game/pick pairs: 5
+
+CLV status counts:
+- flat: 5
+
+Line movement:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Snapshots=4 | OpenMarket=50.98% | LatestMarket=50.98% | MarketMove=0.0 pts | OpenEdge=12.47% | LatestEdge=12.47% | EdgeDecay=0.0 pts | CLV=flat | Decision=ENGINE_BUY | Grade=A+
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Snapshots=4 | OpenMarket=55.75% | LatestMarket=55.75% | MarketMove=0.0 pts | OpenEdge=7.7% | LatestEdge=7.7% | EdgeDecay=0.0 pts | CLV=flat | Decision=MANUAL_REVIEW | Grade=A
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Snapshots=4 | OpenMarket=58.68% | LatestMarket=58.68% | MarketMove=0.0 pts | OpenEdge=4.78% | LatestEdge=4.78% | EdgeDecay=0.0 pts | CLV=flat | Decision=MANUAL_REVIEW | Grade=B
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Snapshots=4 | OpenMarket=58.68% | LatestMarket=58.68% | MarketMove=0.0 pts | OpenEdge=4.78% | LatestEdge=4.78% | EdgeDecay=0.0 pts | CLV=flat | Decision=MANUAL_REVIEW | Grade=B
+- Colorado Rockies @ Athletics | Pick: Athletics | Snapshots=4 | OpenMarket=63.24% | LatestMarket=63.24% | MarketMove=0.0 pts | OpenEdge=0.22% | LatestEdge=0.22% | EdgeDecay=0.0 pts | CLV=flat | Decision=WATCH | Grade=WATCH
+
+Interpretation:
+- Positive CLV means the market moved toward ASTRODDS pick after the snapshot.
+- Negative CLV means the market moved against ASTRODDS pick.
+- Flat means not enough movement yet.
+- This is not final ROI; it is market validation / line movement tracking.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-clv-line-movement-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-clv-line-movement-latest.csv
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\24_clv_and_line_movement_report.txt
+
+STEP — Full slate research engine
+--------------------------------
+Script: 25_full_slate_engine.py
+Status: OK
+
+ASTRODDS 25 FULL SLATE ENGINE REPORT
+========================================
+
+Goal:
+Score the full MLB moneyline slate from backend rows using calibrated probability.
+
+Backend rows: 69
+Moneyline candidates: 20
+Best per game rows: 20
+
+Decision counts:
+- FULL_SLATE_A_REVIEW: 16
+- NO_BET: 4
+
+Full slate ranked:
+- Miami Marlins @ Pittsburgh Pirates | Pick: Miami Marlins | Market=41.67% | Raw=70.0% | Cal=63.45% | CalEdge=21.79% | Decision=FULL_SLATE_A_REVIEW
+- Seattle Mariners @ Washington Nationals | Pick: Washington Nationals | Market=43.48% | Raw=59.0% | Cal=59.22% | CalEdge=15.74% | Decision=FULL_SLATE_A_REVIEW
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Market=49.5% | Raw=64.0% | Cal=63.45% | CalEdge=13.95% | Decision=FULL_SLATE_A_REVIEW
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Market=49.5% | Raw=67.0% | Cal=63.45% | CalEdge=13.95% | Decision=FULL_SLATE_A_REVIEW
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=50.0% | Raw=76.0% | Cal=63.45% | CalEdge=13.45% | Decision=FULL_SLATE_A_REVIEW
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Market=50.5% | Raw=62.0% | Cal=63.45% | CalEdge=12.96% | Decision=FULL_SLATE_A_REVIEW
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Market=50.5% | Raw=61.0% | Cal=63.45% | CalEdge=12.96% | Decision=FULL_SLATE_A_REVIEW
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Market=50.5% | Raw=62.0% | Cal=63.45% | CalEdge=12.96% | Decision=FULL_SLATE_A_REVIEW
+- Detroit Tigers @ Cleveland Guardians | Pick: Detroit Tigers | Market=50.5% | Raw=60.0% | Cal=63.45% | CalEdge=12.96% | Decision=FULL_SLATE_A_REVIEW
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | Raw=65.0% | Cal=63.45% | CalEdge=12.47% | Decision=FULL_SLATE_A_REVIEW
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | Market=52.83% | Raw=63.0% | Cal=63.45% | CalEdge=10.62% | Decision=FULL_SLATE_A_REVIEW
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Market=53.7% | Raw=63.0% | Cal=63.45% | CalEdge=9.75% | Decision=FULL_SLATE_A_REVIEW
+- Chicago Cubs @ San Francisco Giants | Pick: Chicago Cubs | Market=54.13% | Raw=60.0% | Cal=63.45% | CalEdge=9.33% | Decision=FULL_SLATE_A_REVIEW
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=50.0% | Raw=59.0% | Cal=59.22% | CalEdge=9.22% | Decision=FULL_SLATE_A_REVIEW
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Market=54.55% | Raw=69.0% | Cal=63.45% | CalEdge=8.91% | Decision=FULL_SLATE_A_REVIEW
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Market=54.55% | Raw=60.0% | Cal=63.45% | CalEdge=8.91% | Decision=FULL_SLATE_A_REVIEW
+- Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | Market=60.63% | Raw=74.0% | Cal=63.45% | CalEdge=2.82% | Decision=NO_BET
+- Colorado Rockies @ Athletics | Pick: Athletics | Market=61.83% | Raw=76.0% | Cal=63.45% | CalEdge=1.62% | Decision=NO_BET
+- Los Angeles Dodgers @ Chicago White Sox | Pick: Los Angeles Dodgers | Market=65.99% | Raw=60.0% | Cal=63.45% | CalEdge=-2.53% | Decision=NO_BET
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=71.01% | Raw=68.0% | Cal=63.45% | CalEdge=-7.56% | Decision=NO_BET
+
+Important:
+- This is full slate research output.
+- It does not override final Engine V2 context gates yet.
+- Next: connect full slate rows to context gates and final decision rules.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-engine-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-engine-latest.csv
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\25_full_slate_engine_report.txt
+
+STEP — Full slate strict gate
+--------------------------------
+Script: 26_full_slate_strict_gate.py
+Status: OK
+
+ASTRODDS 26 FULL SLATE STRICT GATE REPORT
+================================================
+
+Backend rows: 69
+Raw moneyline candidates: 20
+Strict best-per-game rows: 13
+Opposite-side conflicts: 3
+
+Decision counts:
+- FULL_SLATE_A_REVIEW: 7
+- MANUAL_REVIEW_CONFLICT: 3
+- NO_BET: 3
+
+Gap source counts:
+- modelProbabilityGapPct: 13
+
+Conflicts:
+- Tampa Bay Rays @ Los Angeles Angels -> Los Angeles Angels, Tampa Bay Rays
+- Seattle Mariners @ Washington Nationals -> Seattle Mariners, Washington Nationals
+- Arizona Diamondbacks @ Cincinnati Reds -> Arizona Diamondbacks, Cincinnati Reds
+
+Strict ranked:
+- Miami Marlins @ Pittsburgh Pirates | Pick: Miami Marlins | Market=41.67% | CalEdge=21.79% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Seattle Mariners @ Washington Nationals | Pick: Washington Nationals | Market=43.48% | CalEdge=15.74% | GapSource=modelProbabilityGapPct | Conflict=True | Decision=MANUAL_REVIEW_CONFLICT
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Market=49.5% | CalEdge=13.95% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Market=50.5% | CalEdge=12.96% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Market=50.5% | CalEdge=12.96% | GapSource=modelProbabilityGapPct | Conflict=True | Decision=MANUAL_REVIEW_CONFLICT
+- Detroit Tigers @ Cleveland Guardians | Pick: Detroit Tigers | Market=50.5% | CalEdge=12.96% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | CalEdge=12.47% | GapSource=modelProbabilityGapPct | Conflict=True | Decision=MANUAL_REVIEW_CONFLICT
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=53.05% | CalEdge=10.4% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Chicago Cubs @ San Francisco Giants | Pick: Chicago Cubs | Market=54.13% | CalEdge=9.33% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Market=54.55% | CalEdge=8.91% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Colorado Rockies @ Athletics | Pick: Athletics | Market=61.83% | CalEdge=1.62% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=NO_BET
+- Los Angeles Dodgers @ Chicago White Sox | Pick: Los Angeles Dodgers | Market=65.99% | CalEdge=-2.53% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=NO_BET
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=72.6% | CalEdge=-9.15% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=NO_BET
+
+Conclusion:
+- Full slate works.
+- Opposite-side conflicts are blocked.
+- Missing backend model gap is research-only.
+- Final Engine V2 context gates still have priority.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-strict-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-strict-latest.csv
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\26_full_slate_strict_gate_report.txt
 
 STEP — Save final signals to ledger
 --------------------------------
@@ -198,11 +338,13 @@ Updated this run: 5
 Ledger rows after: 5
 
 Decision counts:
-- MANUAL_REVIEW: 4
+- ENGINE_BUY: 1
+- MANUAL_REVIEW: 3
 - WATCH: 1
 
 Grade counts:
-- A: 2
+- A: 1
+- A+: 1
 - B: 2
 - WATCH: 1
 
@@ -215,7 +357,7 @@ Latest ledger signals:
 - 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | CalEdge: 7.7% | Result: pending
 - 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | CalEdge: 4.78% | Result: pending
 - 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | CalEdge: 0.22% | Result: pending
-- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: MANUAL_REVIEW | Grade: A | CalEdge: 12.47% | Result: pending
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: ENGINE_BUY | Grade: A+ | CalEdge: 12.47% | Result: pending
 
 Next:
 20_resolve_engine_signal_ledger.py
@@ -239,11 +381,13 @@ Resolved this run: 0
 Still pending: 4
 
 Performance by final decision:
-- MANUAL_REVIEW: total=4 resolved=1 win=0 loss=1 pending=3 winRate=0.0 paperROI=-100.0% profit=-1.0u
+- ENGINE_BUY: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+- MANUAL_REVIEW: total=3 resolved=1 win=0 loss=1 pending=2 winRate=0.0 paperROI=-100.0% profit=-1.0u
 - WATCH: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
 
 Performance by grade:
-- A: total=2 resolved=0 win=0 loss=0 pending=2 winRate=None paperROI=None% profit=0.0u
+- A: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+- A+: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
 - B: total=2 resolved=1 win=0 loss=1 pending=1 winRate=0.0 paperROI=-100.0% profit=-1.0u
 - WATCH: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
 
@@ -254,11 +398,11 @@ Performance by calibrated edge bucket:
 - 5-8%: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
 
 Ledger:
-- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | Result: loss | Winner: Cincinnati Reds | Score: ---
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | Result: loss | Winner: Cincinnati Reds | Score: 1-2
 - 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | Result: pending | Winner:  | Score: ---
 - 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | Result: pending | Winner:  | Score: ---
 - 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | Result: pending | Winner:  | Score: ---
-- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: MANUAL_REVIEW | Grade: A | Result: pending | Winner:  | Score: ---
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: ENGINE_BUY | Grade: A+ | Result: pending | Winner:  | Score: ---
 
 Updated JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.json
 Updated CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.csv
@@ -267,7 +411,7 @@ Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred
 
 FINAL STATUS
 ====================
-Finished: 2026-06-13T22:44:12.243363Z
+Finished: 2026-06-13T23:50:16.718519Z
 Pipeline OK: True
 
 Final outputs:

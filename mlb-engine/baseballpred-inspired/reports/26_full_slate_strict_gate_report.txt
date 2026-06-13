@@ -1,0 +1,44 @@
+ASTRODDS 26 FULL SLATE STRICT GATE REPORT
+================================================
+
+Backend rows: 69
+Raw moneyline candidates: 20
+Strict best-per-game rows: 13
+Opposite-side conflicts: 3
+
+Decision counts:
+- FULL_SLATE_A_REVIEW: 7
+- MANUAL_REVIEW_CONFLICT: 3
+- NO_BET: 3
+
+Gap source counts:
+- modelProbabilityGapPct: 13
+
+Conflicts:
+- Tampa Bay Rays @ Los Angeles Angels -> Los Angeles Angels, Tampa Bay Rays
+- Seattle Mariners @ Washington Nationals -> Seattle Mariners, Washington Nationals
+- Arizona Diamondbacks @ Cincinnati Reds -> Arizona Diamondbacks, Cincinnati Reds
+
+Strict ranked:
+- Miami Marlins @ Pittsburgh Pirates | Pick: Miami Marlins | Market=41.67% | CalEdge=21.79% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Seattle Mariners @ Washington Nationals | Pick: Washington Nationals | Market=43.48% | CalEdge=15.74% | GapSource=modelProbabilityGapPct | Conflict=True | Decision=MANUAL_REVIEW_CONFLICT
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Market=49.5% | CalEdge=13.95% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Market=50.5% | CalEdge=12.96% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Market=50.5% | CalEdge=12.96% | GapSource=modelProbabilityGapPct | Conflict=True | Decision=MANUAL_REVIEW_CONFLICT
+- Detroit Tigers @ Cleveland Guardians | Pick: Detroit Tigers | Market=50.5% | CalEdge=12.96% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | CalEdge=12.47% | GapSource=modelProbabilityGapPct | Conflict=True | Decision=MANUAL_REVIEW_CONFLICT
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=53.05% | CalEdge=10.4% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Chicago Cubs @ San Francisco Giants | Pick: Chicago Cubs | Market=54.13% | CalEdge=9.33% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Market=54.55% | CalEdge=8.91% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=FULL_SLATE_A_REVIEW
+- Colorado Rockies @ Athletics | Pick: Athletics | Market=61.83% | CalEdge=1.62% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=NO_BET
+- Los Angeles Dodgers @ Chicago White Sox | Pick: Los Angeles Dodgers | Market=65.99% | CalEdge=-2.53% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=NO_BET
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=72.6% | CalEdge=-9.15% | GapSource=modelProbabilityGapPct | Conflict=False | Decision=NO_BET
+
+Conclusion:
+- Full slate works.
+- Opposite-side conflicts are blocked.
+- Missing backend model gap is research-only.
+- Final Engine V2 context gates still have priority.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-strict-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-strict-latest.csv

@@ -1,0 +1,109 @@
+ASTRODDS 27 BACKEND GAP FIELD AUDIT
+==========================================
+
+Rows: 69
+
+Gap keys:
+
+Edge keys:
+- diagnosticCalibratedEdge
+- diagnosticCalibratedEdgePct
+- diagnosticRawEdgePct
+
+Probability keys:
+- calibratedProbability
+- marketProbability
+
+Score keys:
+- riskScore
+
+Diagnostic keys:
+- diagnosticCalibratedEdge
+- diagnosticCalibratedEdgePct
+- diagnosticRawEdgePct
+
+First 5 moneyline rows:
+
+ROW 1
+Game: Colorado Rockies @ Athletics
+Pick: Athletics
+Status: daily_pick
+MarketProbability: 0.609375
+CalibratedProbability: 0.76
+DiagnosticCalibratedEdgePct: 15.0625
+DiagnosticRawEdgePct: 15.0625
+Keys:
+  calibratedProbability: 0.76
+  diagnosticCalibratedEdge: 0.150625
+  diagnosticCalibratedEdgePct: 15.0625
+  diagnosticRawEdgePct: 15.0625
+  marketProbability: 0.609375
+  riskScore: 73
+
+ROW 2
+Game: Atlanta Braves @ New York Mets
+Pick: Atlanta Braves
+Status: daily_pick
+MarketProbability: 0.49504950495049505
+CalibratedProbability: 0.64
+DiagnosticCalibratedEdgePct: 14.495049504950497
+DiagnosticRawEdgePct: 14.495049504950497
+Keys:
+  calibratedProbability: 0.64
+  diagnosticCalibratedEdge: 0.14495049504950497
+  diagnosticCalibratedEdgePct: 14.495049504950497
+  diagnosticRawEdgePct: 14.495049504950497
+  marketProbability: 0.49504950495049505
+  riskScore: 70
+
+ROW 3
+Game: New York Yankees @ Toronto Blue Jays
+Pick: New York Yankees
+Status: daily_pick
+MarketProbability: 0.5454545454545454
+CalibratedProbability: 0.69
+DiagnosticCalibratedEdgePct: 14.454545454545453
+DiagnosticRawEdgePct: 14.454545454545453
+Keys:
+  calibratedProbability: 0.69
+  diagnosticCalibratedEdge: 0.14454545454545453
+  diagnosticCalibratedEdgePct: 14.454545454545453
+  diagnosticRawEdgePct: 14.454545454545453
+  marketProbability: 0.5454545454545454
+  riskScore: 74
+
+ROW 4
+Game: Tampa Bay Rays @ Los Angeles Angels
+Pick: Los Angeles Angels
+Status: daily_pick
+MarketProbability: 0.5098039215686274
+CalibratedProbability: 0.65
+DiagnosticCalibratedEdgePct: 14.01960784313726
+DiagnosticRawEdgePct: 14.01960784313726
+Keys:
+  calibratedProbability: 0.65
+  diagnosticCalibratedEdge: 0.1401960784313726
+  diagnosticCalibratedEdgePct: 14.01960784313726
+  diagnosticRawEdgePct: 14.01960784313726
+  marketProbability: 0.5098039215686274
+  riskScore: 71
+
+ROW 5
+Game: Seattle Mariners @ Washington Nationals
+Pick: Seattle Mariners
+Status: daily_pick
+MarketProbability: 0.6062992125984252
+CalibratedProbability: 0.74
+DiagnosticCalibratedEdgePct: 13.370078740157476
+DiagnosticRawEdgePct: 13.370078740157476
+Keys:
+  calibratedProbability: 0.74
+  diagnosticCalibratedEdge: 0.13370078740157476
+  diagnosticCalibratedEdgePct: 13.370078740157476
+  diagnosticRawEdgePct: 13.370078740157476
+  marketProbability: 0.6062992125984252
+  riskScore: 77
+
+Conclusion:
+- If no gap key exists, backend route must add modelProbabilityGapPct.
+- Full slate official engine stays blocked until this field exists.

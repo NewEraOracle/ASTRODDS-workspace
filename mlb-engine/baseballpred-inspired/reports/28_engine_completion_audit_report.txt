@@ -1,0 +1,71 @@
+ASTRODDS 28 ENGINE COMPLETION AUDIT
+============================================
+Created: 2026-06-13T23:50:16.893554Z
+
+ENGINE STATUS: COMPLETE V2
+
+Script checks:
+- OK: 08_game_context_snapshot.py
+- OK: 09_pitcher_context_snapshot.py
+- OK: 10_bullpen_fatigue_snapshot.py
+- OK: 12_data_source_registry.py
+- OK: 13_master_feature_dataset.py
+- OK: 14_feature_quality_audit.py
+- OK: 15_model_calibration_v2.py
+- OK: 16_live_calibrated_edge_gate.py
+- OK: 17_engine_final_decision.py
+- OK: 18_run_engine_v2_pipeline.py
+- OK: 19_engine_signal_ledger.py
+- OK: 20_resolve_engine_signal_ledger.py
+- OK: 21_run_engine_v2_full_pipeline.py
+- OK: 22_odds_snapshot_ledger.py
+- OK: 23_repair_resolved_scores.py
+- OK: 24_clv_and_line_movement_report.py
+- OK: 25_full_slate_engine.py
+- OK: 26_full_slate_strict_gate.py
+- OK: 27_backend_gap_field_audit.py
+
+Report checks:
+- OK: 15_model_calibration_v2_report.txt
+- OK: 17_engine_final_decision_report.txt
+- OK: 20_resolve_engine_signal_ledger_report.txt
+- OK: 21_engine_v2_full_pipeline_run_report.txt
+- OK: 22_odds_snapshot_ledger_report.txt
+- OK: 24_clv_and_line_movement_report.txt
+- OK: 25_full_slate_engine_report.txt
+- OK: 26_full_slate_strict_gate_report.txt
+- OK: 27_backend_gap_field_audit_report.txt
+
+Output checks:
+- OK: .astrodds/ASTRODDS-engine-final-signals-latest.json
+- OK: .astrodds/ASTRODDS-engine-signal-ledger.json
+- OK: .astrodds/ASTRODDS-odds-snapshot-ledger.json
+- OK: .astrodds/ASTRODDS-clv-line-movement-latest.json
+- OK: .astrodds/ASTRODDS-full-slate-strict-latest.json
+- OK: mlb-engine/baseballpred-inspired/models/ASTRODDS_MLB_CALIBRATION_V2.json
+- OK: mlb-engine/baseballpred-inspired/models/ASTRODDS_ENGINE_V2_DECISION_RULES.json
+
+Logic checks:
+- OK: Full runner pipeline OK
+- OK: Backend has modelProbabilityGapPct
+- OK: Strict gate no missing backend gap
+- OK: Strict gate detects conflicts
+- OK: Odds snapshot exists
+- OK: Signal ledger exists
+- OK: Final signals exists
+
+Engine V2 definition:
+- Calibrated probability, not raw confidence.
+- Context gates: pitcher, bullpen, lineup, weather.
+- Final decision: ENGINE_BUY / MANUAL_REVIEW / WATCH / NO_BET.
+- Signal ledger and resolver.
+- Odds snapshot ledger and CLV tracking.
+- Full slate strict gate with conflict blocking.
+- Paper/manual only. No real-money automation.
+
+Remaining for V3:
+- Historical odds dataset / closing odds.
+- ML ensemble models.
+- Walk-forward backtest.
+- Telegram connected only to finalEngineDecision.
+- Public proof log page.

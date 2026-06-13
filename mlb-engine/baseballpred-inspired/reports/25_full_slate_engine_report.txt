@@ -1,0 +1,43 @@
+ASTRODDS 25 FULL SLATE ENGINE REPORT
+========================================
+
+Goal:
+Score the full MLB moneyline slate from backend rows using calibrated probability.
+
+Backend rows: 69
+Moneyline candidates: 20
+Best per game rows: 20
+
+Decision counts:
+- FULL_SLATE_A_REVIEW: 16
+- NO_BET: 4
+
+Full slate ranked:
+- Miami Marlins @ Pittsburgh Pirates | Pick: Miami Marlins | Market=41.67% | Raw=70.0% | Cal=63.45% | CalEdge=21.79% | Decision=FULL_SLATE_A_REVIEW
+- Seattle Mariners @ Washington Nationals | Pick: Washington Nationals | Market=43.48% | Raw=59.0% | Cal=59.22% | CalEdge=15.74% | Decision=FULL_SLATE_A_REVIEW
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Market=49.5% | Raw=64.0% | Cal=63.45% | CalEdge=13.95% | Decision=FULL_SLATE_A_REVIEW
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Market=49.5% | Raw=67.0% | Cal=63.45% | CalEdge=13.95% | Decision=FULL_SLATE_A_REVIEW
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=50.0% | Raw=76.0% | Cal=63.45% | CalEdge=13.45% | Decision=FULL_SLATE_A_REVIEW
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Market=50.5% | Raw=62.0% | Cal=63.45% | CalEdge=12.96% | Decision=FULL_SLATE_A_REVIEW
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Market=50.5% | Raw=61.0% | Cal=63.45% | CalEdge=12.96% | Decision=FULL_SLATE_A_REVIEW
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Market=50.5% | Raw=62.0% | Cal=63.45% | CalEdge=12.96% | Decision=FULL_SLATE_A_REVIEW
+- Detroit Tigers @ Cleveland Guardians | Pick: Detroit Tigers | Market=50.5% | Raw=60.0% | Cal=63.45% | CalEdge=12.96% | Decision=FULL_SLATE_A_REVIEW
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | Raw=65.0% | Cal=63.45% | CalEdge=12.47% | Decision=FULL_SLATE_A_REVIEW
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | Market=52.83% | Raw=63.0% | Cal=63.45% | CalEdge=10.62% | Decision=FULL_SLATE_A_REVIEW
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Market=53.7% | Raw=63.0% | Cal=63.45% | CalEdge=9.75% | Decision=FULL_SLATE_A_REVIEW
+- Chicago Cubs @ San Francisco Giants | Pick: Chicago Cubs | Market=54.13% | Raw=60.0% | Cal=63.45% | CalEdge=9.33% | Decision=FULL_SLATE_A_REVIEW
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=50.0% | Raw=59.0% | Cal=59.22% | CalEdge=9.22% | Decision=FULL_SLATE_A_REVIEW
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Market=54.55% | Raw=69.0% | Cal=63.45% | CalEdge=8.91% | Decision=FULL_SLATE_A_REVIEW
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Market=54.55% | Raw=60.0% | Cal=63.45% | CalEdge=8.91% | Decision=FULL_SLATE_A_REVIEW
+- Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | Market=60.63% | Raw=74.0% | Cal=63.45% | CalEdge=2.82% | Decision=NO_BET
+- Colorado Rockies @ Athletics | Pick: Athletics | Market=61.83% | Raw=76.0% | Cal=63.45% | CalEdge=1.62% | Decision=NO_BET
+- Los Angeles Dodgers @ Chicago White Sox | Pick: Los Angeles Dodgers | Market=65.99% | Raw=60.0% | Cal=63.45% | CalEdge=-2.53% | Decision=NO_BET
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=71.01% | Raw=68.0% | Cal=63.45% | CalEdge=-7.56% | Decision=NO_BET
+
+Important:
+- This is full slate research output.
+- It does not override final Engine V2 context gates yet.
+- Next: connect full slate rows to context gates and final decision rules.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-engine-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-engine-latest.csv

@@ -14,6 +14,9 @@ PIPELINE = [
     ("16_live_calibrated_edge_gate.py", "Calibrated edge gate"),
     ("17_engine_final_decision.py", "Final engine decision"),
     ("22_odds_snapshot_ledger.py", "Save odds and edge snapshot"),
+    ("24_clv_and_line_movement_report.py", "CLV and line movement report"),
+    ("25_full_slate_engine.py", "Full slate research engine"),
+    ("26_full_slate_strict_gate.py", "Full slate strict gate"),
     ("19_engine_signal_ledger.py", "Save final signals to ledger"),
     ("20_resolve_engine_signal_ledger.py", "Resolve ledger win/loss when games are final"),
 ]
@@ -91,4 +94,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
