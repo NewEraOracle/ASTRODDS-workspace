@@ -1,0 +1,19 @@
+﻿ASTRODDS MLB BASELINE RESULTS
+
+Dataset:
+2016-2026 MLB regular season
+Completed games: 23,826
+
+Results:
+Home team baseline: 53.21%
+Recent 10-game form: 53.86%
+Previous season record: 55.10%
+70% previous season + 30% recent form: 55.66%
+
+Current best simple formula:
+TeamStrengthScore = (PreviousSeasonWinPct * 0.70) + (Recent10GameForm * 0.30)
+
+Conclusion:
+Previous season strength is the strongest simple base.
+Recent form helps as a secondary factor.
+Next feature to test: starting pitcher.

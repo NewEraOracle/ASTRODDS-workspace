@@ -1,0 +1,10 @@
+ASTRODDS CONFIDENCE GAP BUCKET REPORT
+============================================
+Formula: 60% previous record + 20% recent form + 20% Pythagorean
+
+0-1%: tested=1309 correct=682 accuracy=52.1%
+1-2%: tested=1331 correct=696 accuracy=52.29%
+2-3%: tested=1288 correct=684 accuracy=53.11%
+3-5%: tested=2544 correct=1362 accuracy=53.54%
+5-8%: tested=3610 correct=1943 accuracy=53.82%
+8%+: tested=10992 correct=6437 accuracy=58.56%

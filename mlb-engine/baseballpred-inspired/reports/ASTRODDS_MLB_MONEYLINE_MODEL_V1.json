@@ -1,0 +1,69 @@
+{
+  "modelName": "ASTRODDS_MLB_MONEYLINE_MODEL_V1",
+  "createdAt": "2026-06-13T11:14:55.863278Z",
+  "dataset": {
+    "source": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2016_2026.csv",
+    "completedGames": 23826,
+    "seasons": "2016-2026 regular season completed games"
+  },
+  "formula": {
+    "previousSeasonRecordWeight": 0.6,
+    "recent10GameFormWeight": 0.2,
+    "previousSeasonPythagoreanWeight": 0.2
+  },
+  "historicalBacktest": {
+    "overallAccuracy": 56.01,
+    "testedGames": 21074,
+    "correct": 11804,
+    "confidenceBuckets": {
+      "0-1%": {
+        "tested": 1309,
+        "correct": 682,
+        "accuracy": 52.1
+      },
+      "1-2%": {
+        "tested": 1331,
+        "correct": 696,
+        "accuracy": 52.29
+      },
+      "2-3%": {
+        "tested": 1288,
+        "correct": 684,
+        "accuracy": 53.11
+      },
+      "3-5%": {
+        "tested": 2544,
+        "correct": 1362,
+        "accuracy": 53.54
+      },
+      "5-8%": {
+        "tested": 3610,
+        "correct": 1943,
+        "accuracy": 53.82
+      },
+      "8%+": {
+        "tested": 10992,
+        "correct": 6437,
+        "accuracy": 58.56
+      }
+    }
+  },
+  "vvsRules": {
+    "minimumScoreGap": 0.08,
+    "moneylineOnly": true,
+    "minimumEdgePct": 3,
+    "maximumEdgePct": 25,
+    "marketProbabilityMin": 0.3,
+    "marketProbabilityMax": 0.75,
+    "maxPicksPerDay": 10,
+    "paperOnly": true,
+    "realMoneyAutoBetting": false
+  },
+  "notes": [
+    "Do not force picks.",
+    "VVS picks require model score gap 8%+.",
+    "Sportsbook odds must be connected.",
+    "Live edge ledger must be resolved before real-money use.",
+    "Pitcher, bullpen, lineup, injury, and weather features are future upgrades."
+  ]
+}

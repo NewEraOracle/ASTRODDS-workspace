@@ -1,0 +1,27 @@
+ASTRODDS STARTING PITCHER BASELINE
+
+Dataset:
+2016-2026 completed MLB games
+
+Rule:
+Pick the team whose probable starting pitcher has the better historical team-win rate in prior starts.
+Minimum prior starts required: 5
+
+Results:
+Tested games: 19401
+Correct: 10306
+Skipped: 4425
+Starting pitcher baseline accuracy: 53.12%
+
+Comparison:
+Home team baseline: 53.21%
+Recent 10-game form: 53.86%
+Previous season record: 55.10%
+70% previous season + 30% recent form: 55.66%
+
+Conclusion:
+Starting pitcher history alone does not beat the current combined team-strength baseline.
+
+Next:
+Test combined formula:
+Team strength + recent form + pitcher advantage

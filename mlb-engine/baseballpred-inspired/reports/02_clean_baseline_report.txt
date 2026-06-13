@@ -1,0 +1,32 @@
+ASTRODDS 02 CLEAN BASELINE MODEL REPORT
+================================================
+Completed games: 23826
+
+Top 10 formulas:
+Prev 60% | Recent 20% | Pyth 20% => Accuracy 56.01% | tested 21074 | correct 11804
+Prev 40% | Recent 20% | Pyth 40% => Accuracy 55.99% | tested 21074 | correct 11799
+Prev 50% | Recent 20% | Pyth 30% => Accuracy 55.95% | tested 21074 | correct 11791
+Prev 30% | Recent 20% | Pyth 50% => Accuracy 55.91% | tested 21074 | correct 11782
+Prev 70% | Recent 10% | Pyth 20% => Accuracy 55.91% | tested 21074 | correct 11783
+Prev 20% | Recent 20% | Pyth 60% => Accuracy 55.89% | tested 21074 | correct 11778
+Prev 70% | Recent 20% | Pyth 10% => Accuracy 55.88% | tested 21074 | correct 11776
+Prev 60% | Recent 10% | Pyth 30% => Accuracy 55.87% | tested 21074 | correct 11774
+Prev 40% | Recent 10% | Pyth 50% => Accuracy 55.85% | tested 21074 | correct 11769
+Prev 50% | Recent 10% | Pyth 40% => Accuracy 55.84% | tested 21074 | correct 11767
+
+Selected model:
+Prev 60% | Recent 20% | Pyth 20% => Accuracy 56.01%
+
+Confidence gap buckets:
+0-1%: tested=1309 correct=682 accuracy=52.1%
+1-2%: tested=1331 correct=696 accuracy=52.29%
+2-3%: tested=1288 correct=684 accuracy=53.11%
+3-5%: tested=2544 correct=1362 accuracy=53.54%
+5-8%: tested=3610 correct=1943 accuracy=53.82%
+8%+: tested=10992 correct=6437 accuracy=58.56%
+
+VVS rule:
+Only promote strong picks when model score gap is 8%+ and sportsbook edge is clean.
+
+Grid CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\clean_baseline_grid_results.csv
+Model JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_MLB_MONEYLINE_MODEL_V1.json

@@ -1,0 +1,20 @@
+ASTRODDS 05 LIVE VVS SNAPSHOT REPORT
+==========================================
+Snapshot time: 2026-06-13T11:22:37.350472Z
+API rows: 69
+VVS rows saved: 8
+Ledger total rows: 9
+
+VVS picks:
+- 2026-06-14T17:35:00Z | Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | Status: daily_pick | Market: 51.9% | Model: 74.0% | Edge: 22.08% | Gap: 48.0% | Bucket: 15-25%
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Status: daily_pick | Market: 58.7% | Model: 76.0% | Edge: 17.32% | Gap: 52.0% | Bucket: 15-25%
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Status: daily_pick | Market: 51.0% | Model: 65.0% | Edge: 14.02% | Gap: 30.0% | Bucket: 10-15%
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Status: daily_pick | Market: 63.2% | Model: 76.0% | Edge: 12.76% | Gap: 52.0% | Bucket: 10-15%
+- 2026-06-13T20:10:00Z | Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Status: daily_pick | Market: 51.0% | Model: 63.0% | Edge: 12.02% | Gap: 26.0% | Bucket: 10-15%
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Status: buy | Market: 55.8% | Model: 67.0% | Edge: 11.25% | Gap: 34.0% | Bucket: 10-15%
+- 2026-06-14T17:37:00Z | New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Status: buy | Market: 55.0% | Model: 64.0% | Edge: 9.05% | Gap: 28.0% | Bucket: 5-10%
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Status: buy | Market: 58.7% | Model: 64.0% | Edge: 5.32% | Gap: 28.0% | Bucket: 5-10%
+
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-live-snapshot-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-live-snapshot-latest.json
+Ledger: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\edge-tracking\edge-ledger.json

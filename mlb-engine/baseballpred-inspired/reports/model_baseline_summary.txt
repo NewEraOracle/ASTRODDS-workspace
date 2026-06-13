@@ -1,0 +1,18 @@
+﻿ASTRODDS BASELINE MODEL RESULTS
+
+Home team baseline: 53.21%
+Previous season record: 55.10%
+Recent 10-game win/loss form: 53.86%
+Recent run differential: ~53%
+Previous season run differential: 55.43%
+Home/away split: 55.25%
+Starting pitcher history: 53.12%
+65/25/10 with pitcher: 54.99%
+50 record / 25 run diff / 25 recent: 54.67%
+
+BEST CURRENT FORMULA:
+70% previous season record + 30% recent 10-game form = 55.66%
+
+Conclusion:
+Pitcher history, recent run differential, and home/away split are useful context, but they do not beat the current best baseline alone.
+Next step: add historical odds / market probability and test edge.

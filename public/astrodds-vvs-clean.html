@@ -1,0 +1,104 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ASTRODDS Clean VVS Picks</title>
+  <style>
+    body { background:#050814; color:#f4f7ff; font-family:Arial, sans-serif; padding:24px; }
+    h1 { margin:0 0 8px; font-size:34px; }
+    .sub { color:#9fafc9; margin-bottom:20px; }
+    .cards { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
+    .card { background:#0d1524; border:1px solid #24314d; border-radius:12px; padding:12px 16px; min-width:150px; }
+    .label { color:#9fafc9; font-size:12px; text-transform:uppercase; }
+    .num { font-size:28px; font-weight:800; margin-top:4px; }
+    table { width:100%; border-collapse:collapse; background:#0c1320; border:1px solid #24314d; border-radius:12px; overflow:hidden; }
+    th, td { padding:12px 10px; border-bottom:1px solid #202c45; text-align:left; font-size:14px; vertical-align:top; }
+    th { background:#121d31; color:#b6c6e7; font-size:12px; text-transform:uppercase; }
+    .daily_pick { color:#44ff99; font-weight:800; }
+    .buy { color:#7fc8ff; font-weight:800; }
+    .edge { color:#44ff99; font-weight:800; }
+    .warn { color:#ffd66b; }
+    .why { color:#b8c4dc; max-width:520px; line-height:1.35; }
+    .bad { color:#ff7676; }
+  </style>
+</head>
+<body>
+  <h1>ASTRODDS Clean VVS Moneyline Picks</h1>
+  <div class="sub">
+    Final clean board. Alias warnings removed. One pick per game. Paper/manual only.
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="label">Clean VVS Picks</div><div class="num" id="count">0</div></div>
+    <div class="card"><div class="label">Daily Picks</div><div class="num" id="daily">0</div></div>
+    <div class="card"><div class="label">Buy</div><div class="num" id="buy">0</div></div>
+    <div class="card"><div class="label">Mode</div><div class="num warn">Paper</div></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Game</th>
+        <th>Pick</th>
+        <th>Status</th>
+        <th>Market</th>
+        <th>Model</th>
+        <th>Edge</th>
+        <th>Gap</th>
+        <th>Bucket</th>
+        <th>Why</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+      <tr><td colspan="10">Loading...</td></tr>
+    </tbody>
+  </table>
+
+<script>
+function pct(x) {
+  const n = Number(x);
+  if (!Number.isFinite(n)) return "-";
+  return (n * 100).toFixed(1) + "%";
+}
+
+async function load() {
+  const res = await fetch("/astrodds-vvs-clean.json", { cache: "no-store" });
+  const rows = await res.json();
+
+  document.getElementById("count").textContent = rows.length;
+  document.getElementById("daily").textContent = rows.filter(r => r.status === "daily_pick").length;
+  document.getElementById("buy").textContent = rows.filter(r => r.status === "buy").length;
+
+  const tbody = document.getElementById("tbody");
+  tbody.innerHTML = "";
+
+  if (!rows.length) {
+    tbody.innerHTML = "<tr><td colspan='10' class='bad'>No clean VVS picks. ASTRODDS does not force bets.</td></tr>";
+    return;
+  }
+
+  rows.forEach((r, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${i + 1}</td>
+      <td><b>${r.game}</b><br><span class="warn">${r.date || ""}</span></td>
+      <td><b>${r.pick}</b></td>
+      <td class="${r.status}">${r.status}</td>
+      <td>${pct(r.marketProbability)}</td>
+      <td>${pct(r.modelProbability)}</td>
+      <td class="edge">+${Number(r.edgePct).toFixed(1)}%</td>
+      <td class="edge">${Number(r.modelGapPct).toFixed(1)}%</td>
+      <td>${r.edgeBucket}</td>
+      <td class="why">${r.vvsReason || "-"}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+load().catch(err => {
+  document.getElementById("tbody").innerHTML = "<tr><td colspan='10' class='bad'>" + err.message + "</td></tr>";
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+ASTRODDS 03 EDGE LEDGER REPORT
+====================================
+Ledger rows: 3
+
+Edge buckets:
+15-25%: total=1 win=0 loss=0 pending=1 winRate=None
+5-10%: total=2 win=0 loss=0 pending=2 winRate=None
+
+Pending picks:
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Edge: 17.32% | Bucket: 15-25%
+- 2026-06-14T17:37:00Z | New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Edge: 8.25% | Bucket: 5-10%
+- 2026-06-13T19:07:00Z | New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Edge: 5.25% | Bucket: 5-10%

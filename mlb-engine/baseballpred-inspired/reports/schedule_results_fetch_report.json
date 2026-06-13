@@ -1,0 +1,72 @@
+{
+  "createdAt": "2026-06-13T02:37:17.091064Z",
+  "years": {
+    "2016": {
+      "games": 2456,
+      "completed": 2428,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2016.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2016.csv"
+    },
+    "2017": {
+      "games": 2469,
+      "completed": 2430,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2017.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2017.csv"
+    },
+    "2018": {
+      "games": 2487,
+      "completed": 2433,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2018.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2018.csv"
+    },
+    "2019": {
+      "games": 2472,
+      "completed": 2433,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2019.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2019.csv"
+    },
+    "2020": {
+      "games": 973,
+      "completed": 900,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2020.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2020.csv"
+    },
+    "2021": {
+      "games": 2512,
+      "completed": 2437,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2021.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2021.csv"
+    },
+    "2022": {
+      "games": 2479,
+      "completed": 2431,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2022.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2022.csv"
+    },
+    "2023": {
+      "games": 2476,
+      "completed": 2437,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2023.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2023.csv"
+    },
+    "2024": {
+      "games": 2469,
+      "completed": 2432,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2024.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2024.csv"
+    },
+    "2025": {
+      "games": 2464,
+      "completed": 2434,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2025.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2025.csv"
+    },
+    "2026": {
+      "games": 2445,
+      "completed": 1031,
+      "rawPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\raw\\mlb_schedule_2026.json",
+      "csvPath": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2026.csv"
+    }
+  },
+  "combinedCsv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_schedule_results_2016_2026.csv"
+}

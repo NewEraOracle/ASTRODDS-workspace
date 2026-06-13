@@ -1,0 +1,21 @@
+ASTRODDS 04 RESOLVE EDGE RESULTS REPORT
+============================================
+Ledger rows: 9
+Resolved this run: 0
+Still pending: 9
+
+Bucket performance:
+10-15%: total=4 win=0 loss=0 pending=4 winRate=None
+15-25%: total=2 win=0 loss=0 pending=2 winRate=None
+5-10%: total=3 win=0 loss=0 pending=3 winRate=None
+
+Ledger:
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Result: pending | Winner: -
+- 2026-06-14T17:37:00Z | New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Result: pending | Winner: -
+- 2026-06-13T19:07:00Z | New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Result: pending | Winner: -
+- 2026-06-14T17:35:00Z | Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | Result: pending | Winner: -
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Result: pending | Winner: -
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Result: pending | Winner: -
+- 2026-06-13T20:10:00Z | Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Result: pending | Winner: -
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Result: pending | Winner: -
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Result: pending | Winner: -

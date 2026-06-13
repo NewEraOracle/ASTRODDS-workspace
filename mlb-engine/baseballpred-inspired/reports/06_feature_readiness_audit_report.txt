@@ -1,0 +1,35 @@
+ASTRODDS 06 FEATURE READINESS AUDIT
+==========================================
+API rows: 69
+VVS rows: 12
+
+Goal:
+Audit what data/features are still missing before making ASTRODDS smarter.
+
+- Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | Edge: 22.08% | Gap: 48.0% | Missing: generic_reason_only, alias_warning_present
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Edge: 17.32% | Gap: 52.0% | Missing: generic_reason_only
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Edge: 14.02% | Gap: 30.0% | Missing: generic_reason_only
+- Colorado Rockies @ Athletics | Pick: Athletics | Edge: 12.76% | Gap: 52.0% | Missing: generic_reason_only
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Edge: 12.02% | Gap: 26.0% | Missing: generic_reason_only, alias_warning_present
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Edge: 11.25% | Gap: 34.0% | Missing: generic_reason_only
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | Edge: 10.17% | Gap: 26.0% | Missing: generic_reason_only
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Edge: 9.05% | Gap: 28.0% | Missing: generic_reason_only, alias_warning_present
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Edge: 8.02% | Gap: 18.0% | Missing: generic_reason_only, alias_warning_present
+- Seattle Mariners @ Washington Nationals | Pick: Washington Nationals | Edge: 6.08% | Gap: 16.0% | Missing: generic_reason_only, alias_warning_present
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Edge: 6.05% | Gap: 22.0% | Missing: generic_reason_only, alias_warning_present
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Edge: 5.32% | Gap: 28.0% | Missing: generic_reason_only
+
+Feature readiness summary:
+- alias_warning_present: 6
+- generic_reason_only: 12
+
+Next recommended build order:
+1. Improve reasons: show TeamStrength / RecentForm / Pythagorean / Edge / Gap.
+2. Add backend fields: modelProbabilityGapPct, vvsEligible, vvsReason, vvsRank.
+3. Add pitcher context from probable pitchers.
+4. Add bullpen fatigue.
+5. Add lineup / injuries.
+6. Add weather / park factor.
+
+Rule:
+Do not add new betting logic until current VVS picks are resolved.

@@ -44,3 +44,18 @@ next-env.d.ts
 .astrodds/daily/
 .astrodds/*.jsonl
 astrodss-dev*.log
+
+# ASTRODDS local/runtime noise
+*.log
+*.patch
+tsc-*.txt
+build-*.txt
+route-backup-*.txt
+route.backup-*.txt
+bestbets-live-debug.json
+
+# Local runtime data / snapshots
+.astrodds/
+
+# BaseballPred local raw data
+mlb-engine/baseballpred-inspired/data/raw/

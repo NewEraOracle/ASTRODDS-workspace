@@ -1,0 +1,974 @@
+season,game_id,game_date,official_date,status,detailed_state,away_team,home_team,away_score,home_score,winner,home_win,away_probable_pitcher,home_probable_pitcher
+2020,630851,2020-07-23T23:08:00Z,2020-07-23,Final,Completed Early,New York Yankees,Washington Nationals,4,1,New York Yankees,0,Gerrit Cole,Max Scherzer
+2020,631377,2020-07-24T02:08:00Z,2020-07-23,Final,Final,San Francisco Giants,Los Angeles Dodgers,1,8,Los Angeles Dodgers,1,Johnny Cueto,Dustin May
+2020,631242,2020-07-24T20:10:00Z,2020-07-24,Final,Final,Atlanta Braves,New York Mets,0,1,New York Mets,1,Michael Soroka,Jacob deGrom
+2020,631589,2020-07-24T22:10:00Z,2020-07-24,Final,Final,Detroit Tigers,Cincinnati Reds,1,7,Cincinnati Reds,1,Matthew Boyd,Sonny Gray
+2020,630966,2020-07-24T22:40:00Z,2020-07-24,Final,Final,Toronto Blue Jays,Tampa Bay Rays,6,4,Toronto Blue Jays,0,Hyun Jin Ryu,Charlie Morton
+2020,631121,2020-07-24T23:05:00Z,2020-07-24,Final,Final,Miami Marlins,Philadelphia Phillies,5,2,Miami Marlins,0,Sandy Alcantara,Aaron Nola
+2020,631563,2020-07-24T23:10:00Z,2020-07-24,Final,Final,Kansas City Royals,Cleveland Indians,0,2,Cleveland Indians,1,Danny Duffy,Shane Bieber
+2020,631641,2020-07-24T23:10:00Z,2020-07-24,Final,Final,Milwaukee Brewers,Chicago Cubs,0,3,Chicago Cubs,1,Brandon Woodruff,Kyle Hendricks
+2020,631664,2020-07-24T23:30:00Z,2020-07-24,Final,Final,Baltimore Orioles,Boston Red Sox,2,13,Boston Red Sox,1,Tommy Milone,Nathan Eovaldi
+2020,630941,2020-07-25T00:05:00Z,2020-07-24,Final,Final,Colorado Rockies,Texas Rangers,0,1,Texas Rangers,1,Germán Márquez,Lance Lynn
+2020,631514,2020-07-25T00:10:00Z,2020-07-24,Final,Final,Minnesota Twins,Chicago White Sox,10,5,Minnesota Twins,0,José Berríos,Lucas Giolito
+2020,630989,2020-07-25T00:15:00Z,2020-07-24,Final,Final,Pittsburgh Pirates,St. Louis Cardinals,4,5,St. Louis Cardinals,1,Joe Musgrove,Jack Flaherty
+2020,631091,2020-07-25T01:10:00Z,2020-07-24,Final,Final,Arizona Diamondbacks,San Diego Padres,2,7,San Diego Padres,1,Madison Bumgarner,Chris Paddack
+2020,631438,2020-07-25T01:10:00Z,2020-07-24,Final,Final,Seattle Mariners,Houston Astros,2,8,Houston Astros,1,Marco Gonzales,Justin Verlander
+2020,631378,2020-07-25T01:40:00Z,2020-07-24,Final,Final,San Francisco Giants,Los Angeles Dodgers,1,9,Los Angeles Dodgers,1,Tyler Anderson,Ross Stripling
+2020,631182,2020-07-25T02:10:00Z,2020-07-24,Final,Final,Los Angeles Angels,Oakland Athletics,3,7,Oakland Athletics,1,Andrew Heaney,Frankie Montas
+2020,631642,2020-07-25T17:05:00Z,2020-07-25,Final,Final,Milwaukee Brewers,Chicago Cubs,8,3,Milwaukee Brewers,0,Corbin Burnes,Yu Darvish
+2020,631666,2020-07-25T17:35:00Z,2020-07-25,Final,Final,Baltimore Orioles,Boston Red Sox,7,2,Baltimore Orioles,0,Alex Cobb,Martín Pérez
+2020,631515,2020-07-25T18:10:00Z,2020-07-25,Final,Final,Minnesota Twins,Chicago White Sox,3,10,Chicago White Sox,1,Randy Dobnak,Dallas Keuchel
+2020,630992,2020-07-25T18:15:00Z,2020-07-25,Final,Final,Pittsburgh Pirates,St. Louis Cardinals,1,9,St. Louis Cardinals,1,Trevor Williams,Adam Wainwright
+2020,630967,2020-07-25T19:10:00Z,2020-07-25,Final,Final,Toronto Blue Jays,Tampa Bay Rays,1,4,Tampa Bay Rays,1,Matt Shoemaker,Ryan Yarbrough
+2020,630942,2020-07-25T20:05:00Z,2020-07-25,Final,Final,Colorado Rockies,Texas Rangers,3,2,Colorado Rockies,0,Jon Gray,Mike Minor
+2020,631108,2020-07-25T20:05:00Z,2020-07-25,Final,Final,Miami Marlins,Philadelphia Phillies,1,7,Philadelphia Phillies,1,Caleb Smith,Zack Wheeler
+2020,631181,2020-07-25T20:10:00Z,2020-07-25,Final,Final,Los Angeles Angels,Oakland Athletics,4,1,Los Angeles Angels,0,Dylan Bundy,Sean Manaea
+2020,631453,2020-07-25T20:10:00Z,2020-07-25,Final,Final,Seattle Mariners,Houston Astros,2,7,Houston Astros,1,Taijuan Walker,Lance McCullers Jr.
+2020,631382,2020-07-25T20:10:00Z,2020-07-25,Final,Final,San Francisco Giants,Los Angeles Dodgers,5,4,San Francisco Giants,0,Logan Webb,Alex Wood
+2020,631241,2020-07-25T20:10:00Z,2020-07-25,Final,Final,Atlanta Braves,New York Mets,5,3,Atlanta Braves,0,Max Fried,Steven Matz
+2020,631603,2020-07-25T21:10:00Z,2020-07-25,Final,Final,Detroit Tigers,Cincinnati Reds,6,4,Detroit Tigers,0,Iván Nova,Luis Castillo
+2020,631565,2020-07-25T21:10:00Z,2020-07-25,Final,Final,Kansas City Royals,Cleveland Indians,3,2,Kansas City Royals,0,Brady Singer,Mike Clevinger
+2020,630899,2020-07-25T23:15:00Z,2020-07-25,Final,Final,New York Yankees,Washington Nationals,2,9,Washington Nationals,1,James Paxton,Erick Fedde
+2020,631092,2020-07-26T01:10:00Z,2020-07-25,Final,Final,Arizona Diamondbacks,San Diego Padres,1,5,San Diego Padres,1,Robbie Ray,Dinelson Lamet
+2020,631126,2020-07-26T17:05:00Z,2020-07-26,Final,Final,Miami Marlins,Philadelphia Phillies,11,6,Miami Marlins,0,Robert Dugger,Vince Velasquez
+2020,630856,2020-07-26T17:05:00Z,2020-07-26,Final,Final,New York Yankees,Washington Nationals,3,2,New York Yankees,0,Jonathan Loáisiga,Patrick Corbin
+2020,631591,2020-07-26T17:10:00Z,2020-07-26,Final,Final,Detroit Tigers,Cincinnati Reds,3,2,Detroit Tigers,0,Spencer Turnbull,Trevor Bauer
+2020,631566,2020-07-26T17:10:00Z,2020-07-26,Final,Final,Kansas City Royals,Cleveland Indians,2,9,Cleveland Indians,1,Ronald Bolaños,Carlos Carrasco
+2020,630968,2020-07-26T17:10:00Z,2020-07-26,Final,Final,Toronto Blue Jays,Tampa Bay Rays,5,6,Tampa Bay Rays,1,Thomas Hatch,Blake Snell
+2020,631668,2020-07-26T17:35:00Z,2020-07-26,Final,Final,Baltimore Orioles,Boston Red Sox,7,4,Baltimore Orioles,0,Wade LeBlanc,Ryan Weber
+2020,631441,2020-07-26T18:10:00Z,2020-07-26,Final,Final,Seattle Mariners,Houston Astros,7,6,Seattle Mariners,0,Yusei Kikuchi,Zack Greinke
+2020,631517,2020-07-26T18:10:00Z,2020-07-26,Final,Final,Minnesota Twins,Chicago White Sox,14,2,Minnesota Twins,0,Kenta Maeda,Reynaldo López
+2020,630993,2020-07-26T18:15:00Z,2020-07-26,Final,Final,Pittsburgh Pirates,St. Louis Cardinals,5,1,Pittsburgh Pirates,0,Mitch Keller,Dakota Hudson
+2020,631643,2020-07-26T18:20:00Z,2020-07-26,Final,Final,Milwaukee Brewers,Chicago Cubs,1,9,Chicago Cubs,1,Freddy Peralta,Tyler Chatwood
+2020,630943,2020-07-26T18:35:00Z,2020-07-26,Final,Final,Colorado Rockies,Texas Rangers,5,2,Colorado Rockies,0,Kyle Freeland,Corey Kluber
+2020,631165,2020-07-26T20:10:00Z,2020-07-26,Final,Final,Los Angeles Angels,Oakland Athletics,4,6,Oakland Athletics,1,Shohei Ohtani,Mike Fiers
+2020,631097,2020-07-26T20:10:00Z,2020-07-26,Final,Final,Arizona Diamondbacks,San Diego Padres,4,3,Arizona Diamondbacks,0,Zac Gallen,Garrett Richards
+2020,631240,2020-07-26T23:08:00Z,2020-07-26,Final,Final,Atlanta Braves,New York Mets,14,1,Atlanta Braves,0,Sean Newcomb,Rick Porcello
+2020,631384,2020-07-27T02:08:00Z,2020-07-26,Final,Final,San Francisco Giants,Los Angeles Dodgers,3,1,San Francisco Giants,0,Drew Smyly,Julio Urías
+2020,631168,2020-07-27T19:40:00Z,2020-07-27,Final,Final,Los Angeles Angels,Oakland Athletics,0,3,Oakland Athletics,1,Griffin Canning,Chris Bassitt
+2020,631098,2020-07-27T20:10:00Z,2020-07-27,Final,Final,Arizona Diamondbacks,San Diego Padres,2,6,San Diego Padres,1,Luke Weaver,Joey Lucchesi
+2020,630861,2020-07-27T22:05:00Z,2020-07-27,Final,Final,Toronto Blue Jays,Washington Nationals,4,1,Toronto Blue Jays,0,Trent Thornton,Aníbal Sánchez
+2020,631592,2020-07-27T22:40:00Z,2020-07-27,Final,Final,Chicago Cubs,Cincinnati Reds,8,7,Chicago Cubs,0,Jon Lester,Wade Miley
+2020,630969,2020-07-27T22:40:00Z,2020-07-27,Final,Final,Atlanta Braves,Tampa Bay Rays,5,14,Tampa Bay Rays,1,Mike Foltynewicz,Tyler Glasnow
+2020,631130,2020-07-27T23:05:00Z,2020-07-27,Final,Final,Milwaukee Brewers,Pittsburgh Pirates,6,5,Milwaukee Brewers,0,Adrian Houser,Steven Brault
+2020,631489,2020-07-27T23:10:00Z,2020-07-27,Final,Final,Kansas City Royals,Detroit Tigers,14,6,Kansas City Royals,0,Mike Montgomery,Michael Fulmer
+2020,631442,2020-07-27T23:10:00Z,2020-07-27,Final,Final,Seattle Mariners,Houston Astros,5,8,Houston Astros,1,Kendall Graveman,Josh James
+2020,631669,2020-07-27T23:35:00Z,2020-07-27,Final,Final,New York Mets,Boston Red Sox,7,4,New York Mets,0,Michael Wacha,Josh Osich
+2020,631127,2020-07-27T23:05:00Z,2020-08-05,Final,Postponed,New York Yankees,Philadelphia Phillies,,,,,J.A. Happ,Jake Arrieta
+2020,631567,2020-07-27T23:10:00Z,2020-07-28,Final,Postponed,Chicago White Sox,Cleveland Indians,,,,,Dylan Cease,Aaron Civale
+2020,631339,2020-07-27T23:10:00Z,2020-08-05,Final,Postponed,Baltimore Orioles,Miami Marlins,,,,,Asher Wojciechowski,Pablo López
+2020,631573,2020-07-28T19:40:00Z,2020-07-28,Final,Final,Chicago White Sox,Cleveland Indians,3,4,Cleveland Indians,1,Dylan Cease,Aaron Civale
+2020,631567,2020-07-28T19:45:00Z,2020-07-28,Final,Final,Chicago White Sox,Cleveland Indians,3,5,Cleveland Indians,1,Carlos Rodón,Adam Plutko
+2020,630866,2020-07-28T22:05:00Z,2020-07-28,Final,Final,Toronto Blue Jays,Washington Nationals,5,1,Toronto Blue Jays,0,Tanner Roark,Austin Voth
+2020,631593,2020-07-28T22:40:00Z,2020-07-28,Final,Final,Chicago Cubs,Cincinnati Reds,8,5,Chicago Cubs,0,Alec Mills,Tyler Mahle
+2020,630970,2020-07-28T22:40:00Z,2020-07-28,Final,Final,Atlanta Braves,Tampa Bay Rays,2,5,Tampa Bay Rays,1,Kyle Wright,Yonny Chirinos
+2020,631132,2020-07-28T23:05:00Z,2020-07-28,Final,Final,Milwaukee Brewers,Pittsburgh Pirates,6,8,Pittsburgh Pirates,1,Josh Lindblom,Derek Holland
+2020,631490,2020-07-28T23:10:00Z,2020-07-28,Final,Final,Kansas City Royals,Detroit Tigers,3,4,Detroit Tigers,1,Kyle Zimmer,Rony García
+2020,631663,2020-07-28T23:30:00Z,2020-07-28,Final,Final,New York Mets,Boston Red Sox,8,3,New York Mets,0,David Peterson,Matt Hall
+2020,631269,2020-07-29T00:10:00Z,2020-07-28,Final,Final,St. Louis Cardinals,Minnesota Twins,3,6,Minnesota Twins,1,Carlos Martinez,Homer Bailey
+2020,630944,2020-07-29T01:05:00Z,2020-07-28,Final,Final,Arizona Diamondbacks,Texas Rangers,4,1,Arizona Diamondbacks,0,Merrill Kelly,Kyle Gibson
+2020,631443,2020-07-29T01:10:00Z,2020-07-28,Final,Final,Los Angeles Dodgers,Houston Astros,5,2,Los Angeles Dodgers,0,Walker Buehler,Framber Valdez
+2020,631171,2020-07-29T01:40:00Z,2020-07-28,Final,Final,Colorado Rockies,Oakland Athletics,8,3,Colorado Rockies,0,Antonio Senzatela,Daniel Mengden
+2020,631387,2020-07-29T01:40:00Z,2020-07-28,Final,Final,Seattle Mariners,Los Angeles Angels,2,10,Los Angeles Angels,1,Justus Sheffield,Patrick Sandoval
+2020,631014,2020-07-29T01:45:00Z,2020-07-28,Final,Final,San Diego Padres,San Francisco Giants,5,3,San Diego Padres,0,Zach Davies,Jeff Samardzija
+2020,631129,2020-07-28T22:05:00Z,2020-08-06,Final,Postponed,New York Yankees,Philadelphia Phillies,,,,,Gerrit Cole,Zach Eflin
+2020,631340,2020-07-28T23:10:00Z,2020-08-06,Final,Postponed,Baltimore Orioles,Miami Marlins,,,,,Kohl Stewart,Elieser Hernández
+2020,631172,2020-07-29T19:40:00Z,2020-07-29,Final,Final,Colorado Rockies,Oakland Athletics,5,1,Colorado Rockies,0,Germán Márquez,Frankie Montas
+2020,630940,2020-07-29T20:05:00Z,2020-07-29,Final,Final,Arizona Diamondbacks,Texas Rangers,4,7,Texas Rangers,1,Madison Bumgarner,Lance Lynn
+2020,630916,2020-07-29T22:05:00Z,2020-07-29,Final,Final,Washington Nationals,Toronto Blue Jays,4,0,Washington Nationals,0,Max Scherzer,Nate Pearson
+2020,631569,2020-07-29T22:10:00Z,2020-07-29,Final,Final,Chicago White Sox,Cleveland Indians,4,0,Chicago White Sox,0,Lucas Giolito,Zach Plesac
+2020,631594,2020-07-29T22:40:00Z,2020-07-29,Final,Final,Chicago Cubs,Cincinnati Reds,7,12,Cincinnati Reds,1,Kyle Hendricks,Sonny Gray
+2020,631137,2020-07-29T23:05:00Z,2020-07-29,Final,Final,Milwaukee Brewers,Pittsburgh Pirates,3,0,Milwaukee Brewers,0,Brandon Woodruff,Joe Musgrove
+2020,631492,2020-07-29T23:10:00Z,2020-07-29,Final,Final,Kansas City Royals,Detroit Tigers,4,5,Detroit Tigers,1,Danny Duffy,Matthew Boyd
+2020,631444,2020-07-29T23:10:00Z,2020-07-29,Final,Final,Los Angeles Dodgers,Houston Astros,4,2,Los Angeles Dodgers,0,Dustin May,Cristian Javier
+2020,631239,2020-07-29T23:10:00Z,2020-07-29,Final,Final,Boston Red Sox,New York Mets,6,5,Boston Red Sox,0,Nathan Eovaldi,Jacob deGrom
+2020,630272,2020-07-29T23:10:00Z,2020-07-29,Final,Final,Tampa Bay Rays,Atlanta Braves,4,7,Atlanta Braves,1,Charlie Morton,Michael Soroka
+2020,630495,2020-07-29T23:35:00Z,2020-07-29,Final,Final,New York Yankees,Baltimore Orioles,9,3,New York Yankees,0,Gerrit Cole,Asher Wojciechowski
+2020,631270,2020-07-30T00:10:00Z,2020-07-29,Final,Final,St. Louis Cardinals,Minnesota Twins,0,3,Minnesota Twins,1,Daniel Ponce de Leon,Rich Hill
+2020,631033,2020-07-30T01:45:00Z,2020-07-29,Final,Final,San Diego Padres,San Francisco Giants,6,7,San Francisco Giants,1,Chris Paddack,Johnny Cueto
+2020,631389,2020-07-30T02:10:00Z,2020-07-29,Final,Final,Seattle Mariners,Los Angeles Angels,10,7,Seattle Mariners,0,Justin Dunn,Andrew Heaney
+2020,631219,2020-07-29T23:05:00Z,2020-08-03,Final,Postponed,Philadelphia Phillies,New York Yankees,,,,,Zach Eflin,Gerrit Cole
+2020,630575,2020-07-29T23:35:00Z,2020-08-04,Final,Postponed,Miami Marlins,Baltimore Orioles,,,,,Sandy Alcantara,Tommy Milone
+2020,630917,2020-07-30T20:05:00Z,2020-07-30,Final,Final,Washington Nationals,Toronto Blue Jays,6,4,Washington Nationals,0,Erick Fedde,Hyun Jin Ryu
+2020,630496,2020-07-30T23:05:00Z,2020-07-30,Final,Final,New York Yankees,Baltimore Orioles,8,6,New York Yankees,0,J.A. Happ,John Means
+2020,631238,2020-07-30T23:07:00Z,2020-07-30,Final,Final,Boston Red Sox,New York Mets,4,2,Boston Red Sox,0,Martín Pérez,Steven Matz
+2020,631271,2020-07-30T23:07:00Z,2020-07-30,Final,Final,Cleveland Indians,Minnesota Twins,2,0,Cleveland Indians,0,Shane Bieber,José Berríos
+2020,631494,2020-07-30T23:10:00Z,2020-07-30,Final,Final,Kansas City Royals,Detroit Tigers,5,3,Kansas City Royals,0,Brady Singer,Iván Nova
+2020,630346,2020-07-30T23:10:00Z,2020-07-30,Final,Final,Tampa Bay Rays,Atlanta Braves,1,2,Atlanta Braves,1,Ryan Yarbrough,Max Fried
+2020,630145,2020-07-31T01:40:00Z,2020-07-30,Final,Final,Los Angeles Dodgers,Arizona Diamondbacks,6,3,Los Angeles Dodgers,0,Ross Stripling,Robbie Ray
+2020,631390,2020-07-31T01:40:00Z,2020-07-30,Final,Final,Seattle Mariners,Los Angeles Angels,8,5,Seattle Mariners,0,Marco Gonzales,Dylan Bundy
+2020,631018,2020-07-31T01:45:00Z,2020-07-30,Final,Final,San Diego Padres,San Francisco Giants,12,7,San Diego Padres,0,Dinelson Lamet,Kevin Gausman
+2020,631595,2020-07-30T22:10:00Z,2020-08-29,Final,Postponed,Chicago Cubs,Cincinnati Reds,,,,,Yu Darvish,Luis Castillo
+2020,631220,2020-07-30T23:05:00Z,2020-08-05,Final,Postponed,Philadelphia Phillies,New York Yankees,,,,,Zack Wheeler,
+2020,630591,2020-07-30T23:35:00Z,2020-08-05,Final,Postponed,Miami Marlins,Baltimore Orioles,,,,,Caleb Smith,
+2020,631222,2020-07-31T23:05:00Z,2020-07-31,Final,Final,Boston Red Sox,New York Yankees,1,5,New York Yankees,1,Ryan Weber,Jordan Montgomery
+2020,631480,2020-07-31T23:10:00Z,2020-07-31,Final,Final,Cincinnati Reds,Detroit Tigers,2,7,Detroit Tigers,1,Luis Castillo,Spencer Turnbull
+2020,630275,2020-07-31T23:10:00Z,2020-07-31,Final,Final,New York Mets,Atlanta Braves,10,11,Atlanta Braves,1,Rick Porcello,Sean Newcomb
+2020,630592,2020-07-31T23:35:00Z,2020-07-31,Final,Final,Tampa Bay Rays,Baltimore Orioles,3,6,Baltimore Orioles,1,Blake Snell,Alex Cobb
+2020,631410,2020-08-01T00:05:00Z,2020-07-31,Final,Final,Chicago White Sox,Kansas City Royals,3,2,Chicago White Sox,0,Dallas Keuchel,Kris Bubic
+2020,631539,2020-08-01T00:10:00Z,2020-07-31,Final,Final,San Diego Padres,Colorado Rockies,8,7,San Diego Padres,0,Garrett Richards,Jon Gray
+2020,631272,2020-08-01T00:10:00Z,2020-07-31,Final,Final,Cleveland Indians,Minnesota Twins,1,4,Minnesota Twins,1,Mike Clevinger,Randy Dobnak
+2020,631647,2020-08-01T00:15:00Z,2020-07-31,Final,Final,Pittsburgh Pirates,Chicago Cubs,3,6,Chicago Cubs,1,Trevor Williams,Yu Darvish
+2020,631391,2020-08-01T01:10:00Z,2020-07-31,Final,Final,Houston Astros,Los Angeles Angels,9,6,Houston Astros,0,Lance McCullers Jr.,Matt Andriese
+2020,631019,2020-08-01T01:10:00Z,2020-07-31,Final,Final,Texas Rangers,San Francisco Giants,2,9,San Francisco Giants,1,Mike Minor,Logan Webb
+2020,630201,2020-08-01T01:40:00Z,2020-07-31,Final,Final,Los Angeles Dodgers,Arizona Diamondbacks,3,5,Arizona Diamondbacks,1,Tony Gonsolin,Zac Gallen
+2020,631066,2020-08-01T01:40:00Z,2020-07-31,Final,Final,Oakland Athletics,Seattle Mariners,3,5,Seattle Mariners,1,Sean Manaea,Taijuan Walker
+2020,631289,2020-07-31T18:10:00Z,2020-09-16,Final,Postponed,St. Louis Cardinals,Milwaukee Brewers,,,,,Jack Flaherty,Brett Anderson
+2020,631341,2020-07-31T23:10:00Z,2020-08-22,Final,Postponed,Washington Nationals,Miami Marlins,,,,,,
+2020,631413,2020-08-01T23:05:00Z,2020-08-01,Final,Final,Chicago White Sox,Kansas City Royals,11,5,Chicago White Sox,0,Gio Gonzalez,Ronald Bolaños
+2020,631392,2020-08-01T23:07:00Z,2020-08-01,Final,Final,Houston Astros,Los Angeles Angels,4,5,Los Angeles Angels,1,Zack Greinke,Griffin Canning
+2020,631224,2020-08-01T23:07:00Z,2020-08-01,Final,Final,Boston Red Sox,New York Yankees,2,5,New York Yankees,1,Zack Godley,Masahiro Tanaka
+2020,631273,2020-08-01T23:10:00Z,2020-08-01,Final,Final,Cleveland Indians,Minnesota Twins,0,3,Minnesota Twins,1,Carlos Carrasco,Kenta Maeda
+2020,630278,2020-08-01T23:10:00Z,2020-08-01,Final,Final,New York Mets,Atlanta Braves,1,7,Atlanta Braves,1,Michael Wacha,Touki Toussaint
+2020,630492,2020-08-01T23:35:00Z,2020-08-01,Final,Final,Tampa Bay Rays,Baltimore Orioles,4,5,Baltimore Orioles,1,Tyler Glasnow,Wade LeBlanc
+2020,630100,2020-08-02T00:10:00Z,2020-08-01,Final,Final,Los Angeles Dodgers,Arizona Diamondbacks,11,2,Los Angeles Dodgers,0,Julio Urías,Luke Weaver
+2020,631540,2020-08-02T00:10:00Z,2020-08-01,Final,Final,San Diego Padres,Colorado Rockies,1,6,Colorado Rockies,1,Joey Lucchesi,Kyle Freeland
+2020,631622,2020-08-02T00:15:00Z,2020-08-01,Final,Final,Pittsburgh Pirates,Chicago Cubs,3,4,Chicago Cubs,1,Mitch Keller,Tyler Chatwood
+2020,631067,2020-08-02T01:10:00Z,2020-08-01,Final,Final,Oakland Athletics,Seattle Mariners,3,2,Oakland Athletics,0,Mike Fiers,Yusei Kikuchi
+2020,631020,2020-08-02T01:10:00Z,2020-08-01,Final,Final,Texas Rangers,San Francisco Giants,3,7,San Francisco Giants,1,Jordan Lyles,Drew Smyly
+2020,631469,2020-08-01T17:10:00Z,2020-08-02,Final,Postponed,Cincinnati Reds,Detroit Tigers,,,,,Trevor Bauer,Michael Fulmer
+2020,630919,2020-08-01T19:07:00Z,2020-08-20,Final,Postponed,Philadelphia Phillies,Toronto Blue Jays,,,,,,
+2020,630918,2020-08-01T19:12:00Z,2020-08-20,Final,Postponed,Philadelphia Phillies,Toronto Blue Jays,,,,,,
+2020,631342,2020-08-01T22:10:00Z,2020-09-18,Final,Postponed,Washington Nationals,Miami Marlins,,,,,,
+2020,631288,2020-08-01T23:10:00Z,2020-09-14,Final,Postponed,St. Louis Cardinals,Milwaukee Brewers,,,,,Jack Flaherty,Brett Anderson
+2020,631470,2020-08-02T16:10:00Z,2020-08-02,Final,Final,Cincinnati Reds,Detroit Tigers,4,3,Cincinnati Reds,0,Anthony DeSclafani,Rony García
+2020,631469,2020-08-02T16:15:00Z,2020-08-02,Final,Final,Cincinnati Reds,Detroit Tigers,4,0,Cincinnati Reds,0,Trevor Bauer,Daniel Norris
+2020,630493,2020-08-02T17:05:00Z,2020-08-02,Final,Final,Tampa Bay Rays,Baltimore Orioles,1,5,Baltimore Orioles,1,Yonny Chirinos,Tommy Milone
+2020,630280,2020-08-02T17:10:00Z,2020-08-02,Final,Final,New York Mets,Atlanta Braves,0,4,Atlanta Braves,1,David Peterson,Kyle Wright
+2020,631415,2020-08-02T18:05:00Z,2020-08-02,Final,Final,Chicago White Sox,Kansas City Royals,9,2,Chicago White Sox,0,Dylan Cease,Jakob Junis
+2020,631274,2020-08-02T18:10:00Z,2020-08-02,Final,Final,Cleveland Indians,Minnesota Twins,1,3,Minnesota Twins,1,Aaron Civale,Tyler Clippard
+2020,631606,2020-08-02T18:20:00Z,2020-08-02,Final,Final,Pittsburgh Pirates,Chicago Cubs,1,2,Chicago Cubs,1,Steven Brault,Jon Lester
+2020,631541,2020-08-02T19:10:00Z,2020-08-02,Final,Final,San Diego Padres,Colorado Rockies,6,9,Colorado Rockies,1,Zach Davies,Antonio Senzatela
+2020,631021,2020-08-02T20:05:00Z,2020-08-02,Final,Final,Texas Rangers,San Francisco Giants,9,5,Texas Rangers,0,Kolby Allard,Jeff Samardzija
+2020,631393,2020-08-02T20:10:00Z,2020-08-02,Final,Final,Houston Astros,Los Angeles Angels,6,5,Houston Astros,0,Josh James,Shohei Ohtani
+2020,630101,2020-08-02T20:10:00Z,2020-08-02,Final,Final,Los Angeles Dodgers,Arizona Diamondbacks,3,0,Los Angeles Dodgers,0,Clayton Kershaw,Merrill Kelly
+2020,631068,2020-08-02T20:10:00Z,2020-08-02,Final,Final,Oakland Athletics,Seattle Mariners,3,2,Oakland Athletics,0,Chris Bassitt,Kendall Graveman
+2020,631210,2020-08-02T23:08:00Z,2020-08-02,Final,Final,Boston Red Sox,New York Yankees,7,9,New York Yankees,1,Austin Brice,James Paxton
+2020,631329,2020-08-02T17:10:00Z,2020-09-20,Final,Postponed,Washington Nationals,Miami Marlins,,,,,,
+2020,631292,2020-08-02T18:10:00Z,2020-09-25,Final,Postponed,St. Louis Cardinals,Milwaukee Brewers,,,,,Adam Wainwright,Adrian Houser
+2020,631289,2020-08-02T18:15:00Z,2020-09-16,Final,Postponed,St. Louis Cardinals,Milwaukee Brewers,,,,,,
+2020,630907,2020-08-02T19:07:00Z,2020-09-18,Final,Postponed,Philadelphia Phillies,Toronto Blue Jays,,,,,Jake Arrieta,
+2020,631596,2020-08-03T22:40:00Z,2020-08-03,Final,Final,Cleveland Indians,Cincinnati Reds,2,3,Cincinnati Reds,1,Zach Plesac,Sonny Gray
+2020,631219,2020-08-03T23:05:00Z,2020-08-03,Final,Final,Philadelphia Phillies,New York Yankees,3,6,New York Yankees,1,Jake Arrieta,Gerrit Cole
+2020,630281,2020-08-03T23:10:00Z,2020-08-03,Final,Final,New York Mets,Atlanta Braves,7,2,New York Mets,0,Jacob deGrom,Michael Soroka
+2020,631275,2020-08-04T00:10:00Z,2020-08-03,Final,Final,Pittsburgh Pirates,Minnesota Twins,4,5,Minnesota Twins,1,Derek Holland,Lewis Thorpe
+2020,631293,2020-08-04T00:10:00Z,2020-08-03,Final,Final,Chicago White Sox,Milwaukee Brewers,6,4,Chicago White Sox,0,Carlos Rodón,Brett Anderson
+2020,631645,2020-08-04T00:15:00Z,2020-08-03,Final,Final,Kansas City Royals,Chicago Cubs,0,2,Chicago Cubs,1,Danny Duffy,Alec Mills
+2020,631542,2020-08-04T00:40:00Z,2020-08-03,Final,Final,San Francisco Giants,Colorado Rockies,6,7,Colorado Rockies,1,Johnny Cueto,Chi Chi González
+2020,631090,2020-08-04T01:10:00Z,2020-08-03,Final,Final,Los Angeles Dodgers,San Diego Padres,4,5,San Diego Padres,1,Walker Buehler,Chris Paddack
+2020,631070,2020-08-04T01:10:00Z,2020-08-03,Final,Final,Oakland Athletics,Seattle Mariners,11,1,Oakland Athletics,0,Frankie Montas,Justus Sheffield
+2020,631276,2020-08-04T18:10:00Z,2020-08-04,Final,Final,Pittsburgh Pirates,Minnesota Twins,3,7,Minnesota Twins,1,Joe Musgrove,José Berríos
+2020,631597,2020-08-04T22:10:00Z,2020-08-04,Final,Final,Cleveland Indians,Cincinnati Reds,4,2,Cleveland Indians,0,Shane Bieber,Tyler Mahle
+2020,630971,2020-08-04T22:40:00Z,2020-08-04,Final,Final,Boston Red Sox,Tampa Bay Rays,1,5,Tampa Bay Rays,1,Nathan Eovaldi,Charlie Morton
+2020,630874,2020-08-04T23:05:00Z,2020-08-04,Final,Final,New York Mets,Washington Nationals,3,5,Washington Nationals,1,Steven Matz,Patrick Corbin
+2020,630284,2020-08-04T23:10:00Z,2020-08-04,Final,Final,Toronto Blue Jays,Atlanta Braves,1,10,Atlanta Braves,1,Matt Shoemaker,Max Fried
+2020,630575,2020-08-04T23:35:00Z,2020-08-04,Final,Final,Miami Marlins,Baltimore Orioles,4,0,Miami Marlins,0,Pablo López,John Means
+2020,631294,2020-08-05T00:10:00Z,2020-08-04,Final,Final,Chicago White Sox,Milwaukee Brewers,3,2,Chicago White Sox,0,Lucas Giolito,Brandon Woodruff
+2020,631608,2020-08-05T00:15:00Z,2020-08-04,Final,Final,Kansas City Royals,Chicago Cubs,4,5,Chicago Cubs,1,Brady Singer,Kyle Hendricks
+2020,631543,2020-08-05T00:40:00Z,2020-08-04,Final,Final,San Francisco Giants,Colorado Rockies,2,5,Colorado Rockies,1,Kevin Gausman,Germán Márquez
+2020,630109,2020-08-05T01:10:00Z,2020-08-04,Final,Final,Houston Astros,Arizona Diamondbacks,8,2,Houston Astros,0,Cristian Javier,Madison Bumgarner
+2020,631069,2020-08-05T01:10:00Z,2020-08-04,Final,Final,Los Angeles Dodgers,San Diego Padres,5,2,Los Angeles Dodgers,0,Dustin May,Dinelson Lamet
+2020,631173,2020-08-05T01:10:00Z,2020-08-04,Final,Final,Texas Rangers,Oakland Athletics,1,5,Oakland Athletics,1,Lance Lynn,Jesús Luzardo
+2020,631057,2020-08-05T02:10:00Z,2020-08-04,Final,Final,Los Angeles Angels,Seattle Mariners,5,3,Los Angeles Angels,0,Andrew Heaney,Justin Dunn
+2020,631472,2020-08-04T22:10:00Z,2020-08-13,Final,Postponed,St. Louis Cardinals,Detroit Tigers,,,,,,
+2020,631318,2020-08-04T23:10:00Z,2020-09-11,Final,Postponed,Philadelphia Phillies,Miami Marlins,,,,,,
+2020,631220,2020-08-05T20:05:00Z,2020-08-05,Final,Final,Philadelphia Phillies,New York Yankees,11,7,Philadelphia Phillies,0,Zack Wheeler,J.A. Happ
+2020,631127,2020-08-05T20:10:00Z,2020-08-05,Final,Final,New York Yankees,Philadelphia Phillies,3,1,New York Yankees,0,Jonathan Loáisiga,Aaron Nola
+2020,630591,2020-08-05T21:05:00Z,2020-08-05,Final,Final,Miami Marlins,Baltimore Orioles,1,0,Miami Marlins,0,Elieser Hernández,Alex Cobb
+2020,631339,2020-08-05T21:10:00Z,2020-08-05,Final,Final,Baltimore Orioles,Miami Marlins,1,2,Miami Marlins,1,Asher Wojciechowski,Josh A. Smith
+2020,630878,2020-08-05T22:05:00Z,2020-08-05,Final,Final,New York Mets,Washington Nationals,3,1,New York Mets,0,Rick Porcello,Max Scherzer
+2020,630972,2020-08-05T22:40:00Z,2020-08-05,Final,Final,Boston Red Sox,Tampa Bay Rays,5,0,Boston Red Sox,0,Martín Pérez,Ryan Yarbrough
+2020,631140,2020-08-05T23:05:00Z,2020-08-05,Final,Final,Minnesota Twins,Pittsburgh Pirates,5,2,Minnesota Twins,0,Randy Dobnak,Trevor Williams
+2020,631570,2020-08-05T23:10:00Z,2020-08-05,Final,Final,Cincinnati Reds,Cleveland Indians,0,2,Cleveland Indians,1,Tejay Antone,Mike Clevinger
+2020,630307,2020-08-05T23:10:00Z,2020-08-05,Final,Final,Toronto Blue Jays,Atlanta Braves,2,1,Toronto Blue Jays,0,Hyun Jin Ryu,Sean Newcomb
+2020,631417,2020-08-06T00:05:00Z,2020-08-05,Final,Final,Chicago Cubs,Kansas City Royals,6,1,Chicago Cubs,0,Yu Darvish,Kris Bubic
+2020,631518,2020-08-06T00:10:00Z,2020-08-05,Final,Final,Milwaukee Brewers,Chicago White Sox,1,0,Milwaukee Brewers,0,Adrian Houser,Dallas Keuchel
+2020,631544,2020-08-06T00:40:00Z,2020-08-05,Final,Final,San Francisco Giants,Colorado Rockies,4,3,San Francisco Giants,0,Logan Webb,Jon Gray
+2020,630110,2020-08-06T01:10:00Z,2020-08-05,Final,Final,Houston Astros,Arizona Diamondbacks,7,14,Arizona Diamondbacks,1,Lance McCullers Jr.,Robbie Ray
+2020,631085,2020-08-06T01:10:00Z,2020-08-05,Final,Final,Los Angeles Dodgers,San Diego Padres,7,6,Los Angeles Dodgers,0,Ross Stripling,Garrett Richards
+2020,631174,2020-08-06T01:10:00Z,2020-08-05,Final,Final,Texas Rangers,Oakland Athletics,4,6,Oakland Athletics,1,Kyle Gibson,Sean Manaea
+2020,631043,2020-08-06T01:40:00Z,2020-08-05,Final,Final,Los Angeles Angels,Seattle Mariners,6,7,Seattle Mariners,1,Julio Teheran,Marco Gonzales
+2020,631471,2020-08-05T19:10:00Z,2020-08-13,Final,Postponed,St. Louis Cardinals,Detroit Tigers,,,,,,
+2020,630994,2020-08-05T19:15:00Z,2020-09-10,Final,Postponed,Detroit Tigers,St. Louis Cardinals,,,,,,
+2020,631320,2020-08-05T23:10:00Z,2020-09-13,Final,Postponed,Philadelphia Phillies,Miami Marlins,,,,,,
+2020,630497,2020-08-05T23:35:00Z,2020-09-04,Final,Postponed,New York Yankees,Baltimore Orioles,,,,,,
+2020,631148,2020-08-06T17:35:00Z,2020-08-06,Final,Final,Minnesota Twins,Pittsburgh Pirates,5,6,Pittsburgh Pirates,1,Kenta Maeda,JT Brubaker
+2020,631545,2020-08-06T19:10:00Z,2020-08-06,Final,Final,San Francisco Giants,Colorado Rockies,4,6,Colorado Rockies,1,Tyler Anderson,Kyle Freeland
+2020,631175,2020-08-06T19:40:00Z,2020-08-06,Final,Final,Texas Rangers,Oakland Athletics,4,6,Oakland Athletics,1,Mike Minor,Mike Fiers
+2020,631042,2020-08-06T20:10:00Z,2020-08-06,Final,Final,Los Angeles Angels,Seattle Mariners,6,1,Los Angeles Angels,0,Dylan Bundy,Taijuan Walker
+2020,631129,2020-08-06T22:05:00Z,2020-08-06,Final,Final,New York Yankees,Philadelphia Phillies,4,5,Philadelphia Phillies,1,Jordan Montgomery,Zach Eflin
+2020,631571,2020-08-06T22:10:00Z,2020-08-06,Final,Final,Cincinnati Reds,Cleveland Indians,0,13,Cleveland Indians,1,Luis Castillo,Carlos Carrasco
+2020,630111,2020-08-06T23:07:00Z,2020-08-06,Final,Final,Houston Astros,Arizona Diamondbacks,4,5,Arizona Diamondbacks,1,Brandon Bielak,Zac Gallen
+2020,631425,2020-08-06T23:07:00Z,2020-08-06,Final,Final,Chicago Cubs,Kansas City Royals,2,13,Kansas City Royals,1,Tyler Chatwood,Brad Keller
+2020,630313,2020-08-06T23:10:00Z,2020-08-06,Final,Final,Toronto Blue Jays,Atlanta Braves,3,4,Atlanta Braves,1,Nate Pearson,Touki Toussaint
+2020,631340,2020-08-06T23:35:00Z,2020-08-06,Final,Final,Baltimore Orioles,Miami Marlins,7,8,Miami Marlins,1,Wade LeBlanc,Jordan Yamamoto
+2020,631513,2020-08-07T00:10:00Z,2020-08-06,Final,Final,Milwaukee Brewers,Chicago White Sox,8,3,Milwaukee Brewers,0,Josh Lindblom,Gio Gonzalez
+2020,630995,2020-08-06T17:10:00Z,2020-09-10,Final,Postponed,Detroit Tigers,St. Louis Cardinals,,,,,,
+2020,631321,2020-08-06T23:10:00Z,2020-09-14,Final,Postponed,Philadelphia Phillies,Miami Marlins,,,,,,
+2020,630879,2020-08-07T22:05:00Z,2020-08-07,Final,Final,Baltimore Orioles,Washington Nationals,11,0,Baltimore Orioles,0,Tommy Milone,Aníbal Sánchez
+2020,630974,2020-08-07T22:40:00Z,2020-08-07,Final,Final,New York Yankees,Tampa Bay Rays,0,1,Tampa Bay Rays,1,Masahiro Tanaka,Blake Snell
+2020,631105,2020-08-07T23:05:00Z,2020-08-07,Final,Final,Detroit Tigers,Pittsburgh Pirates,17,13,Detroit Tigers,0,Matthew Boyd,Chad Kuhl
+2020,631237,2020-08-07T23:10:00Z,2020-08-07,Final,Final,Miami Marlins,New York Mets,4,3,Miami Marlins,0,Humberto Mejía,Michael Wacha
+2020,631623,2020-08-07T23:30:00Z,2020-08-07,Final,Final,Toronto Blue Jays,Boston Red Sox,3,5,Boston Red Sox,1,Tanner Roark,Ryan Weber
+2020,631419,2020-08-08T00:05:00Z,2020-08-07,Final,Final,Minnesota Twins,Kansas City Royals,2,3,Kansas City Royals,1,Devin Smeltzer,Jakob Junis
+2020,631504,2020-08-08T00:10:00Z,2020-08-07,Final,Final,Cleveland Indians,Chicago White Sox,0,2,Chicago White Sox,1,Aaron Civale,Dylan Cease
+2020,631295,2020-08-08T00:10:00Z,2020-08-07,Final,Final,Cincinnati Reds,Milwaukee Brewers,8,3,Cincinnati Reds,0,Trevor Bauer,Eric Lauer
+2020,630920,2020-08-08T01:05:00Z,2020-08-07,Final,Final,Los Angeles Angels,Texas Rangers,3,4,Texas Rangers,1,Griffin Canning,Jordan Lyles
+2020,631176,2020-08-08T01:10:00Z,2020-08-07,Final,Final,Houston Astros,Oakland Athletics,2,3,Oakland Athletics,1,Zack Greinke,Chris Bassitt
+2020,631073,2020-08-08T01:10:00Z,2020-08-07,Final,Final,Arizona Diamondbacks,San Diego Padres,0,3,San Diego Padres,1,Luke Weaver,Zach Davies
+2020,631045,2020-08-08T01:40:00Z,2020-08-07,Final,Final,Colorado Rockies,Seattle Mariners,8,4,Colorado Rockies,0,Antonio Senzatela,Yusei Kikuchi
+2020,631358,2020-08-08T01:40:00Z,2020-08-07,Final,Final,San Francisco Giants,Los Angeles Dodgers,2,7,Los Angeles Dodgers,1,Jeff Samardzija,Julio Urías
+2020,631131,2020-08-07T23:05:00Z,2020-08-09,Final,Postponed,Atlanta Braves,Philadelphia Phillies,,,,,Kyle Wright,Vince Velasquez
+2020,630996,2020-08-08T00:15:00Z,2020-08-17,Final,Postponed,Chicago Cubs,St. Louis Cardinals,,,,,Jon Lester,Daniel Ponce de Leon
+2020,631503,2020-08-08T18:10:00Z,2020-08-08,Final,Final,Cleveland Indians,Chicago White Sox,7,1,Cleveland Indians,0,Zach Plesac,Matt Foster
+2020,630962,2020-08-08T18:10:00Z,2020-08-08,Final,Final,New York Yankees,Tampa Bay Rays,8,4,New York Yankees,0,Gerrit Cole,Tyler Glasnow
+2020,630973,2020-08-08T18:15:00Z,2020-08-08,Final,Final,New York Yankees,Tampa Bay Rays,3,5,Tampa Bay Rays,1,Michael King,Ryan Thompson
+2020,631106,2020-08-08T20:05:00Z,2020-08-08,Final,Final,Detroit Tigers,Pittsburgh Pirates,11,5,Detroit Tigers,0,Iván Nova,Derek Holland
+2020,631177,2020-08-08T20:10:00Z,2020-08-08,Final,Final,Houston Astros,Oakland Athletics,1,3,Oakland Athletics,1,Framber Valdez,Frankie Montas
+2020,630880,2020-08-08T22:05:00Z,2020-08-08,Final,Final,Baltimore Orioles,Washington Nationals,5,3,Baltimore Orioles,0,Thomas Eshelman,Austin Voth
+2020,631133,2020-08-08T22:05:00Z,2020-08-08,Final,Final,Atlanta Braves,Philadelphia Phillies,0,5,Philadelphia Phillies,1,Kyle Wright,Jake Arrieta
+2020,630935,2020-08-08T23:05:00Z,2020-08-08,Final,Final,Los Angeles Angels,Texas Rangers,0,2,Texas Rangers,1,Patrick Sandoval,Kolby Allard
+2020,631420,2020-08-08T23:05:00Z,2020-08-08,Final,Final,Minnesota Twins,Kansas City Royals,6,9,Kansas City Royals,1,Jake Odorizzi,Danny Duffy
+2020,631236,2020-08-08T23:10:00Z,2020-08-08,Final,Final,Miami Marlins,New York Mets,4,8,New York Mets,1,Daniel Castano,David Peterson
+2020,631296,2020-08-08T23:10:00Z,2020-08-08,Final,Final,Cincinnati Reds,Milwaukee Brewers,4,1,Cincinnati Reds,0,Anthony DeSclafani,Brett Anderson
+2020,631658,2020-08-08T23:30:00Z,2020-08-08,Final,Final,Toronto Blue Jays,Boston Red Sox,2,1,Toronto Blue Jays,0,Chase Anderson,Zack Godley
+2020,631074,2020-08-09T01:10:00Z,2020-08-08,Final,Final,Arizona Diamondbacks,San Diego Padres,3,2,Arizona Diamondbacks,0,Merrill Kelly,Chris Paddack
+2020,631046,2020-08-09T01:10:00Z,2020-08-08,Final,Final,Colorado Rockies,Seattle Mariners,5,0,Colorado Rockies,0,Ryan Castellani,Nick Margevicius
+2020,631343,2020-08-09T01:10:00Z,2020-08-08,Final,Final,San Francisco Giants,Los Angeles Dodgers,5,4,San Francisco Giants,0,Johnny Cueto,Clayton Kershaw
+2020,630997,2020-08-09T00:15:00Z,2020-08-19,Final,Postponed,Chicago Cubs,St. Louis Cardinals,,,,,,
+2020,630882,2020-08-09T16:35:00Z,2020-08-09,Final,Final,Baltimore Orioles,Washington Nationals,6,2,Baltimore Orioles,0,Asher Wojciechowski,Stephen Strasburg
+2020,631136,2020-08-09T17:05:00Z,2020-08-09,Final,Final,Atlanta Braves,Philadelphia Phillies,5,2,Atlanta Braves,0,Huascar Ynoa,Vince Velasquez
+2020,631131,2020-08-09T17:10:00Z,2020-08-09,Final,Completed Early,Atlanta Braves,Philadelphia Phillies,8,0,Atlanta Braves,0,Max Fried,Spencer Howard
+2020,631235,2020-08-09T17:10:00Z,2020-08-09,Final,Final,Miami Marlins,New York Mets,2,4,New York Mets,1,Pablo López,Jacob deGrom
+2020,630946,2020-08-09T17:10:00Z,2020-08-09,Final,Final,New York Yankees,Tampa Bay Rays,3,4,Tampa Bay Rays,1,James Paxton,Charlie Morton
+2020,631110,2020-08-09T17:35:00Z,2020-08-09,Final,Final,Detroit Tigers,Pittsburgh Pirates,2,1,Detroit Tigers,0,Spencer Turnbull,Steven Brault
+2020,631630,2020-08-09T17:35:00Z,2020-08-09,Final,Final,Toronto Blue Jays,Boston Red Sox,3,5,Boston Red Sox,1,Matt Shoemaker,Nathan Eovaldi
+2020,631421,2020-08-09T18:05:00Z,2020-08-09,Final,Final,Minnesota Twins,Kansas City Royals,2,4,Kansas City Royals,1,José Berríos,Brady Singer
+2020,631297,2020-08-09T18:10:00Z,2020-08-09,Final,Final,Cincinnati Reds,Milwaukee Brewers,3,9,Milwaukee Brewers,1,Sonny Gray,Brandon Woodruff
+2020,630922,2020-08-09T18:35:00Z,2020-08-09,Final,Final,Los Angeles Angels,Texas Rangers,3,7,Texas Rangers,1,Andrew Heaney,Lance Lynn
+2020,631178,2020-08-09T20:10:00Z,2020-08-09,Final,Final,Houston Astros,Oakland Athletics,2,7,Oakland Athletics,1,Cristian Javier,Jesús Luzardo
+2020,631075,2020-08-09T20:10:00Z,2020-08-09,Final,Final,Arizona Diamondbacks,San Diego Padres,5,9,San Diego Padres,1,Madison Bumgarner,Dinelson Lamet
+2020,631047,2020-08-09T20:10:00Z,2020-08-09,Final,Final,Colorado Rockies,Seattle Mariners,3,5,Seattle Mariners,1,Germán Márquez,Justus Sheffield
+2020,631373,2020-08-09T20:10:00Z,2020-08-09,Final,Final,San Francisco Giants,Los Angeles Dodgers,2,6,Los Angeles Dodgers,1,Kevin Gausman,Walker Buehler
+2020,631506,2020-08-09T23:08:00Z,2020-08-09,Final,Final,Cleveland Indians,Chicago White Sox,5,4,Cleveland Indians,0,Shane Bieber,Lucas Giolito
+2020,630998,2020-08-09T23:08:00Z,2020-09-05,Final,Postponed,Chicago Cubs,St. Louis Cardinals,,,,,,
+2020,631138,2020-08-10T22:05:00Z,2020-08-10,Final,Final,Atlanta Braves,Philadelphia Phillies,8,13,Philadelphia Phillies,1,Sean Newcomb,Aaron Nola
+2020,631233,2020-08-10T23:10:00Z,2020-08-10,Final,Final,Washington Nationals,New York Mets,16,4,Washington Nationals,0,Patrick Corbin,Steven Matz
+2020,631473,2020-08-10T23:10:00Z,2020-08-10,Final,Final,Chicago White Sox,Detroit Tigers,1,5,Detroit Tigers,1,Dallas Keuchel,Michael Fulmer
+2020,631631,2020-08-10T23:30:00Z,2020-08-10,Final,Final,Tampa Bay Rays,Boston Red Sox,8,7,Tampa Bay Rays,0,Ryan Yarbrough,Ryan Brasier
+2020,631298,2020-08-11T00:10:00Z,2020-08-10,Final,Final,Minnesota Twins,Milwaukee Brewers,4,2,Minnesota Twins,0,Randy Dobnak,Adrian Houser
+2020,631546,2020-08-11T00:40:00Z,2020-08-10,Final,Final,Arizona Diamondbacks,Colorado Rockies,12,8,Arizona Diamondbacks,0,Robbie Ray,Jon Gray
+2020,630923,2020-08-11T01:05:00Z,2020-08-10,Final,Final,Seattle Mariners,Texas Rangers,10,2,Seattle Mariners,0,Justin Dunn,Kyle Gibson
+2020,631445,2020-08-11T01:10:00Z,2020-08-10,Final,Final,San Francisco Giants,Houston Astros,4,6,Houston Astros,1,Logan Webb,Lance McCullers Jr.
+2020,631395,2020-08-11T01:40:00Z,2020-08-10,Final,Final,Oakland Athletics,Los Angeles Angels,9,10,Los Angeles Angels,1,Sean Manaea,Julio Teheran
+2020,631346,2020-08-11T01:40:00Z,2020-08-10,Final,Final,San Diego Padres,Los Angeles Dodgers,2,1,San Diego Padres,0,Luis Perdomo,Dustin May
+2020,630999,2020-08-11T00:15:00Z,2020-08-27,Final,Postponed,Pittsburgh Pirates,St. Louis Cardinals,,,,,Trevor Williams,Daniel Ponce de Leon
+2020,630901,2020-08-11T22:37:00Z,2020-08-11,Final,Final,Miami Marlins,Toronto Blue Jays,4,5,Toronto Blue Jays,1,Elieser Hernández,Hyun Jin Ryu
+2020,631598,2020-08-11T22:40:00Z,2020-08-11,Final,Final,Kansas City Royals,Cincinnati Reds,5,6,Cincinnati Reds,1,Kris Bubic,Luis Castillo
+2020,631139,2020-08-11T23:05:00Z,2020-08-11,Final,Final,Baltimore Orioles,Philadelphia Phillies,10,9,Baltimore Orioles,0,Alex Cobb,Zack Wheeler
+2020,631192,2020-08-11T23:05:00Z,2020-08-11,Final,Final,Atlanta Braves,New York Yankees,6,9,New York Yankees,1,Touki Toussaint,Jordan Montgomery
+2020,631572,2020-08-11T23:10:00Z,2020-08-11,Final,Final,Chicago Cubs,Cleveland Indians,7,1,Chicago Cubs,0,Jon Lester,Adam Plutko
+2020,631243,2020-08-11T23:10:00Z,2020-08-11,Final,Final,Washington Nationals,New York Mets,2,1,Washington Nationals,0,Max Scherzer,Rick Porcello
+2020,631474,2020-08-11T23:10:00Z,2020-08-11,Final,Final,Chicago White Sox,Detroit Tigers,8,4,Chicago White Sox,0,Gio Gonzalez,Tyler Alexander
+2020,631646,2020-08-11T23:30:00Z,2020-08-11,Final,Final,Tampa Bay Rays,Boston Red Sox,8,2,Tampa Bay Rays,0,Andrew Kittredge,Martín Pérez
+2020,631299,2020-08-12T00:10:00Z,2020-08-11,Final,Final,Minnesota Twins,Milwaukee Brewers,4,6,Milwaukee Brewers,1,Tyler Clippard,Josh Lindblom
+2020,631547,2020-08-12T00:40:00Z,2020-08-11,Final,Final,Arizona Diamondbacks,Colorado Rockies,7,8,Colorado Rockies,1,Zac Gallen,Kyle Freeland
+2020,630924,2020-08-12T01:05:00Z,2020-08-11,Final,Final,Seattle Mariners,Texas Rangers,2,4,Texas Rangers,1,Marco Gonzales,Mike Minor
+2020,631446,2020-08-12T01:10:00Z,2020-08-11,Final,Final,San Francisco Giants,Houston Astros,7,6,San Francisco Giants,0,Tyler Anderson,Brandon Bielak
+2020,631396,2020-08-12T01:40:00Z,2020-08-11,Final,Final,Oakland Athletics,Los Angeles Angels,0,6,Los Angeles Angels,1,Mike Fiers,Dylan Bundy
+2020,631347,2020-08-12T01:40:00Z,2020-08-11,Final,Final,San Diego Padres,Los Angeles Dodgers,6,2,San Diego Padres,0,Garrett Richards,Ross Stripling
+2020,631000,2020-08-12T00:15:00Z,2020-08-27,Final,Postponed,Pittsburgh Pirates,St. Louis Cardinals,,,,,,
+2020,631475,2020-08-12T17:10:00Z,2020-08-12,Final,Final,Chicago White Sox,Detroit Tigers,7,5,Chicago White Sox,0,Dylan Cease,Matthew Boyd
+2020,631535,2020-08-12T19:10:00Z,2020-08-12,Final,Final,Arizona Diamondbacks,Colorado Rockies,13,7,Arizona Diamondbacks,0,Luke Weaver,Antonio Senzatela
+2020,631397,2020-08-12T20:10:00Z,2020-08-12,Final,Final,Oakland Athletics,Los Angeles Angels,8,4,Oakland Athletics,0,Chris Bassitt,Griffin Canning
+2020,631568,2020-08-12T22:10:00Z,2020-08-12,Final,Final,Chicago Cubs,Cleveland Indians,7,2,Chicago Cubs,0,Kyle Hendricks,Carlos Carrasco
+2020,630902,2020-08-12T22:37:00Z,2020-08-12,Final,Final,Miami Marlins,Toronto Blue Jays,14,11,Miami Marlins,0,Jordan Yamamoto,Nate Pearson
+2020,631599,2020-08-12T22:40:00Z,2020-08-12,Final,Final,Kansas City Royals,Cincinnati Reds,5,4,Kansas City Royals,0,Brad Keller,Wade Miley
+2020,631141,2020-08-12T23:05:00Z,2020-08-12,Final,Final,Baltimore Orioles,Philadelphia Phillies,5,4,Baltimore Orioles,0,Wade LeBlanc,Zach Eflin
+2020,631208,2020-08-12T23:05:00Z,2020-08-12,Final,Final,Atlanta Braves,New York Yankees,3,6,New York Yankees,1,Huascar Ynoa,Masahiro Tanaka
+2020,631232,2020-08-12T23:10:00Z,2020-08-12,Final,Final,Washington Nationals,New York Mets,6,11,New York Mets,1,Aníbal Sánchez,Robert Gsellman
+2020,631447,2020-08-12T23:10:00Z,2020-08-12,Final,Final,San Francisco Giants,Houston Astros,1,5,Houston Astros,1,Trevor Cahill,Zack Greinke
+2020,631300,2020-08-12T23:10:00Z,2020-08-12,Final,Final,Minnesota Twins,Milwaukee Brewers,12,2,Minnesota Twins,0,Kenta Maeda,Eric Lauer
+2020,631648,2020-08-12T23:30:00Z,2020-08-12,Final,Final,Tampa Bay Rays,Boston Red Sox,9,5,Tampa Bay Rays,0,Blake Snell,Zack Godley
+2020,630926,2020-08-13T01:05:00Z,2020-08-12,Final,Final,Seattle Mariners,Texas Rangers,4,7,Texas Rangers,1,Taijuan Walker,Jordan Lyles
+2020,631350,2020-08-13T01:40:00Z,2020-08-12,Final,Final,San Diego Padres,Los Angeles Dodgers,0,6,Los Angeles Dodgers,1,Zach Davies,Tony Gonsolin
+2020,630987,2020-08-12T18:15:00Z,2020-09-18,Final,Postponed,Pittsburgh Pirates,St. Louis Cardinals,,,,,,
+2020,631231,2020-08-13T17:10:00Z,2020-08-13,Final,Final,Washington Nationals,New York Mets,2,8,New York Mets,1,Austin Voth,David Peterson
+2020,631142,2020-08-13T20:05:00Z,2020-08-13,Final,Final,Baltimore Orioles,Philadelphia Phillies,11,4,Baltimore Orioles,0,Thomas Eshelman,Jake Arrieta
+2020,631650,2020-08-13T20:30:00Z,2020-08-13,Final,Final,Tampa Bay Rays,Boston Red Sox,17,8,Tampa Bay Rays,0,Tyler Glasnow,Kyle Hart
+2020,631600,2020-08-13T21:10:00Z,2020-08-13,Final,Final,Pittsburgh Pirates,Cincinnati Reds,9,6,Pittsburgh Pirates,0,Trevor Williams,Anthony DeSclafani
+2020,631609,2020-08-13T23:15:00Z,2020-08-13,Final,Final,Milwaukee Brewers,Chicago Cubs,2,4,Chicago Cubs,1,Brett Anderson,Yu Darvish
+2020,631351,2020-08-14T01:40:00Z,2020-08-13,Final,Final,San Diego Padres,Los Angeles Dodgers,2,11,Los Angeles Dodgers,1,Chris Paddack,Julio Urías
+2020,631472,2020-08-13T17:10:00Z,2020-08-13,Final,Cancelled,St. Louis Cardinals,Detroit Tigers,,,,,,
+2020,631471,2020-08-13T07:33:00Z,2020-08-13,Final,Cancelled,St. Louis Cardinals,Detroit Tigers,,,,,,
+2020,630882,2020-08-14T21:05:00Z,2020-08-09,Final,Final,Baltimore Orioles,Washington Nationals,6,2,Baltimore Orioles,0,Asher Wojciechowski,Stephen Strasburg
+2020,630903,2020-08-14T22:37:00Z,2020-08-14,Final,Final,Tampa Bay Rays,Toronto Blue Jays,4,12,Toronto Blue Jays,1,Trevor Richards,Tanner Roark
+2020,631683,2020-08-14T22:59:00Z,2020-08-14,Final,Final,Washington Nationals,Baltimore Orioles,15,3,Washington Nationals,0,Stephen Strasburg,Tommy Milone
+2020,631150,2020-08-14T23:05:00Z,2020-08-14,Final,Final,New York Mets,Philadelphia Phillies,5,6,Philadelphia Phillies,1,Walker Lockett,Spencer Howard
+2020,631196,2020-08-14T23:05:00Z,2020-08-14,Final,Final,Boston Red Sox,New York Yankees,3,10,New York Yankees,1,Colten Brewer,Gerrit Cole
+2020,631476,2020-08-14T23:10:00Z,2020-08-14,Final,Final,Cleveland Indians,Detroit Tigers,10,5,Cleveland Indians,0,Aaron Civale,Iván Nova
+2020,631601,2020-08-14T23:10:00Z,2020-08-14,Final,Final,Pittsburgh Pirates,Cincinnati Reds,1,8,Cincinnati Reds,1,Chad Kuhl,Sonny Gray
+2020,631322,2020-08-14T23:10:00Z,2020-08-14,Final,Final,Atlanta Braves,Miami Marlins,2,8,Miami Marlins,1,Kyle Wright,Pablo López
+2020,631610,2020-08-15T00:15:00Z,2020-08-14,Final,Final,Milwaukee Brewers,Chicago Cubs,4,3,Milwaukee Brewers,0,Brandon Woodruff,Alec Mills
+2020,631516,2020-08-15T00:40:00Z,2020-08-14,Final,Final,Texas Rangers,Colorado Rockies,3,2,Texas Rangers,0,Lance Lynn,Ryan Castellani
+2020,631448,2020-08-15T01:10:00Z,2020-08-14,Final,Final,Seattle Mariners,Houston Astros,1,11,Houston Astros,1,Nestor Cortes,Framber Valdez
+2020,631381,2020-08-15T01:40:00Z,2020-08-14,Final,Final,Los Angeles Dodgers,Los Angeles Angels,7,4,Los Angeles Dodgers,0,Clayton Kershaw,Patrick Sandoval
+2020,630115,2020-08-15T01:40:00Z,2020-08-14,Final,Final,San Diego Padres,Arizona Diamondbacks,1,5,Arizona Diamondbacks,1,Dinelson Lamet,Merrill Kelly
+2020,631022,2020-08-15T01:45:00Z,2020-08-14,Final,Final,Oakland Athletics,San Francisco Giants,8,7,Oakland Athletics,0,Jesús Luzardo,Johnny Cueto
+2020,631279,2020-08-15T00:10:00Z,2020-08-15,Final,Postponed,Kansas City Royals,Minnesota Twins,,,,,Jakob Junis,Jake Odorizzi
+2020,631507,2020-08-15T00:10:00Z,2020-08-15,Final,Postponed,St. Louis Cardinals,Chicago White Sox,,,,,Adam Wainwright,
+2020,631508,2020-08-15T17:10:00Z,2020-08-15,Final,Final,St. Louis Cardinals,Chicago White Sox,5,1,St. Louis Cardinals,0,Adam Wainwright,Lucas Giolito
+2020,631507,2020-08-15T17:15:00Z,2020-08-15,Final,Final,St. Louis Cardinals,Chicago White Sox,6,3,St. Louis Cardinals,0,Jake Woodford,Matt Foster
+2020,631280,2020-08-15T17:35:00Z,2020-08-15,Final,Final,Kansas City Royals,Minnesota Twins,2,4,Minnesota Twins,1,Ian Kennedy,Jake Odorizzi
+2020,631279,2020-08-15T17:40:00Z,2020-08-15,Final,Final,Kansas City Royals,Minnesota Twins,4,2,Kansas City Royals,0,,
+2020,631611,2020-08-15T19:20:00Z,2020-08-15,Final,Final,Milwaukee Brewers,Chicago Cubs,6,5,Milwaukee Brewers,0,Adrian Houser,Colin Rea
+2020,631151,2020-08-15T22:05:00Z,2020-08-15,Final,Final,New York Mets,Philadelphia Phillies,2,6,Philadelphia Phillies,1,Steven Matz,Aaron Nola
+2020,631477,2020-08-15T22:10:00Z,2020-08-15,Final,Final,Cleveland Indians,Detroit Tigers,3,1,Cleveland Indians,0,Shane Bieber,Spencer Turnbull
+2020,631330,2020-08-15T22:10:00Z,2020-08-15,Final,Final,Atlanta Braves,Miami Marlins,2,1,Atlanta Braves,0,Max Fried,Daniel Castano
+2020,630905,2020-08-15T22:37:00Z,2020-08-15,Final,Final,Tampa Bay Rays,Toronto Blue Jays,3,2,Tampa Bay Rays,0,Ryan Yarbrough,Chase Anderson
+2020,631023,2020-08-15T23:07:00Z,2020-08-15,Final,Final,Oakland Athletics,San Francisco Giants,7,6,Oakland Athletics,0,Sean Manaea,Kevin Gausman
+2020,631197,2020-08-15T23:07:00Z,2020-08-15,Final,Final,Boston Red Sox,New York Yankees,5,11,New York Yankees,1,Nathan Eovaldi,James Paxton
+2020,631449,2020-08-15T23:10:00Z,2020-08-15,Final,Final,Seattle Mariners,Houston Astros,1,2,Houston Astros,1,Nick Margevicius,Cristian Javier
+2020,630568,2020-08-15T23:35:00Z,2020-08-15,Final,Final,Washington Nationals,Baltimore Orioles,3,7,Baltimore Orioles,1,Patrick Corbin,Asher Wojciechowski
+2020,630116,2020-08-16T00:10:00Z,2020-08-15,Final,Final,San Diego Padres,Arizona Diamondbacks,6,7,Arizona Diamondbacks,1,Cal Quantrill,Alex Young
+2020,631533,2020-08-16T00:10:00Z,2020-08-15,Final,Final,Texas Rangers,Colorado Rockies,6,4,Texas Rangers,0,Kyle Gibson,Germán Márquez
+2020,631363,2020-08-16T01:40:00Z,2020-08-15,Final,Final,Los Angeles Dodgers,Los Angeles Angels,6,5,Los Angeles Dodgers,0,Walker Buehler,Andrew Heaney
+2020,631602,2020-08-15T22:10:00Z,2020-09-04,Final,Postponed,Pittsburgh Pirates,Cincinnati Reds,,,,,Steven Brault,Trevor Bauer
+2020,631679,2020-08-16T17:05:00Z,2020-08-16,Final,Final,Washington Nationals,Baltimore Orioles,6,5,Washington Nationals,0,Max Scherzer,John Means
+2020,631124,2020-08-16T17:05:00Z,2020-08-16,Final,Final,New York Mets,Philadelphia Phillies,2,6,Philadelphia Phillies,1,Rick Porcello,Zack Wheeler
+2020,630905,2020-08-16T17:07:00Z,2020-08-15,Final,Final,Tampa Bay Rays,Toronto Blue Jays,3,2,Tampa Bay Rays,0,Ryan Yarbrough,Chase Anderson
+2020,631479,2020-08-16T17:10:00Z,2020-08-16,Final,Final,Cleveland Indians,Detroit Tigers,8,5,Cleveland Indians,0,Adam Plutko,Michael Fulmer
+2020,631324,2020-08-16T17:10:00Z,2020-08-16,Final,Final,Atlanta Braves,Miami Marlins,4,0,Atlanta Braves,0,Robbie Erlin,Elieser Hernández
+2020,630872,2020-08-16T18:07:00Z,2020-08-16,Final,Final,Tampa Bay Rays,Toronto Blue Jays,7,5,Tampa Bay Rays,0,Yonny Chirinos,Matt Shoemaker
+2020,631450,2020-08-16T18:10:00Z,2020-08-16,Final,Final,Seattle Mariners,Houston Astros,2,3,Houston Astros,1,Justus Sheffield,Lance McCullers Jr.
+2020,631252,2020-08-16T18:10:00Z,2020-08-16,Final,Final,Kansas City Royals,Minnesota Twins,2,4,Minnesota Twins,1,Brady Singer,Randy Dobnak
+2020,631491,2020-08-16T18:10:00Z,2020-08-16,Final,Final,St. Louis Cardinals,Chicago White Sox,2,7,Chicago White Sox,1,Dakota Hudson,Dallas Keuchel
+2020,631612,2020-08-16T18:20:00Z,2020-08-16,Final,Final,Milwaukee Brewers,Chicago Cubs,6,5,Milwaukee Brewers,0,Josh Lindblom,Jon Lester
+2020,631521,2020-08-16T19:10:00Z,2020-08-16,Final,Final,Texas Rangers,Colorado Rockies,6,10,Colorado Rockies,1,Kolby Allard,Jon Gray
+2020,631024,2020-08-16T20:05:00Z,2020-08-16,Final,Final,Oakland Athletics,San Francisco Giants,15,3,Oakland Athletics,0,Mike Fiers,Logan Webb
+2020,631364,2020-08-16T20:10:00Z,2020-08-16,Final,Final,Los Angeles Dodgers,Los Angeles Angels,8,3,Los Angeles Dodgers,0,Dustin May,Julio Teheran
+2020,630117,2020-08-16T20:10:00Z,2020-08-16,Final,Final,San Diego Padres,Arizona Diamondbacks,4,5,Arizona Diamondbacks,1,Garrett Richards,Robbie Ray
+2020,631198,2020-08-16T23:08:00Z,2020-08-16,Final,Final,Boston Red Sox,New York Yankees,2,4,New York Yankees,1,Chris Mazza,J.A. Happ
+2020,631590,2020-08-16T17:10:00Z,2020-09-14,Final,Postponed,Pittsburgh Pirates,Cincinnati Reds,,,,,,
+2020,631613,2020-08-17T21:15:00Z,2020-08-17,Final,Final,St. Louis Cardinals,Chicago Cubs,3,1,St. Louis Cardinals,0,Kwang Hyun Kim,Kyle Hendricks
+2020,630996,2020-08-17T21:20:00Z,2020-08-17,Final,Final,Chicago Cubs,St. Louis Cardinals,5,4,Chicago Cubs,0,Tyson Miller,Alex Reyes
+2020,631199,2020-08-17T23:05:00Z,2020-08-17,Final,Final,Boston Red Sox,New York Yankees,3,6,New York Yankees,1,Martín Pérez,Jordan Montgomery
+2020,630316,2020-08-17T23:10:00Z,2020-08-17,Final,Final,Washington Nationals,Atlanta Braves,6,7,Atlanta Braves,1,Aníbal Sánchez,Touki Toussaint
+2020,631325,2020-08-17T23:10:00Z,2020-08-17,Final,Final,New York Mets,Miami Marlins,11,4,New York Mets,0,Robert Gsellman,Jordan Yamamoto
+2020,631678,2020-08-17T23:35:00Z,2020-08-17,Final,Final,Toronto Blue Jays,Baltimore Orioles,7,2,Toronto Blue Jays,0,Hyun Jin Ryu,Alex Cobb
+2020,631258,2020-08-18T00:10:00Z,2020-08-17,Final,Final,Kansas City Royals,Minnesota Twins,1,4,Minnesota Twins,1,Kris Bubic,Matt Wisler
+2020,631493,2020-08-18T00:10:00Z,2020-08-17,Final,Final,Detroit Tigers,Chicago White Sox,2,7,Chicago White Sox,1,Matthew Boyd,Gio Gonzalez
+2020,630927,2020-08-18T01:05:00Z,2020-08-17,Final,Final,San Diego Padres,Texas Rangers,14,4,San Diego Padres,0,Zach Davies,Jordan Lyles
+2020,631451,2020-08-18T01:10:00Z,2020-08-17,Final,Final,Colorado Rockies,Houston Astros,1,2,Houston Astros,1,Kyle Freeland,Brandon Bielak
+2020,630118,2020-08-18T01:40:00Z,2020-08-17,Final,Final,Oakland Athletics,Arizona Diamondbacks,3,4,Arizona Diamondbacks,1,Chris Bassitt,Zac Gallen
+2020,631352,2020-08-18T01:40:00Z,2020-08-17,Final,Final,Seattle Mariners,Los Angeles Dodgers,9,11,Los Angeles Dodgers,1,Justin Dunn,Ross Stripling
+2020,631365,2020-08-18T01:40:00Z,2020-08-17,Final,Final,San Francisco Giants,Los Angeles Angels,6,7,Los Angeles Angels,1,Tyler Anderson,Griffin Canning
+2020,631452,2020-08-18T19:10:00Z,2020-08-18,Final,Final,Colorado Rockies,Houston Astros,1,2,Houston Astros,1,Antonio Senzatela,Zack Greinke
+2020,630928,2020-08-18T20:05:00Z,2020-08-18,Final,Final,San Diego Padres,Texas Rangers,6,4,San Diego Padres,0,Adrian Morejon,Mike Minor
+2020,631366,2020-08-18T20:10:00Z,2020-08-18,Final,Final,San Francisco Giants,Los Angeles Angels,8,2,San Francisco Giants,0,Trevor Cahill,Dylan Bundy
+2020,630174,2020-08-18T22:10:00Z,2020-08-18,Final,Final,Oakland Athletics,Arizona Diamondbacks,1,10,Arizona Diamondbacks,1,Frankie Montas,Luke Weaver
+2020,631114,2020-08-18T23:05:00Z,2020-08-18,Final,Final,Cleveland Indians,Pittsburgh Pirates,6,3,Cleveland Indians,0,Carlos Carrasco,JT Brubaker
+2020,631200,2020-08-18T23:05:00Z,2020-08-18,Final,Final,Tampa Bay Rays,New York Yankees,6,3,Tampa Bay Rays,0,Blake Snell,Masahiro Tanaka
+2020,631353,2020-08-18T23:10:00Z,2020-08-18,Final,Final,Seattle Mariners,Los Angeles Dodgers,1,2,Los Angeles Dodgers,1,Marco Gonzales,Tony Gonsolin
+2020,630322,2020-08-18T23:10:00Z,2020-08-18,Final,Final,Washington Nationals,Atlanta Braves,8,5,Washington Nationals,0,Austin Voth,Josh Tomlin
+2020,631326,2020-08-18T23:10:00Z,2020-08-18,Final,Final,New York Mets,Miami Marlins,8,3,New York Mets,0,Corey Oswalt,Humberto Mejía
+2020,631651,2020-08-18T23:30:00Z,2020-08-18,Final,Final,Philadelphia Phillies,Boston Red Sox,13,6,Philadelphia Phillies,0,Zach Eflin,Zack Godley
+2020,631681,2020-08-18T23:35:00Z,2020-08-18,Final,Final,Toronto Blue Jays,Baltimore Orioles,8,7,Toronto Blue Jays,0,Nate Pearson,Wade LeBlanc
+2020,631496,2020-08-19T00:10:00Z,2020-08-18,Final,Final,Detroit Tigers,Chicago White Sox,4,10,Chicago White Sox,1,Tarik Skubal,Dylan Cease
+2020,631260,2020-08-19T00:10:00Z,2020-08-18,Final,Final,Milwaukee Brewers,Minnesota Twins,3,4,Minnesota Twins,1,Corbin Burnes,Kenta Maeda
+2020,631620,2020-08-19T00:15:00Z,2020-08-18,Final,Final,St. Louis Cardinals,Chicago Cubs,3,6,Chicago Cubs,1,Daniel Ponce de Leon,Yu Darvish
+2020,631422,2020-08-19T00:05:00Z,2020-08-19,Final,Postponed,Cincinnati Reds,Kansas City Royals,,,,,Luis Castillo,Brad Keller
+2020,631682,2020-08-19T17:05:00Z,2020-08-19,Final,Final,Toronto Blue Jays,Baltimore Orioles,5,2,Toronto Blue Jays,0,Tanner Roark,Tommy Milone
+2020,631652,2020-08-19T17:35:00Z,2020-08-19,Final,Final,Philadelphia Phillies,Boston Red Sox,3,6,Boston Red Sox,1,Jake Arrieta,Kyle Hart
+2020,631621,2020-08-19T18:20:00Z,2020-08-19,Final,Final,St. Louis Cardinals,Chicago Cubs,9,3,St. Louis Cardinals,0,Jack Flaherty,Alec Mills
+2020,630997,2020-08-19T18:25:00Z,2020-08-19,Final,Final,Chicago Cubs,St. Louis Cardinals,4,2,Chicago Cubs,0,Adbert Alzolay,Johan Oviedo
+2020,631418,2020-08-19T21:05:00Z,2020-08-19,Final,Final,Cincinnati Reds,Kansas City Royals,0,4,Kansas City Royals,1,Luis Castillo,Brad Keller
+2020,631422,2020-08-19T21:10:00Z,2020-08-19,Final,Final,Cincinnati Reds,Kansas City Royals,5,0,Cincinnati Reds,0,Trevor Bauer,Matt Harvey
+2020,631120,2020-08-19T23:05:00Z,2020-08-19,Final,Final,Cleveland Indians,Pittsburgh Pirates,6,1,Cleveland Indians,0,Aaron Civale,Steven Brault
+2020,631201,2020-08-19T23:05:00Z,2020-08-19,Final,Final,Tampa Bay Rays,New York Yankees,4,2,Tampa Bay Rays,0,Tyler Glasnow,Gerrit Cole
+2020,631327,2020-08-19T23:10:00Z,2020-08-19,Final,Final,New York Mets,Miami Marlins,5,3,New York Mets,0,Jacob deGrom,Pablo López
+2020,631497,2020-08-20T00:10:00Z,2020-08-19,Final,Final,Detroit Tigers,Chicago White Sox,3,5,Chicago White Sox,1,Casey Mize,Dane Dunning
+2020,631249,2020-08-20T00:10:00Z,2020-08-19,Final,Final,Milwaukee Brewers,Minnesota Twins,9,3,Milwaukee Brewers,0,Brett Anderson,Rich Hill
+2020,631522,2020-08-20T00:40:00Z,2020-08-19,Final,Final,Houston Astros,Colorado Rockies,13,6,Houston Astros,0,Framber Valdez,Ryan Castellani
+2020,631076,2020-08-20T01:10:00Z,2020-08-19,Final,Final,Texas Rangers,San Diego Padres,3,6,San Diego Padres,1,Lance Lynn,Chris Paddack
+2020,631179,2020-08-20T01:40:00Z,2020-08-19,Final,Final,Arizona Diamondbacks,Oakland Athletics,1,4,Oakland Athletics,1,Merrill Kelly,Jesús Luzardo
+2020,631048,2020-08-20T01:40:00Z,2020-08-19,Final,Final,Los Angeles Dodgers,Seattle Mariners,4,6,Seattle Mariners,1,Julio Urías,Taijuan Walker
+2020,631025,2020-08-20T01:45:00Z,2020-08-19,Final,Final,Los Angeles Angels,San Francisco Giants,2,7,San Francisco Giants,1,Patrick Sandoval,Johnny Cueto
+2020,630323,2020-08-19T23:10:00Z,2020-09-04,Final,Postponed,Washington Nationals,Atlanta Braves,,,,,Erick Fedde,Kyle Wright
+2020,631202,2020-08-20T17:05:00Z,2020-08-20,Final,Final,Tampa Bay Rays,New York Yankees,10,5,Tampa Bay Rays,0,John Curtiss,James Paxton
+2020,630919,2020-08-20T17:07:00Z,2020-08-20,Final,Final,Philadelphia Phillies,Toronto Blue Jays,2,3,Toronto Blue Jays,1,Spencer Howard,Chase Anderson
+2020,630918,2020-08-20T17:12:00Z,2020-08-20,Final,Final,Philadelphia Phillies,Toronto Blue Jays,8,9,Toronto Blue Jays,1,Vince Velasquez,Trent Thornton
+2020,631498,2020-08-20T18:10:00Z,2020-08-20,Final,Final,Detroit Tigers,Chicago White Sox,0,9,Chicago White Sox,1,Spencer Turnbull,Lucas Giolito
+2020,631523,2020-08-20T19:10:00Z,2020-08-20,Final,Final,Houston Astros,Colorado Rockies,10,8,Houston Astros,0,Cristian Javier,Germán Márquez
+2020,631118,2020-08-20T23:05:00Z,2020-08-20,Final,Final,Cleveland Indians,Pittsburgh Pirates,2,0,Cleveland Indians,0,Shane Bieber,Trevor Williams
+2020,631049,2020-08-20T23:10:00Z,2020-08-20,Final,Final,Los Angeles Dodgers,Seattle Mariners,6,1,Los Angeles Dodgers,0,Clayton Kershaw,Yusei Kikuchi
+2020,631248,2020-08-20T23:10:00Z,2020-08-20,Final,Final,Milwaukee Brewers,Minnesota Twins,1,7,Minnesota Twins,1,Brandon Woodruff,José Berríos
+2020,631684,2020-08-20T23:35:00Z,2020-08-20,Final,Final,Boston Red Sox,Baltimore Orioles,7,1,Boston Red Sox,0,Nathan Eovaldi,Asher Wojciechowski
+2020,631077,2020-08-21T00:10:00Z,2020-08-20,Final,Final,Texas Rangers,San Diego Padres,7,8,San Diego Padres,1,Kyle Gibson,Dinelson Lamet
+2020,630986,2020-08-21T00:15:00Z,2020-08-20,Final,Final,Cincinnati Reds,St. Louis Cardinals,4,5,St. Louis Cardinals,1,Sonny Gray,Adam Wainwright
+2020,631180,2020-08-21T01:40:00Z,2020-08-20,Final,Final,Arizona Diamondbacks,Oakland Athletics,1,5,Oakland Athletics,1,Alex Young,Sean Manaea
+2020,631026,2020-08-21T01:45:00Z,2020-08-20,Final,Final,Los Angeles Angels,San Francisco Giants,5,10,San Francisco Giants,1,José Suarez,Kevin Gausman
+2020,631323,2020-08-20T22:10:00Z,2020-08-25,Final,Postponed,New York Mets,Miami Marlins,,,,,Seth Lugo,Daniel Castano
+2020,630886,2020-08-21T22:05:00Z,2020-08-21,Final,Final,Miami Marlins,Washington Nationals,3,2,Miami Marlins,0,Elieser Hernández,Patrick Corbin
+2020,630960,2020-08-21T22:40:00Z,2020-08-21,Final,Final,Toronto Blue Jays,Tampa Bay Rays,6,5,Toronto Blue Jays,0,Matt Shoemaker,Ryan Yarbrough
+2020,631103,2020-08-21T23:05:00Z,2020-08-21,Final,Final,Milwaukee Brewers,Pittsburgh Pirates,2,7,Pittsburgh Pirates,1,Adrian Houser,Chad Kuhl
+2020,631548,2020-08-21T23:10:00Z,2020-08-21,Final,Final,Detroit Tigers,Cleveland Indians,10,5,Detroit Tigers,0,Michael Fulmer,Adam Plutko
+2020,630324,2020-08-21T23:10:00Z,2020-08-21,Final,Final,Philadelphia Phillies,Atlanta Braves,2,11,Atlanta Braves,1,Aaron Nola,Max Fried
+2020,631665,2020-08-21T23:35:00Z,2020-08-21,Final,Final,Boston Red Sox,Baltimore Orioles,8,5,Boston Red Sox,0,Colten Brewer,John Means
+2020,631409,2020-08-22T00:05:00Z,2020-08-21,Final,Final,Minnesota Twins,Kansas City Royals,2,7,Kansas City Royals,1,Jake Odorizzi,Danny Duffy
+2020,630990,2020-08-22T00:15:00Z,2020-08-21,Final,Final,Cincinnati Reds,St. Louis Cardinals,4,2,Cincinnati Reds,0,Anthony DeSclafani,Dakota Hudson
+2020,631633,2020-08-22T00:15:00Z,2020-08-21,Final,Final,Chicago White Sox,Chicago Cubs,10,1,Chicago White Sox,0,Dallas Keuchel,Jon Lester
+2020,631078,2020-08-22T01:10:00Z,2020-08-21,Final,Final,Houston Astros,San Diego Padres,3,4,San Diego Padres,1,Lance McCullers Jr.,Garrett Richards
+2020,631050,2020-08-22T01:10:00Z,2020-08-21,Final,Final,Texas Rangers,Seattle Mariners,4,7,Seattle Mariners,1,Kolby Allard,Nick Margevicius
+2020,631348,2020-08-22T01:40:00Z,2020-08-21,Final,Final,Colorado Rockies,Los Angeles Dodgers,1,5,Los Angeles Dodgers,1,Jon Gray,Walker Buehler
+2020,631186,2020-08-22T01:40:00Z,2020-08-21,Final,Final,Los Angeles Angels,Oakland Athletics,3,5,Oakland Athletics,1,Andrew Heaney,Mike Fiers
+2020,631027,2020-08-22T01:45:00Z,2020-08-21,Final,Final,Arizona Diamondbacks,San Francisco Giants,2,6,San Francisco Giants,1,Robbie Ray,Logan Webb
+2020,631230,2020-08-21T23:10:00Z,2020-08-28,Final,Postponed,New York Yankees,New York Mets,,,,,J.A. Happ,Rick Porcello
+2020,630890,2020-08-22T20:05:00Z,2020-08-22,Final,Final,Miami Marlins,Washington Nationals,4,5,Washington Nationals,1,Daniel Castano,Max Scherzer
+2020,631341,2020-08-22T20:10:00Z,2020-08-22,Final,Final,Washington Nationals,Miami Marlins,3,5,Miami Marlins,1,Wil Crowe,Sixto Sánchez
+2020,631104,2020-08-22T20:05:00Z,2020-08-22,Final,Final,Milwaukee Brewers,Pittsburgh Pirates,5,12,Pittsburgh Pirates,1,Josh Lindblom,Derek Holland
+2020,631154,2020-08-22T20:10:00Z,2020-08-22,Final,Final,Los Angeles Angels,Oakland Athletics,4,3,Los Angeles Angels,0,Griffin Canning,Chris Bassitt
+2020,630948,2020-08-22T22:40:00Z,2020-08-22,Final,Final,Toronto Blue Jays,Tampa Bay Rays,1,2,Tampa Bay Rays,1,Hyun Jin Ryu,Aaron Slegers
+2020,631403,2020-08-22T23:05:00Z,2020-08-22,Final,Final,Minnesota Twins,Kansas City Royals,7,2,Minnesota Twins,0,Randy Dobnak,Brady Singer
+2020,631564,2020-08-22T23:10:00Z,2020-08-22,Final,Final,Detroit Tigers,Cleveland Indians,1,6,Cleveland Indians,1,Matthew Boyd,Triston McKenzie
+2020,630338,2020-08-22T23:10:00Z,2020-08-22,Final,Final,Philadelphia Phillies,Atlanta Braves,5,6,Atlanta Braves,1,Zack Wheeler,Robbie Erlin
+2020,631667,2020-08-22T23:35:00Z,2020-08-22,Final,Final,Boston Red Sox,Baltimore Orioles,4,5,Baltimore Orioles,1,Martín Pérez,Alex Cobb
+2020,630991,2020-08-23T00:15:00Z,2020-08-22,Final,Final,Cincinnati Reds,St. Louis Cardinals,0,3,St. Louis Cardinals,1,Wade Miley,Kwang Hyun Kim
+2020,631638,2020-08-23T00:15:00Z,2020-08-22,Final,Final,Chicago White Sox,Chicago Cubs,7,4,Chicago White Sox,0,Reynaldo López,Kyle Hendricks
+2020,631349,2020-08-23T01:10:00Z,2020-08-22,Final,Final,Colorado Rockies,Los Angeles Dodgers,3,4,Los Angeles Dodgers,1,Kyle Freeland,Dustin May
+2020,631079,2020-08-23T01:10:00Z,2020-08-22,Final,Final,Houston Astros,San Diego Padres,2,13,San Diego Padres,1,Brandon Bielak,Zach Davies
+2020,631051,2020-08-23T01:10:00Z,2020-08-22,Final,Final,Texas Rangers,Seattle Mariners,1,10,Seattle Mariners,1,Jordan Lyles,Justus Sheffield
+2020,631028,2020-08-23T01:15:00Z,2020-08-22,Final,Final,Arizona Diamondbacks,San Francisco Giants,1,5,San Francisco Giants,1,Zac Gallen,Tyler Anderson
+2020,631229,2020-08-22T23:10:00Z,2020-08-30,Final,Postponed,New York Yankees,New York Mets,,,,,,
+2020,630897,2020-08-23T16:35:00Z,2020-08-23,Final,Final,Miami Marlins,Washington Nationals,3,9,Washington Nationals,1,Humberto Mejía,Aníbal Sánchez
+2020,631670,2020-08-23T17:05:00Z,2020-08-23,Final,Final,Boston Red Sox,Baltimore Orioles,4,5,Baltimore Orioles,1,Zack Godley,Wade LeBlanc
+2020,631551,2020-08-23T17:10:00Z,2020-08-23,Final,Final,Detroit Tigers,Cleveland Indians,7,4,Detroit Tigers,0,Tarik Skubal,Carlos Carrasco
+2020,630949,2020-08-23T17:10:00Z,2020-08-23,Final,Final,Toronto Blue Jays,Tampa Bay Rays,4,5,Tampa Bay Rays,1,Trent Thornton,Josh Fleming
+2020,631107,2020-08-23T17:35:00Z,2020-08-23,Final,Final,Milwaukee Brewers,Pittsburgh Pirates,4,5,Pittsburgh Pirates,1,Corbin Burnes,JT Brubaker
+2020,631412,2020-08-23T18:05:00Z,2020-08-23,Final,Final,Minnesota Twins,Kansas City Royals,5,4,Minnesota Twins,0,Matt Wisler,Kris Bubic
+2020,630976,2020-08-23T18:15:00Z,2020-08-23,Final,Final,Cincinnati Reds,St. Louis Cardinals,2,6,St. Louis Cardinals,1,Tyler Mahle,Daniel Ponce de Leon
+2020,631639,2020-08-23T18:20:00Z,2020-08-23,Final,Final,Chicago White Sox,Chicago Cubs,1,2,Chicago Cubs,1,Dylan Cease,Yu Darvish
+2020,631354,2020-08-23T20:10:00Z,2020-08-23,Final,Final,Colorado Rockies,Los Angeles Dodgers,3,11,Los Angeles Dodgers,1,Antonio Senzatela,Ross Stripling
+2020,631170,2020-08-23T20:10:00Z,2020-08-23,Final,Final,Los Angeles Angels,Oakland Athletics,4,5,Oakland Athletics,1,Dylan Bundy,Frankie Montas
+2020,631080,2020-08-23T20:10:00Z,2020-08-23,Final,Final,Houston Astros,San Diego Padres,3,5,San Diego Padres,1,Zack Greinke,Adrian Morejon
+2020,631029,2020-08-23T20:10:00Z,2020-08-23,Final,Final,Arizona Diamondbacks,San Francisco Giants,1,6,San Francisco Giants,1,Luke Weaver,Trevor Cahill
+2020,631052,2020-08-23T20:10:00Z,2020-08-23,Final,Final,Texas Rangers,Seattle Mariners,1,4,Seattle Mariners,1,Mike Minor,Justin Dunn
+2020,630273,2020-08-23T23:08:00Z,2020-08-23,Final,Final,Philadelphia Phillies,Atlanta Braves,5,4,Philadelphia Phillies,0,Zach Eflin,Josh Tomlin
+2020,631234,2020-08-23T17:10:00Z,2020-09-03,Final,Postponed,New York Yankees,New York Mets,,,,,,
+2020,630950,2020-08-24T19:10:00Z,2020-08-24,Final,Final,Toronto Blue Jays,Tampa Bay Rays,6,4,Toronto Blue Jays,0,Tanner Roark,Blake Snell
+2020,630898,2020-08-24T22:05:00Z,2020-08-24,Final,Final,Miami Marlins,Washington Nationals,11,8,Miami Marlins,0,Pablo López,Austin Voth
+2020,631468,2020-08-24T23:10:00Z,2020-08-24,Final,Final,Chicago Cubs,Detroit Tigers,9,3,Chicago Cubs,0,Alec Mills,Casey Mize
+2020,631552,2020-08-24T23:10:00Z,2020-08-24,Final,Final,Minnesota Twins,Cleveland Indians,3,2,Minnesota Twins,0,Kenta Maeda,Aaron Civale
+2020,630929,2020-08-25T00:05:00Z,2020-08-24,Final,Final,Oakland Athletics,Texas Rangers,2,3,Texas Rangers,1,Jesús Luzardo,Lance Lynn
+2020,631301,2020-08-25T00:10:00Z,2020-08-24,Final,Final,Cincinnati Reds,Milwaukee Brewers,2,4,Milwaukee Brewers,1,Trevor Bauer,Brett Anderson
+2020,630977,2020-08-25T00:15:00Z,2020-08-24,Final,Final,Kansas City Royals,St. Louis Cardinals,3,9,St. Louis Cardinals,1,Brad Keller,Jack Flaherty
+2020,631439,2020-08-25T01:10:00Z,2020-08-24,Final,Final,Los Angeles Angels,Houston Astros,4,11,Houston Astros,1,Patrick Sandoval,Framber Valdez
+2020,630193,2020-08-25T01:40:00Z,2020-08-24,Final,Final,Colorado Rockies,Arizona Diamondbacks,3,2,Colorado Rockies,0,Ryan Castellani,Taylor Clarke
+2020,631423,2020-08-25T20:05:00Z,2020-08-25,Final,Final,Los Angeles Angels,Houston Astros,3,6,Houston Astros,1,José Suarez,Cristian Javier
+2020,631426,2020-08-25T20:10:00Z,2020-08-25,Final,Final,Los Angeles Angels,Houston Astros,12,5,Los Angeles Angels,0,Julio Teheran,Brandon Bielak
+2020,631227,2020-08-25T21:10:00Z,2020-08-25,Final,Final,Miami Marlins,New York Mets,4,0,Miami Marlins,0,Daniel Castano,Rick Porcello
+2020,631323,2020-08-25T21:15:00Z,2020-08-25,Final,Final,New York Mets,Miami Marlins,0,3,Miami Marlins,1,Seth Lugo,Trevor Rogers
+2020,630855,2020-08-25T22:05:00Z,2020-08-25,Final,Final,Philadelphia Phillies,Washington Nationals,8,3,Philadelphia Phillies,0,Jake Arrieta,Erick Fedde
+2020,630862,2020-08-25T22:37:00Z,2020-08-25,Final,Final,Boston Red Sox,Toronto Blue Jays,9,7,Boston Red Sox,0,Kyle Hart,Chase Anderson
+2020,630951,2020-08-25T22:40:00Z,2020-08-25,Final,Final,Baltimore Orioles,Tampa Bay Rays,2,4,Tampa Bay Rays,1,Tommy Milone,Tyler Glasnow
+2020,631467,2020-08-25T23:10:00Z,2020-08-25,Final,Final,Chicago Cubs,Detroit Tigers,1,7,Detroit Tigers,1,Tyler Chatwood,Spencer Turnbull
+2020,631553,2020-08-25T23:10:00Z,2020-08-25,Final,Final,Minnesota Twins,Cleveland Indians,2,4,Cleveland Indians,1,Rich Hill,Shane Bieber
+2020,630930,2020-08-26T00:05:00Z,2020-08-25,Final,Final,Oakland Athletics,Texas Rangers,10,3,Oakland Athletics,0,Sean Manaea,Kyle Gibson
+2020,631499,2020-08-26T00:10:00Z,2020-08-25,Final,Final,Pittsburgh Pirates,Chicago White Sox,0,4,Chicago White Sox,1,Steven Brault,Lucas Giolito
+2020,631302,2020-08-26T00:10:00Z,2020-08-25,Final,Final,Cincinnati Reds,Milwaukee Brewers,2,3,Milwaukee Brewers,1,Luis Castillo,Brandon Woodruff
+2020,630978,2020-08-26T00:15:00Z,2020-08-25,Final,Final,Kansas City Royals,St. Louis Cardinals,5,4,Kansas City Royals,0,Matt Harvey,Adam Wainwright
+2020,631081,2020-08-26T01:10:00Z,2020-08-25,Final,Final,Seattle Mariners,San Diego Padres,8,3,Seattle Mariners,0,Marco Gonzales,Chris Paddack
+2020,630194,2020-08-26T01:40:00Z,2020-08-25,Final,Final,Colorado Rockies,Arizona Diamondbacks,5,4,Colorado Rockies,0,Germán Márquez,Alex Young
+2020,631015,2020-08-26T01:45:00Z,2020-08-25,Final,Final,Los Angeles Dodgers,San Francisco Giants,8,10,San Francisco Giants,1,Julio Urías,Johnny Cueto
+2020,630360,2020-08-25T23:10:00Z,2020-08-26,Final,Postponed,New York Yankees,Atlanta Braves,,,,,Gerrit Cole,Ian Anderson
+2020,631500,2020-08-26T18:10:00Z,2020-08-26,Final,Final,Pittsburgh Pirates,Chicago White Sox,3,10,Chicago White Sox,1,Trevor Williams,Dallas Keuchel
+2020,630361,2020-08-26T20:10:00Z,2020-08-26,Final,Final,New York Yankees,Atlanta Braves,1,5,Atlanta Braves,1,Gerrit Cole,Ian Anderson
+2020,630360,2020-08-26T20:15:00Z,2020-08-26,Final,Final,New York Yankees,Atlanta Braves,1,2,Atlanta Braves,1,Masahiro Tanaka,Max Fried
+2020,630853,2020-08-26T22:05:00Z,2020-08-26,Final,Final,Philadelphia Phillies,Washington Nationals,3,2,Philadelphia Phillies,0,Aaron Nola,Patrick Corbin
+2020,630863,2020-08-26T22:37:00Z,2020-08-26,Final,Final,Boston Red Sox,Toronto Blue Jays,1,9,Toronto Blue Jays,1,Colten Brewer,Julian Merryweather
+2020,630952,2020-08-26T22:40:00Z,2020-08-26,Final,Final,Baltimore Orioles,Tampa Bay Rays,3,4,Tampa Bay Rays,1,Asher Wojciechowski,Trevor Richards
+2020,631455,2020-08-26T23:10:00Z,2020-08-26,Final,Final,Chicago Cubs,Detroit Tigers,6,7,Detroit Tigers,1,Jon Lester,Michael Fulmer
+2020,631554,2020-08-26T23:10:00Z,2020-08-26,Final,Final,Minnesota Twins,Cleveland Indians,3,6,Cleveland Indians,1,José Berríos,Mike Clevinger
+2020,631226,2020-08-26T23:10:00Z,2020-08-26,Final,Final,Miami Marlins,New York Mets,4,5,New York Mets,1,Elieser Hernández,Jacob deGrom
+2020,630931,2020-08-27T00:05:00Z,2020-08-26,Final,Final,Oakland Athletics,Texas Rangers,3,1,Oakland Athletics,0,Mike Fiers,Kolby Allard
+2020,630979,2020-08-27T00:15:00Z,2020-08-26,Final,Final,Kansas City Royals,St. Louis Cardinals,5,6,St. Louis Cardinals,1,Jakob Junis,Dakota Hudson
+2020,630099,2020-08-27T01:40:00Z,2020-08-26,Final,Final,Colorado Rockies,Arizona Diamondbacks,8,7,Colorado Rockies,0,Jon Gray,Robbie Ray
+2020,631440,2020-08-26T17:10:00Z,2020-09-05,Final,Postponed,Los Angeles Angels,Houston Astros,,,,,Andrew Heaney,Lance McCullers Jr.
+2020,631303,2020-08-27T00:10:00Z,2020-08-27,Final,Postponed,Cincinnati Reds,Milwaukee Brewers,,,,,Sonny Gray,Adrian Houser
+2020,631082,2020-08-27T01:10:00Z,2020-08-27,Final,Postponed,Seattle Mariners,San Diego Padres,,,,,Taijuan Walker,Dinelson Lamet
+2020,631001,2020-08-27T01:45:00Z,2020-08-27,Final,Postponed,Los Angeles Dodgers,San Francisco Giants,,,,,Clayton Kershaw,Kevin Gausman
+2020,631083,2020-08-27T19:10:00Z,2020-08-27,Final,Final,Seattle Mariners,San Diego Padres,7,10,San Diego Padres,1,Ljay Newsome,Dinelson Lamet
+2020,631082,2020-08-27T19:15:00Z,2020-08-27,Final,Final,Seattle Mariners,San Diego Padres,8,3,Seattle Mariners,0,Yusei Kikuchi,Garrett Richards
+2020,630999,2020-08-27T19:15:00Z,2020-08-27,Final,Final,Pittsburgh Pirates,St. Louis Cardinals,4,3,Pittsburgh Pirates,0,Chad Kuhl,Kwang Hyun Kim
+2020,631000,2020-08-27T19:20:00Z,2020-08-27,Final,Final,Pittsburgh Pirates,St. Louis Cardinals,2,0,Pittsburgh Pirates,0,Cody Ponce,Johan Oviedo
+2020,631017,2020-08-27T20:05:00Z,2020-08-27,Final,Final,Los Angeles Dodgers,San Francisco Giants,7,0,Los Angeles Dodgers,0,Walker Buehler,Logan Webb
+2020,631001,2020-08-27T20:10:00Z,2020-08-27,Final,Final,Los Angeles Dodgers,San Francisco Giants,2,0,Los Angeles Dodgers,0,Caleb Ferguson,Kevin Gausman
+2020,631290,2020-08-27T21:10:00Z,2020-08-27,Final,Final,Cincinnati Reds,Milwaukee Brewers,6,1,Cincinnati Reds,0,Sonny Gray,Adrian Houser
+2020,631303,2020-08-27T21:15:00Z,2020-08-27,Final,Final,Cincinnati Reds,Milwaukee Brewers,6,0,Cincinnati Reds,0,,Josh Lindblom
+2020,630203,2020-08-27T22:10:00Z,2020-09-25,Final,Postponed,Colorado Rockies,Arizona Diamondbacks,,,,,Kyle Freeland,Zac Gallen
+2020,630932,2020-08-27T22:37:00Z,2020-09-12,Final,Postponed,Oakland Athletics,Texas Rangers,,,,,Chris Bassitt,Jordan Lyles
+2020,630865,2020-08-27T22:37:00Z,2020-09-04,Final,Postponed,Boston Red Sox,Toronto Blue Jays,,,,,Chris Mazza,Hyun Jin Ryu
+2020,630896,2020-08-27T22:37:00Z,2020-09-22,Final,Postponed,Philadelphia Phillies,Washington Nationals,,,,,Spencer Howard,Max Scherzer
+2020,630953,2020-08-27T22:40:00Z,2020-09-17,Final,Postponed,Baltimore Orioles,Tampa Bay Rays,,,,,,
+2020,631456,2020-08-27T23:10:00Z,2020-09-04,Final,Postponed,Minnesota Twins,Detroit Tigers,,,,,Randy Dobnak,Matthew Boyd
+2020,631223,2020-08-27T23:10:00Z,2020-08-31,Final,Postponed,Miami Marlins,New York Mets,,,,,Sixto Sánchez,Michael Wacha
+2020,631203,2020-08-28T20:05:00Z,2020-08-28,Final,Final,New York Mets,New York Yankees,6,4,New York Mets,0,Michael Wacha,Jordan Montgomery
+2020,631230,2020-08-28T20:10:00Z,2020-08-28,Final,Final,New York Yankees,New York Mets,3,4,New York Mets,1,Jonathan Loáisiga,David Peterson
+2020,630871,2020-08-28T22:37:00Z,2020-08-28,Final,Final,Baltimore Orioles,Toronto Blue Jays,4,5,Toronto Blue Jays,1,John Means,Hyun Jin Ryu
+2020,631125,2020-08-28T23:05:00Z,2020-08-28,Final,Final,Atlanta Braves,Philadelphia Phillies,4,7,Philadelphia Phillies,1,Robbie Erlin,Zack Wheeler
+2020,631582,2020-08-28T23:10:00Z,2020-08-28,Final,Final,Chicago Cubs,Cincinnati Reds,5,6,Cincinnati Reds,1,Kyle Hendricks,Tyler Mahle
+2020,631501,2020-08-28T23:10:00Z,2020-08-28,Final,Final,Kansas City Royals,Chicago White Sox,5,6,Chicago White Sox,1,Danny Duffy,Reynaldo López
+2020,631304,2020-08-28T23:10:00Z,2020-08-28,Final,Final,Tampa Bay Rays,Miami Marlins,2,0,Tampa Bay Rays,0,Ryan Yarbrough,Sixto Sánchez
+2020,631653,2020-08-28T23:30:00Z,2020-08-28,Final,Final,Washington Nationals,Boston Red Sox,10,2,Washington Nationals,0,Max Scherzer,Martín Pérez
+2020,630933,2020-08-29T00:05:00Z,2020-08-28,Final,Final,Los Angeles Dodgers,Texas Rangers,2,6,Texas Rangers,1,Dustin May,Mike Minor
+2020,631291,2020-08-29T00:10:00Z,2020-08-28,Final,Final,Pittsburgh Pirates,Milwaukee Brewers,1,9,Milwaukee Brewers,1,Derek Holland,Corbin Burnes
+2020,630980,2020-08-29T00:15:00Z,2020-08-28,Final,Final,Cleveland Indians,St. Louis Cardinals,14,2,Cleveland Indians,0,Triston McKenzie,Daniel Ponce de Leon
+2020,631524,2020-08-29T00:40:00Z,2020-08-28,Final,Final,San Diego Padres,Colorado Rockies,10,4,San Diego Padres,0,Zach Davies,Kyle Freeland
+2020,631394,2020-08-29T01:40:00Z,2020-08-28,Final,Final,Seattle Mariners,Los Angeles Angels,2,3,Los Angeles Angels,1,Nick Margevicius,Andrew Heaney
+2020,630216,2020-08-29T01:40:00Z,2020-08-28,Final,Final,San Francisco Giants,Arizona Diamondbacks,4,7,Arizona Diamondbacks,1,Tyler Anderson,Zac Gallen
+2020,631457,2020-08-28T17:10:00Z,2020-08-29,Final,Postponed,Minnesota Twins,Detroit Tigers,,,,,Matt Wisler,Tarik Skubal
+2020,631456,2020-08-28T17:15:00Z,2020-09-04,Final,Postponed,Minnesota Twins,Detroit Tigers,,,,,,
+2020,631427,2020-08-29T01:10:00Z,2020-08-29,Final,Postponed,Oakland Athletics,Houston Astros,,,,,Chris Bassitt,Lance McCullers Jr.
+2020,631204,2020-08-29T17:05:00Z,2020-08-29,Final,Final,New York Mets,New York Yankees,1,2,New York Yankees,1,Robert Gsellman,J.A. Happ
+2020,631458,2020-08-29T17:10:00Z,2020-08-29,Final,Final,Minnesota Twins,Detroit Tigers,2,8,Detroit Tigers,1,Randy Dobnak,Matthew Boyd
+2020,631457,2020-08-29T17:15:00Z,2020-08-29,Final,Final,Minnesota Twins,Detroit Tigers,2,4,Detroit Tigers,1,Matt Wisler,Tarik Skubal
+2020,630981,2020-08-29T17:15:00Z,2020-08-29,Final,Final,Cleveland Indians,St. Louis Cardinals,2,1,Cleveland Indians,0,Carlos Carrasco,Jack Flaherty
+2020,631134,2020-08-29T17:15:00Z,2020-08-29,Final,Final,Atlanta Braves,Philadelphia Phillies,1,4,Philadelphia Phillies,1,Josh Tomlin,Zach Eflin
+2020,631502,2020-08-29T18:10:00Z,2020-08-29,Final,Final,Kansas City Royals,Chicago White Sox,9,6,Kansas City Royals,0,Brady Singer,Dylan Cease
+2020,631581,2020-08-29T20:10:00Z,2020-08-29,Final,Final,Chicago Cubs,Cincinnati Reds,3,0,Chicago Cubs,0,Yu Darvish,Trevor Bauer
+2020,631595,2020-08-29T20:15:00Z,2020-08-29,Final,Final,Chicago Cubs,Cincinnati Reds,5,6,Cincinnati Reds,1,Alec Mills,Tejay Antone
+2020,631428,2020-08-29T20:10:00Z,2020-08-29,Final,Final,Oakland Athletics,Houston Astros,2,4,Houston Astros,1,Chris Bassitt,Lance McCullers Jr.
+2020,631427,2020-08-29T20:15:00Z,2020-08-29,Final,Final,Oakland Athletics,Houston Astros,3,6,Houston Astros,1,Frankie Montas,Zack Greinke
+2020,631319,2020-08-29T22:10:00Z,2020-08-29,Final,Final,Tampa Bay Rays,Miami Marlins,4,0,Tampa Bay Rays,0,Josh Fleming,Pablo López
+2020,630906,2020-08-29T22:37:00Z,2020-08-29,Final,Final,Baltimore Orioles,Toronto Blue Jays,0,5,Toronto Blue Jays,1,Alex Cobb,Taijuan Walker
+2020,630934,2020-08-29T23:05:00Z,2020-08-29,Final,Final,Los Angeles Dodgers,Texas Rangers,7,4,Los Angeles Dodgers,0,Ross Stripling,Lance Lynn
+2020,631277,2020-08-29T23:10:00Z,2020-08-29,Final,Final,Pittsburgh Pirates,Milwaukee Brewers,6,7,Milwaukee Brewers,1,JT Brubaker,Brett Anderson
+2020,631654,2020-08-29T23:30:00Z,2020-08-29,Final,Final,Washington Nationals,Boston Red Sox,3,5,Boston Red Sox,1,Aníbal Sánchez,Chris Mazza
+2020,631525,2020-08-30T00:10:00Z,2020-08-29,Final,Final,San Diego Padres,Colorado Rockies,3,4,Colorado Rockies,1,Michel Baez,Antonio Senzatela
+2020,630217,2020-08-30T00:10:00Z,2020-08-29,Final,Final,San Francisco Giants,Arizona Diamondbacks,5,2,San Francisco Giants,0,Trevor Cahill,Luke Weaver
+2020,631369,2020-08-30T01:40:00Z,2020-08-29,Final,Final,Seattle Mariners,Los Angeles Angels,3,16,Los Angeles Angels,1,Justus Sheffield,Dylan Bundy
+2020,631205,2020-08-30T17:05:00Z,2020-08-30,Final,Final,New York Mets,New York Yankees,7,8,New York Yankees,1,Rick Porcello,Michael King
+2020,631229,2020-08-30T17:10:00Z,2020-08-30,Final,Final,New York Yankees,New York Mets,5,2,New York Yankees,0,Deivi García,Seth Lugo
+2020,631584,2020-08-30T17:10:00Z,2020-08-30,Final,Final,Chicago Cubs,Cincinnati Reds,10,1,Chicago Cubs,0,Tyler Chatwood,Luis Castillo
+2020,631459,2020-08-30T17:10:00Z,2020-08-30,Final,Final,Minnesota Twins,Detroit Tigers,2,3,Detroit Tigers,1,Kenta Maeda,Casey Mize
+2020,631306,2020-08-30T17:10:00Z,2020-08-30,Final,Final,Tampa Bay Rays,Miami Marlins,12,7,Tampa Bay Rays,0,Blake Snell,Sandy Alcantara
+2020,631655,2020-08-30T17:35:00Z,2020-08-30,Final,Final,Washington Nationals,Boston Red Sox,5,9,Boston Red Sox,1,Austin Voth,Zack Godley
+2020,631505,2020-08-30T18:10:00Z,2020-08-30,Final,Final,Kansas City Royals,Chicago White Sox,2,5,Chicago White Sox,1,Kris Bubic,Dane Dunning
+2020,631278,2020-08-30T18:10:00Z,2020-08-30,Final,Final,Pittsburgh Pirates,Milwaukee Brewers,5,1,Pittsburgh Pirates,0,Steven Brault,Brandon Woodruff
+2020,630982,2020-08-30T18:15:00Z,2020-08-30,Final,Final,Cleveland Indians,St. Louis Cardinals,2,7,St. Louis Cardinals,1,Aaron Civale,Adam Wainwright
+2020,630921,2020-08-30T18:35:00Z,2020-08-30,Final,Final,Los Angeles Dodgers,Texas Rangers,7,2,Los Angeles Dodgers,0,Tony Gonsolin,Kyle Gibson
+2020,630852,2020-08-30T19:07:00Z,2020-08-30,Final,Final,Baltimore Orioles,Toronto Blue Jays,5,6,Toronto Blue Jays,1,Jorge López,Tanner Roark
+2020,631526,2020-08-30T19:10:00Z,2020-08-30,Final,Final,San Diego Padres,Colorado Rockies,13,2,San Diego Padres,0,Chris Paddack,Ryan Castellani
+2020,631371,2020-08-30T20:10:00Z,2020-08-30,Final,Final,Seattle Mariners,Los Angeles Angels,2,1,Seattle Mariners,0,Justin Dunn,Griffin Canning
+2020,630219,2020-08-30T20:10:00Z,2020-08-30,Final,Final,San Francisco Giants,Arizona Diamondbacks,4,1,San Francisco Giants,0,Johnny Cueto,Taylor Clarke
+2020,631135,2020-08-30T23:08:00Z,2020-08-30,Final,Final,Atlanta Braves,Philadelphia Phillies,12,10,Atlanta Braves,0,Tommy Milone,Jake Arrieta
+2020,631429,2020-08-30T18:10:00Z,2020-09-08,Final,Postponed,Oakland Athletics,Houston Astros,,,,,Jesús Luzardo,Framber Valdez
+2020,631223,2020-08-31T17:10:00Z,2020-08-31,Final,Final,Miami Marlins,New York Mets,5,3,Miami Marlins,0,Trevor Rogers,Jacob deGrom
+2020,630900,2020-08-31T18:07:00Z,2020-08-31,Final,Final,Baltimore Orioles,Toronto Blue Jays,4,3,Baltimore Orioles,0,Keegan Akin,Chase Anderson
+2020,631374,2020-08-31T20:10:00Z,2020-08-31,Final,Final,Seattle Mariners,Los Angeles Angels,2,1,Seattle Mariners,0,Marco Gonzales,Jaime Barria
+2020,631585,2020-08-31T22:40:00Z,2020-08-31,Final,Final,St. Louis Cardinals,Cincinnati Reds,7,5,St. Louis Cardinals,0,Dakota Hudson,Anthony DeSclafani
+2020,631143,2020-08-31T23:05:00Z,2020-08-31,Final,Final,Washington Nationals,Philadelphia Phillies,6,8,Philadelphia Phillies,1,Erick Fedde,Spencer Howard
+2020,631206,2020-08-31T23:05:00Z,2020-08-31,Final,Final,Tampa Bay Rays,New York Yankees,5,3,Tampa Bay Rays,0,Tyler Glasnow,Gerrit Cole
+2020,631656,2020-08-31T23:30:00Z,2020-08-31,Final,Final,Atlanta Braves,Boston Red Sox,6,3,Atlanta Braves,0,Max Fried,Colten Brewer
+2020,631281,2020-08-31T23:40:00Z,2020-08-31,Final,Final,Pittsburgh Pirates,Milwaukee Brewers,5,6,Milwaukee Brewers,1,Trevor Williams,Brent Suter
+2020,631414,2020-09-01T00:05:00Z,2020-08-31,Final,Final,Cleveland Indians,Kansas City Royals,1,2,Kansas City Royals,1,Shane Bieber,Brad Keller
+2020,631247,2020-09-01T00:10:00Z,2020-08-31,Final,Final,Chicago White Sox,Minnesota Twins,8,5,Chicago White Sox,0,Lucas Giolito,Rich Hill
+2020,631527,2020-09-01T01:40:00Z,2020-08-31,Final,Final,San Diego Padres,Colorado Rockies,6,0,San Diego Padres,0,Garrett Richards,Germán Márquez
+2020,631586,2020-09-01T22:40:00Z,2020-09-01,Final,Final,St. Louis Cardinals,Cincinnati Reds,16,2,St. Louis Cardinals,0,Kwang Hyun Kim,Sonny Gray
+2020,631307,2020-09-01T22:40:00Z,2020-09-01,Final,Final,Toronto Blue Jays,Miami Marlins,2,3,Miami Marlins,1,Julian Merryweather,Elieser Hernández
+2020,631109,2020-09-01T23:05:00Z,2020-09-01,Final,Final,Chicago Cubs,Pittsburgh Pirates,8,7,Chicago Cubs,0,Jon Lester,Chad Kuhl
+2020,631153,2020-09-01T23:05:00Z,2020-09-01,Final,Final,Washington Nationals,Philadelphia Phillies,0,6,Philadelphia Phillies,1,Patrick Corbin,Aaron Nola
+2020,631207,2020-09-01T23:05:00Z,2020-09-01,Final,Final,Tampa Bay Rays,New York Yankees,3,5,New York Yankees,1,Trevor Richards,Masahiro Tanaka
+2020,631657,2020-09-01T23:30:00Z,2020-09-01,Final,Final,Atlanta Braves,Boston Red Sox,10,3,Atlanta Braves,0,Ian Anderson,Ryan Weber
+2020,631671,2020-09-01T23:35:00Z,2020-09-01,Final,Final,New York Mets,Baltimore Orioles,5,9,Baltimore Orioles,1,Ariel Jurado,Asher Wojciechowski
+2020,631287,2020-09-01T23:40:00Z,2020-09-01,Final,Final,Detroit Tigers,Milwaukee Brewers,12,1,Detroit Tigers,0,Michael Fulmer,Josh Lindblom
+2020,631416,2020-09-02T00:05:00Z,2020-09-01,Final,Final,Cleveland Indians,Kansas City Royals,10,1,Cleveland Indians,0,Zach Plesac,Matt Harvey
+2020,631430,2020-09-02T00:10:00Z,2020-09-01,Final,Final,Texas Rangers,Houston Astros,6,5,Texas Rangers,0,Luis García,Framber Valdez
+2020,631261,2020-09-02T00:10:00Z,2020-09-01,Final,Final,Chicago White Sox,Minnesota Twins,2,3,Minnesota Twins,1,Dallas Keuchel,Michael Pineda
+2020,631528,2020-09-02T00:40:00Z,2020-09-01,Final,Final,San Francisco Giants,Colorado Rockies,23,5,San Francisco Giants,0,Kevin Gausman,Jon Gray
+2020,631355,2020-09-02T01:40:00Z,2020-09-01,Final,Final,Arizona Diamondbacks,Los Angeles Dodgers,3,6,Los Angeles Dodgers,1,Alex Young,Julio Urías
+2020,631053,2020-09-02T01:40:00Z,2020-09-14,Final,Postponed,Oakland Athletics,Seattle Mariners,,,,,,Ljay Newsome
+2020,631529,2020-09-02T19:10:00Z,2020-09-02,Final,Final,San Francisco Giants,Colorado Rockies,6,9,Colorado Rockies,1,Logan Webb,Kyle Freeland
+2020,631673,2020-09-02T20:05:00Z,2020-09-02,Final,Final,New York Mets,Baltimore Orioles,9,4,New York Mets,0,Michael Wacha,John Means
+2020,631587,2020-09-02T22:40:00Z,2020-09-02,Final,Final,St. Louis Cardinals,Cincinnati Reds,3,4,Cincinnati Reds,1,Johan Oviedo,Tyler Mahle
+2020,631308,2020-09-02T22:40:00Z,2020-09-02,Final,Final,Toronto Blue Jays,Miami Marlins,2,1,Toronto Blue Jays,0,Hyun Jin Ryu,Sixto Sánchez
+2020,631111,2020-09-02T23:05:00Z,2020-09-02,Final,Final,Chicago Cubs,Pittsburgh Pirates,8,2,Chicago Cubs,0,Kyle Hendricks,Joe Musgrove
+2020,631145,2020-09-02T23:05:00Z,2020-09-02,Final,Final,Washington Nationals,Philadelphia Phillies,0,3,Philadelphia Phillies,1,Max Scherzer,Zack Wheeler
+2020,631194,2020-09-02T23:05:00Z,2020-09-02,Final,Final,Tampa Bay Rays,New York Yankees,5,2,Tampa Bay Rays,0,Charlie Morton,Jordan Montgomery
+2020,631624,2020-09-02T23:30:00Z,2020-09-02,Final,Final,Atlanta Braves,Boston Red Sox,7,5,Atlanta Braves,0,Robbie Erlin,Robinson Leyer
+2020,631283,2020-09-02T23:40:00Z,2020-09-02,Final,Final,Detroit Tigers,Milwaukee Brewers,5,8,Milwaukee Brewers,1,Spencer Turnbull,Adrian Houser
+2020,631404,2020-09-03T00:05:00Z,2020-09-02,Final,Final,Cleveland Indians,Kansas City Royals,5,0,Cleveland Indians,0,Triston McKenzie,Jakob Junis
+2020,631431,2020-09-03T00:10:00Z,2020-09-02,Final,Final,Texas Rangers,Houston Astros,1,2,Houston Astros,1,Kolby Allard,Cristian Javier
+2020,631253,2020-09-03T00:10:00Z,2020-09-02,Final,Final,Chicago White Sox,Minnesota Twins,1,8,Minnesota Twins,1,Reynaldo López,José Berríos
+2020,631356,2020-09-03T01:40:00Z,2020-09-02,Final,Final,Arizona Diamondbacks,Los Angeles Dodgers,2,3,Los Angeles Dodgers,1,Zac Gallen,Walker Buehler
+2020,631379,2020-09-03T01:40:00Z,2020-09-02,Final,Final,San Diego Padres,Los Angeles Angels,11,4,San Diego Padres,0,Dinelson Lamet,Julio Teheran
+2020,631054,2020-09-03T01:40:00Z,2020-09-14,Final,Postponed,Oakland Athletics,Seattle Mariners,,,,,,Yusei Kikuchi
+2020,631112,2020-09-03T17:35:00Z,2020-09-03,Final,Final,Chicago Cubs,Pittsburgh Pirates,2,6,Pittsburgh Pirates,1,Alec Mills,JT Brubaker
+2020,631432,2020-09-03T18:10:00Z,2020-09-03,Final,Final,Texas Rangers,Houston Astros,4,8,Houston Astros,1,Lance Lynn,Zack Greinke
+2020,631146,2020-09-03T20:05:00Z,2020-09-03,Final,Final,Washington Nationals,Philadelphia Phillies,5,6,Philadelphia Phillies,1,Aníbal Sánchez,Zach Eflin
+2020,631234,2020-09-03T20:10:00Z,2020-09-03,Final,Final,New York Yankees,New York Mets,7,9,New York Mets,1,J.A. Happ,Robert Gsellman
+2020,631368,2020-09-03T23:10:00Z,2020-09-03,Final,Final,San Diego Padres,Los Angeles Angels,0,2,Los Angeles Angels,1,Mike Clevinger,Andrew Heaney
+2020,631614,2020-09-03T23:30:00Z,2020-09-03,Final,Final,Toronto Blue Jays,Boston Red Sox,6,2,Toronto Blue Jays,0,Taijuan Walker,Martín Pérez
+2020,631405,2020-09-04T00:05:00Z,2020-09-03,Final,Final,Chicago White Sox,Kansas City Royals,11,6,Chicago White Sox,0,Dylan Cease,Danny Duffy
+2020,631370,2020-09-04T01:40:00Z,2020-09-03,Final,Final,Arizona Diamondbacks,Los Angeles Dodgers,1,5,Los Angeles Dodgers,1,Luke Weaver,Clayton Kershaw
+2020,631055,2020-09-03T20:10:00Z,2020-09-26,Final,Postponed,Oakland Athletics,Seattle Mariners,,,,,,
+2020,631262,2020-09-04T18:10:00Z,2020-09-04,Final,Final,Detroit Tigers,Minnesota Twins,0,2,Minnesota Twins,1,Matthew Boyd,Randy Dobnak
+2020,631456,2020-09-04T18:15:00Z,2020-09-04,Final,Final,Minnesota Twins,Detroit Tigers,3,2,Minnesota Twins,0,Matt Wisler,Tyler Alexander
+2020,631113,2020-09-04T20:05:00Z,2020-09-04,Final,Final,Cincinnati Reds,Pittsburgh Pirates,4,2,Cincinnati Reds,0,Luis Castillo,Steven Brault
+2020,631602,2020-09-04T20:10:00Z,2020-09-04,Final,Final,Pittsburgh Pirates,Cincinnati Reds,4,3,Pittsburgh Pirates,0,Cody Ponce,Trevor Bauer
+2020,631649,2020-09-04T20:10:00Z,2020-09-04,Final,Final,Toronto Blue Jays,Boston Red Sox,8,7,Toronto Blue Jays,0,Tanner Roark,Zack Godley
+2020,630865,2020-09-04T20:15:00Z,2020-09-04,Final,Final,Boston Red Sox,Toronto Blue Jays,3,2,Boston Red Sox,0,Chris Mazza,Ross Stripling
+2020,630371,2020-09-04T20:10:00Z,2020-09-04,Final,Final,Washington Nationals,Atlanta Braves,1,7,Atlanta Braves,1,Austin Voth,Tommy Milone
+2020,630323,2020-09-04T20:15:00Z,2020-09-04,Final,Final,Washington Nationals,Atlanta Braves,10,9,Washington Nationals,0,Wil Crowe,Huascar Ynoa
+2020,631674,2020-09-04T21:05:00Z,2020-09-04,Final,Final,New York Yankees,Baltimore Orioles,6,5,New York Yankees,0,Michael King,Thomas Eshelman
+2020,630497,2020-09-04T21:10:00Z,2020-09-04,Final,Final,New York Yankees,Baltimore Orioles,3,6,Baltimore Orioles,1,Deivi García,Jorge López
+2020,630954,2020-09-04T22:40:00Z,2020-09-04,Final,Final,Miami Marlins,Tampa Bay Rays,4,5,Tampa Bay Rays,1,Pablo López,Josh Fleming
+2020,631221,2020-09-04T23:10:00Z,2020-09-04,Final,Final,Philadelphia Phillies,New York Mets,5,3,Philadelphia Phillies,0,Jake Arrieta,Rick Porcello
+2020,631555,2020-09-04T23:10:00Z,2020-09-04,Final,Final,Milwaukee Brewers,Cleveland Indians,7,1,Milwaukee Brewers,0,Corbin Burnes,Carlos Carrasco
+2020,631406,2020-09-05T00:05:00Z,2020-09-04,Final,Final,Chicago White Sox,Kansas City Royals,7,4,Chicago White Sox,0,Dane Dunning,Brady Singer
+2020,631644,2020-09-05T00:15:00Z,2020-09-04,Final,Final,St. Louis Cardinals,Chicago Cubs,1,4,Chicago Cubs,1,Jack Flaherty,Yu Darvish
+2020,631357,2020-09-05T01:10:00Z,2020-09-04,Final,Final,Houston Astros,Los Angeles Angels,5,6,Los Angeles Angels,1,Lance McCullers Jr.,Dylan Bundy
+2020,631041,2020-09-05T01:10:00Z,2020-09-04,Final,Final,Texas Rangers,Seattle Mariners,3,6,Seattle Mariners,1,Kyle Cody,Yusei Kikuchi
+2020,631345,2020-09-05T01:40:00Z,2020-09-04,Final,Final,Colorado Rockies,Los Angeles Dodgers,6,10,Los Angeles Dodgers,1,Antonio Senzatela,Dustin May
+2020,631156,2020-09-05T01:40:00Z,2020-09-04,Final,Final,San Diego Padres,Oakland Athletics,7,0,San Diego Padres,0,Zach Davies,Jesús Luzardo
+2020,631003,2020-09-05T01:45:00Z,2020-09-04,Final,Final,Arizona Diamondbacks,San Francisco Giants,6,5,Arizona Diamondbacks,0,Taylor Clarke,Tyler Anderson
+2020,631157,2020-09-05T20:07:00Z,2020-09-05,Final,Final,San Diego Padres,Oakland Athletics,4,8,Oakland Athletics,1,Chris Paddack,Sean Manaea
+2020,631607,2020-09-05T21:15:00Z,2020-09-05,Final,Final,St. Louis Cardinals,Chicago Cubs,4,2,St. Louis Cardinals,0,Adam Wainwright,Adbert Alzolay
+2020,630998,2020-09-05T21:20:00Z,2020-09-05,Final,Final,Chicago Cubs,St. Louis Cardinals,1,5,St. Louis Cardinals,1,,
+2020,630955,2020-09-05T22:40:00Z,2020-09-05,Final,Final,Miami Marlins,Tampa Bay Rays,7,3,Miami Marlins,0,Sandy Alcantara,Blake Snell
+2020,631115,2020-09-05T23:05:00Z,2020-09-05,Final,Final,Cincinnati Reds,Pittsburgh Pirates,6,2,Cincinnati Reds,0,Anthony DeSclafani,Trevor Williams
+2020,631408,2020-09-05T23:05:00Z,2020-09-05,Final,Final,Chicago White Sox,Kansas City Royals,5,3,Chicago White Sox,0,Lucas Giolito,Kris Bubic
+2020,631388,2020-09-05T23:07:00Z,2020-09-05,Final,Final,Houston Astros,Los Angeles Angels,9,10,Los Angeles Angels,1,Brandon Bielak,Griffin Canning
+2020,631440,2020-09-05T23:12:00Z,2020-09-05,Final,Final,Los Angeles Angels,Houston Astros,7,6,Los Angeles Angels,0,,José Urquidy
+2020,631264,2020-09-05T23:10:00Z,2020-09-05,Final,Final,Detroit Tigers,Minnesota Twins,3,4,Minnesota Twins,1,Tarik Skubal,Kenta Maeda
+2020,631228,2020-09-05T23:10:00Z,2020-09-05,Final,Final,Philadelphia Phillies,New York Mets,1,5,New York Mets,1,Spencer Howard,Seth Lugo
+2020,630383,2020-09-05T23:10:00Z,2020-09-05,Final,Final,Washington Nationals,Atlanta Braves,10,4,Washington Nationals,0,Erick Fedde,Max Fried
+2020,631556,2020-09-05T23:10:00Z,2020-09-05,Final,Final,Milwaukee Brewers,Cleveland Indians,3,4,Cleveland Indians,1,Brandon Woodruff,Aaron Civale
+2020,631625,2020-09-05T23:30:00Z,2020-09-05,Final,Final,Toronto Blue Jays,Boston Red Sox,8,9,Boston Red Sox,1,Chase Anderson,Ryan Weber
+2020,631675,2020-09-05T23:35:00Z,2020-09-05,Final,Final,New York Yankees,Baltimore Orioles,1,6,Baltimore Orioles,1,Gerrit Cole,Keegan Akin
+2020,631328,2020-09-06T01:10:00Z,2020-09-05,Final,Final,Colorado Rockies,Los Angeles Dodgers,5,2,Colorado Rockies,0,Germán Márquez,Tony Gonsolin
+2020,631044,2020-09-06T01:10:00Z,2020-09-05,Final,Final,Texas Rangers,Seattle Mariners,3,5,Seattle Mariners,1,Kyle Gibson,Justus Sheffield
+2020,631004,2020-09-06T01:15:00Z,2020-09-05,Final,Final,Arizona Diamondbacks,San Francisco Giants,3,4,San Francisco Giants,1,Madison Bumgarner,Trevor Cahill
+2020,631676,2020-09-06T17:05:00Z,2020-09-06,Final,Final,New York Yankees,Baltimore Orioles,1,5,Baltimore Orioles,1,Masahiro Tanaka,Dean Kremer
+2020,631209,2020-09-06T17:10:00Z,2020-09-06,Final,Final,Philadelphia Phillies,New York Mets,1,14,New York Mets,1,Aaron Nola,Jacob deGrom
+2020,630491,2020-09-06T17:10:00Z,2020-09-06,Final,Final,Washington Nationals,Atlanta Braves,3,10,Atlanta Braves,1,Patrick Corbin,Josh Tomlin
+2020,630956,2020-09-06T17:10:00Z,2020-09-06,Final,Final,Miami Marlins,Tampa Bay Rays,4,5,Tampa Bay Rays,1,Trevor Rogers,Tyler Glasnow
+2020,631557,2020-09-06T17:10:00Z,2020-09-06,Final,Final,Milwaukee Brewers,Cleveland Indians,1,4,Cleveland Indians,1,Brett Anderson,Shane Bieber
+2020,631116,2020-09-06T17:35:00Z,2020-09-06,Final,Final,Cincinnati Reds,Pittsburgh Pirates,2,3,Pittsburgh Pirates,1,Tejay Antone,Chad Kuhl
+2020,631626,2020-09-06T17:35:00Z,2020-09-06,Final,Final,Toronto Blue Jays,Boston Red Sox,10,8,Toronto Blue Jays,0,Robbie Ray,Andrew Triggs
+2020,631407,2020-09-06T18:05:00Z,2020-09-06,Final,Final,Chicago White Sox,Kansas City Royals,8,2,Chicago White Sox,0,Dallas Keuchel,Matt Harvey
+2020,631254,2020-09-06T18:10:00Z,2020-09-06,Final,Final,Detroit Tigers,Minnesota Twins,10,8,Detroit Tigers,0,Casey Mize,Rich Hill
+2020,631005,2020-09-06T20:05:00Z,2020-09-06,Final,Final,Arizona Diamondbacks,San Francisco Giants,2,4,San Francisco Giants,1,Alex Young,Johnny Cueto
+2020,631359,2020-09-06T20:10:00Z,2020-09-06,Final,Final,Houston Astros,Los Angeles Angels,5,9,Los Angeles Angels,1,Framber Valdez,Jaime Barria
+2020,631158,2020-09-06T20:10:00Z,2020-09-06,Final,Final,San Diego Padres,Oakland Athletics,5,3,San Diego Padres,0,Garrett Richards,Mike Fiers
+2020,631030,2020-09-06T20:10:00Z,2020-09-06,Final,Final,Texas Rangers,Seattle Mariners,3,4,Seattle Mariners,1,Jordan Lyles,Justin Dunn
+2020,631604,2020-09-06T23:08:00Z,2020-09-06,Final,Final,St. Louis Cardinals,Chicago Cubs,7,3,St. Louis Cardinals,0,Dakota Hudson,Jon Lester
+2020,631344,2020-09-07T02:10:00Z,2020-09-06,Final,Final,Colorado Rockies,Los Angeles Dodgers,7,6,Colorado Rockies,0,Ryan Castellani,Julio Urías
+2020,631225,2020-09-07T17:10:00Z,2020-09-07,Final,Final,Philadelphia Phillies,New York Mets,9,8,Philadelphia Phillies,0,Zack Wheeler,David Peterson
+2020,630415,2020-09-07T17:10:00Z,2020-09-07,Final,Final,Miami Marlins,Atlanta Braves,5,4,Miami Marlins,0,José Ureña,Ian Anderson
+2020,631255,2020-09-07T18:10:00Z,2020-09-07,Final,Final,Detroit Tigers,Minnesota Twins,2,6,Minnesota Twins,1,Michael Fulmer,Michael Pineda
+2020,631605,2020-09-07T20:10:00Z,2020-09-07,Final,Final,St. Louis Cardinals,Chicago Cubs,1,5,Chicago Cubs,1,Johan Oviedo,Kyle Hendricks
+2020,631031,2020-09-07T20:10:00Z,2020-09-07,Final,Final,Texas Rangers,Seattle Mariners,4,8,Seattle Mariners,1,Kolby Allard,Marco Gonzales
+2020,630857,2020-09-07T22:05:00Z,2020-09-07,Final,Final,Tampa Bay Rays,Washington Nationals,1,6,Washington Nationals,1,Charlie Morton,Max Scherzer
+2020,631558,2020-09-07T22:10:00Z,2020-09-07,Final,Final,Kansas City Royals,Cleveland Indians,2,5,Cleveland Indians,1,Brad Keller,Zach Plesac
+2020,630859,2020-09-07T22:37:00Z,2020-09-07,Final,Final,New York Yankees,Toronto Blue Jays,7,12,Toronto Blue Jays,1,Jordan Montgomery,Hyun Jin Ryu
+2020,631006,2020-09-08T00:05:00Z,2020-09-07,Final,Final,Arizona Diamondbacks,San Francisco Giants,2,4,San Francisco Giants,1,Zac Gallen,Kevin Gausman
+2020,631159,2020-09-08T01:10:00Z,2020-09-07,Final,Final,Houston Astros,Oakland Athletics,0,6,Oakland Athletics,1,Cristian Javier,Chris Bassitt
+2020,631084,2020-09-08T01:10:00Z,2020-09-07,Final,Final,Colorado Rockies,San Diego Padres,0,1,San Diego Padres,1,Kyle Freeland,Dinelson Lamet
+2020,630983,2020-09-08T19:15:00Z,2020-09-08,Final,Final,Minnesota Twins,St. Louis Cardinals,7,3,Minnesota Twins,0,José Berríos,Carlos Martinez
+2020,630984,2020-09-08T19:20:00Z,2020-09-08,Final,Final,Minnesota Twins,St. Louis Cardinals,4,6,St. Louis Cardinals,1,Randy Dobnak,Daniel Ponce de Leon
+2020,631149,2020-09-08T20:05:00Z,2020-09-08,Final,Final,Boston Red Sox,Philadelphia Phillies,5,6,Philadelphia Phillies,1,Martín Pérez,Zach Eflin
+2020,631152,2020-09-08T20:10:00Z,2020-09-08,Final,Final,Boston Red Sox,Philadelphia Phillies,5,2,Boston Red Sox,0,Chris Mazza,Vince Velasquez
+2020,630867,2020-09-08T22:05:00Z,2020-09-08,Final,Final,Tampa Bay Rays,Washington Nationals,3,5,Washington Nationals,1,Ryan Yarbrough,Aníbal Sánchez
+2020,631559,2020-09-08T22:10:00Z,2020-09-08,Final,Final,Kansas City Royals,Cleveland Indians,8,6,Kansas City Royals,0,Jakob Junis,Triston McKenzie
+2020,631429,2020-09-08T22:10:00Z,2020-09-08,Final,Final,Oakland Athletics,Houston Astros,4,2,Oakland Athletics,0,Frankie Montas,Zack Greinke
+2020,631160,2020-09-08T22:15:00Z,2020-09-08,Final,Final,Houston Astros,Oakland Athletics,5,4,Houston Astros,0,Chase De Jong,Mike Minor
+2020,630860,2020-09-08T22:37:00Z,2020-09-08,Final,Final,New York Yankees,Toronto Blue Jays,1,2,Toronto Blue Jays,1,J.A. Happ,Taijuan Walker
+2020,631096,2020-09-08T23:05:00Z,2020-09-08,Final,Final,Chicago White Sox,Pittsburgh Pirates,4,5,Pittsburgh Pirates,1,Dylan Cease,Joe Musgrove
+2020,631211,2020-09-08T23:10:00Z,2020-09-08,Final,Final,Baltimore Orioles,New York Mets,11,2,Baltimore Orioles,0,John Means,Michael Wacha
+2020,630438,2020-09-08T23:10:00Z,2020-09-08,Final,Final,Miami Marlins,Atlanta Braves,8,0,Miami Marlins,0,Sixto Sánchez,Kyle Wright
+2020,631460,2020-09-08T23:10:00Z,2020-09-08,Final,Final,Milwaukee Brewers,Detroit Tigers,3,8,Detroit Tigers,1,Adrian Houser,Spencer Turnbull
+2020,630904,2020-09-09T00:05:00Z,2020-09-08,Final,Final,Los Angeles Angels,Texas Rangers,1,7,Texas Rangers,1,Andrew Heaney,Lance Lynn
+2020,631615,2020-09-09T00:15:00Z,2020-09-08,Final,Final,Cincinnati Reds,Chicago Cubs,0,3,Chicago Cubs,1,Tyler Mahle,Alec Mills
+2020,631071,2020-09-09T01:10:00Z,2020-09-08,Final,Final,Colorado Rockies,San Diego Padres,5,14,San Diego Padres,1,Chi Chi González,Mike Clevinger
+2020,630220,2020-09-09T01:40:00Z,2020-09-08,Final,Final,Los Angeles Dodgers,Arizona Diamondbacks,10,9,Los Angeles Dodgers,0,Walker Buehler,Luke Weaver
+2020,631007,2020-09-09T01:45:00Z,2020-09-08,Final,Final,Seattle Mariners,San Francisco Giants,5,6,San Francisco Giants,1,Ljay Newsome,Logan Webb
+2020,631461,2020-09-09T17:10:00Z,2020-09-09,Final,Final,Milwaukee Brewers,Detroit Tigers,19,0,Milwaukee Brewers,0,Corbin Burnes,Matthew Boyd
+2020,631560,2020-09-09T22:10:00Z,2020-09-09,Final,Final,Kansas City Royals,Cleveland Indians,3,0,Kansas City Royals,0,Danny Duffy,Carlos Carrasco
+2020,630864,2020-09-09T22:37:00Z,2020-09-09,Final,Final,New York Yankees,Toronto Blue Jays,7,2,New York Yankees,0,Deivi García,Tanner Roark
+2020,631100,2020-09-09T23:05:00Z,2020-09-09,Final,Final,Chicago White Sox,Pittsburgh Pirates,8,1,Chicago White Sox,0,Dane Dunning,JT Brubaker
+2020,631212,2020-09-09T23:10:00Z,2020-09-09,Final,Final,Baltimore Orioles,New York Mets,6,7,New York Mets,1,Jorge López,Rick Porcello
+2020,630439,2020-09-09T23:10:00Z,2020-09-09,Final,Final,Miami Marlins,Atlanta Braves,9,29,Atlanta Braves,1,Pablo López,Tommy Milone
+2020,630925,2020-09-10T00:05:00Z,2020-09-09,Final,Final,Los Angeles Angels,Texas Rangers,3,7,Texas Rangers,1,Julio Teheran,Kyle Cody
+2020,631056,2020-09-10T00:10:00Z,2020-09-09,Final,Final,Colorado Rockies,San Diego Padres,3,5,San Diego Padres,1,Antonio Senzatela,Zach Davies
+2020,631616,2020-09-10T00:15:00Z,2020-09-09,Final,Final,Cincinnati Reds,Chicago Cubs,3,0,Cincinnati Reds,0,Trevor Bauer,Yu Darvish
+2020,631161,2020-09-10T01:10:00Z,2020-09-09,Final,Final,Houston Astros,Oakland Athletics,2,3,Oakland Athletics,1,Luis Garcia,Jesús Luzardo
+2020,630221,2020-09-10T01:40:00Z,2020-09-09,Final,Final,Los Angeles Dodgers,Arizona Diamondbacks,6,4,Los Angeles Dodgers,0,Clayton Kershaw,Taylor Clarke
+2020,631008,2020-09-10T01:45:00Z,2020-09-09,Final,Final,Seattle Mariners,San Francisco Giants,1,10,San Francisco Giants,1,Nick Margevicius,Tyler Anderson
+2020,630994,2020-09-10T18:15:00Z,2020-09-10,Final,Final,Detroit Tigers,St. Louis Cardinals,2,12,St. Louis Cardinals,1,Tarik Skubal,Jack Flaherty
+2020,630995,2020-09-10T18:20:00Z,2020-09-10,Final,Final,Detroit Tigers,St. Louis Cardinals,6,3,Detroit Tigers,0,Jordan Zimmermann,Austin Gomber
+2020,631162,2020-09-10T19:40:00Z,2020-09-10,Final,Final,Houston Astros,Oakland Athletics,1,3,Oakland Athletics,1,José Urquidy,Sean Manaea
+2020,630908,2020-09-10T20:05:00Z,2020-09-10,Final,Final,Los Angeles Angels,Texas Rangers,6,2,Los Angeles Angels,0,Dylan Bundy,Kyle Gibson
+2020,630869,2020-09-10T22:05:00Z,2020-09-10,Final,Final,Atlanta Braves,Washington Nationals,7,6,Atlanta Braves,0,Robbie Erlin,Austin Voth
+2020,631561,2020-09-10T22:10:00Z,2020-09-10,Final,Final,Kansas City Royals,Cleveland Indians,11,1,Kansas City Royals,0,Brady Singer,Aaron Civale
+2020,630957,2020-09-10T22:40:00Z,2020-09-10,Final,Final,Boston Red Sox,Tampa Bay Rays,4,3,Boston Red Sox,0,Mike Kickham,Josh Fleming
+2020,631309,2020-09-10T22:40:00Z,2020-09-10,Final,Final,Philadelphia Phillies,Miami Marlins,6,7,Miami Marlins,1,Jake Arrieta,Sandy Alcantara
+2020,631634,2020-09-11T00:15:00Z,2020-09-10,Final,Final,Cincinnati Reds,Chicago Cubs,5,8,Chicago Cubs,1,Sonny Gray,Adbert Alzolay
+2020,631072,2020-09-11T01:10:00Z,2020-09-10,Final,Final,San Francisco Giants,San Diego Padres,1,6,San Diego Padres,1,Trevor Cahill,Chris Paddack
+2020,630223,2020-09-11T01:40:00Z,2020-09-10,Final,Final,Los Angeles Dodgers,Arizona Diamondbacks,2,5,Arizona Diamondbacks,1,Dustin May,Madison Bumgarner
+2020,631183,2020-09-10T23:05:00Z,2020-09-11,Final,Postponed,Baltimore Orioles,New York Yankees,,,,,Keegan Akin,Gerrit Cole
+2020,631184,2020-09-11T20:05:00Z,2020-09-11,Final,Final,Baltimore Orioles,New York Yankees,0,6,New York Yankees,1,Alex Cobb,Gerrit Cole
+2020,631183,2020-09-11T20:10:00Z,2020-09-11,Final,Final,Baltimore Orioles,New York Yankees,1,10,New York Yankees,1,Keegan Akin,Masahiro Tanaka
+2020,631310,2020-09-11T21:10:00Z,2020-09-11,Final,Final,Philadelphia Phillies,Miami Marlins,11,0,Philadelphia Phillies,0,Aaron Nola,Trevor Rogers
+2020,631318,2020-09-11T21:15:00Z,2020-09-11,Final,Final,Philadelphia Phillies,Miami Marlins,3,5,Miami Marlins,1,Blake Parker,Daniel Castano
+2020,630873,2020-09-11T22:05:00Z,2020-09-11,Final,Final,Atlanta Braves,Washington Nationals,7,8,Washington Nationals,1,Josh Tomlin,Erick Fedde
+2020,630868,2020-09-11T22:37:00Z,2020-09-11,Final,Final,New York Mets,Toronto Blue Jays,18,1,New York Mets,0,Jacob deGrom,Chase Anderson
+2020,630958,2020-09-11T22:40:00Z,2020-09-11,Final,Final,Boston Red Sox,Tampa Bay Rays,1,11,Tampa Bay Rays,1,Andrew Triggs,Blake Snell
+2020,631399,2020-09-12T00:05:00Z,2020-09-11,Final,Final,Pittsburgh Pirates,Kansas City Royals,3,4,Kansas City Royals,1,Steven Brault,Kris Bubic
+2020,630909,2020-09-12T00:05:00Z,2020-09-11,Final,Final,Oakland Athletics,Texas Rangers,10,6,Oakland Athletics,0,Mike Fiers,Luis García
+2020,631256,2020-09-12T00:10:00Z,2020-09-11,Final,Final,Cleveland Indians,Minnesota Twins,1,3,Minnesota Twins,1,Shane Bieber,Kenta Maeda
+2020,631478,2020-09-12T00:10:00Z,2020-09-11,Final,Final,Detroit Tigers,Chicago White Sox,3,4,Chicago White Sox,1,Casey Mize,Lucas Giolito
+2020,631284,2020-09-12T00:10:00Z,2020-09-11,Final,Final,Chicago Cubs,Milwaukee Brewers,0,1,Milwaukee Brewers,1,Jon Lester,Brandon Woodruff
+2020,630985,2020-09-12T00:15:00Z,2020-09-11,Final,Final,Cincinnati Reds,St. Louis Cardinals,3,1,Cincinnati Reds,0,Luis Castillo,Adam Wainwright
+2020,631530,2020-09-12T00:40:00Z,2020-09-11,Final,Final,Los Angeles Angels,Colorado Rockies,4,8,Colorado Rockies,1,Griffin Canning,Germán Márquez
+2020,630224,2020-09-12T01:40:00Z,2020-09-11,Final,Final,Seattle Mariners,Arizona Diamondbacks,3,4,Arizona Diamondbacks,1,Yusei Kikuchi,Caleb Smith
+2020,631058,2020-09-12T01:10:00Z,2020-09-13,Final,Postponed,San Francisco Giants,San Diego Padres,,,,,Johnny Cueto,Garrett Richards
+2020,631185,2020-09-12T17:05:00Z,2020-09-12,Final,Final,Baltimore Orioles,New York Yankees,1,2,New York Yankees,1,Dean Kremer,Jordan Montgomery
+2020,630910,2020-09-12T21:05:00Z,2020-09-12,Final,Final,Oakland Athletics,Texas Rangers,2,5,Texas Rangers,1,Daulton Jefferies,Nick Goody
+2020,630932,2020-09-12T21:10:00Z,2020-09-12,Final,Final,Oakland Athletics,Texas Rangers,10,1,Oakland Athletics,0,Chris Bassitt,Kolby Allard
+2020,630877,2020-09-12T22:05:00Z,2020-09-12,Final,Final,Atlanta Braves,Washington Nationals,2,1,Atlanta Braves,0,Ian Anderson,Patrick Corbin
+2020,631311,2020-09-12T22:10:00Z,2020-09-12,Final,Final,Philadelphia Phillies,Miami Marlins,12,6,Philadelphia Phillies,0,Spencer Howard,José Ureña
+2020,630870,2020-09-12T22:37:00Z,2020-09-12,Final,Final,New York Mets,Toronto Blue Jays,2,3,Toronto Blue Jays,1,Seth Lugo,Robbie Ray
+2020,630959,2020-09-12T22:40:00Z,2020-09-12,Final,Final,Boston Red Sox,Tampa Bay Rays,4,5,Tampa Bay Rays,1,Nathan Eovaldi,Tyler Glasnow
+2020,631400,2020-09-12T23:05:00Z,2020-09-12,Final,Final,Pittsburgh Pirates,Kansas City Royals,4,7,Kansas City Royals,1,Trevor Williams,Carlos Hernández
+2020,631495,2020-09-12T23:10:00Z,2020-09-12,Final,Final,Detroit Tigers,Chicago White Sox,0,14,Chicago White Sox,1,Michael Fulmer,Reynaldo López
+2020,631285,2020-09-12T23:10:00Z,2020-09-12,Final,Final,Chicago Cubs,Milwaukee Brewers,4,2,Chicago Cubs,0,Kyle Hendricks,Brent Suter
+2020,631331,2020-09-13T00:07:00Z,2020-09-12,Final,Final,Houston Astros,Los Angeles Dodgers,7,5,Houston Astros,0,Framber Valdez,Julio Urías
+2020,631257,2020-09-13T00:07:00Z,2020-09-12,Final,Final,Cleveland Indians,Minnesota Twins,4,8,Minnesota Twins,1,Zach Plesac,Rich Hill
+2020,631531,2020-09-13T00:10:00Z,2020-09-12,Final,Final,Los Angeles Angels,Colorado Rockies,5,2,Los Angeles Angels,0,Jaime Barria,Kyle Freeland
+2020,630225,2020-09-13T00:10:00Z,2020-09-12,Final,Final,Seattle Mariners,Arizona Diamondbacks,7,3,Seattle Mariners,0,Justus Sheffield,Zac Gallen
+2020,630988,2020-09-13T00:15:00Z,2020-09-12,Final,Final,Cincinnati Reds,St. Louis Cardinals,1,7,St. Louis Cardinals,1,Tejay Antone,Dakota Hudson
+2020,631059,2020-09-13T01:10:00Z,2020-09-25,Final,Postponed,San Francisco Giants,San Diego Padres,,,,,Kevin Gausman,Dinelson Lamet
+2020,630883,2020-09-13T16:35:00Z,2020-09-13,Final,Final,Atlanta Braves,Washington Nationals,8,4,Atlanta Braves,0,Kyle Wright,Max Scherzer
+2020,631187,2020-09-13T17:05:00Z,2020-09-13,Final,Final,Baltimore Orioles,New York Yankees,1,3,New York Yankees,1,John Means,J.A. Happ
+2020,630947,2020-09-13T17:10:00Z,2020-09-13,Final,Final,Boston Red Sox,Tampa Bay Rays,6,3,Boston Red Sox,0,Martín Pérez,Charlie Morton
+2020,631312,2020-09-13T17:10:00Z,2020-09-13,Final,Final,Philadelphia Phillies,Miami Marlins,1,2,Miami Marlins,1,Ramón Rosso,Sixto Sánchez
+2020,631320,2020-09-13T17:15:00Z,2020-09-13,Final,Final,Philadelphia Phillies,Miami Marlins,1,8,Miami Marlins,1,Zach Eflin,Braxton Garrett
+2020,631401,2020-09-13T18:05:00Z,2020-09-13,Final,Final,Pittsburgh Pirates,Kansas City Royals,0,11,Kansas City Royals,1,Chad Kuhl,Brad Keller
+2020,631259,2020-09-13T18:10:00Z,2020-09-13,Final,Final,Cleveland Indians,Minnesota Twins,5,7,Minnesota Twins,1,Triston McKenzie,Michael Pineda
+2020,631481,2020-09-13T18:10:00Z,2020-09-13,Final,Final,Detroit Tigers,Chicago White Sox,2,5,Chicago White Sox,1,Spencer Turnbull,Jonathan Stiever
+2020,631286,2020-09-13T18:10:00Z,2020-09-13,Final,Final,Chicago Cubs,Milwaukee Brewers,12,0,Chicago Cubs,0,Alec Mills,Adrian Houser
+2020,630961,2020-09-13T18:15:00Z,2020-09-13,Final,Final,Cincinnati Reds,St. Louis Cardinals,10,5,Cincinnati Reds,0,Tyler Mahle,Carlos Martinez
+2020,630911,2020-09-13T18:35:00Z,2020-09-13,Final,Final,Oakland Athletics,Texas Rangers,3,6,Texas Rangers,1,Frankie Montas,Lance Lynn
+2020,630875,2020-09-13T19:07:00Z,2020-09-13,Final,Final,New York Mets,Toronto Blue Jays,3,7,Toronto Blue Jays,1,David Peterson,Hyun Jin Ryu
+2020,631532,2020-09-13T19:10:00Z,2020-09-13,Final,Final,Los Angeles Angels,Colorado Rockies,5,3,Los Angeles Angels,0,Andrew Heaney,Ryan Castellani
+2020,630226,2020-09-13T20:10:00Z,2020-09-13,Final,Final,Seattle Mariners,Arizona Diamondbacks,7,3,Seattle Mariners,0,Justin Dunn,Luke Weaver
+2020,631060,2020-09-13T20:10:00Z,2020-09-13,Final,Final,San Francisco Giants,San Diego Padres,0,6,San Diego Padres,1,Johnny Cueto,Mike Clevinger
+2020,631058,2020-09-13T20:15:00Z,2020-09-13,Final,Final,San Francisco Giants,San Diego Padres,1,3,San Diego Padres,1,Logan Webb,Garrett Richards
+2020,631332,2020-09-14T00:08:00Z,2020-09-13,Final,Final,Houston Astros,Los Angeles Dodgers,1,8,Los Angeles Dodgers,1,Zack Greinke,Brusdar Graterol
+2020,631588,2020-09-14T20:10:00Z,2020-09-14,Final,Final,Pittsburgh Pirates,Cincinnati Reds,1,3,Cincinnati Reds,1,Cody Ponce,Trevor Bauer
+2020,631590,2020-09-14T20:15:00Z,2020-09-14,Final,Final,Pittsburgh Pirates,Cincinnati Reds,4,9,Cincinnati Reds,1,Mitch Keller,Anthony DeSclafani
+2020,631321,2020-09-14T20:10:00Z,2020-09-14,Final,Final,Philadelphia Phillies,Miami Marlins,2,6,Miami Marlins,1,Vince Velasquez,Pablo López
+2020,631053,2020-09-14T21:10:00Z,2020-09-14,Final,Final,Oakland Athletics,Seattle Mariners,5,6,Seattle Mariners,1,Jesús Luzardo,Marco Gonzales
+2020,631054,2020-09-14T21:15:00Z,2020-09-14,Final,Final,Oakland Athletics,Seattle Mariners,9,0,Oakland Athletics,0,Mike Minor,Jimmy Yacabonis
+2020,631282,2020-09-14T21:10:00Z,2020-09-14,Final,Final,St. Louis Cardinals,Milwaukee Brewers,1,2,Milwaukee Brewers,1,Kwang Hyun Kim,Josh Lindblom
+2020,631288,2020-09-14T21:15:00Z,2020-09-14,Final,Final,St. Louis Cardinals,Milwaukee Brewers,3,2,St. Louis Cardinals,0,Daniel Ponce de Leon,Corbin Burnes
+2020,631677,2020-09-14T23:35:00Z,2020-09-14,Final,Final,Atlanta Braves,Baltimore Orioles,1,14,Baltimore Orioles,1,Touki Toussaint,Jorge López
+2020,631482,2020-09-15T00:10:00Z,2020-09-14,Final,Final,Minnesota Twins,Chicago White Sox,1,3,Chicago White Sox,1,José Berríos,Dylan Cease
+2020,631061,2020-09-15T01:10:00Z,2020-09-14,Final,Final,Los Angeles Dodgers,San Diego Padres,2,7,San Diego Padres,1,Clayton Kershaw,Dinelson Lamet
+2020,631574,2020-09-15T22:40:00Z,2020-09-15,Final,Final,Pittsburgh Pirates,Cincinnati Reds,1,4,Cincinnati Reds,1,Joe Musgrove,Michael Lorenzen
+2020,630936,2020-09-15T22:40:00Z,2020-09-15,Final,Final,Washington Nationals,Tampa Bay Rays,1,6,Tampa Bay Rays,1,Aníbal Sánchez,John Curtiss
+2020,631314,2020-09-15T22:40:00Z,2020-09-15,Final,Final,Boston Red Sox,Miami Marlins,2,0,Boston Red Sox,0,Tanner Houck,Sandy Alcantara
+2020,631144,2020-09-15T23:05:00Z,2020-09-15,Final,Final,New York Mets,Philadelphia Phillies,1,4,Philadelphia Phillies,1,Rick Porcello,Jake Arrieta
+2020,631195,2020-09-15T23:05:00Z,2020-09-15,Final,Final,Toronto Blue Jays,New York Yankees,6,20,New York Yankees,1,Taijuan Walker,Deivi García
+2020,631462,2020-09-15T23:10:00Z,2020-09-15,Final,Final,Kansas City Royals,Detroit Tigers,0,6,Detroit Tigers,1,Jakob Junis,Matthew Boyd
+2020,631680,2020-09-15T23:35:00Z,2020-09-15,Final,Final,Atlanta Braves,Baltimore Orioles,5,1,Atlanta Braves,0,Huascar Ynoa,Thomas Eshelman
+2020,631263,2020-09-15T23:40:00Z,2020-09-15,Final,Final,St. Louis Cardinals,Milwaukee Brewers,3,18,Milwaukee Brewers,1,Jack Flaherty,Brett Anderson
+2020,631433,2020-09-16T00:10:00Z,2020-09-15,Final,Final,Texas Rangers,Houston Astros,1,4,Houston Astros,1,Kyle Cody,José Urquidy
+2020,631483,2020-09-16T00:10:00Z,2020-09-15,Final,Final,Minnesota Twins,Chicago White Sox,2,6,Chicago White Sox,1,Randy Dobnak,Dane Dunning
+2020,631618,2020-09-16T00:15:00Z,2020-09-15,Final,Final,Cleveland Indians,Chicago Cubs,5,6,Chicago Cubs,1,Carlos Carrasco,Yu Darvish
+2020,631520,2020-09-16T00:40:00Z,2020-09-15,Final,Final,Oakland Athletics,Colorado Rockies,1,3,Colorado Rockies,1,Sean Manaea,Antonio Senzatela
+2020,631062,2020-09-16T01:10:00Z,2020-09-15,Final,Final,Los Angeles Dodgers,San Diego Padres,3,1,Los Angeles Dodgers,0,Tony Gonsolin,Zach Davies
+2020,631360,2020-09-16T01:40:00Z,2020-09-15,Final,Final,Arizona Diamondbacks,Los Angeles Angels,9,8,Arizona Diamondbacks,0,Madison Bumgarner,Julio Teheran
+2020,631032,2020-09-16T01:40:00Z,2020-09-16,Final,Postponed,San Francisco Giants,Seattle Mariners,,,,,Tyler Anderson,Ljay Newsome
+2020,630937,2020-09-16T17:10:00Z,2020-09-16,Final,Final,Washington Nationals,Tampa Bay Rays,4,2,Washington Nationals,0,Austin Voth,Pete Fairbanks
+2020,631509,2020-09-16T19:10:00Z,2020-09-16,Final,Final,Oakland Athletics,Colorado Rockies,3,1,Oakland Athletics,0,Mike Fiers,Germán Márquez
+2020,631063,2020-09-16T20:10:00Z,2020-09-16,Final,Final,Los Angeles Dodgers,San Diego Padres,7,5,Los Angeles Dodgers,0,Brusdar Graterol,Adrian Morejon
+2020,631265,2020-09-16T21:10:00Z,2020-09-16,Final,Final,St. Louis Cardinals,Milwaukee Brewers,4,2,St. Louis Cardinals,0,Adam Wainwright,Brandon Woodruff
+2020,631289,2020-09-16T21:15:00Z,2020-09-16,Final,Final,St. Louis Cardinals,Milwaukee Brewers,0,6,Milwaukee Brewers,1,Johan Oviedo,Brent Suter
+2020,631575,2020-09-16T22:40:00Z,2020-09-16,Final,Final,Pittsburgh Pirates,Cincinnati Reds,0,1,Cincinnati Reds,1,JT Brubaker,Luis Castillo
+2020,631315,2020-09-16T22:40:00Z,2020-09-16,Final,Final,Boston Red Sox,Miami Marlins,4,8,Miami Marlins,1,Mike Kickham,Trevor Rogers
+2020,631119,2020-09-16T23:05:00Z,2020-09-16,Final,Final,New York Mets,Philadelphia Phillies,5,4,New York Mets,0,Jacob deGrom,Zack Wheeler
+2020,631189,2020-09-16T23:05:00Z,2020-09-16,Final,Final,Toronto Blue Jays,New York Yankees,2,13,New York Yankees,1,Tanner Roark,Gerrit Cole
+2020,631463,2020-09-16T23:10:00Z,2020-09-16,Final,Final,Kansas City Royals,Detroit Tigers,4,0,Kansas City Royals,0,Brady Singer,Tarik Skubal
+2020,631659,2020-09-16T23:35:00Z,2020-09-16,Final,Final,Atlanta Braves,Baltimore Orioles,1,5,Baltimore Orioles,1,Cole Hamels,Keegan Akin
+2020,631434,2020-09-17T00:10:00Z,2020-09-16,Final,Final,Texas Rangers,Houston Astros,1,0,Texas Rangers,0,Kyle Gibson,Lance McCullers Jr.
+2020,631484,2020-09-17T00:10:00Z,2020-09-16,Final,Final,Minnesota Twins,Chicago White Sox,5,1,Minnesota Twins,0,Jake Odorizzi,Lucas Giolito
+2020,631619,2020-09-17T00:15:00Z,2020-09-16,Final,Final,Cleveland Indians,Chicago Cubs,2,3,Chicago Cubs,1,Aaron Civale,Jon Lester
+2020,631361,2020-09-17T01:40:00Z,2020-09-16,Final,Final,Arizona Diamondbacks,Los Angeles Angels,9,6,Arizona Diamondbacks,0,Caleb Smith,Dylan Bundy
+2020,631032,2020-09-17T01:45:00Z,2020-09-16,Final,Final,San Francisco Giants,Seattle Mariners,9,3,San Francisco Giants,0,Drew Smyly,Ljay Newsome
+2020,631034,2020-09-17T01:00:00Z,2020-09-17,Final,Postponed,San Francisco Giants,Seattle Mariners,,,,,,
+2020,631313,2020-09-17T17:10:00Z,2020-09-17,Final,Final,Boston Red Sox,Miami Marlins,5,3,Boston Red Sox,0,Nathan Eovaldi,José Ureña
+2020,631485,2020-09-17T18:10:00Z,2020-09-17,Final,Final,Minnesota Twins,Chicago White Sox,3,4,Chicago White Sox,1,Kenta Maeda,Reynaldo López
+2020,631362,2020-09-17T20:10:00Z,2020-09-17,Final,Final,Arizona Diamondbacks,Los Angeles Angels,3,7,Los Angeles Angels,1,Alex Young,Griffin Canning
+2020,631034,2020-09-17T20:10:00Z,2020-09-17,Final,Final,San Francisco Giants,Seattle Mariners,6,4,San Francisco Giants,0,Tyler Anderson,Nick Margevicius
+2020,631660,2020-09-17T20:35:00Z,2020-09-17,Final,Final,Tampa Bay Rays,Baltimore Orioles,3,1,Tampa Bay Rays,0,Blake Snell,Dean Kremer
+2020,630953,2020-09-17T20:40:00Z,2020-09-17,Final,Final,Baltimore Orioles,Tampa Bay Rays,6,10,Tampa Bay Rays,1,Bruce Zimmermann,
+2020,631101,2020-09-17T23:05:00Z,2020-09-17,Final,Final,St. Louis Cardinals,Pittsburgh Pirates,1,5,Pittsburgh Pirates,1,Dakota Hudson,Steven Brault
+2020,631117,2020-09-17T23:05:00Z,2020-09-17,Final,Final,New York Mets,Philadelphia Phillies,10,6,New York Mets,0,Seth Lugo,Aaron Nola
+2020,631190,2020-09-17T23:05:00Z,2020-09-17,Final,Final,Toronto Blue Jays,New York Yankees,7,10,New York Yankees,1,Chase Anderson,Masahiro Tanaka
+2020,631464,2020-09-17T23:10:00Z,2020-09-17,Final,Final,Cleveland Indians,Detroit Tigers,10,3,Cleveland Indians,0,Shane Bieber,Casey Mize
+2020,631435,2020-09-17T23:10:00Z,2020-09-17,Final,Final,Texas Rangers,Houston Astros,1,2,Houston Astros,1,Jordan Lyles,Framber Valdez
+2020,631510,2020-09-18T00:40:00Z,2020-09-17,Final,Final,Los Angeles Dodgers,Colorado Rockies,9,3,Los Angeles Dodgers,0,Julio Urías,Kyle Freeland
+2020,631102,2020-09-18T20:05:00Z,2020-09-18,Final,Final,St. Louis Cardinals,Pittsburgh Pirates,6,5,St. Louis Cardinals,0,Carlos Martinez,Trevor Williams
+2020,630987,2020-09-18T20:10:00Z,2020-09-18,Final,Final,Pittsburgh Pirates,St. Louis Cardinals,2,7,St. Louis Cardinals,1,Chad Kuhl,Daniel Ponce de Leon
+2020,630907,2020-09-18T20:05:00Z,2020-09-18,Final,Final,Philadelphia Phillies,Toronto Blue Jays,7,0,Philadelphia Phillies,0,Zach Eflin,Robbie Ray
+2020,631122,2020-09-18T20:10:00Z,2020-09-18,Final,Final,Toronto Blue Jays,Philadelphia Phillies,7,8,Philadelphia Phillies,1,Ross Stripling,David Hale
+2020,631316,2020-09-18T21:10:00Z,2020-09-18,Final,Final,Washington Nationals,Miami Marlins,5,0,Washington Nationals,0,Erick Fedde,Sixto Sánchez
+2020,631342,2020-09-18T21:15:00Z,2020-09-18,Final,Final,Washington Nationals,Miami Marlins,3,14,Miami Marlins,1,Wil Crowe,Daniel Castano
+2020,631465,2020-09-18T23:10:00Z,2020-09-18,Final,Final,Cleveland Indians,Detroit Tigers,1,0,Cleveland Indians,0,Zach Plesac,Michael Fulmer
+2020,631213,2020-09-18T23:10:00Z,2020-09-18,Final,Final,Atlanta Braves,New York Mets,15,2,Atlanta Braves,0,Max Fried,Steven Matz
+2020,631576,2020-09-18T23:10:00Z,2020-09-18,Final,Final,Chicago White Sox,Cincinnati Reds,1,7,Cincinnati Reds,1,Jonathan Stiever,Tyler Mahle
+2020,631627,2020-09-18T23:30:00Z,2020-09-18,Final,Final,New York Yankees,Boston Red Sox,6,5,New York Yankees,0,Jordan Montgomery,Martín Pérez
+2020,631661,2020-09-18T23:35:00Z,2020-09-18,Final,Final,Tampa Bay Rays,Baltimore Orioles,2,1,Tampa Bay Rays,0,Tyler Glasnow,Alex Cobb
+2020,631436,2020-09-19T00:10:00Z,2020-09-18,Final,Final,Arizona Diamondbacks,Houston Astros,6,3,Arizona Diamondbacks,0,Zac Gallen,Zack Greinke
+2020,631511,2020-09-19T00:10:00Z,2020-09-18,Final,Final,Los Angeles Dodgers,Colorado Rockies,15,6,Los Angeles Dodgers,0,Alex Wood,Ryan Castellani
+2020,631266,2020-09-19T00:10:00Z,2020-09-18,Final,Final,Kansas City Royals,Milwaukee Brewers,5,9,Milwaukee Brewers,1,Danny Duffy,Adrian Houser
+2020,631629,2020-09-19T00:15:00Z,2020-09-18,Final,Final,Minnesota Twins,Chicago Cubs,0,1,Chicago Cubs,1,Rich Hill,Kyle Hendricks
+2020,631367,2020-09-19T01:10:00Z,2020-09-18,Final,Final,Texas Rangers,Los Angeles Angels,2,6,Los Angeles Angels,1,Jimmy Herget,Jaime Barria
+2020,631040,2020-09-19T01:40:00Z,2020-09-18,Final,Final,San Diego Padres,Seattle Mariners,6,1,San Diego Padres,0,Chris Paddack,Yusei Kikuchi
+2020,631163,2020-09-19T01:40:00Z,2020-09-18,Final,Final,San Francisco Giants,Oakland Athletics,0,6,Oakland Athletics,1,Logan Webb,Chris Bassitt
+2020,631164,2020-09-19T20:10:00Z,2020-09-19,Final,Final,San Francisco Giants,Oakland Athletics,0,6,Oakland Athletics,1,Kevin Gausman,Jesús Luzardo
+2020,631123,2020-09-19T22:05:00Z,2020-09-19,Final,Final,Toronto Blue Jays,Philadelphia Phillies,1,3,Philadelphia Phillies,1,Hyun Jin Ryu,Vince Velasquez
+2020,631466,2020-09-19T22:10:00Z,2020-09-19,Final,Final,Cleveland Indians,Detroit Tigers,2,5,Detroit Tigers,1,Triston McKenzie,Spencer Turnbull
+2020,631317,2020-09-19T22:10:00Z,2020-09-19,Final,Final,Washington Nationals,Miami Marlins,3,7,Miami Marlins,1,Patrick Corbin,Pablo López
+2020,631147,2020-09-19T23:05:00Z,2020-09-19,Final,Final,St. Louis Cardinals,Pittsburgh Pirates,5,4,St. Louis Cardinals,0,Kwang Hyun Kim,Mitch Keller
+2020,631214,2020-09-19T23:07:00Z,2020-09-19,Final,Final,Atlanta Braves,New York Mets,2,7,New York Mets,1,Ian Anderson,David Peterson
+2020,631577,2020-09-19T23:07:00Z,2020-09-19,Final,Final,Chicago White Sox,Cincinnati Reds,5,0,Chicago White Sox,0,Dallas Keuchel,Trevor Bauer
+2020,631437,2020-09-19T23:10:00Z,2020-09-19,Final,Final,Arizona Diamondbacks,Houston Astros,2,3,Houston Astros,1,Luke Weaver,Cristian Javier
+2020,631267,2020-09-19T23:10:00Z,2020-09-19,Final,Final,Kansas City Royals,Milwaukee Brewers,0,5,Milwaukee Brewers,1,Kris Bubic,Corbin Burnes
+2020,631628,2020-09-19T23:30:00Z,2020-09-19,Final,Final,New York Yankees,Boston Red Sox,8,0,New York Yankees,0,J.A. Happ,Chris Mazza
+2020,631662,2020-09-19T23:35:00Z,2020-09-19,Final,Final,Tampa Bay Rays,Baltimore Orioles,3,1,Tampa Bay Rays,0,Charlie Morton,Jorge López
+2020,631512,2020-09-20T00:10:00Z,2020-09-19,Final,Final,Los Angeles Dodgers,Colorado Rockies,6,1,Los Angeles Dodgers,0,Clayton Kershaw,Chi Chi González
+2020,631632,2020-09-20T00:15:00Z,2020-09-19,Final,Final,Minnesota Twins,Chicago Cubs,8,1,Minnesota Twins,0,Michael Pineda,Alec Mills
+2020,631036,2020-09-20T01:10:00Z,2020-09-19,Final,Final,San Diego Padres,Seattle Mariners,1,4,Seattle Mariners,1,Luis Patiño,Justus Sheffield
+2020,631372,2020-09-20T01:10:00Z,2020-09-19,Final,Final,Texas Rangers,Los Angeles Angels,3,4,Los Angeles Angels,1,Lance Lynn,Andrew Heaney
+2020,631672,2020-09-20T17:05:00Z,2020-09-20,Final,Final,Tampa Bay Rays,Baltimore Orioles,1,2,Baltimore Orioles,1,Ryan Yarbrough,John Means
+2020,631635,2020-09-20T17:07:00Z,2020-09-20,Final,Final,New York Yankees,Boston Red Sox,2,10,Boston Red Sox,1,Deivi García,Tanner Houck
+2020,631454,2020-09-20T17:10:00Z,2020-09-20,Final,Final,Cleveland Indians,Detroit Tigers,7,4,Cleveland Indians,0,Carlos Carrasco,Matthew Boyd
+2020,631215,2020-09-20T17:10:00Z,2020-09-20,Final,Final,Atlanta Braves,New York Mets,7,0,Atlanta Braves,0,Kyle Wright,Rick Porcello
+2020,631578,2020-09-20T17:10:00Z,2020-09-20,Final,Final,Chicago White Sox,Cincinnati Reds,3,7,Cincinnati Reds,1,Dylan Cease,Michael Lorenzen
+2020,631305,2020-09-20T17:10:00Z,2020-09-20,Final,Final,Washington Nationals,Miami Marlins,1,2,Miami Marlins,1,Max Scherzer,Sandy Alcantara
+2020,631329,2020-09-20T17:15:00Z,2020-09-20,Final,Final,Washington Nationals,Miami Marlins,15,0,Washington Nationals,0,Ben Braymer,
+2020,631424,2020-09-20T18:10:00Z,2020-09-20,Final,Final,Arizona Diamondbacks,Houston Astros,2,3,Houston Astros,1,Madison Bumgarner,José Urquidy
+2020,631268,2020-09-20T18:10:00Z,2020-09-20,Final,Final,Kansas City Royals,Milwaukee Brewers,3,5,Milwaukee Brewers,1,Brad Keller,Josh Lindblom
+2020,631128,2020-09-20T19:05:00Z,2020-09-20,Final,Final,Toronto Blue Jays,Philadelphia Phillies,6,3,Toronto Blue Jays,0,Taijuan Walker,Adonis Medina
+2020,631519,2020-09-20T19:10:00Z,2020-09-20,Final,Final,Los Angeles Dodgers,Colorado Rockies,3,6,Colorado Rockies,1,Tony Gonsolin,Antonio Senzatela
+2020,631086,2020-09-20T20:05:00Z,2020-09-20,Final,Final,St. Louis Cardinals,Pittsburgh Pirates,2,1,St. Louis Cardinals,0,Jack Flaherty,Joe Musgrove
+2020,631037,2020-09-20T20:10:00Z,2020-09-20,Final,Final,San Diego Padres,Seattle Mariners,7,4,San Diego Padres,0,Dinelson Lamet,Justin Dunn
+2020,631166,2020-09-20T20:10:00Z,2020-09-20,Final,Final,San Francisco Giants,Oakland Athletics,14,2,San Francisco Giants,0,Tyler Anderson,Mike Minor
+2020,631375,2020-09-20T20:10:00Z,2020-09-20,Final,Final,Texas Rangers,Los Angeles Angels,7,2,Texas Rangers,0,Kyle Cody,Julio Teheran
+2020,631617,2020-09-20T23:08:00Z,2020-09-20,Final,Final,Minnesota Twins,Chicago Cubs,4,0,Minnesota Twins,0,José Berríos,Yu Darvish
+2020,631376,2020-09-21T20:10:00Z,2020-09-21,Final,Final,Texas Rangers,Los Angeles Angels,5,8,Los Angeles Angels,1,Kyle Gibson,Dylan Bundy
+2020,630884,2020-09-21T22:05:00Z,2020-09-21,Final,Final,Philadelphia Phillies,Washington Nationals,1,5,Washington Nationals,1,Zack Wheeler,Aníbal Sánchez
+2020,631562,2020-09-21T22:10:00Z,2020-09-21,Final,Final,Chicago White Sox,Cleveland Indians,4,7,Cleveland Indians,1,Dane Dunning,Aaron Civale
+2020,630876,2020-09-21T22:37:00Z,2020-09-21,Final,Final,New York Yankees,Toronto Blue Jays,5,11,Toronto Blue Jays,1,Michael King,Matt Shoemaker
+2020,631579,2020-09-21T22:40:00Z,2020-09-21,Final,Final,Milwaukee Brewers,Cincinnati Reds,3,6,Cincinnati Reds,1,Brandon Woodruff,Luis Castillo
+2020,631087,2020-09-21T23:05:00Z,2020-09-21,Final,Final,Chicago Cubs,Pittsburgh Pirates,5,0,Chicago Cubs,0,Jon Lester,JT Brubaker
+2020,631216,2020-09-21T23:10:00Z,2020-09-21,Final,Final,Tampa Bay Rays,New York Mets,2,1,Tampa Bay Rays,0,Pete Fairbanks,Jacob deGrom
+2020,630440,2020-09-21T23:10:00Z,2020-09-21,Final,Final,Miami Marlins,Atlanta Braves,4,5,Atlanta Braves,1,Trevor Rogers,Huascar Ynoa
+2020,631402,2020-09-22T00:05:00Z,2020-09-21,Final,Final,St. Louis Cardinals,Kansas City Royals,1,4,Kansas City Royals,1,Adam Wainwright,Carlos Hernández
+2020,631038,2020-09-22T01:10:00Z,2020-09-21,Final,Final,Houston Astros,Seattle Mariners,1,6,Seattle Mariners,1,Lance McCullers Jr.,Marco Gonzales
+2020,631009,2020-09-22T01:45:00Z,2020-09-21,Final,Final,Colorado Rockies,San Francisco Giants,7,2,Colorado Rockies,0,Germán Márquez,Johnny Cueto
+2020,630888,2020-09-22T19:05:00Z,2020-09-22,Final,Final,Philadelphia Phillies,Washington Nationals,1,5,Washington Nationals,1,Aaron Nola,Austin Voth
+2020,630896,2020-09-22T19:10:00Z,2020-09-22,Final,Final,Philadelphia Phillies,Washington Nationals,7,8,Washington Nationals,1,,Paolo Espino
+2020,631550,2020-09-22T22:10:00Z,2020-09-22,Final,Final,Chicago White Sox,Cleveland Indians,3,5,Cleveland Indians,1,Reynaldo López,Cal Quantrill
+2020,630881,2020-09-22T22:37:00Z,2020-09-22,Final,Final,New York Yankees,Toronto Blue Jays,12,1,New York Yankees,0,Gerrit Cole,Tanner Roark
+2020,631580,2020-09-22T22:40:00Z,2020-09-22,Final,Final,Milwaukee Brewers,Cincinnati Reds,3,2,Milwaukee Brewers,0,Brett Anderson,Sonny Gray
+2020,631088,2020-09-22T23:05:00Z,2020-09-22,Final,Final,Chicago Cubs,Pittsburgh Pirates,2,3,Pittsburgh Pirates,1,Jose Quintana,Steven Brault
+2020,631217,2020-09-22T23:10:00Z,2020-09-22,Final,Final,Tampa Bay Rays,New York Mets,2,5,New York Mets,1,Blake Snell,Seth Lugo
+2020,630385,2020-09-22T23:10:00Z,2020-09-22,Final,Final,Miami Marlins,Atlanta Braves,1,11,Atlanta Braves,1,José Ureña,Bryse Wilson
+2020,631636,2020-09-22T23:30:00Z,2020-09-22,Final,Final,Baltimore Orioles,Boston Red Sox,3,8,Boston Red Sox,1,Keegan Akin,Nick Pivetta
+2020,631251,2020-09-22T23:40:00Z,2020-09-22,Final,Final,Detroit Tigers,Minnesota Twins,4,5,Minnesota Twins,1,Tarik Skubal,Homer Bailey
+2020,631411,2020-09-23T00:05:00Z,2020-09-22,Final,Final,St. Louis Cardinals,Kansas City Royals,5,0,St. Louis Cardinals,0,Austin Gomber,Brady Singer
+2020,631064,2020-09-23T01:10:00Z,2020-09-22,Final,Final,Los Angeles Angels,San Diego Padres,4,2,Los Angeles Angels,0,Griffin Canning,Zach Davies
+2020,631039,2020-09-23T01:10:00Z,2020-09-22,Final,Final,Houston Astros,Seattle Mariners,6,1,Houston Astros,0,Framber Valdez,Ljay Newsome
+2020,630243,2020-09-23T01:10:00Z,2020-09-22,Final,Final,Texas Rangers,Arizona Diamondbacks,0,7,Arizona Diamondbacks,1,Jordan Lyles,Caleb Smith
+2020,631333,2020-09-23T01:40:00Z,2020-09-22,Final,Final,Oakland Athletics,Los Angeles Dodgers,2,7,Los Angeles Dodgers,1,Frankie Montas,Dustin May
+2020,631010,2020-09-23T01:45:00Z,2020-09-22,Final,Final,Colorado Rockies,San Francisco Giants,2,5,San Francisco Giants,1,Kyle Freeland,Drew Smyly
+2020,631065,2020-09-23T20:10:00Z,2020-09-23,Final,Final,Los Angeles Angels,San Diego Padres,5,2,Los Angeles Angels,0,Jaime Barria,Mike Clevinger
+2020,630892,2020-09-23T22:05:00Z,2020-09-23,Final,Final,Philadelphia Phillies,Washington Nationals,12,3,Philadelphia Phillies,0,Zach Eflin,Erick Fedde
+2020,630263,2020-09-23T22:10:00Z,2020-09-23,Final,Final,Texas Rangers,Arizona Diamondbacks,3,7,Arizona Diamondbacks,1,Wes Benjamin,Alex Young
+2020,631534,2020-09-23T22:10:00Z,2020-09-23,Final,Final,Chicago White Sox,Cleveland Indians,2,3,Cleveland Indians,1,Lucas Giolito,Shane Bieber
+2020,630885,2020-09-23T22:37:00Z,2020-09-23,Final,Final,New York Yankees,Toronto Blue Jays,1,14,Toronto Blue Jays,1,Masahiro Tanaka,Robbie Ray
+2020,631035,2020-09-23T22:40:00Z,2020-09-23,Final,Final,Houston Astros,Seattle Mariners,2,3,Seattle Mariners,1,Zack Greinke,Nick Margevicius
+2020,631583,2020-09-23T22:40:00Z,2020-09-23,Final,Final,Milwaukee Brewers,Cincinnati Reds,1,6,Cincinnati Reds,1,Adrian Houser,Trevor Bauer
+2020,631089,2020-09-23T23:05:00Z,2020-09-23,Final,Final,Chicago Cubs,Pittsburgh Pirates,1,2,Pittsburgh Pirates,1,Kyle Hendricks,Trevor Williams
+2020,631218,2020-09-23T23:10:00Z,2020-09-23,Final,Final,Tampa Bay Rays,New York Mets,8,5,Tampa Bay Rays,0,Tyler Glasnow,Michael Wacha
+2020,630554,2020-09-23T23:10:00Z,2020-09-23,Final,Final,Miami Marlins,Atlanta Braves,4,9,Atlanta Braves,1,Sixto Sánchez,Max Fried
+2020,631637,2020-09-23T23:30:00Z,2020-09-23,Final,Final,Baltimore Orioles,Boston Red Sox,1,9,Boston Red Sox,1,Dean Kremer,Nathan Eovaldi
+2020,631250,2020-09-23T23:40:00Z,2020-09-23,Final,Final,Detroit Tigers,Minnesota Twins,6,7,Minnesota Twins,1,Casey Mize,Kenta Maeda
+2020,631380,2020-09-24T00:05:00Z,2020-09-23,Final,Final,St. Louis Cardinals,Kansas City Royals,3,12,Kansas City Royals,1,Carlos Martinez,Danny Duffy
+2020,631334,2020-09-24T01:40:00Z,2020-09-23,Final,Final,Oakland Athletics,Los Angeles Dodgers,6,4,Oakland Athletics,0,Sean Manaea,Joe Kelly
+2020,631011,2020-09-24T01:45:00Z,2020-09-23,Final,Final,Colorado Rockies,San Francisco Giants,2,7,San Francisco Giants,1,Ryan Castellani,Caleb Baragar
+2020,631099,2020-09-24T17:35:00Z,2020-09-24,Final,Final,Chicago Cubs,Pittsburgh Pirates,0,7,Pittsburgh Pirates,1,Alec Mills,Chad Kuhl
+2020,631012,2020-09-24T19:45:00Z,2020-09-24,Final,Final,Colorado Rockies,San Francisco Giants,5,4,Colorado Rockies,0,Chi Chi González,Kevin Gausman
+2020,630893,2020-09-24T22:05:00Z,2020-09-24,Final,Final,New York Mets,Washington Nationals,3,2,New York Mets,0,David Peterson,Patrick Corbin
+2020,631549,2020-09-24T22:10:00Z,2020-09-24,Final,Final,Chicago White Sox,Cleveland Indians,4,5,Cleveland Indians,1,Dallas Keuchel,Zach Plesac
+2020,630887,2020-09-24T22:37:00Z,2020-09-24,Final,Final,New York Yankees,Toronto Blue Jays,1,4,Toronto Blue Jays,1,Jordan Montgomery,Hyun Jin Ryu
+2020,631685,2020-09-24T23:10:00Z,2020-09-24,Final,Final,Miami Marlins,Atlanta Braves,4,2,Miami Marlins,0,Pablo López,Ian Anderson
+2020,631640,2020-09-24T23:30:00Z,2020-09-24,Final,Final,Baltimore Orioles,Boston Red Sox,13,1,Baltimore Orioles,0,Alex Cobb,Martín Pérez
+2020,631398,2020-09-25T00:05:00Z,2020-09-24,Final,Final,Detroit Tigers,Kansas City Royals,7,8,Kansas City Royals,1,Michael Fulmer,Kris Bubic
+2020,630912,2020-09-25T00:05:00Z,2020-09-24,Final,Final,Houston Astros,Texas Rangers,12,4,Houston Astros,0,Cristian Javier,Lance Lynn
+2020,630975,2020-09-25T00:15:00Z,2020-09-24,Final,Final,Milwaukee Brewers,St. Louis Cardinals,2,4,St. Louis Cardinals,1,Corbin Burnes,Kwang Hyun Kim
+2020,631335,2020-09-25T01:40:00Z,2020-09-24,Final,Final,Oakland Athletics,Los Angeles Dodgers,1,5,Los Angeles Dodgers,1,Mike Fiers,Walker Buehler
+2020,630963,2020-09-25T21:15:00Z,2020-09-25,Final,Final,Milwaukee Brewers,St. Louis Cardinals,3,0,Milwaukee Brewers,0,Brent Suter,Jack Flaherty
+2020,631292,2020-09-25T21:20:00Z,2020-09-25,Final,Final,St. Louis Cardinals,Milwaukee Brewers,9,1,St. Louis Cardinals,0,Daniel Ponce de Leon,Josh Lindblom
+2020,630889,2020-09-25T22:37:00Z,2020-09-25,Final,Final,Baltimore Orioles,Toronto Blue Jays,5,10,Toronto Blue Jays,1,Jorge López,Taijuan Walker
+2020,630270,2020-09-25T22:40:00Z,2020-09-25,Final,Final,Colorado Rockies,Arizona Diamondbacks,0,4,Arizona Diamondbacks,1,Antonio Senzatela,Zac Gallen
+2020,630203,2020-09-25T22:45:00Z,2020-09-25,Final,Final,Colorado Rockies,Arizona Diamondbacks,5,11,Arizona Diamondbacks,1,Antonio Santos,Taylor Clarke
+2020,630938,2020-09-25T22:40:00Z,2020-09-25,Final,Final,Philadelphia Phillies,Tampa Bay Rays,4,6,Tampa Bay Rays,1,Vince Velasquez,Charlie Morton
+2020,631191,2020-09-25T23:05:00Z,2020-09-25,Final,Final,Miami Marlins,New York Yankees,4,3,Miami Marlins,0,Sandy Alcantara,J.A. Happ
+2020,631536,2020-09-25T23:10:00Z,2020-09-25,Final,Final,Pittsburgh Pirates,Cleveland Indians,3,4,Cleveland Indians,1,Mitch Keller,Carlos Carrasco
+2020,631013,2020-09-25T23:10:00Z,2020-09-25,Final,Final,San Diego Padres,San Francisco Giants,4,5,San Francisco Giants,1,Chris Paddack,Tyler Anderson
+2020,631059,2020-09-25T23:15:00Z,2020-09-25,Final,Final,San Francisco Giants,San Diego Padres,5,6,San Diego Padres,1,Jeff Samardzija,Dinelson Lamet
+2020,630569,2020-09-25T23:10:00Z,2020-09-25,Final,Final,Boston Red Sox,Atlanta Braves,7,8,Atlanta Braves,1,Chris Mazza,Kyle Wright
+2020,631383,2020-09-26T00:05:00Z,2020-09-25,Final,Final,Detroit Tigers,Kansas City Royals,2,3,Kansas City Royals,1,Spencer Turnbull,Brad Keller
+2020,630913,2020-09-26T00:05:00Z,2020-09-25,Final,Final,Houston Astros,Texas Rangers,4,5,Texas Rangers,1,José Urquidy,Kyle Cody
+2020,631246,2020-09-26T00:10:00Z,2020-09-25,Final,Final,Cincinnati Reds,Minnesota Twins,7,2,Cincinnati Reds,0,Tyler Mahle,José Berríos
+2020,631486,2020-09-26T00:10:00Z,2020-09-25,Final,Final,Chicago Cubs,Chicago White Sox,10,0,Chicago Cubs,0,Yu Darvish,Dylan Cease
+2020,631336,2020-09-26T01:40:00Z,2020-09-25,Final,Final,Los Angeles Angels,Los Angeles Dodgers,5,9,Los Angeles Dodgers,1,Andrew Heaney,Clayton Kershaw
+2020,631167,2020-09-26T01:40:00Z,2020-09-25,Final,Final,Seattle Mariners,Oakland Athletics,1,3,Oakland Athletics,1,Yusei Kikuchi,Chris Bassitt
+2020,630894,2020-09-25T22:05:00Z,2020-09-26,Final,Postponed,New York Mets,Washington Nationals,,,,,Rick Porcello,Max Scherzer
+2020,631193,2020-09-26T17:05:00Z,2020-09-26,Final,Final,Miami Marlins,New York Yankees,4,11,New York Yankees,1,Trevor Rogers,Deivi García
+2020,630895,2020-09-26T19:05:00Z,2020-09-26,Final,Final,New York Mets,Washington Nationals,3,4,Washington Nationals,1,Jacob deGrom,Max Scherzer
+2020,630894,2020-09-26T19:10:00Z,2020-09-26,Final,Final,New York Mets,Washington Nationals,3,5,Washington Nationals,1,Rick Porcello,Aníbal Sánchez
+2020,631169,2020-09-26T20:10:00Z,2020-09-26,Final,Final,Seattle Mariners,Oakland Athletics,5,1,Seattle Mariners,0,Justus Sheffield,Mike Minor
+2020,631055,2020-09-26T20:15:00Z,2020-09-26,Final,Final,Oakland Athletics,Seattle Mariners,3,12,Seattle Mariners,1,Paul Blackburn,Justin Dunn
+2020,630891,2020-09-26T22:37:00Z,2020-09-26,Final,Final,Baltimore Orioles,Toronto Blue Jays,2,5,Toronto Blue Jays,1,John Means,T.J. Zeuch
+2020,631385,2020-09-26T23:05:00Z,2020-09-26,Final,Final,Detroit Tigers,Kansas City Royals,4,3,Detroit Tigers,0,Matthew Boyd,Carlos Hernández
+2020,630914,2020-09-26T23:05:00Z,2020-09-26,Final,Final,Houston Astros,Texas Rangers,1,6,Texas Rangers,1,Lance McCullers Jr.,Kyle Gibson
+2020,630939,2020-09-26T23:07:00Z,2020-09-26,Final,Final,Philadelphia Phillies,Tampa Bay Rays,3,4,Tampa Bay Rays,1,Zack Wheeler,John Curtiss
+2020,630964,2020-09-26T23:07:00Z,2020-09-26,Final,Final,Milwaukee Brewers,St. Louis Cardinals,3,0,Milwaukee Brewers,0,Brandon Woodruff,Adam Wainwright
+2020,631537,2020-09-26T23:10:00Z,2020-09-26,Final,Final,Pittsburgh Pirates,Cleveland Indians,8,0,Pittsburgh Pirates,0,Joe Musgrove,Aaron Civale
+2020,631245,2020-09-26T23:10:00Z,2020-09-26,Final,Final,Cincinnati Reds,Minnesota Twins,3,7,Minnesota Twins,1,Luis Castillo,Michael Pineda
+2020,630570,2020-09-26T23:10:00Z,2020-09-26,Final,Final,Boston Red Sox,Atlanta Braves,8,2,Boston Red Sox,0,Tanner Houck,Tucker Davidson
+2020,631487,2020-09-26T23:10:00Z,2020-09-26,Final,Final,Chicago Cubs,Chicago White Sox,5,9,Chicago White Sox,1,Jon Lester,Dane Dunning
+2020,630271,2020-09-27T00:10:00Z,2020-09-26,Final,Final,Colorado Rockies,Arizona Diamondbacks,10,3,Colorado Rockies,0,Germán Márquez,Luke Weaver
+2020,631337,2020-09-27T01:10:00Z,2020-09-26,Final,Final,Los Angeles Angels,Los Angeles Dodgers,6,7,Los Angeles Dodgers,1,Julio Teheran,Tony Gonsolin
+2020,631016,2020-09-27T01:15:00Z,2020-09-26,Final,Final,San Diego Padres,San Francisco Giants,6,2,San Diego Padres,0,Zach Davies,Johnny Cueto
+2020,631386,2020-09-27T17:05:00Z,2020-09-27,Final,Final,Detroit Tigers,Kansas City Royals,1,3,Kansas City Royals,1,Jordan Zimmermann,Brady Singer
+2020,630854,2020-09-27T19:05:00Z,2020-09-27,Final,Final,New York Mets,Washington Nationals,5,15,Washington Nationals,1,Seth Lugo,Austin Voth
+2020,631002,2020-09-27T19:05:00Z,2020-09-27,Final,Final,San Diego Padres,San Francisco Giants,5,4,San Diego Padres,0,Adrian Morejon,Drew Smyly
+2020,630915,2020-09-27T19:05:00Z,2020-09-27,Final,Final,Houston Astros,Texas Rangers,4,8,Texas Rangers,1,Chase De Jong,Jordan Lyles
+2020,631188,2020-09-27T19:05:00Z,2020-09-27,Final,Final,Miami Marlins,New York Yankees,5,0,Miami Marlins,0,José Ureña,Clarke Schmidt
+2020,630858,2020-09-27T19:07:00Z,2020-09-27,Final,Final,Baltimore Orioles,Toronto Blue Jays,7,5,Baltimore Orioles,0,Keegan Akin,Tanner Roark
+2020,630202,2020-09-27T19:10:00Z,2020-09-27,Final,Final,Colorado Rockies,Arizona Diamondbacks,3,11,Arizona Diamondbacks,1,Kyle Freeland,Madison Bumgarner
+2020,631338,2020-09-27T19:10:00Z,2020-09-27,Final,Final,Los Angeles Angels,Los Angeles Dodgers,0,5,Los Angeles Dodgers,1,Patrick Sandoval,Victor González
+2020,631538,2020-09-27T19:10:00Z,2020-09-27,Final,Final,Pittsburgh Pirates,Cleveland Indians,6,8,Cleveland Indians,1,JT Brubaker,Cal Quantrill
+2020,631155,2020-09-27T19:10:00Z,2020-09-27,Final,Final,Seattle Mariners,Oakland Athletics,2,6,Oakland Athletics,1,Marco Gonzales,Frankie Montas
+2020,631244,2020-09-27T19:10:00Z,2020-09-27,Final,Final,Cincinnati Reds,Minnesota Twins,5,3,Cincinnati Reds,0,Sonny Gray,Rich Hill
+2020,630945,2020-09-27T19:10:00Z,2020-09-27,Final,Final,Philadelphia Phillies,Tampa Bay Rays,0,5,Tampa Bay Rays,1,Aaron Nola,Josh Fleming
+2020,630573,2020-09-27T19:10:00Z,2020-09-27,Final,Final,Boston Red Sox,Atlanta Braves,9,1,Boston Red Sox,0,Nick Pivetta,Bryse Wilson
+2020,631488,2020-09-27T19:10:00Z,2020-09-27,Final,Final,Chicago Cubs,Chicago White Sox,10,8,Chicago Cubs,0,Adbert Alzolay,Reynaldo López
+2020,630965,2020-09-27T19:15:00Z,2020-09-27,Final,Final,Milwaukee Brewers,St. Louis Cardinals,2,5,St. Louis Cardinals,1,Brett Anderson,Austin Gomber

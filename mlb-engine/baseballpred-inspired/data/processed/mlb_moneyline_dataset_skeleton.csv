@@ -1,0 +1,1 @@
+game_date,season,game_id,away_team,home_team,winner,selected_side,home_win,away_starting_pitcher,home_starting_pitcher,away_pitcher_era,home_pitcher_era,away_bullpen_fatigue,home_bullpen_fatigue,away_recent_runs,home_recent_runs,temperature,wind_speed,precipitation,park_factor,sportsbook_home_prob,sportsbook_away_prob,model_home_prob,model_away_prob,edge

@@ -1,0 +1,23 @@
+ASTRODDS 07 CLEAN VVS REASON BUILDER REPORT
+================================================
+Snapshot time: 2026-06-13T11:30:51.268687Z
+API rows: 69
+Raw VVS candidates: 12
+Rejected alias warnings: 6
+Clean candidates after alias filter: 6
+Final one-pick-per-game VVS rows: 5
+
+Final clean VVS picks:
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Edge: 17.32% | Gap: 52.0% | Bucket: 15-25%
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Edge: 12.76% | Gap: 52.0% | Bucket: 10-15%
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Edge: 14.02% | Gap: 30.0% | Bucket: 10-15%
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Edge: 11.25% | Gap: 34.0% | Bucket: 10-15%
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Edge: 5.32% | Gap: 28.0% | Bucket: 5-10%
+
+What this fixed:
+- Removed alias-warning candidates.
+- Removed duplicate/conflicting picks from the same game.
+- Replaced generic reasons with VVS model reasons.
+
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-clean-final-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-clean-final-latest.json
