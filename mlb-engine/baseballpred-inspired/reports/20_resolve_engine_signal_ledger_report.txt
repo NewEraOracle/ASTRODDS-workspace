@@ -1,0 +1,31 @@
+ASTRODDS 20 RESOLVE ENGINE SIGNAL LEDGER REPORT
+====================================================
+
+Ledger rows: 5
+Resolved this run: 1
+Still pending: 4
+
+Performance by final decision:
+- MANUAL_REVIEW: total=4 resolved=1 win=0 loss=1 pending=3 winRate=0.0 paperROI=-100.0% profit=-1.0u
+- WATCH: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+
+Performance by grade:
+- A: total=2 resolved=0 win=0 loss=0 pending=2 winRate=None paperROI=None% profit=0.0u
+- B: total=2 resolved=1 win=0 loss=1 pending=1 winRate=0.0 paperROI=-100.0% profit=-1.0u
+- WATCH: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+
+Performance by calibrated edge bucket:
+- 0-3%: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+- 12%+: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+- 3-5%: total=2 resolved=1 win=0 loss=1 pending=1 winRate=0.0 paperROI=-100.0% profit=-1.0u
+- 5-8%: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+
+Ledger:
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | Result: loss | Winner: Cincinnati Reds | Score: 1-2
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | Result: pending | Winner:  | Score: ---
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | Result: pending | Winner:  | Score: ---
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | Result: pending | Winner:  | Score: ---
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: MANUAL_REVIEW | Grade: A | Result: pending | Winner:  | Score: ---
+
+Updated JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.json
+Updated CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.csv

@@ -1,0 +1,244 @@
+ASTRODDS 21 ENGINE V2 FULL PIPELINE RUN REPORT
+====================================================
+Started: 2026-06-13T22:34:33.051503Z
+
+Goal:
+Run full engine pipeline: context -> calibrated decision -> ledger -> resolver.
+
+STEP — Game context
+--------------------------------
+Script: 08_game_context_snapshot.py
+Status: OK
+
+ASTRODDS 08 GAME CONTEXT SNAPSHOT REPORT
+============================================
+Input picks: 5
+Output rows: 5
+
+Context rows:
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Pitchers: Aaron Nola vs Shane Drohan | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Colorado Rockies @ Athletics | Pick: Athletics | Pitchers: Kyle Freeland vs Joey Estes | Lineups: away=confirmed home=missing | Weather: available | Missing: confirmed_lineup|bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Pitchers: Griffin Jax vs José Soriano | Lineups: away=missing home=confirmed | Weather: available | Missing: confirmed_lineup|bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Pitchers: Mike Burrows vs Noah Cameron | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Pitchers: Michael Soroka vs Rhett Lowder | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-game-context-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-game-context-latest.json
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\08_game_context_snapshot_report.txt
+
+STEP — Pitcher context
+--------------------------------
+Script: 09_pitcher_context_snapshot.py
+Status: OK
+
+ASTRODDS 09 PITCHER CONTEXT SNAPSHOT REPORT
+==============================================
+Input rows: 5
+Output rows: 5
+
+Pitcher context:
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Away SP: Aaron Nola ERA=5.86 WHIP=1.45 | Home SP: Shane Drohan ERA=3.11 WHIP=1.12 | Flags: away_pitcher_high_era|away_pitcher_high_whip
+- Colorado Rockies @ Athletics | Pick: Athletics | Away SP: Kyle Freeland ERA=7.81 WHIP=1.70 | Home SP: Joey Estes ERA=- WHIP=- | Flags: away_pitcher_high_era|away_pitcher_high_whip|home_pitcher_stats_missing
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Away SP: Griffin Jax ERA=4.15 WHIP=1.41 | Home SP: José Soriano ERA=2.96 WHIP=1.24 | Flags: none
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Away SP: Mike Burrows ERA=5.77 WHIP=1.57 | Home SP: Noah Cameron ERA=3.84 WHIP=1.19 | Flags: away_pitcher_high_era|away_pitcher_high_whip
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Away SP: Michael Soroka ERA=3.11 WHIP=1.07 | Home SP: Rhett Lowder ERA=4.60 WHIP=1.43 | Flags: none
+
+Important:
+Pitcher context is informational only. It does not change VVS picks yet.
+
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-pitcher-context-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-pitcher-context-latest.json
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\09_pitcher_context_snapshot_report.txt
+
+STEP — Bullpen fatigue
+--------------------------------
+Script: 10_bullpen_fatigue_snapshot.py
+Status: OK
+
+ASTRODDS 10 BULLPEN FATIGUE SNAPSHOT REPORT
+==============================================
+Input rows: 5
+Output rows: 5
+
+Bullpen context:
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Away BP: high 10.33 IP/3d | Home BP: low 2.0 IP/3d | Flags: away_bullpen_high_fatigue
+- Colorado Rockies @ Athletics | Pick: Athletics | Away BP: low 9.67 IP/3d | Home BP: low 4.0 IP/3d | Flags: none
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Away BP: low 4.0 IP/3d | Home BP: low 4.0 IP/3d | Flags: none
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Away BP: high 11.0 IP/3d | Home BP: high 17.0 IP/3d | Flags: away_bullpen_high_fatigue|home_bullpen_high_fatigue
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Away BP: high 12.33 IP/3d | Home BP: low 6.34 IP/3d | Flags: away_bullpen_high_fatigue
+
+Important: bullpen fatigue is informational only. It does not change VVS picks yet.
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-bullpen-context-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-bullpen-context-latest.json
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\10_bullpen_fatigue_snapshot_report.txt
+
+STEP — Calibrated edge gate
+--------------------------------
+Script: 16_live_calibrated_edge_gate.py
+Status: OK
+
+ASTRODDS 16 LIVE CALIBRATED EDGE GATE
+==========================================
+
+Goal:
+Replace raw overconfident model probability with calibrated historical probability.
+
+Input rows: 5
+
+Decision counts:
+- manual_review: 4
+- watch: 1
+
+Calibrated picks:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | RawModel=65.0% | Calibrated=63.45% | RawEdge=14.02% | CalEdge=12.47% | Decision=manual_review | Reason=good calibrated edge 12.47% but lineup not fully confirmed
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=55.75% | RawModel=67.0% | Calibrated=63.45% | RawEdge=11.25% | CalEdge=7.7% | Decision=manual_review | Reason=good calibrated edge 7.70% but bullpen fatigue warning
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=58.68% | RawModel=76.0% | Calibrated=63.45% | RawEdge=17.32% | CalEdge=4.78% | Decision=manual_review | Reason=small calibrated edge 4.78% but bullpen fatigue warning
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Market=58.68% | RawModel=64.0% | Calibrated=63.45% | RawEdge=5.32% | CalEdge=4.78% | Decision=manual_review | Reason=small calibrated edge 4.78% but bullpen fatigue warning
+- Colorado Rockies @ Athletics | Pick: Athletics | Market=63.24% | RawModel=76.0% | Calibrated=63.45% | RawEdge=12.76% | CalEdge=0.22% | Decision=watch | Reason=calibrated edge too small: 0.22%
+
+Rule:
+- Raw model probability is NOT trusted for betting decisions.
+- Calibrated probability is used for edge.
+- Context warnings can downgrade a pick to manual review.
+- Paper only until live ledger proves results.
+
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-calibrated-edge-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-calibrated-edge-latest.json
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\16_live_calibrated_edge_gate_report.txt
+
+STEP — Final engine decision
+--------------------------------
+Script: 17_engine_final_decision.py
+Status: OK
+
+ASTRODDS 17 FINAL ENGINE DECISION REPORT
+==============================================
+
+Goal:
+Create final engine signal file using calibrated edge + context gates.
+
+Input rows: 5
+
+Decision counts:
+- MANUAL_REVIEW: 4
+- WATCH: 1
+
+Final engine signals:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Final=MANUAL_REVIEW | Grade=A | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Reason=Calibrated edge exists, but review required: lineup not fully confirmed
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Final=MANUAL_REVIEW | Grade=A | Market=55.75% | Calibrated=63.45% | CalEdge=7.7% | Reason=Calibrated edge exists, but review required: bullpen warning, pitcher warning
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Final=MANUAL_REVIEW | Grade=B | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Reason=Calibrated edge exists, but review required: bullpen warning, pitcher warning
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Final=MANUAL_REVIEW | Grade=B | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Reason=Calibrated edge exists, but review required: bullpen warning
+- Colorado Rockies @ Athletics | Pick: Athletics | Final=WATCH | Grade=WATCH | Market=63.24% | Calibrated=63.45% | CalEdge=0.22% | Reason=No clean calibrated edge after calibration.
+
+Important:
+- There are no automatic real-money bets.
+- ENGINE_BUY requires clean calibrated edge and clean context.
+- MANUAL_REVIEW means the bot sees edge but risk context is not clean.
+- WATCH means the raw pick did not survive calibration.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-final-signals-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-final-signals-latest.csv
+Model rules: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_ENGINE_V2_DECISION_RULES.json
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\17_engine_final_decision_report.txt
+
+STEP — Save final signals to ledger
+--------------------------------
+Script: 19_engine_signal_ledger.py
+Status: OK
+
+ASTRODDS 19 ENGINE SIGNAL LEDGER REPORT
+==============================================
+
+Goal:
+Save every final engine signal into a permanent paper-tracking ledger.
+
+Input final signals: 5
+Ledger rows before: 5
+Added this run: 0
+Updated this run: 5
+Ledger rows after: 5
+
+Decision counts:
+- MANUAL_REVIEW: 4
+- WATCH: 1
+
+Grade counts:
+- A: 2
+- B: 2
+- WATCH: 1
+
+Result counts:
+- pending: 5
+
+Latest ledger signals:
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | CalEdge: 4.78% | Result: pending
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | CalEdge: 7.7% | Result: pending
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | CalEdge: 4.78% | Result: pending
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | CalEdge: 0.22% | Result: pending
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: MANUAL_REVIEW | Grade: A | CalEdge: 12.47% | Result: pending
+
+Next:
+20_resolve_engine_signal_ledger.py
+Resolve pending ledger rows to win/loss after games finish.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.csv
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\19_engine_signal_ledger_report.txt
+
+STEP — Resolve ledger win/loss when games are final
+--------------------------------
+Script: 20_resolve_engine_signal_ledger.py
+Status: OK
+
+ASTRODDS 20 RESOLVE ENGINE SIGNAL LEDGER REPORT
+====================================================
+
+Ledger rows: 5
+Resolved this run: 1
+Still pending: 4
+
+Performance by final decision:
+- MANUAL_REVIEW: total=4 resolved=1 win=0 loss=1 pending=3 winRate=0.0 paperROI=-100.0% profit=-1.0u
+- WATCH: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+
+Performance by grade:
+- A: total=2 resolved=0 win=0 loss=0 pending=2 winRate=None paperROI=None% profit=0.0u
+- B: total=2 resolved=1 win=0 loss=1 pending=1 winRate=0.0 paperROI=-100.0% profit=-1.0u
+- WATCH: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+
+Performance by calibrated edge bucket:
+- 0-3%: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+- 12%+: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+- 3-5%: total=2 resolved=1 win=0 loss=1 pending=1 winRate=0.0 paperROI=-100.0% profit=-1.0u
+- 5-8%: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
+
+Ledger:
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | Result: loss | Winner: Cincinnati Reds | Score: 1-2
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | Result: pending | Winner:  | Score: ---
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | Result: pending | Winner:  | Score: ---
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | Result: pending | Winner:  | Score: ---
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: MANUAL_REVIEW | Grade: A | Result: pending | Winner:  | Score: ---
+
+Updated JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.json
+Updated CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.csv
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\20_resolve_engine_signal_ledger_report.txt
+
+FINAL STATUS
+====================
+Finished: 2026-06-13T22:35:13.864840Z
+Pipeline OK: True
+
+Final outputs:
+.astrodds/ASTRODDS-engine-final-signals-latest.json
+.astrodds/ASTRODDS-engine-signal-ledger.json
+.astrodds/ASTRODDS-engine-signal-ledger.csv
+
+Rule:
+Paper/manual only. No real-money automation.

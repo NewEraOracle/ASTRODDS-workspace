@@ -1,0 +1,37 @@
+ASTRODDS 19 ENGINE SIGNAL LEDGER REPORT
+==============================================
+
+Goal:
+Save every final engine signal into a permanent paper-tracking ledger.
+
+Input final signals: 5
+Ledger rows before: 5
+Added this run: 0
+Updated this run: 5
+Ledger rows after: 5
+
+Decision counts:
+- MANUAL_REVIEW: 4
+- WATCH: 1
+
+Grade counts:
+- A: 2
+- B: 2
+- WATCH: 1
+
+Result counts:
+- pending: 5
+
+Latest ledger signals:
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | CalEdge: 4.78% | Result: pending
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | CalEdge: 7.7% | Result: pending
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | CalEdge: 4.78% | Result: pending
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | CalEdge: 0.22% | Result: pending
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: MANUAL_REVIEW | Grade: A | CalEdge: 12.47% | Result: pending
+
+Next:
+20_resolve_engine_signal_ledger.py
+Resolve pending ledger rows to win/loss after games finish.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.csv
