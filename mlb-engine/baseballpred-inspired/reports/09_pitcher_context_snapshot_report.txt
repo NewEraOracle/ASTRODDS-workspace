@@ -1,0 +1,17 @@
+ASTRODDS 09 PITCHER CONTEXT SNAPSHOT REPORT
+==============================================
+Input rows: 5
+Output rows: 5
+
+Pitcher context:
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Away SP: Aaron Nola ERA=5.86 WHIP=1.45 | Home SP: Shane Drohan ERA=3.11 WHIP=1.12 | Flags: away_pitcher_high_era|away_pitcher_high_whip
+- Colorado Rockies @ Athletics | Pick: Athletics | Away SP: Kyle Freeland ERA=7.81 WHIP=1.70 | Home SP: Joey Estes ERA=- WHIP=- | Flags: away_pitcher_high_era|away_pitcher_high_whip|home_pitcher_stats_missing
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Away SP: Griffin Jax ERA=4.15 WHIP=1.41 | Home SP: José Soriano ERA=2.96 WHIP=1.24 | Flags: none
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Away SP: Mike Burrows ERA=5.77 WHIP=1.57 | Home SP: Noah Cameron ERA=3.84 WHIP=1.19 | Flags: away_pitcher_high_era|away_pitcher_high_whip
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Away SP: Michael Soroka ERA=3.16 WHIP=1.09 | Home SP: Rhett Lowder ERA=4.60 WHIP=1.43 | Flags: none
+
+Important:
+Pitcher context is informational only. It does not change VVS picks yet.
+
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-pitcher-context-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-pitcher-context-latest.json

@@ -1,0 +1,30 @@
+﻿ASTRODDS 11 PRO CONTEXT BOARD SUMMARY
+=====================================
+
+Status:
+- VVS clean board upgraded with pitcher, lineup, weather, and bullpen context.
+- Context is informational only.
+- VVS picks are still based on Model V1 + market edge.
+- Paper/manual only.
+
+Rows: 5
+
+Pro VVS Picks:
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Edge: 17.32% | Gap: 52.0% | Away SP: Aaron Nola ERA 5.86 WHIP 1.45 | Home SP: Shane Drohan ERA 3.11 WHIP 1.12 | Away BP: high 10.33 IP/3d | Home BP: low 2.0 IP/3d | Lineups: away confirmed, home confirmed
+- Colorado Rockies @ Athletics | Pick: Athletics | Edge: 12.76% | Gap: 52.0% | Away SP: Kyle Freeland ERA 7.81 WHIP 1.70 | Home SP: Joey Estes ERA  WHIP  | Away BP: low 9.67 IP/3d | Home BP: low 4.0 IP/3d | Lineups: away missing, home missing
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Edge: 14.02% | Gap: 30.0% | Away SP: Griffin Jax ERA 4.15 WHIP 1.41 | Home SP: José Soriano ERA 2.96 WHIP 1.24 | Away BP: low 4.0 IP/3d | Home BP: low 4.0 IP/3d | Lineups: away missing, home missing
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Edge: 11.25% | Gap: 34.0% | Away SP: Mike Burrows ERA 5.77 WHIP 1.57 | Home SP: Noah Cameron ERA 3.84 WHIP 1.19 | Away BP: high 11.0 IP/3d | Home BP: high 17.0 IP/3d | Lineups: away confirmed, home confirmed
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Edge: 5.32% | Gap: 28.0% | Away SP: Michael Soroka ERA 3.16 WHIP 1.09 | Home SP: Rhett Lowder ERA 4.60 WHIP 1.43 | Away BP: high 12.33 IP/3d | Home BP: low 6.34 IP/3d | Lineups: away confirmed, home confirmed
+
+Completed tonight:
+- 08 game context snapshot
+- 09 pitcher context snapshot
+- 10 bullpen fatigue snapshot
+- 11 pro VVS context board
+
+Next after games finish:
+python ".\mlb-engine\baseballpred-inspired\scripts\04_resolve_edge_results.py"
+python ".\mlb-engine\baseballpred-inspired\scripts\03_edge_ledger_report.py"
+
+Rule:
+- No real money automation until edge buckets prove results.

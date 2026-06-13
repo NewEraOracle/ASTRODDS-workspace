@@ -1,0 +1,177 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ASTRODDS Pro VVS Board</title>
+  <style>
+    body { background:#050814; color:#f4f7ff; font-family:Arial, sans-serif; padding:24px; }
+    h1 { margin:0 0 8px; font-size:34px; }
+    .sub { color:#9fafc9; margin-bottom:20px; }
+    .cards { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
+    .card { background:#0d1524; border:1px solid #24314d; border-radius:12px; padding:12px 16px; min-width:150px; }
+    .label { color:#9fafc9; font-size:12px; text-transform:uppercase; }
+    .num { font-size:28px; font-weight:800; margin-top:4px; }
+    table { width:100%; border-collapse:collapse; background:#0c1320; border:1px solid #24314d; border-radius:12px; overflow:hidden; }
+    th, td { padding:10px 8px; border-bottom:1px solid #202c45; text-align:left; font-size:13px; vertical-align:top; }
+    th { background:#121d31; color:#b6c6e7; font-size:11px; text-transform:uppercase; }
+    .good { color:#44ff99; font-weight:800; }
+    .warn { color:#ffd66b; font-weight:800; }
+    .bad { color:#ff7676; font-weight:800; }
+    .muted { color:#9fafc9; }
+    .why { color:#b8c4dc; max-width:360px; line-height:1.35; }
+  </style>
+</head>
+<body>
+  <h1>ASTRODDS Pro VVS Board</h1>
+  <div class="sub">
+    Clean VVS picks with pitcher, lineup, weather, and bullpen context. Paper/manual only.
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="label">Pro VVS Picks</div><div class="num" id="count">0</div></div>
+    <div class="card"><div class="label">High BP Risk</div><div class="num warn" id="bpRisk">0</div></div>
+    <div class="card"><div class="label">Lineup Missing</div><div class="num warn" id="lineupMissing">0</div></div>
+    <div class="card"><div class="label">Mode</div><div class="num warn">Paper</div></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Game</th>
+        <th>Pick</th>
+        <th>Edge / Gap</th>
+        <th>Pitchers</th>
+        <th>Lineups</th>
+        <th>Weather</th>
+        <th>Bullpen</th>
+        <th>Context</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+      <tr><td colspan="9">Loading...</td></tr>
+    </tbody>
+  </table>
+
+<script>
+function n(x) {
+  const v = Number(x);
+  return Number.isFinite(v) ? v : null;
+}
+
+function pct(x) {
+  const v = n(x);
+  return v === null ? "-" : (v * 100).toFixed(1) + "%";
+}
+
+function one(x) {
+  const v = n(x);
+  return v === null ? "-" : v.toFixed(1);
+}
+
+function riskClass(label) {
+  if (label === "high") return "bad";
+  if (label === "medium") return "warn";
+  return "good";
+}
+
+function lineupClass(status) {
+  if (status === "confirmed") return "good";
+  if (status === "partial") return "warn";
+  return "bad";
+}
+
+function pitcherLine(name, era, whip, flags) {
+  return `
+    <b>${name || "-"}</b><br>
+    <span class="muted">ERA ${era || "-"} / WHIP ${whip || "-"}</span><br>
+    <span class="${String(flags || "").includes("high") ? "warn" : "good"}">${flags || "none"}</span>
+  `;
+}
+
+function buildContext(row) {
+  const notes = [];
+
+  if (row.pitcherContextFlags && row.pitcherContextFlags !== "none") {
+    notes.push("Pitcher warning: " + row.pitcherContextFlags);
+  }
+
+  if (row.bullpenContextFlags && row.bullpenContextFlags !== "none") {
+    notes.push("Bullpen warning: " + row.bullpenContextFlags);
+  }
+
+  if (row.awayLineupStatus !== "confirmed" || row.homeLineupStatus !== "confirmed") {
+    notes.push("Lineup not fully confirmed");
+  }
+
+  if (row.weatherStatus !== "available") {
+    notes.push("Weather missing");
+  }
+
+  if (!notes.length) {
+    return "<span class='good'>Clean context</span>";
+  }
+
+  return notes.map(x => "<div class='warn'>" + x + "</div>").join("");
+}
+
+async function load() {
+  const res = await fetch("/astrodds-vvs-pro-context.json", { cache: "no-store" });
+  const rows = await res.json();
+
+  document.getElementById("count").textContent = rows.length;
+  document.getElementById("bpRisk").textContent = rows.filter(r =>
+    String(r.bullpenContextFlags || "").includes("high")
+  ).length;
+  document.getElementById("lineupMissing").textContent = rows.filter(r =>
+    r.awayLineupStatus !== "confirmed" || r.homeLineupStatus !== "confirmed"
+  ).length;
+
+  const tbody = document.getElementById("tbody");
+  tbody.innerHTML = "";
+
+  rows.forEach((r, i) => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${i + 1}</td>
+      <td><b>${r.game}</b><br><span class="muted">${r.date || ""}</span></td>
+      <td><b>${r.pick}</b><br><span class="${r.status === "daily_pick" ? "good" : "warn"}">${r.status}</span></td>
+      <td>
+        <span class="good">Edge +${one(r.edgePct)}%</span><br>
+        <span class="good">Gap ${one(r.modelGapPct)}%</span><br>
+        <span class="muted">${r.edgeBucket || "-"}</span>
+      </td>
+      <td>
+        <div>${pitcherLine(r.awayProbablePitcher, r.awayPitcher_era, r.awayPitcher_whip, r.pitcherContextFlags)}</div>
+        <hr>
+        <div>${pitcherLine(r.homeProbablePitcher, r.homePitcher_era, r.homePitcher_whip, r.pitcherContextFlags)}</div>
+      </td>
+      <td>
+        Away: <span class="${lineupClass(r.awayLineupStatus)}">${r.awayLineupStatus}</span> (${r.awayLineupCount || 0})<br>
+        Home: <span class="${lineupClass(r.homeLineupStatus)}">${r.homeLineupStatus}</span> (${r.homeLineupCount || 0})
+      </td>
+      <td>
+        Temp: ${one(r.temperatureC)}°C<br>
+        Wind: ${one(r.windSpeedKmh)} km/h<br>
+        Rain: ${one(r.precipitationMm)} mm<br>
+        <span class="muted">${r.venue || "-"}</span>
+      </td>
+      <td>
+        Away BP: <span class="${riskClass(r.awayBullpenFatigueLabel)}">${r.awayBullpenFatigueLabel}</span> ${one(r.awayBullpenIp3d)} IP/3d<br>
+        Home BP: <span class="${riskClass(r.homeBullpenFatigueLabel)}">${r.homeBullpenFatigueLabel}</span> ${one(r.homeBullpenIp3d)} IP/3d<br>
+        <span class="muted">${r.bullpenContextFlags || "none"}</span>
+      </td>
+      <td class="why">${buildContext(r)}</td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+}
+
+load().catch(err => {
+  document.getElementById("tbody").innerHTML = "<tr><td colspan='9' class='bad'>" + err.message + "</td></tr>";
+});
+</script>
+</body>
+</html>

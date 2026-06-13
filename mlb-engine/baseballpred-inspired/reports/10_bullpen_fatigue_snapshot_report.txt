@@ -1,0 +1,15 @@
+ASTRODDS 10 BULLPEN FATIGUE SNAPSHOT REPORT
+==============================================
+Input rows: 5
+Output rows: 5
+
+Bullpen context:
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Away BP: high 10.33 IP/3d | Home BP: low 2.0 IP/3d | Flags: away_bullpen_high_fatigue
+- Colorado Rockies @ Athletics | Pick: Athletics | Away BP: low 9.67 IP/3d | Home BP: low 4.0 IP/3d | Flags: none
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Away BP: low 4.0 IP/3d | Home BP: low 4.0 IP/3d | Flags: none
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Away BP: high 11.0 IP/3d | Home BP: high 17.0 IP/3d | Flags: away_bullpen_high_fatigue|home_bullpen_high_fatigue
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Away BP: high 12.33 IP/3d | Home BP: low 6.34 IP/3d | Flags: away_bullpen_high_fatigue
+
+Important: bullpen fatigue is informational only. It does not change VVS picks yet.
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-bullpen-context-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-bullpen-context-latest.json

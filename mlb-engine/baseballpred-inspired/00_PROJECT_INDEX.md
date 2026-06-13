@@ -212,3 +212,43 @@ python ".\mlb-engine\baseballpred-inspired\scripts\03_edge_ledger_report.py"
 Do not add real-money automation.
 Paper only until edge buckets prove results.
 Quality over quantity.
+
+### 08 Game Context Snapshot: COMPLETE
+Script:
+mlb-engine/baseballpred-inspired/scripts/08_game_context_snapshot.py
+
+Result:
+Connected probable pitchers, lineups, venue, weather, and game status.
+
+---
+
+### 09 Pitcher Context Snapshot: COMPLETE
+Script:
+mlb-engine/baseballpred-inspired/scripts/09_pitcher_context_snapshot.py
+
+Result:
+Connected ERA, WHIP, innings, strikeouts, walks, and pitcher warning flags.
+
+---
+
+### 10 Bullpen Fatigue Snapshot: COMPLETE
+Script:
+mlb-engine/baseballpred-inspired/scripts/10_bullpen_fatigue_snapshot.py
+
+Result:
+Estimated bullpen fatigue using bullpen innings over 1 / 3 / 7 days.
+
+---
+
+### 11 Pro VVS Context Board: COMPLETE
+Public page:
+public/astrodds-vvs-pro-clean.html
+
+Public data:
+public/astrodds-vvs-pro-context.json
+
+Result:
+Clean VVS board with pitcher, lineup, weather, and bullpen context.
+
+Status:
+Paper/manual only. Context does not change picks yet.

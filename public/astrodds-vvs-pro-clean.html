@@ -1,0 +1,205 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ASTRODDS Pro VVS Clean</title>
+  <style>
+    body { margin:0; background:#050814; color:#f4f7ff; font-family:Arial, sans-serif; padding:28px; }
+    h1 { margin:0; font-size:36px; }
+    .sub { color:#9fafc9; margin:8px 0 24px; }
+    .cardsTop { display:grid; grid-template-columns:repeat(4, minmax(160px, 1fr)); gap:14px; margin-bottom:24px; max-width:980px; }
+    .stat { background:#0d1524; border:1px solid #24314d; border-radius:14px; padding:14px 18px; }
+    .label { color:#9fafc9; font-size:12px; text-transform:uppercase; }
+    .num { font-size:30px; font-weight:900; margin-top:6px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(420px, 1fr)); gap:16px; }
+    .pickCard { background:#0c1320; border:1px solid #24314d; border-radius:16px; padding:18px; }
+    .top { display:flex; justify-content:space-between; gap:16px; border-bottom:1px solid #24314d; padding-bottom:12px; margin-bottom:14px; }
+    .game { font-size:18px; font-weight:900; }
+    .date { color:#9fafc9; font-size:13px; margin-top:4px; }
+    .pick { font-size:18px; font-weight:900; color:#44ff99; text-align:right; }
+    .status { color:#7fc8ff; font-size:13px; margin-top:4px; }
+    .metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:14px; }
+    .metric { background:#101a2d; border-radius:10px; padding:10px; }
+    .metric b { display:block; font-size:17px; margin-top:4px; }
+    .sections { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .box { background:#08101f; border:1px solid #1d2940; border-radius:12px; padding:12px; }
+    .boxTitle { color:#b6c6e7; font-size:12px; text-transform:uppercase; margin-bottom:8px; font-weight:800; }
+    .good { color:#44ff99; font-weight:800; }
+    .warn { color:#ffd66b; font-weight:800; }
+    .bad { color:#ff7676; font-weight:800; }
+    .muted { color:#9fafc9; }
+    .line { margin:5px 0; }
+    .context { margin-top:12px; background:#101a2d; border-radius:12px; padding:12px; line-height:1.35; }
+    @media(max-width:900px){ .cardsTop{grid-template-columns:1fr 1fr;} .sections{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <h1>ASTRODDS Pro VVS Board</h1>
+  <div class="sub">Clean VVS picks with pitcher, lineup, weather, and bullpen context. Paper/manual only.</div>
+
+  <div class="cardsTop">
+    <div class="stat"><div class="label">Pro VVS Picks</div><div class="num" id="count">0</div></div>
+    <div class="stat"><div class="label">High BP Risk</div><div class="num warn" id="bpRisk">0</div></div>
+    <div class="stat"><div class="label">Lineup Missing</div><div class="num warn" id="lineupMissing">0</div></div>
+    <div class="stat"><div class="label">Mode</div><div class="num warn">Paper</div></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+<script>
+const fmt = x => {
+  const n = Number(x);
+  return Number.isFinite(n) ? n.toFixed(1) : "-";
+};
+
+const pct = x => {
+  const n = Number(x);
+  return Number.isFinite(n) ? (n * 100).toFixed(1) + "%" : "-";
+};
+
+function clsLevel(v) {
+  if (v === "high" || v === "missing" || v === "error") return "bad";
+  if (v === "medium" || v === "partial") return "warn";
+  return "good";
+}
+
+function cleanFlag(flag) {
+  const map = {
+    "away_pitcher_high_era": "Away SP high ERA",
+    "away_pitcher_high_whip": "Away SP high WHIP",
+    "home_pitcher_high_era": "Home SP high ERA",
+    "home_pitcher_high_whip": "Home SP high WHIP",
+    "away_pitcher_stats_missing": "Away SP stats missing",
+    "home_pitcher_stats_missing": "Home SP stats missing",
+    "away_pitcher_low_start_sample": "Away SP small sample",
+    "home_pitcher_low_start_sample": "Home SP small sample",
+    "away_pitcher_low_ip_sample": "Away SP low innings sample",
+    "home_pitcher_low_ip_sample": "Home SP low innings sample",
+    "away_bullpen_high_fatigue": "Away bullpen high fatigue",
+    "home_bullpen_high_fatigue": "Home bullpen high fatigue",
+    "away_bullpen_medium_fatigue": "Away bullpen medium fatigue",
+    "home_bullpen_medium_fatigue": "Home bullpen medium fatigue"
+  };
+  return map[flag] || flag.replaceAll("_", " ");
+}
+
+function cleanFlags(flags) {
+  const parts = String(flags || "none").split("|").filter(Boolean);
+  if (!parts.length || String(flags) === "none") return "none";
+  return parts.map(cleanFlag).join(", ");
+}
+function flagsFor(allFlags, side) {
+  const parts = String(allFlags || "none").split("|").filter(Boolean);
+  const filtered = parts.filter(x => x.startsWith(side + "_pitcher"));
+  return filtered.length ? filtered.map(cleanFlag).join(", ") : "none";
+}
+
+function pitcherBox(r, side) {
+  const name = r[side + "ProbablePitcher"] || "-";
+  const era = r[side + "Pitcher_era"] || "-";
+  const whip = r[side + "Pitcher_whip"] || "-";
+  const flags = flagsFor(r.pitcherContextFlags, side);
+  const flagClass = flags === "none" ? "good" : "warn";
+
+  return `
+    <div class="line"><b>${side.toUpperCase()} SP:</b> ${name}</div>
+    <div class="line muted">ERA ${era} / WHIP ${whip}</div>
+    <div class="line ${flagClass}">${flags}</div>
+  `;
+}
+
+function contextNotes(r) {
+  const notes = [];
+
+  if (flagsFor(r.pitcherContextFlags, "away") !== "none") notes.push("Away pitcher warning");
+  if (flagsFor(r.pitcherContextFlags, "home") !== "none") notes.push("Home pitcher warning");
+
+  if (String(r.bullpenContextFlags || "none") !== "none") notes.push("Bullpen warning: " + cleanFlags(r.bullpenContextFlags));
+
+  if (r.awayLineupStatus !== "confirmed" || r.homeLineupStatus !== "confirmed") notes.push("Lineup not fully confirmed");
+
+  if (r.weatherStatus !== "available") notes.push("Weather missing");
+
+  if (!notes.length) return `<span class="good">Clean context</span>`;
+  return notes.map(x => `<div class="warn">${x}</div>`).join("");
+}
+
+async function load() {
+  const res = await fetch("/astrodds-vvs-pro-context.json", { cache:"no-store" });
+  const rows = await res.json();
+
+  document.getElementById("count").textContent = rows.length;
+  document.getElementById("bpRisk").textContent = rows.filter(r => String(r.bullpenContextFlags || "").includes("high")).length;
+  document.getElementById("lineupMissing").textContent = rows.filter(r => r.awayLineupStatus !== "confirmed" || r.homeLineupStatus !== "confirmed").length;
+
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  rows.forEach((r, i) => {
+    const card = document.createElement("div");
+    card.className = "pickCard";
+
+    card.innerHTML = `
+      <div class="top">
+        <div>
+          <div class="game">#${i + 1} ${r.game}</div>
+          <div class="date">${r.date || ""}</div>
+        </div>
+        <div>
+          <div class="pick">${r.pick}</div>
+          <div class="status">${r.status}</div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric"><span class="label">Market</span><b>${pct(r.marketProbability)}</b></div>
+        <div class="metric"><span class="label">Model</span><b>${pct(r.modelProbability)}</b></div>
+        <div class="metric"><span class="label">Edge</span><b class="good">+${fmt(r.edgePct)}%</b></div>
+        <div class="metric"><span class="label">Gap</span><b class="good">${fmt(r.modelGapPct)}%</b></div>
+      </div>
+
+      <div class="sections">
+        <div class="box">
+          <div class="boxTitle">Pitchers</div>
+          ${pitcherBox(r, "away")}
+          <hr>
+          ${pitcherBox(r, "home")}
+        </div>
+
+        <div class="box">
+          <div class="boxTitle">Lineups</div>
+          <div>Away: <span class="${clsLevel(r.awayLineupStatus)}">${r.awayLineupStatus}</span> (${r.awayLineupCount || 0})</div>
+          <div>Home: <span class="${clsLevel(r.homeLineupStatus)}">${r.homeLineupStatus}</span> (${r.homeLineupCount || 0})</div>
+        </div>
+
+        <div class="box">
+          <div class="boxTitle">Weather</div>
+          <div>Temp: ${fmt(r.temperatureC)}°C</div>
+          <div>Wind: ${fmt(r.windSpeedKmh)} km/h</div>
+          <div>Rain: ${fmt(r.precipitationMm)} mm</div>
+          <div class="muted">${r.venue || "-"}</div>
+        </div>
+
+        <div class="box">
+          <div class="boxTitle">Bullpen</div>
+          <div>Away BP: <span class="${clsLevel(r.awayBullpenFatigueLabel)}">${r.awayBullpenFatigueLabel}</span> ${fmt(r.awayBullpenIp3d)} IP/3d</div>
+          <div>Home BP: <span class="${clsLevel(r.homeBullpenFatigueLabel)}">${r.homeBullpenFatigueLabel}</span> ${fmt(r.homeBullpenIp3d)} IP/3d</div>
+          <div class="muted">${cleanFlags(r.bullpenContextFlags)}</div>
+        </div>
+      </div>
+
+      <div class="context">
+        <div class="boxTitle">Context Notes</div>
+        ${contextNotes(r)}
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+load();
+</script>
+</body>
+</html>
+

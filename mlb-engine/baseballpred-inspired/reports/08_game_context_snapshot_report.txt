@@ -1,0 +1,14 @@
+ASTRODDS 08 GAME CONTEXT SNAPSHOT REPORT
+============================================
+Input picks: 5
+Output rows: 5
+
+Context rows:
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Pitchers: Aaron Nola vs Shane Drohan | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Colorado Rockies @ Athletics | Pick: Athletics | Pitchers: Kyle Freeland vs Joey Estes | Lineups: away=missing home=missing | Weather: available | Missing: confirmed_lineup|bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Pitchers: Griffin Jax vs José Soriano | Lineups: away=missing home=missing | Weather: available | Missing: confirmed_lineup|bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Pitchers: Mike Burrows vs Noah Cameron | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Pitchers: Michael Soroka vs Rhett Lowder | Lineups: away=confirmed home=confirmed | Weather: available | Missing: bullpen_fatigue_not_built|advanced_pitcher_stats_not_built
+
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-game-context-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-game-context-latest.json
