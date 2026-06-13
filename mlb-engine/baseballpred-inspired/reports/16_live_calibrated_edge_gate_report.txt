@@ -1,0 +1,27 @@
+ASTRODDS 16 LIVE CALIBRATED EDGE GATE
+==========================================
+
+Goal:
+Replace raw overconfident model probability with calibrated historical probability.
+
+Input rows: 5
+
+Decision counts:
+- manual_review: 4
+- watch: 1
+
+Calibrated picks:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | RawModel=65.0% | Calibrated=63.45% | RawEdge=14.02% | CalEdge=12.47% | Decision=manual_review | Reason=good calibrated edge 12.47% but lineup not fully confirmed
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=55.75% | RawModel=67.0% | Calibrated=63.45% | RawEdge=11.25% | CalEdge=7.7% | Decision=manual_review | Reason=good calibrated edge 7.70% but bullpen fatigue warning
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=58.68% | RawModel=76.0% | Calibrated=63.45% | RawEdge=17.32% | CalEdge=4.78% | Decision=manual_review | Reason=small calibrated edge 4.78% but bullpen fatigue warning
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Market=58.68% | RawModel=64.0% | Calibrated=63.45% | RawEdge=5.32% | CalEdge=4.78% | Decision=manual_review | Reason=small calibrated edge 4.78% but bullpen fatigue warning
+- Colorado Rockies @ Athletics | Pick: Athletics | Market=63.24% | RawModel=76.0% | Calibrated=63.45% | RawEdge=12.76% | CalEdge=0.22% | Decision=watch | Reason=calibrated edge too small: 0.22%
+
+Rule:
+- Raw model probability is NOT trusted for betting decisions.
+- Calibrated probability is used for edge.
+- Context warnings can downgrade a pick to manual review.
+- Paper only until live ledger proves results.
+
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-calibrated-edge-latest.csv
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-calibrated-edge-latest.json

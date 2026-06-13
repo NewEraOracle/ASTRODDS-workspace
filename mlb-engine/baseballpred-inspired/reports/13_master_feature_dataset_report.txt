@@ -1,0 +1,32 @@
+ASTRODDS 13 MASTER FEATURE DATASET
+========================================
+Input completed games: 23826
+Output feature rows: 23826
+Model-ready rows: 21074
+Model correct: 11804
+Model V1 accuracy on master dataset: 56.01%
+
+Score gap buckets:
+- 0-1%: tested=1309 correct=682 accuracy=52.1%
+- 1-2%: tested=1331 correct=696 accuracy=52.29%
+- 2-3%: tested=1288 correct=684 accuracy=53.11%
+- 3-5%: tested=2544 correct=1362 accuracy=53.54%
+- 5-8%: tested=3610 correct=1943 accuracy=53.82%
+- 8%+: tested=10992 correct=6437 accuracy=58.56%
+
+Features included:
+- previous season win pct
+- previous season Pythagorean
+- previous season run differential
+- previous season home/away splits
+- rolling recent 10-game form
+- rolling recent 10-game run differential
+- rest days
+- pitcher prior starts / prior team win rate
+- Model V1 score and correctness
+
+Important:
+This dataset uses only prior information before each game. No future leakage from same-game result.
+
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\data\processed\astrodss_master_feature_dataset_v1.csv
+Manifest: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\13_master_feature_dataset_manifest.json

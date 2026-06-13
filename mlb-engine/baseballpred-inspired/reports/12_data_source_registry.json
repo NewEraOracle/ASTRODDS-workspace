@@ -1,0 +1,133 @@
+{
+  "createdAt": "2026-06-13T22:13:06.668083Z",
+  "project": "ASTRODDS MLB Engine",
+  "goal": "BaseballPred-style free-data prediction engine with calibration and edge tracking",
+  "rules": [
+    "No source changes picks until backtested.",
+    "Every feature must be tested against baseline.",
+    "Market edge must be resolved with win/loss and ROI.",
+    "Paper only until edge buckets prove results.",
+    "Cache all external API responses."
+  ],
+  "sources": [
+    {
+      "name": "MLB StatsAPI",
+      "type": "free_public_api",
+      "cost": "free",
+      "apiKeyRequired": false,
+      "status": "connected",
+      "useFor": [
+        "schedule",
+        "results",
+        "live game status",
+        "boxscore",
+        "probable pitchers",
+        "lineups",
+        "venue",
+        "bullpen usage"
+      ],
+      "risk": "unofficial/public endpoint behavior can change",
+      "enginePriority": 1
+    },
+    {
+      "name": "pybaseball",
+      "type": "python_package_scraper",
+      "cost": "free",
+      "apiKeyRequired": false,
+      "status": "not_connected",
+      "useFor": [
+        "Statcast",
+        "pitcher advanced stats",
+        "batter advanced stats",
+        "team batting",
+        "team pitching",
+        "FanGraphs-style batting/pitching tables",
+        "Baseball Savant data"
+      ],
+      "risk": "scraping-based; source pages can change; needs caching",
+      "enginePriority": 1
+    },
+    {
+      "name": "Open-Meteo",
+      "type": "free_public_api",
+      "cost": "free_non_commercial",
+      "apiKeyRequired": false,
+      "status": "connected",
+      "useFor": [
+        "weather forecast",
+        "historical weather",
+        "temperature",
+        "wind speed",
+        "wind direction",
+        "precipitation"
+      ],
+      "risk": "weather is context; not a standalone pick signal",
+      "enginePriority": 2
+    },
+    {
+      "name": "Retrosheet",
+      "type": "free_download_dataset",
+      "cost": "free_with_attribution",
+      "apiKeyRequired": false,
+      "status": "not_connected",
+      "useFor": [
+        "historical game logs",
+        "play-by-play",
+        "team daily logs",
+        "player daily logs",
+        "long-term validation"
+      ],
+      "risk": "large files; attribution required; not live",
+      "enginePriority": 2
+    },
+    {
+      "name": "Lahman / SABR Baseball Database",
+      "type": "free_download_dataset",
+      "cost": "free",
+      "apiKeyRequired": false,
+      "status": "not_connected",
+      "useFor": [
+        "long historical player stats",
+        "team stats",
+        "pitching",
+        "batting",
+        "fielding",
+        "standings"
+      ],
+      "risk": "not ideal for same-day betting; better for historical priors",
+      "enginePriority": 3
+    },
+    {
+      "name": "Sportsbook odds provider",
+      "type": "api",
+      "cost": "free_limited_or_paid",
+      "apiKeyRequired": true,
+      "status": "partially_connected",
+      "useFor": [
+        "market price",
+        "implied probability",
+        "opening price if available",
+        "current price",
+        "line movement",
+        "closing price if archived"
+      ],
+      "risk": "historical closing odds are the hardest free data problem",
+      "enginePriority": 1
+    },
+    {
+      "name": "Polymarket MLB markets",
+      "type": "market_api",
+      "cost": "free_public",
+      "apiKeyRequired": false,
+      "status": "connected_partial",
+      "useFor": [
+        "market discovery",
+        "market matching",
+        "team winner markets",
+        "liquidity context"
+      ],
+      "risk": "team/market alias matching must be strict",
+      "enginePriority": 2
+    }
+  ]
+}

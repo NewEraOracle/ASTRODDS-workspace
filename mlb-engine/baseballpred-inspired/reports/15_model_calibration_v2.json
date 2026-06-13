@@ -1,0 +1,246 @@
+{
+  "modelName": "ASTRODDS_MLB_CALIBRATION_V2",
+  "createdAt": "2026-06-13T22:16:50.312986Z",
+  "inputDataset": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\astrodss_master_feature_dataset_v1.csv",
+  "outputDataset": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\astrodss_master_feature_dataset_v2_calibrated.csv",
+  "calibrationMethod": "empirical score-gap bucket calibration trained on seasons <= 2023",
+  "globalTrainProbability": 0.565161,
+  "globalTrainProbabilityPct": 56.52,
+  "calibrationBuckets": {
+    "8-12%": {
+      "tested": 2989,
+      "correct": 1670,
+      "probability": 0.558715,
+      "probabilityPct": 55.87,
+      "method": "empirical_bucket"
+    },
+    "12-20%": {
+      "tested": 3622,
+      "correct": 2145,
+      "probability": 0.592214,
+      "probabilityPct": 59.22,
+      "method": "empirical_bucket"
+    },
+    "5-8%": {
+      "tested": 2535,
+      "correct": 1374,
+      "probability": 0.542012,
+      "probabilityPct": 54.2,
+      "method": "empirical_bucket"
+    },
+    "3-5%": {
+      "tested": 1785,
+      "correct": 963,
+      "probability": 0.539496,
+      "probabilityPct": 53.95,
+      "method": "empirical_bucket"
+    },
+    "1-2%": {
+      "tested": 937,
+      "correct": 494,
+      "probability": 0.527215,
+      "probabilityPct": 52.72,
+      "method": "empirical_bucket"
+    },
+    "0-1%": {
+      "tested": 889,
+      "correct": 474,
+      "probability": 0.533183,
+      "probabilityPct": 53.32,
+      "method": "empirical_bucket"
+    },
+    "2-3%": {
+      "tested": 880,
+      "correct": 469,
+      "probability": 0.532955,
+      "probabilityPct": 53.3,
+      "method": "empirical_bucket"
+    },
+    "20%+": {
+      "tested": 1702,
+      "correct": 1080,
+      "probability": 0.634548,
+      "probabilityPct": 63.45,
+      "method": "empirical_bucket"
+    }
+  },
+  "splitReports": {
+    "train_2017_2023": {
+      "tested": 15339,
+      "correct": 8669,
+      "accuracy": 56.52,
+      "brier": 0.24467,
+      "logloss": 0.6824,
+      "buckets": {
+        "8-12%": {
+          "tested": 2989,
+          "correct": 1670,
+          "accuracy": 55.87,
+          "avgPredictedProbability": 55.87
+        },
+        "12-20%": {
+          "tested": 3622,
+          "correct": 2145,
+          "accuracy": 59.22,
+          "avgPredictedProbability": 59.22
+        },
+        "5-8%": {
+          "tested": 2535,
+          "correct": 1374,
+          "accuracy": 54.2,
+          "avgPredictedProbability": 54.2
+        },
+        "3-5%": {
+          "tested": 1785,
+          "correct": 963,
+          "accuracy": 53.95,
+          "avgPredictedProbability": 53.95
+        },
+        "1-2%": {
+          "tested": 937,
+          "correct": 494,
+          "accuracy": 52.72,
+          "avgPredictedProbability": 52.72
+        },
+        "0-1%": {
+          "tested": 889,
+          "correct": 474,
+          "accuracy": 53.32,
+          "avgPredictedProbability": 53.32
+        },
+        "2-3%": {
+          "tested": 880,
+          "correct": 469,
+          "accuracy": 53.3,
+          "avgPredictedProbability": 53.3
+        },
+        "20%+": {
+          "tested": 1702,
+          "correct": 1080,
+          "accuracy": 63.45,
+          "avgPredictedProbability": 63.45
+        }
+      }
+    },
+    "validation_2024": {
+      "tested": 2432,
+      "correct": 1347,
+      "accuracy": 55.39,
+      "brier": 0.24651,
+      "logloss": 0.68615,
+      "buckets": {
+        "3-5%": {
+          "tested": 321,
+          "correct": 169,
+          "accuracy": 52.65,
+          "avgPredictedProbability": 53.95
+        },
+        "5-8%": {
+          "tested": 416,
+          "correct": 225,
+          "accuracy": 54.09,
+          "avgPredictedProbability": 54.2
+        },
+        "8-12%": {
+          "tested": 499,
+          "correct": 276,
+          "accuracy": 55.31,
+          "avgPredictedProbability": 55.87
+        },
+        "12-20%": {
+          "tested": 535,
+          "correct": 311,
+          "accuracy": 58.13,
+          "avgPredictedProbability": 59.22
+        },
+        "2-3%": {
+          "tested": 150,
+          "correct": 84,
+          "accuracy": 56.0,
+          "avgPredictedProbability": 53.3
+        },
+        "1-2%": {
+          "tested": 144,
+          "correct": 72,
+          "accuracy": 50.0,
+          "avgPredictedProbability": 52.72
+        },
+        "20%+": {
+          "tested": 205,
+          "correct": 125,
+          "accuracy": 60.98,
+          "avgPredictedProbability": 63.45
+        },
+        "0-1%": {
+          "tested": 162,
+          "correct": 85,
+          "accuracy": 52.47,
+          "avgPredictedProbability": 53.32
+        }
+      }
+    },
+    "holdout_2025_2026": {
+      "tested": 3303,
+      "correct": 1788,
+      "accuracy": 54.13,
+      "brier": 0.24639,
+      "logloss": 0.68582,
+      "buckets": {
+        "8-12%": {
+          "tested": 564,
+          "correct": 283,
+          "accuracy": 50.18,
+          "avgPredictedProbability": 55.87
+        },
+        "12-20%": {
+          "tested": 604,
+          "correct": 360,
+          "accuracy": 59.6,
+          "avgPredictedProbability": 59.22
+        },
+        "1-2%": {
+          "tested": 250,
+          "correct": 130,
+          "accuracy": 52.0,
+          "avgPredictedProbability": 52.72
+        },
+        "5-8%": {
+          "tested": 658,
+          "correct": 344,
+          "accuracy": 52.28,
+          "avgPredictedProbability": 54.2
+        },
+        "3-5%": {
+          "tested": 438,
+          "correct": 230,
+          "accuracy": 52.51,
+          "avgPredictedProbability": 53.95
+        },
+        "2-3%": {
+          "tested": 258,
+          "correct": 131,
+          "accuracy": 50.78,
+          "avgPredictedProbability": 53.3
+        },
+        "0-1%": {
+          "tested": 258,
+          "correct": 123,
+          "accuracy": 47.67,
+          "avgPredictedProbability": 53.32
+        },
+        "20%+": {
+          "tested": 273,
+          "correct": 187,
+          "accuracy": 68.5,
+          "avgPredictedProbability": 63.45
+        }
+      }
+    }
+  },
+  "rules": [
+    "Calibration does not change the model pick.",
+    "Calibration converts model score gap into realistic historical win probability.",
+    "Validation and holdout must be monitored before real-money use.",
+    "Paper only."
+  ]
+}

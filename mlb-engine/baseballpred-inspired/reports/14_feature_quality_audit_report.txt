@@ -1,0 +1,58 @@
+ASTRODDS 14 FEATURE QUALITY AUDIT
+======================================
+Rows: 23826
+
+Feature standalone accuracy:
+- Previous season run diff: accuracy=55.43% tested=21074 missing=2752 tiesSkipped=0
+- Previous season Pythagorean: accuracy=55.32% tested=21074 missing=2752 tiesSkipped=0
+- Previous season home/away split: accuracy=55.25% tested=21074 missing=2752 tiesSkipped=0
+- Previous season win pct: accuracy=55.1% tested=21074 missing=2752 tiesSkipped=0
+- Recent 10 run diff: accuracy=54.06% tested=23734 missing=92 tiesSkipped=0
+- Recent 10 win pct: accuracy=53.77% tested=23734 missing=92 tiesSkipped=0
+- Recent 10 runs against: accuracy=53.49% tested=23734 missing=92 tiesSkipped=0
+- Pitcher prior avg IP: accuracy=53.22% tested=22650 missing=1176 tiesSkipped=0
+- Pitcher prior team win pct: accuracy=53.13% tested=22650 missing=1176 tiesSkipped=0
+- Recent 10 runs for: accuracy=52.62% tested=23734 missing=92 tiesSkipped=0
+- Rest days: accuracy=49.92% tested=1817 missing=17 tiesSkipped=21992
+
+Model score gap buckets:
+- 0-1%: accuracy=52.1% tested=1309 correct=682
+- 1-2%: accuracy=52.29% tested=1331 correct=696
+- 2-3%: accuracy=53.11% tested=1288 correct=684
+- 3-5%: accuracy=53.54% tested=2544 correct=1362
+- 5-8%: accuracy=53.82% tested=3610 correct=1943
+- 8%+: accuracy=58.56% tested=10992 correct=6437
+
+Filter tests:
+- model_gap_8_plus: accuracy=58.56% tested=10993 correct=6437
+- model_gap_5_plus: accuracy=57.39% tested=14602 correct=8380
+- model_gap_3_plus: accuracy=56.82% tested=17146 correct=9742
+- model_gap_8_plus_and_rest_edge: accuracy=59.58% tested=819 correct=488
+- model_gap_8_plus_and_recent_rd_edge: accuracy=58.73% tested=9650 correct=5667
+- model_gap_8_plus_and_pitcher_history_available: accuracy=58.23% tested=9138 correct=5321
+
+Feature coverage:
+- away_prev_win_pct: coverage=89.13% present=21236 missing=2590
+- home_prev_win_pct: coverage=89.13% present=21236 missing=2590
+- away_prev_pyth: coverage=89.13% present=21236 missing=2590
+- home_prev_pyth: coverage=89.13% present=21236 missing=2590
+- away_recent10_win_pct: coverage=99.65% present=23743 missing=83
+- home_recent10_win_pct: coverage=99.68% present=23749 missing=77
+- away_recent10_run_diff_pg: coverage=99.65% present=23743 missing=83
+- home_recent10_run_diff_pg: coverage=99.68% present=23749 missing=77
+- away_rest_days: coverage=99.93% present=23809 missing=17
+- home_rest_days: coverage=99.94% present=23811 missing=15
+- away_pitcher_prior_team_win_pct: coverage=97.28% present=23178 missing=648
+- home_pitcher_prior_team_win_pct: coverage=97.39% present=23203 missing=623
+- away_pitcher_prior_avg_ip: coverage=97.28% present=23178 missing=648
+- home_pitcher_prior_avg_ip: coverage=97.39% present=23203 missing=623
+- model_score_gap: coverage=88.45% present=21074 missing=2752
+- model_correct: coverage=88.45% present=21074 missing=2752
+
+Engine conclusion:
+- Model score gap remains the strongest current filter.
+- Pitcher prior history has low coverage and should not control picks yet.
+- Next step is calibration: convert raw model scores into calibrated win probabilities.
+- After calibration, test edge against market probability and track ROI.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\14_feature_quality_audit.json

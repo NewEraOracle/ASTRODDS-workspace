@@ -1,0 +1,40 @@
+ASTRODDS 15 MODEL CALIBRATION V2
+======================================
+
+Goal:
+Convert raw model score gaps into realistic calibrated win probabilities.
+
+Train global probability: 56.52%
+
+Calibration buckets trained on seasons <= 2023:
+- 0-1%: probability=53.32% tested=889 correct=474 method=empirical_bucket
+- 1-2%: probability=52.72% tested=937 correct=494 method=empirical_bucket
+- 2-3%: probability=53.3% tested=880 correct=469 method=empirical_bucket
+- 3-5%: probability=53.95% tested=1785 correct=963 method=empirical_bucket
+- 5-8%: probability=54.2% tested=2535 correct=1374 method=empirical_bucket
+- 8-12%: probability=55.87% tested=2989 correct=1670 method=empirical_bucket
+- 12-20%: probability=59.22% tested=3622 correct=2145 method=empirical_bucket
+- 20%+: probability=63.45% tested=1702 correct=1080 method=empirical_bucket
+
+Split performance using calibrated probabilities:
+- train_2017_2023: tested=15339 accuracy=56.52% brier=0.24467 logloss=0.6824
+- validation_2024: tested=2432 accuracy=55.39% brier=0.24651 logloss=0.68615
+- holdout_2025_2026: tested=3303 accuracy=54.13% brier=0.24639 logloss=0.68582
+
+Holdout bucket performance:
+- 0-1%: actual=47.67% predictedAvg=53.32% tested=258
+- 1-2%: actual=52.0% predictedAvg=52.72% tested=250
+- 2-3%: actual=50.78% predictedAvg=53.3% tested=258
+- 3-5%: actual=52.51% predictedAvg=53.95% tested=438
+- 5-8%: actual=52.28% predictedAvg=54.2% tested=658
+- 8-12%: actual=50.18% predictedAvg=55.87% tested=564
+- 12-20%: actual=59.6% predictedAvg=59.22% tested=604
+- 20%+: actual=68.5% predictedAvg=63.45% tested=273
+
+Engine conclusion:
+- Calibration V2 makes model probabilities more honest.
+- This is required before comparing model probability vs market probability.
+- Next step: 16_edge_backtest_v2.py with market odds when available.
+
+Model JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_MLB_CALIBRATION_V2.json
+Calibrated CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\data\processed\astrodss_master_feature_dataset_v2_calibrated.csv

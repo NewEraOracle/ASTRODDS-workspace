@@ -1,0 +1,28 @@
+ASTRODDS 17 FINAL ENGINE DECISION REPORT
+==============================================
+
+Goal:
+Create final engine signal file using calibrated edge + context gates.
+
+Input rows: 5
+
+Decision counts:
+- MANUAL_REVIEW: 4
+- WATCH: 1
+
+Final engine signals:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Final=MANUAL_REVIEW | Grade=A | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Reason=Calibrated edge exists, but review required: lineup not fully confirmed
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Final=MANUAL_REVIEW | Grade=A | Market=55.75% | Calibrated=63.45% | CalEdge=7.7% | Reason=Calibrated edge exists, but review required: bullpen warning, pitcher warning
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Final=MANUAL_REVIEW | Grade=B | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Reason=Calibrated edge exists, but review required: bullpen warning, pitcher warning
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Final=MANUAL_REVIEW | Grade=B | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Reason=Calibrated edge exists, but review required: bullpen warning
+- Colorado Rockies @ Athletics | Pick: Athletics | Final=WATCH | Grade=WATCH | Market=63.24% | Calibrated=63.45% | CalEdge=0.22% | Reason=No clean calibrated edge after calibration.
+
+Important:
+- There are no automatic real-money bets.
+- ENGINE_BUY requires clean calibrated edge and clean context.
+- MANUAL_REVIEW means the bot sees edge but risk context is not clean.
+- WATCH means the raw pick did not survive calibration.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-final-signals-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-final-signals-latest.csv
+Model rules: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_ENGINE_V2_DECISION_RULES.json

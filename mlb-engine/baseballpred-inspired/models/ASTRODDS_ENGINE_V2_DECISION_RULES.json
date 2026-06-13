@@ -1,0 +1,19 @@
+{
+  "engineName": "ASTRODDS_ENGINE_V2_CALIBRATED_CONTEXT",
+  "createdAt": "2026-06-13T22:24:56.128169Z",
+  "mode": "paper_only",
+  "realMoneyApproved": false,
+  "decisionRules": {
+    "ENGINE_BUY": "calibrated edge >= 7%, calibratedDecision=vvs_buy, no major context warnings",
+    "MANUAL_REVIEW": "calibrated edge >= 3% but context warnings or smaller grade",
+    "WATCH": "calibrated edge < 3% or weak post-calibration signal",
+    "NO_BET": "rejected by final rules"
+  },
+  "principles": [
+    "Raw model probability is never used for final edge.",
+    "Calibrated probability controls edge.",
+    "Pitcher, bullpen, lineup, and weather are context gates, not model weights yet.",
+    "No auto real-money betting.",
+    "Edge ledger must prove live results before risk escalation."
+  ]
+}

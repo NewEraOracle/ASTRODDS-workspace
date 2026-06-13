@@ -1,0 +1,283 @@
+{
+  "rows": 23826,
+  "featureTests": [
+    {
+      "feature": "Previous season run diff",
+      "tested": 21074,
+      "correct": 11682,
+      "missing": 2752,
+      "tiesSkipped": 0,
+      "accuracy": 55.43,
+      "awayCol": "away_prev_run_diff_pg",
+      "homeCol": "home_prev_run_diff_pg",
+      "higherIsBetter": true,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Previous season Pythagorean",
+      "tested": 21074,
+      "correct": 11658,
+      "missing": 2752,
+      "tiesSkipped": 0,
+      "accuracy": 55.32,
+      "awayCol": "away_prev_pyth",
+      "homeCol": "home_prev_pyth",
+      "higherIsBetter": true,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Previous season home/away split",
+      "tested": 21074,
+      "correct": 11643,
+      "missing": 2752,
+      "tiesSkipped": 0,
+      "accuracy": 55.25,
+      "awayCol": "away_prev_away_win_pct",
+      "homeCol": "home_prev_home_win_pct",
+      "higherIsBetter": true,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Previous season win pct",
+      "tested": 21074,
+      "correct": 11611,
+      "missing": 2752,
+      "tiesSkipped": 0,
+      "accuracy": 55.1,
+      "awayCol": "away_prev_win_pct",
+      "homeCol": "home_prev_win_pct",
+      "higherIsBetter": true,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Recent 10 run diff",
+      "tested": 23734,
+      "correct": 12831,
+      "missing": 92,
+      "tiesSkipped": 0,
+      "accuracy": 54.06,
+      "awayCol": "away_recent10_run_diff_pg",
+      "homeCol": "home_recent10_run_diff_pg",
+      "higherIsBetter": true,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Recent 10 win pct",
+      "tested": 23734,
+      "correct": 12762,
+      "missing": 92,
+      "tiesSkipped": 0,
+      "accuracy": 53.77,
+      "awayCol": "away_recent10_win_pct",
+      "homeCol": "home_recent10_win_pct",
+      "higherIsBetter": true,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Recent 10 runs against",
+      "tested": 23734,
+      "correct": 12695,
+      "missing": 92,
+      "tiesSkipped": 0,
+      "accuracy": 53.49,
+      "awayCol": "away_recent10_runs_against",
+      "homeCol": "home_recent10_runs_against",
+      "higherIsBetter": false,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Pitcher prior avg IP",
+      "tested": 22650,
+      "correct": 12055,
+      "missing": 1176,
+      "tiesSkipped": 0,
+      "accuracy": 53.22,
+      "awayCol": "away_pitcher_prior_avg_ip",
+      "homeCol": "home_pitcher_prior_avg_ip",
+      "higherIsBetter": true,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Pitcher prior team win pct",
+      "tested": 22650,
+      "correct": 12034,
+      "missing": 1176,
+      "tiesSkipped": 0,
+      "accuracy": 53.13,
+      "awayCol": "away_pitcher_prior_team_win_pct",
+      "homeCol": "home_pitcher_prior_team_win_pct",
+      "higherIsBetter": true,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Recent 10 runs for",
+      "tested": 23734,
+      "correct": 12489,
+      "missing": 92,
+      "tiesSkipped": 0,
+      "accuracy": 52.62,
+      "awayCol": "away_recent10_runs_for",
+      "homeCol": "home_recent10_runs_for",
+      "higherIsBetter": true,
+      "minGap": 0.0
+    },
+    {
+      "feature": "Rest days",
+      "tested": 1817,
+      "correct": 907,
+      "missing": 17,
+      "tiesSkipped": 21992,
+      "accuracy": 49.92,
+      "awayCol": "away_rest_days",
+      "homeCol": "home_rest_days",
+      "higherIsBetter": true,
+      "minGap": 1
+    }
+  ],
+  "bucketResults": {
+    "8%+": {
+      "tested": 10992,
+      "correct": 6437,
+      "accuracy": 58.56
+    },
+    "5-8%": {
+      "tested": 3610,
+      "correct": 1943,
+      "accuracy": 53.82
+    },
+    "3-5%": {
+      "tested": 2544,
+      "correct": 1362,
+      "accuracy": 53.54
+    },
+    "1-2%": {
+      "tested": 1331,
+      "correct": 696,
+      "accuracy": 52.29
+    },
+    "0-1%": {
+      "tested": 1309,
+      "correct": 682,
+      "accuracy": 52.1
+    },
+    "2-3%": {
+      "tested": 1288,
+      "correct": 684,
+      "accuracy": 53.11
+    }
+  },
+  "filterResults": {
+    "model_gap_8_plus": {
+      "tested": 10993,
+      "correct": 6437,
+      "accuracy": 58.56
+    },
+    "model_gap_5_plus": {
+      "tested": 14602,
+      "correct": 8380,
+      "accuracy": 57.39
+    },
+    "model_gap_3_plus": {
+      "tested": 17146,
+      "correct": 9742,
+      "accuracy": 56.82
+    },
+    "model_gap_8_plus_and_rest_edge": {
+      "tested": 819,
+      "correct": 488,
+      "accuracy": 59.58
+    },
+    "model_gap_8_plus_and_recent_rd_edge": {
+      "tested": 9650,
+      "correct": 5667,
+      "accuracy": 58.73
+    },
+    "model_gap_8_plus_and_pitcher_history_available": {
+      "tested": 9138,
+      "correct": 5321,
+      "accuracy": 58.23
+    }
+  },
+  "coverage": {
+    "away_prev_win_pct": {
+      "present": 21236,
+      "missing": 2590,
+      "coveragePct": 89.13
+    },
+    "home_prev_win_pct": {
+      "present": 21236,
+      "missing": 2590,
+      "coveragePct": 89.13
+    },
+    "away_prev_pyth": {
+      "present": 21236,
+      "missing": 2590,
+      "coveragePct": 89.13
+    },
+    "home_prev_pyth": {
+      "present": 21236,
+      "missing": 2590,
+      "coveragePct": 89.13
+    },
+    "away_recent10_win_pct": {
+      "present": 23743,
+      "missing": 83,
+      "coveragePct": 99.65
+    },
+    "home_recent10_win_pct": {
+      "present": 23749,
+      "missing": 77,
+      "coveragePct": 99.68
+    },
+    "away_recent10_run_diff_pg": {
+      "present": 23743,
+      "missing": 83,
+      "coveragePct": 99.65
+    },
+    "home_recent10_run_diff_pg": {
+      "present": 23749,
+      "missing": 77,
+      "coveragePct": 99.68
+    },
+    "away_rest_days": {
+      "present": 23809,
+      "missing": 17,
+      "coveragePct": 99.93
+    },
+    "home_rest_days": {
+      "present": 23811,
+      "missing": 15,
+      "coveragePct": 99.94
+    },
+    "away_pitcher_prior_team_win_pct": {
+      "present": 23178,
+      "missing": 648,
+      "coveragePct": 97.28
+    },
+    "home_pitcher_prior_team_win_pct": {
+      "present": 23203,
+      "missing": 623,
+      "coveragePct": 97.39
+    },
+    "away_pitcher_prior_avg_ip": {
+      "present": 23178,
+      "missing": 648,
+      "coveragePct": 97.28
+    },
+    "home_pitcher_prior_avg_ip": {
+      "present": 23203,
+      "missing": 623,
+      "coveragePct": 97.39
+    },
+    "model_score_gap": {
+      "present": 21074,
+      "missing": 2752,
+      "coveragePct": 88.45
+    },
+    "model_correct": {
+      "present": 21074,
+      "missing": 2752,
+      "coveragePct": 88.45
+    }
+  }
+}

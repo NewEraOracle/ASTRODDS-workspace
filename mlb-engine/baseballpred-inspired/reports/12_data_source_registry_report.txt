@@ -1,0 +1,67 @@
+ASTRODDS 12 DATA SOURCE REGISTRY
+======================================
+
+Goal:
+Build a BaseballPred-style engine using free/public data sources.
+
+Sources:
+
+- MLB StatsAPI
+  Status: connected
+  Cost: free
+  API key: False
+  Priority: 1
+  Use: schedule, results, live game status, boxscore, probable pitchers, lineups, venue, bullpen usage
+  Risk: unofficial/public endpoint behavior can change
+
+- pybaseball
+  Status: not_connected
+  Cost: free
+  API key: False
+  Priority: 1
+  Use: Statcast, pitcher advanced stats, batter advanced stats, team batting, team pitching, FanGraphs-style batting/pitching tables, Baseball Savant data
+  Risk: scraping-based; source pages can change; needs caching
+
+- Sportsbook odds provider
+  Status: partially_connected
+  Cost: free_limited_or_paid
+  API key: True
+  Priority: 1
+  Use: market price, implied probability, opening price if available, current price, line movement, closing price if archived
+  Risk: historical closing odds are the hardest free data problem
+
+- Open-Meteo
+  Status: connected
+  Cost: free_non_commercial
+  API key: False
+  Priority: 2
+  Use: weather forecast, historical weather, temperature, wind speed, wind direction, precipitation
+  Risk: weather is context; not a standalone pick signal
+
+- Retrosheet
+  Status: not_connected
+  Cost: free_with_attribution
+  API key: False
+  Priority: 2
+  Use: historical game logs, play-by-play, team daily logs, player daily logs, long-term validation
+  Risk: large files; attribution required; not live
+
+- Polymarket MLB markets
+  Status: connected_partial
+  Cost: free_public
+  API key: False
+  Priority: 2
+  Use: market discovery, market matching, team winner markets, liquidity context
+  Risk: team/market alias matching must be strict
+
+- Lahman / SABR Baseball Database
+  Status: not_connected
+  Cost: free
+  API key: False
+  Priority: 3
+  Use: long historical player stats, team stats, pitching, batting, fielding, standings
+  Risk: not ideal for same-day betting; better for historical priors
+
+Next:
+13_master_feature_dataset.py
+Build one master table with baseline + pitcher + bullpen + lineup + weather + odds fields.
