@@ -2,7 +2,7 @@ ASTRODDS 20 RESOLVE ENGINE SIGNAL LEDGER REPORT
 ====================================================
 
 Ledger rows: 5
-Resolved this run: 1
+Resolved this run: 0
 Still pending: 4
 
 Performance by final decision:

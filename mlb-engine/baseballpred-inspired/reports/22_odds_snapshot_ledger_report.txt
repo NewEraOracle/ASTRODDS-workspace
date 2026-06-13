@@ -1,0 +1,26 @@
+ASTRODDS 22 ODDS SNAPSHOT LEDGER REPORT
+==============================================
+
+Goal:
+Create a free historical odds/edge ledger from every engine scan.
+
+Snapshot time: 2026-06-13T22:44:10.568919Z
+Input signals: 5
+Added snapshots: 5
+Total snapshot rows: 10
+Tracked game/pick pairs: 5
+
+Latest snapshots:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Decision=MANUAL_REVIEW | Grade=A
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=55.75% | Calibrated=63.45% | CalEdge=7.7% | Decision=MANUAL_REVIEW | Grade=A
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Decision=MANUAL_REVIEW | Grade=B
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Decision=MANUAL_REVIEW | Grade=B
+- Colorado Rockies @ Athletics | Pick: Athletics | Market=63.24% | Calibrated=63.45% | CalEdge=0.22% | Decision=WATCH | Grade=WATCH
+
+Next:
+- Run this script every time the engine scans.
+- After multiple snapshots, calculate opening line, last line, movement, and CLV.
+- This becomes ASTRODDS own free historical odds database.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-odds-snapshot-ledger.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-odds-snapshot-ledger.csv

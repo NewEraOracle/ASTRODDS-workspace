@@ -1,0 +1,6 @@
+ASTRODDS 23 REPAIR RESOLVED SCORES REPORT
+================================================
+Ledger rows: 5
+Scores repaired: 1
+
+Updated ledger: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-engine-signal-ledger.json

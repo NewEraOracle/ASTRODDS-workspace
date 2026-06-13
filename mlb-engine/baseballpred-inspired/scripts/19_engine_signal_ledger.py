@@ -106,6 +106,10 @@ def main():
                 compact["result"] = old.get("result")
                 compact["winner"] = old.get("winner", "")
                 compact["resolvedAt"] = old.get("resolvedAt", "")
+                compact["awayRuns"] = old.get("awayRuns", "")
+                compact["homeRuns"] = old.get("homeRuns", "")
+                compact["mlbResolveStatus"] = old.get("mlbResolveStatus", "")
+                compact["paperProfitUnits"] = old.get("paperProfitUnits", "")
 
             ledger_by_key[key] = compact
             updated += 1
@@ -199,3 +203,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

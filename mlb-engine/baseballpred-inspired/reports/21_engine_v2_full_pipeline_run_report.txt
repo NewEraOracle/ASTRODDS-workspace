@@ -1,6 +1,6 @@
 ASTRODDS 21 ENGINE V2 FULL PIPELINE RUN REPORT
 ====================================================
-Started: 2026-06-13T22:34:33.051503Z
+Started: 2026-06-13T22:43:30.425505Z
 
 Goal:
 Run full engine pipeline: context -> calibrated decision -> ledger -> resolver.
@@ -146,6 +146,40 @@ Model rules: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseba
 
 Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\17_engine_final_decision_report.txt
 
+STEP — Save odds and edge snapshot
+--------------------------------
+Script: 22_odds_snapshot_ledger.py
+Status: OK
+
+ASTRODDS 22 ODDS SNAPSHOT LEDGER REPORT
+==============================================
+
+Goal:
+Create a free historical odds/edge ledger from every engine scan.
+
+Snapshot time: 2026-06-13T22:44:10.568919Z
+Input signals: 5
+Added snapshots: 5
+Total snapshot rows: 10
+Tracked game/pick pairs: 5
+
+Latest snapshots:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Decision=MANUAL_REVIEW | Grade=A
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Market=55.75% | Calibrated=63.45% | CalEdge=7.7% | Decision=MANUAL_REVIEW | Grade=A
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Decision=MANUAL_REVIEW | Grade=B
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Decision=MANUAL_REVIEW | Grade=B
+- Colorado Rockies @ Athletics | Pick: Athletics | Market=63.24% | Calibrated=63.45% | CalEdge=0.22% | Decision=WATCH | Grade=WATCH
+
+Next:
+- Run this script every time the engine scans.
+- After multiple snapshots, calculate opening line, last line, movement, and CLV.
+- This becomes ASTRODDS own free historical odds database.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-odds-snapshot-ledger.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-odds-snapshot-ledger.csv
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\22_odds_snapshot_ledger_report.txt
+
 STEP — Save final signals to ledger
 --------------------------------
 Script: 19_engine_signal_ledger.py
@@ -173,10 +207,11 @@ Grade counts:
 - WATCH: 1
 
 Result counts:
-- pending: 5
+- loss: 1
+- pending: 4
 
 Latest ledger signals:
-- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | CalEdge: 4.78% | Result: pending
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | CalEdge: 4.78% | Result: loss
 - 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | CalEdge: 7.7% | Result: pending
 - 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | CalEdge: 4.78% | Result: pending
 - 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | CalEdge: 0.22% | Result: pending
@@ -200,7 +235,7 @@ ASTRODDS 20 RESOLVE ENGINE SIGNAL LEDGER REPORT
 ====================================================
 
 Ledger rows: 5
-Resolved this run: 1
+Resolved this run: 0
 Still pending: 4
 
 Performance by final decision:
@@ -219,7 +254,7 @@ Performance by calibrated edge bucket:
 - 5-8%: total=1 resolved=0 win=0 loss=0 pending=1 winRate=None paperROI=None% profit=0.0u
 
 Ledger:
-- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | Result: loss | Winner: Cincinnati Reds | Score: 1-2
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | Result: loss | Winner: Cincinnati Reds | Score: ---
 - 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | Result: pending | Winner:  | Score: ---
 - 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | Result: pending | Winner:  | Score: ---
 - 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | Result: pending | Winner:  | Score: ---
@@ -232,7 +267,7 @@ Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred
 
 FINAL STATUS
 ====================
-Finished: 2026-06-13T22:35:13.864840Z
+Finished: 2026-06-13T22:44:12.243363Z
 Pipeline OK: True
 
 Final outputs:
