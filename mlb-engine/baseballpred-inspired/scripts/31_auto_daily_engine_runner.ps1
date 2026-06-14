@@ -110,6 +110,11 @@ if ($process.ExitCode -eq 0) {
   $thresholdGateProcess = Start-Process python -ArgumentList "`"$thresholdGate`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
   Add-Line "Threshold context gate exit code: $($thresholdGateProcess.ExitCode)"
 
+  Add-Line "Running Telegram review recap..."
+  $reviewRecap = Join-Path $ScriptDir "44_telegram_review_recap.py"
+  $reviewRecapProcess = Start-Process python -ArgumentList "`"$reviewRecap`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Telegram review recap exit code: $($reviewRecapProcess.ExitCode)"
+
   Add-Line "Running daily performance report..."
   $dailyReport = Join-Path $ScriptDir "33_daily_performance_report.py"
   $dailyProcess = Start-Process python -ArgumentList "`"$dailyReport`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
@@ -149,6 +154,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 

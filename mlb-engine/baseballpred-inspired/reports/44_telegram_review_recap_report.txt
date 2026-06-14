@@ -1,0 +1,20 @@
+ASTRODDS 44 TELEGRAM REVIEW RECAP REPORT
+====================================================
+Status: OK
+Token: 8566***EMok
+Chat: 5583***6333
+
+Input rows: 10
+Review candidates: 7
+Sent this run: 1
+Skipped duplicate: 0
+Ledger rows: 2
+
+Candidates:
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Prob=63.45% | Edge=13.45% | Flags=lineup_not_confirmed
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Prob=63.45% | Edge=12.47% | Flags=lineup_not_confirmed
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Prob=63.45% | Edge=12.0% | Flags=lineup_not_confirmed|picked_bullpen_high_fatigue
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | Prob=63.45% | Edge=9.33% | Flags=lineup_not_confirmed
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Prob=63.45% | Edge=7.7% | Flags=lineup_not_confirmed
+
+Rule: review recap only. Not official buys. Paper/manual only.
