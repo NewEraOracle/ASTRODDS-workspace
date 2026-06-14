@@ -1,0 +1,14 @@
+﻿ASTRODDS 36 FULL SLATE CONTEXT INPUT REPORT
+================================================
+Status: OK
+Full slate rows: 7
+Converted input rows: 7
+Game context rows: 7
+Pitcher context rows: 7
+Bullpen context rows: 7
+
+Input: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-strict-latest.json
+Output: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-clean-final-latest.json
+Backup: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-clean-final-latest.backup-before-full-slate-context.json
+
+Rule: context only. No real-money automation.
