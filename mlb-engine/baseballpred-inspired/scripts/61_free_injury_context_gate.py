@@ -257,7 +257,7 @@ def summarize_team(team_key, txs, probable_pitcher_name=None):
     else:
         risk = "none"
 
-    latest = sorted(active, key=lambda x: str(x.get("date") or ""), reverse=True)[:5]
+    latest = sorted(active, key=lambda x: str(x.get("date") or ""), reverse=True)
     details = []
     for tx in latest:
         details.append(f"{tx.get('date')} {tx.get('playerName')}: {tx.get('description')}")
