@@ -1,7 +1,6 @@
+﻿# -*- coding: utf-8 -*-
 from pathlib import Path
-import json
-import urllib.parse
-import urllib.request
+import json, sys, urllib.parse, urllib.request
 from datetime import datetime
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -11,6 +10,8 @@ ENV = ROOT / ".env.local"
 SIGNALS = ROOT / ".astrodds" / "ASTRODDS-engine-final-signals-latest.json"
 LEDGER = ROOT / ".astrodds" / "ASTRODDS-telegram-alert-ledger.json"
 REPORT = BASE / "reports" / "30_telegram_final_engine_alerts_report.txt"
+
+ENTRY_BUFFER = 0.07
 
 def env_value(name):
     if not ENV.exists():
@@ -35,89 +36,177 @@ def read_json(path):
 
 def write_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
-def mask(v):
-    if not v:
-        return ""
-    return v[:4] + "***" + v[-4:] if len(v) > 8 else "***"
+def num(x):
+    try:
+        if x is None or str(x).strip() == "":
+            return None
+        return float(str(x).replace(",", "."))
+    except Exception:
+        return None
 
-def key(row):
-    return "|".join([
-        str(row.get("date", "")),
-        str(row.get("game", "")),
-        str(row.get("pick", "")),
-        str(row.get("finalEngineDecision", "")),
-        str(row.get("finalGrade", "")),
-    ])
+def prob(x):
+    x = num(x)
+    if x is None:
+        return None
+    if x > 1:
+        x = x / 100
+    if x < 0 or x > 1:
+        return None
+    return x
 
 def pct(x):
-    try:
-        v = float(str(x).replace(",", "."))
-        return f"{round(v * 100, 2)}%" if abs(v) <= 1 else f"{round(v, 2)}%"
-    except Exception:
+    x = num(x)
+    if x is None:
         return "-"
+    if abs(x) <= 1:
+        x *= 100
+    return f"{x:.2f}%"
 
-ENTRY_BUFFER = 0.07
+def price(x):
+    x = prob(x)
+    return "-" if x is None else f"${x:.2f}"
 
-def fnum(value):
-    try:
-        if value is None or str(value).strip() == "":
-            return None
-        return float(str(value).replace(",", "."))
-    except Exception:
+def market(row):
+    return prob(row.get("marketProbability") or row.get("currentMarketProbability") or row.get("marketPrice"))
+
+def calibrated_prob(row):
+    return prob(row.get("calibratedProbabilityV2") or row.get("calibratedProbability") or row.get("modelProbability"))
+
+def edge(row):
+    return num(row.get("calibratedEdgePct") or row.get("edgePct"))
+
+def entry(row):
+    p = calibrated_prob(row)
+    if p is None:
         return None
+    return round(max(0.01, min(0.99, p - ENTRY_BUFFER)), 2)
 
-def prob01(value):
-    value = fnum(value)
-    if value is None:
-        return None
-    if value > 1:
-        value = value / 100
-    if value < 0 or value > 1:
-        return None
-    return value
+def dec(row):
+    return str(row.get("finalEngineDecision") or row.get("finalDecision") or row.get("decision") or "").upper()
 
-def current_market_price(row):
-    return prob01(row.get("marketProbability") or row.get("currentMarketProbability") or row.get("marketPrice"))
+def grade(row):
+    return str(row.get("finalGrade") or row.get("grade") or "").upper()
 
-def calibrated_probability(row):
-    return prob01(row.get("calibratedProbabilityV2") or row.get("calibratedProbability"))
-
-def entry_price(row):
-    # Calibrated cut:
-    # 63% bot chance - 7% safety buffer = $0.56 entry max.
-    calibrated = calibrated_probability(row)
-    if calibrated is None:
-        return None
-    return round(max(0.01, min(0.99, calibrated - ENTRY_BUFFER)), 2)
-
-def entry_price_text(row):
-    price = entry_price(row)
-    if price is None:
-        return None
-    return f"${price:.2f}"
-
-def simple_game(row):
+def game(row):
     away = row.get("awayTeam")
     home = row.get("homeTeam")
     if away and home:
-        return f"{away} vs {home}"
-    return row.get("game")
+        return f"{away} @ {home}"
+    return row.get("game") or "-"
 
-def message(row):
-    entry = entry_price_text(row)
+def warnings(row):
+    c = 0
+    p = str(row.get("humanPitcherWarnings") or "").strip().lower()
+    b = str(row.get("humanBullpenWarnings") or "").strip().lower()
+    if p and p != "none":
+        c += 1
+    if b and b != "none":
+        c += 1
+    return c
+
+
+def is_active_game(row):
+    detailed = str(row.get("mlbDetailedStatus") or "").strip().lower()
+    abstract = str(row.get("mlbAbstractStatus") or "").strip().lower()
+    result = str(row.get("result") or "").strip().lower()
+
+    if detailed == "final" or abstract == "final":
+        return False
+
+    if result in ["final", "completed", "closed", "settled"]:
+        return False
+
+    return True
+def is_a_pick(row):
+    m = market(row)
+    e = entry(row)
+    return (
+        is_active_game(row)
+        and dec(row) == "ENGINE_BUY"
+        and grade(row) in ["A", "A+"]
+        and m is not None
+        and e is not None
+        and m <= e
+    )
+
+def is_value_lean(row):
+    m = market(row)
+    e = entry(row)
+    ed = edge(row)
+    cp = calibrated_prob(row)
+
+    if not is_active_game(row):
+        return False
+
+    if dec(row) == "ENGINE_BUY":
+        return False
+    if dec(row) in ["WATCH", "NO_BET", "BLOCKED"]:
+        return False
+    if grade(row) not in ["A", "B", "A+"]:
+        return False
+    if m is None or e is None or ed is None or cp is None:
+        return False
 
     return (
-        "🟢 ASTRODDS OFFICIAL BUY\n\n"
-        f"Pick: {row.get('pick')}\n"
-        f"Game: {simple_game(row)}\n\n"
-        f"Entry max: {entry}\n"
-        "Recommended stake: 5% bankroll\n\n"
-        "✅ Passed ASTRODDS filters.\n"
-        f"Do not enter above {entry}.\n\n"
-        "Paper/manual only. No real-money automation."
+        ed >= 7
+        and cp >= 0.60
+        and m <= e + 0.02
+        and warnings(row) <= 2
     )
+
+def key(row, label):
+    return "|".join([
+        label,
+        str(row.get("date", "")),
+        str(row.get("game", "")),
+        str(row.get("pick", "")),
+        dec(row),
+        grade(row),
+    ])
+
+def format_a(row, i):
+    return "\n".join([
+        f"{i}) Pick: {row.get('pick')}",
+        f"Game: {game(row)}",
+        f"Entry max: {price(entry(row))}",
+        f"Market: {price(market(row))}",
+        "Stake: 5% bankroll",
+        f"Reason: strong value, edge {pct(edge(row))}, price under entry."
+    ])
+
+def format_value(row, i):
+    w = warnings(row)
+    reason = f"good value angle, but {w} context warning(s)." if w else "good value angle, lower confidence than A Pick."
+    return "\n".join([
+        f"{i}) Pick: {row.get('pick')}",
+        f"Game: {game(row)}",
+        f"Entry max: {price(entry(row))}",
+        f"Market: {price(market(row))}",
+        "Stake: 1-2% max / paper",
+        f"Reason: {reason}"
+    ])
+
+def build_message(a_picks, value_leans):
+    parts = []
+
+    if a_picks:
+        parts.append("ASTRODDS A PICK")
+        parts.extend(format_a(r, i + 1) for i, r in enumerate(a_picks))
+
+    if value_leans:
+        if parts:
+            parts.append("")
+        parts.append("ASTRODDS VALUE LEAN")
+        parts.extend(format_value(r, i + 1) for i, r in enumerate(value_leans))
+
+    if not parts:
+        return "ASTRODDS: No A Pick today. Waiting for better value."
+
+    parts.append("")
+    parts.append("Paper/manual only. No real-money automation.")
+    return "\n\n".join(parts)
 
 def send(token, chat_id, text):
     url = f"https://api.telegram.org/bot{token}/sendMessage"
@@ -131,96 +220,104 @@ def send(token, chat_id, text):
         return json.loads(r.read().decode("utf-8"))
 
 def main():
+    dry = "--dry-run" in sys.argv
     token = env_value("TELEGRAM_BOT_TOKEN")
     chat_id = env_value("TELEGRAM_SIGNALS_CHAT_ID") or env_value("TELEGRAM_CHAT_ID")
 
-    signals = read_json(SIGNALS)
+    rows = read_json(SIGNALS)
     ledger = read_json(LEDGER)
-    sent_keys = set(x.get("alertKey") for x in ledger)
+    sent = set(x.get("alertKey") for x in ledger)
 
-    eligible = [
-        r for r in signals
-        if r.get("finalEngineDecision") == "ENGINE_BUY"
-        and r.get("finalGrade") in ["A+", "A"]
-        and entry_price(r) is not None
-        and current_market_price(r) is not None
-        and current_market_price(r) <= entry_price(r)
-    ]
+    a_all = [r for r in rows if is_a_pick(r)]
+    v_all = [r for r in rows if is_value_lean(r)]
 
-    sent = 0
-    skipped = 0
-    errors = []
+    a_new = [r for r in a_all if key(r, "A_PICK") not in sent]
+    v_new = [r for r in v_all if key(r, "VALUE_LEAN") not in sent]
 
-    if not token or not chat_id:
-        lines = [
-            "ASTRODDS 30 TELEGRAM FINAL ENGINE ALERTS REPORT",
-            "=" * 56,
-            "Status: MISSING_ENV",
-            "Need TELEGRAM_BOT_TOKEN and TELEGRAM_SIGNALS_CHAT_ID or TELEGRAM_CHAT_ID in .env.local",
-        ]
-        REPORT.write_text("\n".join(lines), encoding="utf-8")
-        print("\n".join(lines))
-        return
+    text = build_message(a_new, v_new)
 
-    for row in eligible:
-        alert_key = key(row)
-        if alert_key in sent_keys:
-            skipped += 1
-            continue
+    status = "OK"
+    telegram_ok = None
+    message_id = None
+    error = None
 
+    if dry:
+        status = "DRY_RUN_NO_SEND"
+    elif not token or not chat_id:
+        status = "MISSING_ENV"
+        error = "Need TELEGRAM_BOT_TOKEN and TELEGRAM_SIGNALS_CHAT_ID or TELEGRAM_CHAT_ID in .env.local"
+    elif not a_new and not v_new:
+        status = "NO_NEW_PUBLIC_SIGNALS"
+    else:
         try:
-            res = send(token, chat_id, message(row))
-            ledger.append({
-                "sentAt": datetime.utcnow().isoformat() + "Z",
-                "alertKey": alert_key,
-                "game": row.get("game"),
-                "pick": row.get("pick"),
-                "decision": row.get("finalEngineDecision"),
-                "grade": row.get("finalGrade"),
-                "telegramOk": res.get("ok"),
-                "paperOnly": True,
-            })
-            sent += 1
-        except Exception as e:
-            errors.append(f"{row.get('game')} | {row.get('pick')}: {e}")
+            res = send(token, chat_id, text)
+            telegram_ok = res.get("ok")
+            message_id = res.get("result", {}).get("message_id")
+            sent_at = datetime.utcnow().isoformat() + "Z"
 
-    write_json(LEDGER, ledger)
+            for r in a_new:
+                ledger.append({
+                    "sentAt": sent_at,
+                    "alertKey": key(r, "A_PICK"),
+                    "publicCategory": "A_PICK",
+                    "game": r.get("game"),
+                    "pick": r.get("pick"),
+                    "telegramOk": telegram_ok,
+                    "telegramMessageId": message_id,
+                })
+
+            for r in v_new:
+                ledger.append({
+                    "sentAt": sent_at,
+                    "alertKey": key(r, "VALUE_LEAN"),
+                    "publicCategory": "VALUE_LEAN",
+                    "game": r.get("game"),
+                    "pick": r.get("pick"),
+                    "telegramOk": telegram_ok,
+                    "telegramMessageId": message_id,
+                })
+
+            write_json(LEDGER, ledger)
+        except Exception as e:
+            status = "SEND_ERROR"
+            error = str(e)
+
+    blocked = len(rows) - len(a_all) - len(v_all)
 
     lines = [
-        "ASTRODDS 30 TELEGRAM FINAL ENGINE ALERTS REPORT",
+        "ASTRODDS 30 TELEGRAM PUBLIC SIGNALS REPORT",
         "=" * 56,
-        "Status: OK",
-        f"Token: {mask(token)}",
-        f"Chat: {mask(chat_id)}",
-        "",
-        f"Input signals: {len(signals)}",
-        f"Eligible ENGINE_BUY alerts: {len(eligible)}",
-        f"Sent this run: {sent}",
-        f"Skipped duplicates: {skipped}",
-        f"Ledger rows: {len(ledger)}",
-        "",
-        "Rule: public Telegram sends only ENGINE_BUY grade A+/A when market price is at or below calibrated Entry max.",
-        "Paper/manual only. No real-money automation.",
+        f"Generated UTC: {datetime.utcnow().isoformat()}Z",
+        f"Status: {status}",
+        f"Signals input: {len(rows)}",
+        f"a_pick_count: {len(a_all)}",
+        f"value_lean_count: {len(v_all)}",
+        f"blocked_count: {blocked}",
+        f"new_a_pick_count: {len(a_new)}",
+        f"new_value_lean_count: {len(v_new)}",
+        f"telegramOk: {telegram_ok}",
+        f"telegramMessageId: {message_id}",
     ]
 
-    if eligible:
-        lines.append("")
-        lines.append("Eligible alerts:")
-        for row in eligible:
-            lines.append(f"- {row.get('game')} | Pick: {row.get('pick')} | Entry max: {entry_price_text(row)} | Stake: 5%")
+    if error:
+        lines.append(f"Error: {error}")
 
-    if errors:
-        lines.append("")
-        lines.append("Errors:")
-        lines.extend(errors)
+    lines += [
+        "",
+        "Public message preview:",
+        "-" * 56,
+        text,
+        "",
+        "Rules:",
+        "- Public categories only: A PICK and VALUE LEAN.",
+        "- A PICK = 5% bankroll.",
+        "- VALUE LEAN = 1-2% max / paper.",
+        "- Paper/manual only. No real-money automation.",
+    ]
 
-    lines.append("")
-    lines.append(f"Alert ledger: {LEDGER}")
-
+    REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text("\n".join(lines), encoding="utf-8")
     print("\n".join(lines))
-    print("")
-    print(f"Saved: {REPORT}")
 
 if __name__ == "__main__":
     main()

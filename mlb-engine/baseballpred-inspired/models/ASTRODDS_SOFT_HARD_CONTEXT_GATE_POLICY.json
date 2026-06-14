@@ -1,0 +1,18 @@
+{
+  "version": "ASTRODDS_SOFT_HARD_CONTEXT_GATE_POLICY_V1",
+  "createdAt": "2026-06-14T17:14:00.377203+00:00",
+  "status": "OK",
+  "target": "1-3 official picks per day when value exists; never force picks.",
+  "hardBlockers": "Always block official buy.",
+  "softWarnings": "Can be tolerated only with strong edge and price under entry max.",
+  "promotionRules": [
+    "MANUAL_REVIEW A/A+ only",
+    "market price must be <= entry max",
+    "no hard blockers",
+    "edge >= 12% allows up to 2 soft warnings",
+    "edge >= 10% allows up to 1 soft warning",
+    "edge >= 7% requires zero soft warnings"
+  ],
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

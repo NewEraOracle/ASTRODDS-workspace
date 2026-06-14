@@ -135,6 +135,78 @@ if ($process.ExitCode -eq 0) {
   $thresholdGateProcess = Start-Process python -ArgumentList "`"$thresholdGate`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
   Add-Line "Threshold context gate exit code: $($thresholdGateProcess.ExitCode)"
 
+  Add-Line "SMART_GATE_START"
+
+  $smartGateScripts = @(
+    "69_official_buy_blocker_audit.py",
+    "70_soft_hard_context_gate.py",
+    "71_smart_official_buy_promotion.py"
+  )
+
+  foreach ($gateScriptName in $smartGateScripts) {
+    $gatePath = Join-Path $ScriptDir $gateScriptName
+
+    if (-not (Test-Path $gatePath)) {
+      Add-Line "SMART_GATE_FAILED_NO_TELEGRAM_SEND"
+      Add-Line "Missing smart gate script: $gatePath"
+      Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
+      exit 1
+    }
+
+    Add-Line "Running smart gate: $gateScriptName"
+    $gateProcess = Start-Process python -ArgumentList "`"$gatePath`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "$gateScriptName exit code: $($gateProcess.ExitCode)"
+
+    if ($gateProcess.ExitCode -ne 0) {
+      Add-Line "SMART_GATE_FAILED_NO_TELEGRAM_SEND"
+      Add-Line "Reason: $gateScriptName returned non-zero exit code."
+      Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
+      exit 1
+    }
+  }
+
+  Add-Line "SMART_GATE_APPLIED"
+
+  $engineFinalJson = Join-Path $Workspace ".astrodds\ASTRODDS-engine-final-signals-latest.json"
+  $telegramEngineBuyRows = 0
+
+  try {
+    if (Test-Path $engineFinalJson) {
+      $engineRows = @(Get-Content $engineFinalJson -Raw | ConvertFrom-Json)
+      $telegramEngineBuyRows = @(
+        $engineRows | Where-Object {
+          $_.finalEngineDecision -eq "ENGINE_BUY" -or
+          $_.finalDecision -eq "ENGINE_BUY" -or
+          $_.decision -eq "ENGINE_BUY"
+        }
+      ).Count
+    }
+  } catch {
+    Add-Line "telegram_engine_buy_rows=ERROR"
+  }
+
+  Add-Line "telegram_engine_buy_rows=$telegramEngineBuyRows"
+
+  Add-Line "Running Telegram final ENGINE_BUY alerts..."
+  $finalTelegramAlerts = Join-Path $ScriptDir "30_telegram_final_engine_alerts.py"
+
+  if (-not (Test-Path $finalTelegramAlerts)) {
+    Add-Line "SMART_GATE_FAILED_NO_TELEGRAM_SEND"
+    Add-Line "Missing Telegram final alerts script: $finalTelegramAlerts"
+    Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
+    exit 1
+  }
+
+  $finalTelegramProcess = Start-Process python -ArgumentList "`"$finalTelegramAlerts`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Telegram final ENGINE_BUY alerts exit code: $($finalTelegramProcess.ExitCode)"
+
+  if ($finalTelegramProcess.ExitCode -ne 0) {
+    Add-Line "SMART_GATE_FAILED_NO_TELEGRAM_SEND"
+    Add-Line "Reason: Telegram final ENGINE_BUY alert script returned non-zero exit code."
+    Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
+    exit 1
+  }
+
   Add-Line "Running Telegram review recap..."
   $reviewRecap = Join-Path $ScriptDir "44_telegram_review_recap.py"
   $reviewRecapProcess = Start-Process python -ArgumentList "`"$reviewRecap`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
@@ -179,6 +251,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
