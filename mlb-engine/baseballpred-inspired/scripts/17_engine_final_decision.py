@@ -163,6 +163,34 @@ def final_decision(row):
 
     return "NO_BET", "NO_BET", "Rejected by final engine rules."
 
+def existing_model_created_at():
+    if MODEL.exists():
+        try:
+            existing = json.loads(MODEL.read_text(encoding="utf-8-sig"))
+            value = existing.get("createdAt")
+            if value:
+                return value
+        except Exception:
+            pass
+
+    return datetime.utcnow().isoformat() + "Z"
+
+
+def write_model_rules_if_changed(model_rules):
+    model_text = json.dumps(model_rules, indent=2)
+
+    if MODEL.exists():
+        try:
+            existing_text = MODEL.read_text(encoding="utf-8-sig")
+            if existing_text.strip() == model_text.strip():
+                return False
+        except Exception:
+            pass
+
+    MODEL.write_text(model_text, encoding="utf-8")
+    return True
+
+
 def main():
     rows = read_json(INPUT)
 
@@ -215,7 +243,7 @@ def main():
 
     model_rules = {
         "engineName": "ASTRODDS_ENGINE_V2_CALIBRATED_CONTEXT",
-        "createdAt": datetime.utcnow().isoformat() + "Z",
+        "createdAt": existing_model_created_at(),
         "mode": "paper_only",
         "realMoneyApproved": False,
         "decisionRules": {
@@ -233,7 +261,7 @@ def main():
         ]
     }
 
-    MODEL.write_text(json.dumps(model_rules, indent=2), encoding="utf-8")
+    model_rules_written = write_model_rules_if_changed(model_rules)
 
     lines = []
     lines.append("ASTRODDS 17 FINAL ENGINE DECISION REPORT")
@@ -280,4 +308,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
