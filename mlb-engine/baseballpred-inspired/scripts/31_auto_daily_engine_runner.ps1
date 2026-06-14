@@ -95,6 +95,16 @@ Add-Line ""
 Add-Line "Pipeline exit code: $($process.ExitCode)"
 
 if ($process.ExitCode -eq 0) {
+  Add-Line "Running full slate context input..."
+  $fullSlateContext = Join-Path $ScriptDir "36_full_slate_context_input.ps1"
+  $fullSlateProcess = Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$fullSlateContext`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Full slate context input exit code: $($fullSlateProcess.ExitCode)"
+
+  Add-Line "Running full slate context final gate..."
+  $contextGate = Join-Path $ScriptDir "37_full_slate_context_final_gate.py"
+  $contextGateProcess = Start-Process python -ArgumentList "`"$contextGate`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Full slate context gate exit code: $($contextGateProcess.ExitCode)"
+
   Add-Line "Running daily performance report..."
   $dailyReport = Join-Path $ScriptDir "33_daily_performance_report.py"
   $dailyProcess = Start-Process python -ArgumentList "`"$dailyReport`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
@@ -134,4 +144,5 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 

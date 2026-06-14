@@ -57,6 +57,12 @@ $game = Get-Content ".\.astrodds\VVS-game-context-latest.json" -Raw | ConvertFro
 $pitcher = Get-Content ".\.astrodds\VVS-pitcher-context-latest.json" -Raw | ConvertFrom-Json
 $bullpen = Get-Content ".\.astrodds\VVS-bullpen-context-latest.json" -Raw | ConvertFrom-Json
 
+$RestoredOriginalVvsInput = $false
+if (Test-Path $Backup) {
+  Copy-Item $Backup $VvsInput -Force
+  $RestoredOriginalVvsInput = $true
+}
+
 $lines = @()
 $lines += "ASTRODDS 36 FULL SLATE CONTEXT INPUT REPORT"
 $lines += "================================================"
@@ -75,3 +81,4 @@ $lines += "Rule: context only. No real-money automation."
 
 $lines | Set-Content $Report -Encoding UTF8
 $lines
+
