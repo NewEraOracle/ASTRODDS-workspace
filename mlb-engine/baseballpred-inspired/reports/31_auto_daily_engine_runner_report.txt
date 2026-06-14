@@ -1,0 +1,31 @@
+﻿ASTRODDS 31 AUTO DAILY ENGINE RUNNER
+======================================
+Started UTC: 2026-06-14T00:33:39.4979079Z
+
+Workspace: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace
+
+Local server: OK
+
+Running Engine V2 full pipeline...
+Script: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\scripts\21_run_engine_v2_full_pipeline.py
+
+
+Pipeline exit code: 0
+STATUS: OK
+Engine run complete.
+
+Outputs updated:
+- .astrodds/ASTRODDS-engine-final-signals-latest.json
+- .astrodds/ASTRODDS-engine-signal-ledger.json
+- .astrodds/ASTRODDS-odds-snapshot-ledger.json
+- public/astrodds-proof-log.html
+- public/astrodds-proof-log.json
+
+Telegram:
+- Sends only ENGINE_BUY A+/A.
+- Duplicate protection prevents spam.
+
+Finished UTC: 2026-06-14T00:34:37.9715586Z
+Report: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\31_auto_daily_engine_runner_report.txt
+
+Rule: Paper/manual only. No real-money automation.
