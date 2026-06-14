@@ -12,6 +12,7 @@ OUT_JSON = WORKSPACE / ".astrodds" / "ASTRODDS-engine-final-signals-latest.json"
 OUT_CSV = WORKSPACE / ".astrodds" / "ASTRODDS-engine-final-signals-latest.csv"
 REPORT = ROOT / "reports" / "17_engine_final_decision_report.txt"
 MODEL = ROOT / "models" / "ASTRODDS_ENGINE_V2_DECISION_RULES.json"
+THRESHOLD_RULES = ROOT / "models" / "ASTRODDS_ENGINE_V2_THRESHOLD_RULES.json"
 
 def read_json(path):
     if not path.exists():
@@ -25,6 +26,49 @@ def fnum(x):
         return float(str(x).replace(",", "."))
     except Exception:
         return None
+
+def read_threshold_rules():
+    if not THRESHOLD_RULES.exists():
+        return {
+            "version": "missing",
+            "lockedThresholds": {
+                "engineBuyStrictCalibratedProbability": 0.60,
+                "aReviewCoreCalibratedProbability": 0.58,
+                "watchReviewCalibratedProbability": 0.55,
+            },
+        }
+
+    try:
+        return json.loads(THRESHOLD_RULES.read_text(encoding="utf-8-sig"))
+    except Exception:
+        return {
+            "version": "invalid",
+            "lockedThresholds": {
+                "engineBuyStrictCalibratedProbability": 0.60,
+                "aReviewCoreCalibratedProbability": 0.58,
+                "watchReviewCalibratedProbability": 0.55,
+            },
+        }
+
+
+def calibrated_pick_probability(row):
+    return (
+        fnum(row.get("calibratedProbabilityV2"))
+        or fnum(row.get("calibratedProbability"))
+        or fnum(row.get("calibrated_pick_probability_v2"))
+        or 0
+    )
+
+
+def locked_engine_buy_min():
+    rules = read_threshold_rules()
+    thresholds = rules.get("lockedThresholds", {})
+    return fnum(thresholds.get("engineBuyStrictCalibratedProbability")) or 0.60
+
+
+def threshold_rule_version():
+    return read_threshold_rules().get("version", "missing")
+
 
 def clean_flags(flags):
     if not flags or flags == "none":
@@ -92,9 +136,22 @@ def final_decision(row):
     if row.get("awayLineupStatus") != "confirmed" or row.get("homeLineupStatus") != "confirmed":
         risk_notes.append("lineup not fully confirmed")
 
-    # strict auto rule
-    if decision == "vvs_buy" and edge >= 7 and not risk_notes:
-        return "ENGINE_BUY", grade, "Clean calibrated edge with no major context warnings."
+    # strict official buy rule
+    # ENGINE_BUY now requires:
+    # - validated calibrated probability threshold from ASTRODDS_ENGINE_V2_THRESHOLD_RULES.json
+    # - positive calibrated edge
+    # - clean context
+    # - no real-money automation
+    prob = calibrated_pick_probability(row)
+    engine_buy_min = locked_engine_buy_min()
+    threshold_passed = prob >= engine_buy_min
+
+    if decision in ["vvs_buy", "manual_review"] and edge >= 7 and threshold_passed and not risk_notes:
+        return (
+            "ENGINE_BUY",
+            grade,
+            f"Clean calibrated edge with validated threshold passed: probability {round(prob * 100, 2)}% >= {round(engine_buy_min * 100, 2)}%."
+        )
 
     # manual review rule
     if edge >= 3 and decision in ["manual_review", "small_buy", "vvs_buy"]:
@@ -121,6 +178,10 @@ def main():
         r["finalEngineDecision"] = decision
         r["finalGrade"] = grade
         r["finalReason"] = reason
+        r["thresholdRuleVersion"] = threshold_rule_version()
+        r["lockedEngineBuyProbabilityMin"] = locked_engine_buy_min()
+        r["calibratedPickProbabilityForThreshold"] = calibrated_pick_probability(r)
+        r["officialBuyThresholdPassed"] = calibrated_pick_probability(r) >= locked_engine_buy_min()
         r["humanPitcherWarnings"] = clean_flags(r.get("pitcherContextFlags"))
         r["humanBullpenWarnings"] = clean_flags(r.get("bullpenContextFlags"))
         r["generatedAt"] = datetime.utcnow().isoformat() + "Z"
@@ -158,7 +219,7 @@ def main():
         "mode": "paper_only",
         "realMoneyApproved": False,
         "decisionRules": {
-            "ENGINE_BUY": "calibrated edge >= 7%, calibratedDecision=vvs_buy, no major context warnings",
+            "ENGINE_BUY": "calibrated probability >= locked 60% threshold, calibrated edge >= 7%, clean context, no major warnings",
             "MANUAL_REVIEW": "calibrated edge >= 3% but context warnings or smaller grade",
             "WATCH": "calibrated edge < 3% or weak post-calibration signal",
             "NO_BET": "rejected by final rules"
@@ -219,3 +280,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

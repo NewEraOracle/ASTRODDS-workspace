@@ -1,10 +1,10 @@
 {
   "engineName": "ASTRODDS_ENGINE_V2_CALIBRATED_CONTEXT",
-  "createdAt": "2026-06-13T22:24:56.128169Z",
+  "createdAt": "2026-06-14T13:24:21.079434Z",
   "mode": "paper_only",
   "realMoneyApproved": false,
   "decisionRules": {
-    "ENGINE_BUY": "calibrated edge >= 7%, calibratedDecision=vvs_buy, no major context warnings",
+    "ENGINE_BUY": "calibrated probability >= locked 60% threshold, calibrated edge >= 7%, clean context, no major warnings",
     "MANUAL_REVIEW": "calibrated edge >= 3% but context warnings or smaller grade",
     "WATCH": "calibrated edge < 3% or weak post-calibration signal",
     "NO_BET": "rejected by final rules"

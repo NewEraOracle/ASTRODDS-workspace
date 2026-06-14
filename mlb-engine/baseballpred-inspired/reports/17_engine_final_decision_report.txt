@@ -11,7 +11,7 @@ Decision counts:
 - WATCH: 1
 
 Final engine signals:
-- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Final=MANUAL_REVIEW | Grade=A | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Reason=Calibrated edge exists, but review required: lineup not fully confirmed
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Final=MANUAL_REVIEW | Grade=A | Market=50.98% | Calibrated=63.45% | CalEdge=12.47% | Reason=Calibrated edge exists, but review required: bullpen warning
 - Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Final=MANUAL_REVIEW | Grade=A | Market=55.75% | Calibrated=63.45% | CalEdge=7.7% | Reason=Calibrated edge exists, but review required: bullpen warning, pitcher warning
 - Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Final=MANUAL_REVIEW | Grade=B | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Reason=Calibrated edge exists, but review required: bullpen warning, pitcher warning
 - Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Final=MANUAL_REVIEW | Grade=B | Market=58.68% | Calibrated=63.45% | CalEdge=4.78% | Reason=Calibrated edge exists, but review required: bullpen warning
