@@ -1,0 +1,28 @@
+{
+  "version": "ASTRODDS_ENTRY_CUT_CALIBRATION_POLICY_V1",
+  "createdAt": "2026-06-14T15:59:56.073879+00:00",
+  "status": "OK",
+  "entryMaxFormula": "entryMax = calibratedProbability - entryBuffer",
+  "entryBuffer": 0.07,
+  "entryBufferPct": 7.0,
+  "example": {
+    "calibratedProbability": "0.63",
+    "entryBuffer": "0.07",
+    "entryMax": "0.56",
+    "display": "$0.56 or 56 cents"
+  },
+  "publicTelegramSendRule": [
+    "finalEngineDecision must be ENGINE_BUY",
+    "finalGrade must be A+ or A",
+    "marketProbability must exist",
+    "entryMax must exist",
+    "marketProbability must be <= entryMax"
+  ],
+  "publicMessageRule": "Show only Pick, Game, Entry max, Recommended stake 5% bankroll, and do not chase above Entry max.",
+  "outputs": {
+    "json": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-entry-cut-calibration-latest.json",
+    "csv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-entry-cut-calibration-latest.csv"
+  },
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

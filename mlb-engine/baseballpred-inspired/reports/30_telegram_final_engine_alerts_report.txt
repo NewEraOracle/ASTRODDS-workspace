@@ -10,7 +10,7 @@ Sent this run: 0
 Skipped duplicates: 0
 Ledger rows: 1
 
-Rule: public Telegram sends only ENGINE_BUY grade A+/A with valid entry price.
+Rule: public Telegram sends only ENGINE_BUY grade A+/A when market price is at or below calibrated Entry max.
 Paper/manual only. No real-money automation.
 
 Alert ledger: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-telegram-alert-ledger.json

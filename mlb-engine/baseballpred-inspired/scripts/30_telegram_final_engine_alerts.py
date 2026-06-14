@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+from pathlib import Path
 import json
 import urllib.parse
 import urllib.request
@@ -58,6 +58,8 @@ def pct(x):
     except Exception:
         return "-"
 
+ENTRY_BUFFER = 0.07
+
 def fnum(value):
     try:
         if value is None or str(value).strip() == "":
@@ -66,15 +68,29 @@ def fnum(value):
     except Exception:
         return None
 
-def entry_price(row):
-    # Public alert entry max uses current market probability/price at alert time.
-    # Polymarket prices are 0.00-1.00, so 0.56 means 56 cents.
-    price = fnum(row.get("marketProbability"))
-    if price is None:
+def prob01(value):
+    value = fnum(value)
+    if value is None:
         return None
-    if price > 1:
-        price = price / 100
-    return round(price, 2)
+    if value > 1:
+        value = value / 100
+    if value < 0 or value > 1:
+        return None
+    return value
+
+def current_market_price(row):
+    return prob01(row.get("marketProbability") or row.get("currentMarketProbability") or row.get("marketPrice"))
+
+def calibrated_probability(row):
+    return prob01(row.get("calibratedProbabilityV2") or row.get("calibratedProbability"))
+
+def entry_price(row):
+    # Calibrated cut:
+    # 63% bot chance - 7% safety buffer = $0.56 entry max.
+    calibrated = calibrated_probability(row)
+    if calibrated is None:
+        return None
+    return round(max(0.01, min(0.99, calibrated - ENTRY_BUFFER)), 2)
 
 def entry_price_text(row):
     price = entry_price(row)
@@ -127,6 +143,8 @@ def main():
         if r.get("finalEngineDecision") == "ENGINE_BUY"
         and r.get("finalGrade") in ["A+", "A"]
         and entry_price(r) is not None
+        and current_market_price(r) is not None
+        and current_market_price(r) <= entry_price(r)
     ]
 
     sent = 0
@@ -181,7 +199,7 @@ def main():
         f"Skipped duplicates: {skipped}",
         f"Ledger rows: {len(ledger)}",
         "",
-        "Rule: public Telegram sends only ENGINE_BUY grade A+/A with valid entry price.",
+        "Rule: public Telegram sends only ENGINE_BUY grade A+/A when market price is at or below calibrated Entry max.",
         "Paper/manual only. No real-money automation.",
     ]
 

@@ -1,0 +1,36 @@
+ASTRODDS 62 ENTRY CUT CALIBRATION LOCK REPORT
+========================================================
+Generated: 2026-06-14T15:59:56.073879+00:00
+
+Policy:
+- Entry buffer: 7.0%
+- Formula: Entry max = calibrated probability - entry buffer
+- Example: 63% bot chance - 7% buffer = $0.56 entry max
+- Public alert sends only if current market price <= entry max
+- Public alert stake: 5% bankroll
+
+Input rows: 5
+Output rows: 5
+Public actionable rows: 0
+
+Block/send reasons:
+- not_engine_buy: 5
+
+Entry cut rows:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision=MANUAL_REVIEW | Grade=A | Market=$0.51 | Calibrated=63.45% | EntryMax=$0.56 | Actionable=False | Reason=not_engine_buy
+- Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision=MANUAL_REVIEW | Grade=A | Market=$0.56 | Calibrated=63.45% | EntryMax=$0.56 | Actionable=False | Reason=not_engine_buy
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision=MANUAL_REVIEW | Grade=B | Market=$0.59 | Calibrated=63.45% | EntryMax=$0.56 | Actionable=False | Reason=not_engine_buy
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision=MANUAL_REVIEW | Grade=B | Market=$0.59 | Calibrated=63.45% | EntryMax=$0.56 | Actionable=False | Reason=not_engine_buy
+- Colorado Rockies @ Athletics | Pick: Athletics | Decision=WATCH | Grade=WATCH | Market=$0.63 | Calibrated=63.45% | EntryMax=$0.56 | Actionable=False | Reason=not_engine_buy
+
+Important:
+- Entry max is no longer just the current market price.
+- Entry max is a calibrated cut based on bot probability minus safety buffer.
+- If price is above entry max, public Telegram must not send.
+- Paper/manual only. No real-money automation.
+
+Policy JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_ENTRY_CUT_CALIBRATION_POLICY.json
+Output JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-entry-cut-calibration-latest.json
+Output CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-entry-cut-calibration-latest.csv
+
+Rule: entry cut calibration only. No odds scan. No betting automation.
