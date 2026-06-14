@@ -23,19 +23,29 @@ PIPELINE = [
 
 def run(script):
     path = SCRIPTS / script
+
     if not path.exists():
         return False, "", f"Missing script: {path}"
 
-    r = subprocess.run(
-        [sys.executable, str(path)],
-        capture_output=True,
-        text=True
-    )
+    try:
+        result = subprocess.run(
+            [sys.executable, str(path)],
+            capture_output=True,
+            text=True,
+            timeout=360
+        )
 
-    return r.returncode == 0, r.stdout, r.stderr
+        return result.returncode == 0, result.stdout, result.stderr
+
+    except subprocess.TimeoutExpired as e:
+        out = e.stdout or ""
+        err = e.stderr or ""
+        err = str(err) + "\nTIMEOUT: " + script + " took longer than 360 seconds."
+        return False, out, err
 
 def main():
     lines = []
+
     lines.append("ASTRODDS 21 ENGINE V2 FULL PIPELINE RUN REPORT")
     lines.append("=" * 52)
     lines.append(f"Started: {datetime.utcnow().isoformat()}Z")
@@ -50,6 +60,8 @@ def main():
         lines.append(f"STEP — {name}")
         lines.append("-" * 32)
         lines.append(f"Script: {script}")
+
+        print(f"Running: {script} ...", flush=True)
 
         ok, out, err = run(script)
 
@@ -94,5 +106,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
