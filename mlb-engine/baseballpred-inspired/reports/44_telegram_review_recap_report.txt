@@ -1,20 +1,30 @@
-ASTRODDS 44 TELEGRAM REVIEW RECAP REPORT
-====================================================
-Status: OK
+ASTRODDS 44 ADMIN REVIEW RECAP REPORT
+================================================
+Generated: 2026-06-14T16:43:16.390976+00:00
+
+Status: SKIPPED_ADMIN_CHAT_NOT_CONFIGURED
 Token: 8566***EMok
-Chat: 5583***6333
+Review/Admin Chat: missing
+Public Chat Fallback: DISABLED
+Sent this run: 0
+Skipped reason: missing TELEGRAM_REVIEW_CHAT_ID or TELEGRAM_ADMIN_CHAT_ID
 
-Input rows: 10
-Review candidates: 7
-Sent this run: 1
-Skipped duplicate: 0
-Ledger rows: 2
+Input rows: 8
+Review candidates: 0
 
-Candidates:
-- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Prob=63.45% | Edge=13.45% | Flags=lineup_not_confirmed
-- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Prob=63.45% | Edge=12.47% | Flags=lineup_not_confirmed
-- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Prob=63.45% | Edge=12.0% | Flags=lineup_not_confirmed|picked_bullpen_high_fatigue
-- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | Prob=63.45% | Edge=9.33% | Flags=lineup_not_confirmed
-- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Prob=63.45% | Edge=7.7% | Flags=lineup_not_confirmed
+Rule:
+- Review board is admin-only.
+- Public Telegram receives OFFICIAL BUY only.
+- No review/watch/wait messages go to public clients.
+- Paper/manual only. No real-money automation.
 
-Rule: review recap only. Not official buys. Paper/manual only.
+Message preview:
+ASTRODDS ADMIN REVIEW BOARD
+ADMIN ONLY - NOT OFFICIAL BUY
+
+Review candidates detected. Do not send to public clients.
+
+Public channel rule: OFFICIAL BUY only.
+Paper/manual only. No real-money automation.
+
+Saved: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\44_telegram_review_recap_report.txt

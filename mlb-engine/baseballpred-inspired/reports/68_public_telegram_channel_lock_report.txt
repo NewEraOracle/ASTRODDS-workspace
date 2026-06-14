@@ -1,0 +1,14 @@
+ASTRODDS 68 PUBLIC TELEGRAM CHANNEL LOCK REPORT
+===============================================
+Generated: 2026-06-14T12:43:16.4059914-04:00
+
+Status: OK
+
+Fixes:
+- Review board is admin-only.
+- Review board cannot fallback to public TELEGRAM_CHAT_ID.
+- Daily recap 34 is report-only and no longer sends to public Telegram.
+- Scheduled 11PM daily results remains the clean public results sender.
+- Client public stats baseline starts from Angels win only.
+
+No odds scan. No betting automation.

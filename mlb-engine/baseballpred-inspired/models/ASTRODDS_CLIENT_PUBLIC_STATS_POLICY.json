@@ -1,0 +1,22 @@
+{
+  "version": "ASTRODDS_CLIENT_PUBLIC_STATS_POLICY_V1",
+  "createdAt": "2026-06-14T16:43:16.139837+00:00",
+  "status": "OK",
+  "publicStatsRule": "Client/investor public stats start from the real Angels win baseline. Previous review/watch/manual test rows are archived and excluded from public stats.",
+  "includedBaseline": {
+    "gameContains": [
+      "tampa bay rays",
+      "los angeles angels"
+    ],
+    "pick": "los angeles angels",
+    "result": "win"
+  },
+  "outputs": {
+    "clientLedgerJson": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-client-performance-ledger.json",
+    "clientLedgerCsv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-client-performance-ledger.csv",
+    "publicJson": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-client-performance.json",
+    "publicCsv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-client-performance.csv"
+  },
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

@@ -1,0 +1,32 @@
+ASTRODDS 67 CLIENT PUBLIC STATS BASELINE REPORT
+==========================================================
+Generated: 2026-06-14T16:43:16.139837+00:00
+
+Status: OK
+
+Action:
+- Public/client stats now start from the real Angels win baseline.
+- Old mixed review/watch/manual rows were archived, not destroyed.
+
+Baseline summary:
+- Signals: 1
+- Wins: 1
+- Losses: 0
+- Pending: 0
+- Win rate: 100.0%
+- Paper units: 0.962u
+
+Included rows:
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Result: win | Units: 0.962
+
+Archived files:
+- C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\archive\ASTRODDS-engine-signal-ledger.json.backup-before-client-baseline-20260614_164316
+- C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\archive\astrodds-proof-log.json.backup-before-client-baseline-20260614_164316
+
+Client ledger JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-client-performance-ledger.json
+Client ledger CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-client-performance-ledger.csv
+Public client JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-client-performance.json
+Public client CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-client-performance.csv
+Policy JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_CLIENT_PUBLIC_STATS_POLICY.json
+
+Rule: client public stats baseline only. No odds scan. No betting automation.
