@@ -58,18 +58,48 @@ def pct(x):
     except Exception:
         return "-"
 
+def fnum(value):
+    try:
+        if value is None or str(value).strip() == "":
+            return None
+        return float(str(value).replace(",", "."))
+    except Exception:
+        return None
+
+def entry_price(row):
+    # Public alert entry max uses current market probability/price at alert time.
+    # Polymarket prices are 0.00-1.00, so 0.56 means 56 cents.
+    price = fnum(row.get("marketProbability"))
+    if price is None:
+        return None
+    if price > 1:
+        price = price / 100
+    return round(price, 2)
+
+def entry_price_text(row):
+    price = entry_price(row)
+    if price is None:
+        return None
+    return f"${price:.2f}"
+
+def simple_game(row):
+    away = row.get("awayTeam")
+    home = row.get("homeTeam")
+    if away and home:
+        return f"{away} vs {home}"
+    return row.get("game")
+
 def message(row):
+    entry = entry_price_text(row)
+
     return (
-        "ASTRODDS ENGINE BUY\n\n"
-        f"Game: {row.get('game')}\n"
+        "🟢 ASTRODDS OFFICIAL BUY\n\n"
         f"Pick: {row.get('pick')}\n"
-        f"Grade: {row.get('finalGrade')}\n"
-        f"Decision: {row.get('finalEngineDecision')}\n\n"
-        f"Market: {pct(row.get('marketProbability'))}\n"
-        f"Calibrated: {pct(row.get('calibratedProbabilityV2'))}\n"
-        f"Cal Edge: {row.get('calibratedEdgePct')}%\n\n"
-        f"Reason: {row.get('finalReason')}\n"
-        f"Game time: {row.get('date')}\n\n"
+        f"Game: {simple_game(row)}\n\n"
+        f"Entry max: {entry}\n"
+        "Recommended stake: 5% bankroll\n\n"
+        "✅ Passed ASTRODDS filters.\n"
+        f"Do not enter above {entry}.\n\n"
         "Paper/manual only. No real-money automation."
     )
 
@@ -96,6 +126,7 @@ def main():
         r for r in signals
         if r.get("finalEngineDecision") == "ENGINE_BUY"
         and r.get("finalGrade") in ["A+", "A"]
+        and entry_price(r) is not None
     ]
 
     sent = 0
@@ -150,7 +181,7 @@ def main():
         f"Skipped duplicates: {skipped}",
         f"Ledger rows: {len(ledger)}",
         "",
-        "Rule: send only ENGINE_BUY with grade A+ or A.",
+        "Rule: public Telegram sends only ENGINE_BUY grade A+/A with valid entry price.",
         "Paper/manual only. No real-money automation.",
     ]
 
@@ -158,7 +189,7 @@ def main():
         lines.append("")
         lines.append("Eligible alerts:")
         for row in eligible:
-            lines.append(f"- {row.get('game')} | Pick: {row.get('pick')} | Grade: {row.get('finalGrade')} | Edge: {row.get('calibratedEdgePct')}%")
+            lines.append(f"- {row.get('game')} | Pick: {row.get('pick')} | Entry max: {entry_price_text(row)} | Stake: 5%")
 
     if errors:
         lines.append("")
@@ -175,3 +206,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
