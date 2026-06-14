@@ -6,6 +6,7 @@ import { loadPythonMlbPredictions, type PythonMlbPrediction } from "@/lib/astrod
 import { loadStrongBuyLedgerStatus } from "@/lib/astrodss/mlb/strong-buy-ledger";
 import { findMlbTeamProfile } from "@/lib/astrodss/sports-data/mlb-teams";
 import { fetchConfiguredSportsOdds } from "@/lib/astrodss/sports-data/odds";
+import { discoverPolymarketMlbMoneylineMarkets, type PolymarketMlbMoneylineMarket } from "@/lib/astrodss/sports-data/polymarket-mlb-markets";
 import { scanAstroddsSport } from "@/lib/astrodss/sports-data/scanner";
 import { compactId, inferBetType, normalizeText } from "@/lib/astrodss/sports-data/normalize";
 import type {
@@ -406,6 +407,86 @@ function isCleanMoneylineMarket(market: AstroddsMarketScan) {
 
 type OddsRows = Awaited<ReturnType<typeof fetchConfiguredSportsOdds>>["odds"];
 
+// ASTRODDS_POLYMARKET_BRIDGE_V91E
+function polymarketBridgeDate(market: PolymarketMlbMoneylineMarket) {
+  const raw = `${market.eventSlug ?? ""} ${market.sourceUrl ?? ""} ${market.eventTitle ?? ""} ${market.question ?? ""}`;
+  const slugDate = raw.match(/(\d{4}-\d{2}-\d{2})/);
+
+  if (slugDate?.[1]) return `${slugDate[1]}T16:00:00Z`;
+
+  return market.endDate ?? market.marketDate ?? market.gameDate ?? null;
+}
+
+function isPolymarketBridgeCleanMoneyline(market: PolymarketMlbMoneylineMarket) {
+  const text = normalizeText(`${market.question ?? ""} ${market.title ?? ""} ${market.eventTitle ?? ""} ${market.eventSlug ?? ""} ${(market.outcomes ?? []).join(" ")}`);
+
+  if (/\b(extra innings|first 5|1st 5|f5|total runs|over\/under|run line|spread|player prop|team total|100 or more|100\+|regular season|world series|pennant|division|series)\b/.test(text)) {
+    return false;
+  }
+
+  const awayTeam = market.detectedAwayTeam;
+  const homeTeam = market.detectedHomeTeam;
+
+  if (!awayTeam || !homeTeam) return false;
+
+  const outcomes = market.outcomeProbabilities ?? [];
+
+  const awayOutcome = outcomes.find((outcome) =>
+    teamNameMatches(outcome.mappedTeam, awayTeam) &&
+    typeof outcome.marketProbability === "number" &&
+    Number.isFinite(outcome.marketProbability)
+  );
+
+  const homeOutcome = outcomes.find((outcome) =>
+    teamNameMatches(outcome.mappedTeam, homeTeam) &&
+    typeof outcome.marketProbability === "number" &&
+    Number.isFinite(outcome.marketProbability)
+  );
+
+  return Boolean(awayOutcome && homeOutcome);
+}
+
+function polymarketBridgeOddsRows(markets: PolymarketMlbMoneylineMarket[]): OddsRows {
+  const rows: OddsRows[number][] = [];
+
+  for (const market of markets) {
+    if (!isPolymarketBridgeCleanMoneyline(market)) continue;
+
+    const awayTeam = market.detectedAwayTeam;
+    const homeTeam = market.detectedHomeTeam;
+    const commenceTime = polymarketBridgeDate(market);
+
+    if (!awayTeam || !homeTeam || !commenceTime) continue;
+
+    const sharedGameId = `polymarket-${market.marketId}`;
+
+    for (const outcome of market.outcomeProbabilities ?? []) {
+      if (!outcome.mappedTeam) continue;
+      if (typeof outcome.marketProbability !== "number" || !Number.isFinite(outcome.marketProbability)) continue;
+
+      const isAway = teamNameMatches(outcome.mappedTeam, awayTeam);
+      const isHome = teamNameMatches(outcome.mappedTeam, homeTeam);
+
+      if (!isAway && !isHome) continue;
+
+      rows.push({
+        gameId: sharedGameId,
+        homeTeam,
+        awayTeam,
+        side: outcome.mappedTeam,
+        impliedProbability: Math.max(0.01, Math.min(0.99, outcome.marketProbability)),
+        provider: "polymarket",
+        commenceTime,
+        lastUpdated: market.marketDate ?? market.endDate ?? undefined,
+      } as OddsRows[number]);
+    }
+  }
+
+  return rows as OddsRows;
+}
+
+
+
 type MoneylinePriceSource = {
   priceSourceUsed: PriceSourceUsed;
   marketProbability: number | null;
@@ -429,7 +510,12 @@ function resolveMoneylinePriceSource(
   market: AstroddsMarketScan | undefined,
   oddsRows: OddsRows,
   selectedSide?: string,
-): MoneylinePriceSource {
+): {
+  priceSourceUsed: PriceSourceUsed;
+  marketProbability: number | null;
+  matchedMarketId?: string;
+  sourceLabel?: string;
+} {
   const cleanPolymarketPrice =
     market && market.category !== "Sportsbook" && isCleanMoneylineMarket(market) && typeof market.currentPrice === "number" && Number.isFinite(market.currentPrice)
       ? market.currentPrice
@@ -439,26 +525,27 @@ function resolveMoneylinePriceSource(
     return {
       priceSourceUsed: "polymarket",
       marketProbability: cleanPolymarketPrice,
-      marketConnected: true,
-      sourceLabel: "Polymarket moneyline",
+      matchedMarketId: market?.marketId,
+      sourceLabel: "Polymarket clean moneyline",
     };
   }
 
   const oddsMatch = findOddsMoneylineForGame(game, oddsRows, selectedSide);
+
   if (oddsMatch && typeof oddsMatch.impliedProbability === "number" && Number.isFinite(oddsMatch.impliedProbability)) {
+    const oddsPriceSource: PriceSourceUsed = /polymarket/i.test(String(oddsMatch.provider ?? "")) ? "polymarket" : "sportsbook";
+
     return {
-      priceSourceUsed: "sportsbook",
+      priceSourceUsed: oddsPriceSource,
       marketProbability: oddsMatch.impliedProbability,
-      marketConnected: true,
-      sourceLabel: `Sportsbook odds fallback (${oddsMatch.provider})`,
+      matchedMarketId: oddsMatch.gameId,
+      sourceLabel: oddsPriceSource === "polymarket" ? "Polymarket clean team moneyline" : `Sportsbook odds fallback (${oddsMatch.provider})`,
     };
   }
 
   return {
     priceSourceUsed: "model_only",
     marketProbability: null,
-    marketConnected: false,
-    sourceLabel: "Model only",
   };
 }
 
@@ -1322,7 +1409,7 @@ function buildSportsbookFallbackRows(
     warnings: uniqueStrings([
       ...(ledgerDiagnostics?.warnings ?? []),
       ...(dailyPredictionCache.warnings ?? []),
-      ...(dedupedRows.length ? ["MLB scan failed, but sportsbook odds are connected â€” showing odds-based moneyline board."] : []),
+      ...(dedupedRows.length ? ["MLB scan failed, but sportsbook odds are connected Ã¢â‚¬â€ showing odds-based moneyline board."] : []),
     ]),
     generatedAt: new Date().toISOString(),
   };
@@ -1415,23 +1502,53 @@ function buildSportsbookFallbackRows(
 async function fetchOddsLayer(timeoutMs: number) {
   const controller = new AbortController();
   const timeout = setTimeout(() => {
-    controller.abort(new Error(`Best Bets sportsbook odds timed out after ${Math.round(timeoutMs / 1000)} seconds.`));
+    controller.abort(new Error(`Best Bets sportsbook/Polymarket odds timed out after ${Math.round(timeoutMs / 1000)} seconds.`));
   }, timeoutMs);
 
   try {
-    const odds = await fetchConfiguredSportsOdds("baseball_mlb", controller.signal);
-    const warnings = odds.error ? [`Sportsbook odds source warning: ${odds.error}`] : [];
+    const [sportsbook, polymarket] = await Promise.all([
+      fetchConfiguredSportsOdds("baseball_mlb", controller.signal),
+      discoverPolymarketMlbMoneylineMarkets({
+        timeoutMs: Math.min(timeoutMs, 7500),
+        cacheFreshnessSeconds: 15 * 60,
+        signal: controller.signal,
+      }).catch((error) => ({
+        status: "PARTIAL" as const,
+        marketPricesConnected: false,
+        supportedMarkets: ["moneyline"],
+        disabledMarkets: [],
+        futureMarkets: [],
+        markets: [] as PolymarketMlbMoneylineMarket[],
+        warnings: [error instanceof Error ? error.message : "Polymarket MLB discovery failed."],
+        sourceDiagnostics: [],
+        totalGammaMarketsScanned: 0,
+        acceptedMlbMarkets: 0,
+        generatedAt: new Date().toISOString(),
+      })),
+    ]);
+
+    const polymarketOdds = polymarketBridgeOddsRows(polymarket.markets ?? []);
+
+    const warnings = [
+      sportsbook.error ? `Sportsbook odds source warning: ${sportsbook.error}` : undefined,
+      ...(polymarket.warnings ?? []).map((warning) => `Polymarket MLB warning: ${warning}`),
+      polymarketOdds.length ? `Polymarket clean moneyline rows connected: ${polymarketOdds.length}` : undefined,
+    ].filter(Boolean) as string[];
+
+    const combinedOdds = [...polymarketOdds, ...sportsbook.odds] as OddsRows;
+
     return {
-      status: odds.status === "FAILED" ? ("partial" as const) : ("available" as const),
-      odds: odds.odds,
+      status: sportsbook.status === "FAILED" && !polymarketOdds.length ? ("partial" as const) : ("available" as const),
+      odds: combinedOdds,
       warnings,
     };
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown sportsbook odds failure.";
+    const message = error instanceof Error ? error.message : "Unknown sportsbook/Polymarket odds failure.";
+
     return {
       status: "partial" as const,
       odds: [] as OddsRows,
-      warnings: [`Sportsbook odds fetch failed: ${message}`],
+      warnings: [`Sportsbook/Polymarket odds fetch failed: ${message}`],
     };
   } finally {
     clearTimeout(timeout);
@@ -1804,7 +1921,7 @@ async function GET_IMPL() {
       scanGamesFound: scanResult.scan.games.length,
       scanFailed: scanResult.status !== "available",
       sportsbookOddsFound: oddsResult.odds.length,
-      polymarketCleanMoneylineFound: built.bestBetsDiagnostics.polymarketCleanMoneylineFound ?? built.bestBetRows.filter((row: BestBetRowResponse) => row.priceSourceUsed === "polymarket").length,
+      polymarketCleanMoneylineFound: built.bestBetRows.filter((row: BestBetRowResponse) => row.priceSourceUsed === "polymarket").length,
       rowsWithModelProbability: built.bestBetsDiagnostics.rowsWithModelProbability ?? built.bestBetRows.filter((row: BestBetRowResponse) => typeof row.calibratedProbability === "number").length,
       rowsWithRealPrice: built.bestBetsDiagnostics.rowsWithRealPrice ?? built.bestBetRows.filter((row: BestBetRowResponse) => typeof row.marketProbability === "number").length,
       rowsWithEdge: 0,
@@ -1857,7 +1974,7 @@ async function GET_IMPL() {
       scanGamesFound: scanResult.scan.games.length,
       scanFailed: scanResult.status !== "available",
       sportsbookOddsFound: oddsResult.odds.length,
-      polymarketCleanMoneylineFound: built.bestBetsDiagnostics.polymarketCleanMoneylineFound ?? built.bestBetRows.filter((row: BestBetRowResponse) => row.priceSourceUsed === "polymarket").length,
+      polymarketCleanMoneylineFound: built.bestBetRows.filter((row: BestBetRowResponse) => row.priceSourceUsed === "polymarket").length,
       rowsWithModelProbability: built.bestBetsDiagnostics.rowsWithModelProbability ?? built.bestBetRows.filter((row: BestBetRowResponse) => typeof row.calibratedProbability === "number").length,
       rowsWithRealPrice: built.bestBetsDiagnostics.rowsWithRealPrice ?? built.bestBetRows.filter((row: BestBetRowResponse) => typeof row.marketProbability === "number").length,
       rowsWithEdge: 0,
@@ -1920,6 +2037,8 @@ export async function GET() {
     );
   }
 }
+
+
 
 
 
