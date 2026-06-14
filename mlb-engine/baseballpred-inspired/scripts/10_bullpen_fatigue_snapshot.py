@@ -1,5 +1,6 @@
 ﻿from pathlib import Path
 import csv, json, urllib.request
+from cache_utils import cached_get_json
 from datetime import datetime, timedelta, timezone
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -16,8 +17,14 @@ def read_json(path):
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 def fetch_json(url, timeout=60):
-    with urllib.request.urlopen(url, timeout=timeout) as r:
-        return json.loads(r.read().decode("utf-8"))
+    # Cached public MLB StatsAPI fetch. Reduces repeated calls and ETIMEDOUT risk.
+    data, source = cached_get_json(
+        url,
+        namespace="mlb_statsapi",
+        ttl_seconds=1800,
+        timeout=timeout
+    )
+    return data
 
 def nested(obj, keys, default=None):
     cur = obj
@@ -271,3 +278,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
