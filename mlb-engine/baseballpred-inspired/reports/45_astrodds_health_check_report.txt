@@ -1,0 +1,42 @@
+﻿ASTRODDS 45 HEALTH CHECK REPORT
+====================================
+Generated: 2026-06-14T09:11:22.4858082-04:00
+
+Workspace: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace
+
+Git status:
+DIRTY
+- ?? mlb-engine/baseballpred-inspired/scripts/45_astrodds_health_check.ps1
+
+Core files:
+OK: .env.local
+OK: mlb-engine\baseballpred-inspired\scripts\31_auto_daily_engine_runner.ps1
+OK: mlb-engine\baseballpred-inspired\scripts\44_telegram_review_recap.py
+OK: mlb-engine\scripts\42_threshold_context_gate.py
+OK: mlb-engine\baseballpred-inspired\models\ASTRODDS_ENGINE_V2_THRESHOLD_RULES.json
+OK: public\astrodds-proof-log.html
+OK: public\astrodds-proof-log.json
+
+Runtime JSON counts:
+VVS rows: 5
+Signal ledger rows: 5
+Daily total signals: 5
+Threshold context rows: 10
+Telegram review recap ledger rows: 2
+
+Scheduled tasks:
+OK: ASTRODDS Engine V2 Morning
+  Prochaine exécution:         2026-06-14 11:00:00
+  Statut:                      Prêt
+OK: ASTRODDS Engine V2 Afternoon
+  Prochaine exécution:         2026-06-14 15:00:00
+  Statut:                      Prêt
+OK: ASTRODDS Engine V2 Evening
+  Prochaine exécution:         2026-06-14 19:00:00
+  Statut:                      Prêt
+
+Health conclusion:
+STATUS: REVIEW_NEEDED
+Check git status or runtime counts.
+
+Rule: health check only. No real-money automation.
