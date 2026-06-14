@@ -205,13 +205,13 @@ def main():
             "A_PICK": "today only, pre-game, market connected, edge >= 10%, stake 5%",
             "VALUE_LEAN": "today only, pre-game, market connected, edge >= 5%, stake 1-2%",
             "ACTION_LEAN": "today only, pre-game, market connected, edge >= 3%, stake 0.5-1%",
-            "UPCOMING_WATCHLIST": "future games only, no stake today",
+
         },
         "counts": {
             "aPick": len(a_picks),
             "valueLean": len(value_leans),
             "actionLean": len(action_leans),
-            "upcomingWatchlist": len(upcoming),
+
             "scanGamesFound": diagnostics.get("scanGamesFound"),
             "rowsWithRealPrice": diagnostics.get("rowsWithRealPrice"),
             "moneylinePricesFound": diagnostics.get("moneylinePricesFound"),
@@ -220,7 +220,7 @@ def main():
         "aPicks": a_picks,
         "valueLeans": value_leans[:5],
         "actionLeans": action_leans[:5],
-        "upcomingWatchlist": upcoming[:12],
+
     }
 
     JSON_OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -235,7 +235,7 @@ def main():
         "- A PICK = today only / 5%",
         "- VALUE LEAN = today only / 1-2%",
         "- ACTION LEAN = today only / 0.5-1%",
-        "- UPCOMING WATCHLIST = no stake today",
+        "- Only today games are shown publicly",
         "",
         "Counts:",
     ]
@@ -259,7 +259,7 @@ def main():
     add_section("A PICK:", a_picks)
     add_section("VALUE LEAN:", value_leans[:5])
     add_section("ACTION LEAN:", action_leans[:5])
-    add_section("UPCOMING WATCHLIST - NOT BET TODAY:", upcoming[:12])
+    # Upcoming/future games intentionally hidden from public board.
 
     lines += [
         "",
@@ -274,3 +274,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
