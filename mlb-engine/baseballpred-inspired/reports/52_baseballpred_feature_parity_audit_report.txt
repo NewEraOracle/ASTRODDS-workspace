@@ -1,0 +1,47 @@
+ASTRODDS 52 BASEBALLPRED FEATURE PARITY AUDIT
+==========================================================
+Generated: 2026-06-14T14:43:52.525860Z
+
+Best dataset candidate:
+- astrodss_master_feature_dataset_v2_calibrated.csv | Score=0 | Rows=0 | Columns=0
+
+Feature parity:
+- calibration: OK
+- walk_forward_oos_validation: OK
+- threshold_official_buy_rules: OK
+- full_slate_engine: OK
+- pitcher_context: PARTIAL
+- bullpen_context: OK
+- weather_context: OK
+- lineup_context: PARTIAL
+- injuries_context: MISSING
+- advanced_pitcher_metrics: MISSING
+- historical_real_odds_roi: MISSING
+- public_proof_log: OK
+- telegram_public_client_filter: OK
+- credit_guard: OK
+- single_official_source: NEEDS_REVIEW
+
+Runtime counts:
+- vvs_final: 5
+- engine_final: 5
+- ledger: 5
+- full_slate_threshold: 9
+- proof_html: OK
+- proof_json: OK_OBJECT
+
+Dataset audit:
+- astrodss_master_feature_dataset_v2_calibrated.csv | exists=False rows=0 score=0 odds=False injuries=False advancedPitcher=False
+- mlb_moneyline_features_2016_2026.csv | exists=False rows=0 score=0 odds=False injuries=False advancedPitcher=False
+- mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv | exists=False rows=0 score=0 odds=False injuries=False advancedPitcher=False
+- mlb_moneyline_features_with_pitchers_bullpen_weather_lineup.csv | exists=False rows=0 score=0 odds=False injuries=False advancedPitcher=False
+
+Recommendations:
+- 53: unify official final source between VVS final engine and full-slate threshold gate.
+- 54: build historical odds ROI audit. Use real entry/closing prices if available; otherwise mark as missing.
+- 55: add or formalize injury impact layer before official buy.
+- 56: add advanced pitcher/team metrics audit and feature builder.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\52_baseballpred_feature_parity_audit.json
+
+Rule: audit only. No scans. No real-money automation.
