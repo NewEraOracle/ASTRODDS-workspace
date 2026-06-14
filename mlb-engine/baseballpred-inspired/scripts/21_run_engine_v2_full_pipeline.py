@@ -20,6 +20,7 @@ PIPELINE = [
     ("19_engine_signal_ledger.py", "Save final signals to ledger"),
     ("20_resolve_engine_signal_ledger.py", "Resolve ledger win/loss when games are final"),
     ("29_public_proof_log.py", "Generate public proof log"),
+    ("30_telegram_final_engine_alerts.py", "Send Telegram final engine alerts"),
 ]
 
 def run(script):
@@ -107,4 +108,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 

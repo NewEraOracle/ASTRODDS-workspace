@@ -1,0 +1,19 @@
+ASTRODDS 30 TELEGRAM FINAL ENGINE ALERTS REPORT
+========================================================
+Status: OK
+Token: 8566***EMok
+Chat: 5583***6333
+
+Input signals: 5
+Eligible ENGINE_BUY alerts: 1
+Sent this run: 0
+Skipped duplicates: 1
+Ledger rows: 1
+
+Rule: send only ENGINE_BUY with grade A+ or A.
+Paper/manual only. No real-money automation.
+
+Eligible alerts:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Grade: A+ | Edge: 12.47%
+
+Alert ledger: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-telegram-alert-ledger.json
