@@ -1,8 +1,9 @@
 ASTRODDS 64 WEEKLY INVESTOR RESULTS REPORT
 ========================================================
-Generated: 2026-06-14T16:10:20.752250+00:00
+Generated: 2026-06-14T16:28:20.280017+00:00
 
 Status: OK
+Source: engine_signal_ledger
 Week: 2026-06-08 to 2026-06-14
 Sent Telegram summary: 1
 Sent Telegram CSV: 1
@@ -19,5 +20,4 @@ Paper units: -1.457u
 Google Sheets CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-weekly-results-latest.csv
 Investor HTML: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-weekly-results-latest.html
 JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-weekly-results-latest.json
-
 Rule: weekly investor report only. No odds scan. No betting automation.

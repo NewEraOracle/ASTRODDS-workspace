@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+from pathlib import Path
 import json
 import urllib.request
 import urllib.parse
@@ -9,11 +9,11 @@ ROOT = Path(r"C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace")
 BASE = ROOT / "mlb-engine" / "baseballpred-inspired"
 
 ENV = ROOT / ".env.local"
+DAILY = ROOT / ".astrodds" / "ASTRODDS-daily-performance-latest.json"
 LEDGER = ROOT / ".astrodds" / "ASTRODDS-engine-signal-ledger.json"
 DUP_LEDGER = ROOT / ".astrodds" / "ASTRODDS-telegram-daily-results-ledger.json"
-
-REPORT = BASE / "reports" / "63_daily_11pm_results_alert_report.txt"
 OUT_JSON = ROOT / ".astrodds" / "ASTRODDS-daily-results-11pm-latest.json"
+REPORT = BASE / "reports" / "63_daily_11pm_results_alert_report.txt"
 
 TZ = ZoneInfo("America/Toronto")
 
@@ -33,9 +33,7 @@ def mask(value):
     if not value:
         return "missing"
     value = str(value)
-    if len(value) <= 8:
-        return "***"
-    return value[:4] + "***" + value[-4:]
+    return value[:4] + "***" + value[-4:] if len(value) > 8 else "***"
 
 def read_json(path, fallback):
     if not path.exists():
@@ -49,11 +47,27 @@ def write_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
+def fnum(v):
+    try:
+        if v is None or str(v).strip() == "":
+            return 0.0
+        return float(str(v).replace(",", "."))
+    except Exception:
+        return 0.0
+
+def get_first(obj, keys, default=None):
+    if not isinstance(obj, dict):
+        return default
+    for k in keys:
+        if k in obj and obj.get(k) is not None:
+            return obj.get(k)
+    return default
+
 def parse_dt(value):
     if not value:
         return None
-    s = str(value)
     try:
+        s = str(value)
         if s.endswith("Z"):
             return datetime.fromisoformat(s.replace("Z", "+00:00"))
         dt = datetime.fromisoformat(s)
@@ -64,105 +78,79 @@ def parse_dt(value):
         return None
 
 def row_montreal_date(row):
-    # Prefer game date for daily game results.
-    dt = parse_dt(row.get("date") or row.get("commenceTime") or row.get("gameTime"))
-    if not dt:
-        dt = parse_dt(row.get("resolvedAt") or row.get("ledgerAddedAt"))
+    dt = parse_dt(row.get("date") or row.get("commenceTime") or row.get("gameTime") or row.get("resolvedAt"))
     if not dt:
         return None
     return dt.astimezone(TZ).date().isoformat()
 
-def fnum(value):
-    try:
-        if value is None or str(value).strip() == "":
-            return 0.0
-        return float(str(value).replace(",", "."))
-    except Exception:
-        return 0.0
-
-def result_key(row):
-    return str(row.get("result") or "pending").lower()
-
-def category(row):
-    decision = str(row.get("finalEngineDecision") or row.get("decision") or "").upper()
-    grade = str(row.get("finalGrade") or row.get("grade") or "").upper()
-    if decision == "ENGINE_BUY":
-        return "OFFICIAL_BUY"
-    if decision == "MANUAL_REVIEW" and grade == "A":
-        return "A_REVIEW"
-    if decision == "MANUAL_REVIEW" and grade == "B":
-        return "B_REVIEW"
-    if grade == "WATCH" or decision == "WATCH":
-        return "WATCH"
-    return decision or grade or "UNKNOWN"
-
-def summarize(rows):
-    wins = [r for r in rows if result_key(r) == "win"]
-    losses = [r for r in rows if result_key(r) == "loss"]
-    pushes = [r for r in rows if result_key(r) in ["push", "void"]]
-    pending = [r for r in rows if result_key(r) not in ["win", "loss", "push", "void"]]
-    resolved = len(wins) + len(losses)
-    win_rate = round((len(wins) / resolved) * 100, 2) if resolved else None
+def summarize_from_ledger_for_day(day):
+    ledger = read_json(LEDGER, [])
+    if not isinstance(ledger, list):
+        ledger = []
+    rows = [r for r in ledger if isinstance(r, dict) and row_montreal_date(r) == day]
+    wins = sum(1 for r in rows if str(r.get("result", "")).lower() == "win")
+    losses = sum(1 for r in rows if str(r.get("result", "")).lower() == "loss")
+    pending = sum(1 for r in rows if str(r.get("result", "pending")).lower() not in ["win", "loss", "push", "void"])
+    resolved = wins + losses
+    win_rate = round((wins / resolved) * 100, 1) if resolved else None
     units = round(sum(fnum(r.get("paperProfitUnits")) for r in rows), 3)
-
-    by_cat = {}
-    for r in rows:
-        c = category(r)
-        if c not in by_cat:
-            by_cat[c] = {"signals": 0, "wins": 0, "losses": 0, "pending": 0, "units": 0.0}
-        by_cat[c]["signals"] += 1
-        by_cat[c]["units"] += fnum(r.get("paperProfitUnits"))
-        res = result_key(r)
-        if res == "win":
-            by_cat[c]["wins"] += 1
-        elif res == "loss":
-            by_cat[c]["losses"] += 1
-        elif res not in ["push", "void"]:
-            by_cat[c]["pending"] += 1
-
-    for c in by_cat.values():
-        res = c["wins"] + c["losses"]
-        c["winRatePct"] = round((c["wins"] / res) * 100, 2) if res else None
-        c["units"] = round(c["units"], 3)
-
+    official = sum(1 for r in rows if str(r.get("finalEngineDecision", "")).upper() == "ENGINE_BUY")
     return {
         "signals": len(rows),
+        "wins": wins,
+        "losses": losses,
+        "pending": pending,
         "resolved": resolved,
-        "wins": len(wins),
-        "losses": len(losses),
-        "pushVoid": len(pushes),
-        "pending": len(pending),
         "winRatePct": win_rate,
         "paperUnits": units,
-        "engineBuy": sum(1 for r in rows if str(r.get("finalEngineDecision") or "").upper() == "ENGINE_BUY"),
-        "byCategory": by_cat,
+        "officialBuys": official,
+        "source": "ledger_day_filter",
     }
 
-def format_units(v):
-    if v is None:
-        return "0u"
-    return f"{round(float(v), 3)}u"
+def summarize_daily_performance(day):
+    daily = read_json(DAILY, {})
+    if not isinstance(daily, dict):
+        return summarize_from_ledger_for_day(day)
 
-def build_message(day, summary):
-    wr = "N/A" if summary["winRatePct"] is None else f"{summary['winRatePct']}%"
-    lines = []
-    lines.append(f"ðŸ“Š ASTRODDS DAILY RESULTS â€” {day}")
-    lines.append("")
-    lines.append(f"Signals: {summary['signals']}")
-    lines.append(f"Wins: {summary['wins']} | Losses: {summary['losses']} | Pending: {summary['pending']}")
-    lines.append(f"Win rate: {wr}")
-    lines.append(f"Paper units: {format_units(summary['paperUnits'])}")
-    lines.append(f"Official buys: {summary['engineBuy']}")
-    lines.append("")
-    if summary["byCategory"]:
-        lines.append("Breakdown:")
-        for name in sorted(summary["byCategory"].keys()):
-            c = summary["byCategory"][name]
-            cwr = "N/A" if c["winRatePct"] is None else f"{c['winRatePct']}%"
-            lines.append(f"- {name}: {c['wins']}-{c['losses']} | {cwr} | {format_units(c['units'])}")
-        lines.append("")
-    lines.append("Paper/manual tracking only. No real-money automation.")
-    return "\n".join(lines)
+    signals = int(get_first(daily, ["totalSignals", "signals", "signalCount"], 0) or 0)
+    wins = int(get_first(daily, ["wins", "winCount"], 0) or 0)
+    losses = int(get_first(daily, ["losses", "lossCount"], 0) or 0)
+    pending = int(get_first(daily, ["pending", "pendingCount"], 0) or 0)
+    resolved = int(get_first(daily, ["resolved", "resolvedSignals"], wins + losses) or 0)
+    official = int(get_first(daily, ["engineBuy", "engineBuyCount", "officialBuys"], 0) or 0)
+
+    wr = get_first(daily, ["winRatePct", "winRate", "accuracy"], None)
+    if wr is None:
+        win_rate = round((wins / (wins + losses)) * 100, 1) if (wins + losses) else None
+    else:
+        win_rate = fnum(wr)
+        if win_rate <= 1:
+            win_rate *= 100
+        win_rate = round(win_rate, 1)
+
+    units = round(fnum(get_first(daily, ["paperUnits", "paperProfitUnits", "profitUnits"], 0)), 3)
+
+    # If daily performance has real rows, trust it. It is the final resolved daily report.
+    if signals > 0 or wins > 0 or losses > 0:
+        return {
+            "signals": signals,
+            "wins": wins,
+            "losses": losses,
+            "pending": pending,
+            "resolved": resolved,
+            "winRatePct": win_rate,
+            "paperUnits": units,
+            "officialBuys": official,
+            "source": "daily_performance_latest",
+        }
+
+    return summarize_from_ledger_for_day(day)
+
+def format_units(v):
+    return f"{fnum(v):.3f}u"
+
+def format_wr(v):
+    return "N/A" if v is None else f"{float(v):.1f}%"
 
 def telegram_send(token, chat_id, text):
     if not token or not chat_id:
@@ -175,99 +163,113 @@ def telegram_send(token, chat_id, text):
     }).encode("utf-8")
     req = urllib.request.Request(url, data=data, method="POST")
     with urllib.request.urlopen(req, timeout=30) as resp:
-        body = resp.read().decode("utf-8", errors="ignore")
-    return True, body[:500]
+        return True, resp.read().decode("utf-8", errors="ignore")[:500]
+
+def build_message(day, s):
+    return "\n".join([
+        "ASTRODDS DAILY RESULTS",
+        f"Date: {day}",
+        "",
+        f"Signals: {s['signals']}",
+        f"Wins: {s['wins']}",
+        f"Losses: {s['losses']}",
+        f"Pending: {s['pending']}",
+        f"Win rate: {format_wr(s['winRatePct'])}",
+        f"Paper units: {format_units(s['paperUnits'])}",
+        f"Official buys: {s['officialBuys']}",
+        "",
+        "Paper/manual only. No real-money automation.",
+    ])
+
+def remove_duplicate_key(path, key):
+    data = read_json(path, {})
+    changed = False
+    if isinstance(data, dict) and key in data:
+        data.pop(key, None)
+        changed = True
+    elif isinstance(data, list) and key in data:
+        data = [x for x in data if x != key]
+        changed = True
+    if changed:
+        write_json(path, data)
 
 def main():
     generated = datetime.now(timezone.utc).isoformat()
     env = load_env(ENV)
     token = env.get("TELEGRAM_BOT_TOKEN") or env.get("ASTRODDS_TELEGRAM_BOT_TOKEN")
-    chat_id = (
-        env.get("TELEGRAM_RESULTS_CHAT_ID")
-        or env.get("TELEGRAM_CHAT_ID")
-        or env.get("ASTRODDS_TELEGRAM_CHAT_ID")
-    )
+    chat_id = env.get("TELEGRAM_RESULTS_CHAT_ID") or env.get("TELEGRAM_CHAT_ID") or env.get("ASTRODDS_TELEGRAM_CHAT_ID")
 
-    today = datetime.now(TZ).date().isoformat()
-    ledger = read_json(LEDGER, [])
-    if not isinstance(ledger, list):
-        ledger = []
+    day = datetime.now(TZ).date().isoformat()
+    key = f"daily-results|{day}"
 
-    today_rows = [r for r in ledger if row_montreal_date(r) == today]
-    summary = summarize(today_rows)
-    message = build_message(today, summary)
+    dedupe = read_json(DUP_LEDGER, {})
+    duplicate = (key in dedupe) if isinstance(dedupe, dict) else (key in dedupe if isinstance(dedupe, list) else False)
 
-    dup = read_json(DUP_LEDGER, {})
-    if not isinstance(dup, dict):
-        dup = {}
-
-    key = f"daily-results|{today}"
-    duplicate = key in dup
+    summary = summarize_daily_performance(day)
+    message = build_message(day, summary)
 
     sent = False
-    send_error = ""
+    err = ""
     if duplicate:
         status = "DUPLICATE"
     else:
         try:
-            sent, send_response = telegram_send(token, chat_id, message)
+            sent, _ = telegram_send(token, chat_id, message)
             status = "OK" if sent else "ERROR"
             if sent:
-                dup[key] = {"sentAt": generated, "day": today, "summary": summary}
-                write_json(DUP_LEDGER, dup)
-            else:
-                send_error = send_response
+                if isinstance(dedupe, dict):
+                    dedupe[key] = {"sentAt": generated, "summary": summary}
+                else:
+                    dedupe = list(dedupe) if isinstance(dedupe, list) else []
+                    dedupe.append(key)
+                write_json(DUP_LEDGER, dedupe)
         except Exception as exc:
             status = "ERROR"
-            send_error = str(exc)
+            err = str(exc)
 
-    output = {
+    out = {
         "generatedAt": generated,
-        "montrealDate": today,
         "status": status,
         "sent": sent,
         "duplicate": duplicate,
         "token": mask(token),
         "chat": mask(chat_id),
+        "montrealDate": day,
         "summary": summary,
-        "rows": today_rows,
         "message": message,
         "paperOnly": True,
         "realMoneyAutomation": False,
     }
-    write_json(OUT_JSON, output)
+    write_json(OUT_JSON, out)
 
-    lines = []
-    lines.append("ASTRODDS 63 DAILY 11PM RESULTS ALERT REPORT")
-    lines.append("=" * 56)
-    lines.append(f"Generated: {generated}")
-    lines.append("")
-    lines.append(f"Status: {status}")
-    if send_error:
-        lines.append(f"Send error: {send_error}")
-    lines.append(f"Montreal date: {today}")
-    lines.append(f"Token: {mask(token)}")
-    lines.append(f"Chat: {mask(chat_id)}")
-    lines.append(f"Sent this run: {1 if sent else 0}")
-    lines.append(f"Skipped duplicate: {1 if duplicate else 0}")
-    lines.append("")
-    lines.append(f"Signals: {summary['signals']}")
-    lines.append(f"Resolved: {summary['resolved']}")
-    lines.append(f"Wins: {summary['wins']}")
-    lines.append(f"Losses: {summary['losses']}")
-    lines.append(f"Pending: {summary['pending']}")
-    lines.append(f"Win rate: {summary['winRatePct']}%")
-    lines.append(f"Paper units: {summary['paperUnits']}u")
-    lines.append(f"ENGINE_BUY: {summary['engineBuy']}")
-    lines.append("")
-    lines.append("Telegram message:")
-    lines.append(message)
-    lines.append("")
-    lines.append(f"JSON: {OUT_JSON}")
-    lines.append(f"Dedup ledger: {DUP_LEDGER}")
-    lines.append("")
-    lines.append("Rule: daily results only. No odds scan. No betting automation.")
-
+    lines = [
+        "ASTRODDS 63 DAILY 11PM RESULTS ALERT REPORT",
+        "=" * 56,
+        f"Generated: {generated}",
+        "",
+        f"Status: {status}",
+    ]
+    if err:
+        lines.append(f"Send error: {err}")
+    lines += [
+        f"Source: {summary['source']}",
+        f"Sent this run: {1 if sent else 0}",
+        f"Skipped duplicate: {1 if duplicate else 0}",
+        "",
+        f"Signals: {summary['signals']}",
+        f"Wins: {summary['wins']}",
+        f"Losses: {summary['losses']}",
+        f"Pending: {summary['pending']}",
+        f"Win rate: {format_wr(summary['winRatePct'])}",
+        f"Paper units: {format_units(summary['paperUnits'])}",
+        f"Official buys: {summary['officialBuys']}",
+        "",
+        "Telegram message:",
+        message,
+        "",
+        f"JSON: {OUT_JSON}",
+        "Rule: daily results only. No odds scan. No betting automation.",
+    ]
     REPORT.write_text("\n".join(lines), encoding="utf-8")
     print("\n".join(lines))
     print("")
@@ -275,4 +277,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

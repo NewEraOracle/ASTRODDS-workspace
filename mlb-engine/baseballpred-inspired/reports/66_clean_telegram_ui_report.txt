@@ -1,0 +1,13 @@
+ASTRODDS 66C RESULTS COUNT FIX REPORT
+=====================================
+Generated: 2026-06-14T12:28:21.8502247-04:00
+
+Status: OK
+
+Fixed:
+- 63 daily report now trusts ASTRODDS-daily-performance-latest.json when available
+- 64 weekly report falls back to ledger rows instead of showing fake zero
+- Messages remain ASCII-only and clean
+- Duplicate keys reset after test
+
+No odds scan. No betting automation.

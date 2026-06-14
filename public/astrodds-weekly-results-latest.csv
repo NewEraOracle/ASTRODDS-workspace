@@ -1,6 +1,6 @@
-﻿Date,Game,Pick,Decision,Grade,Category,Market %,Calibrated %,Edge %,Result,Winner,Score,Paper Units,Game UTC,Resolved At,Paper Only
-2026-06-13,Arizona Diamondbacks @ Cincinnati Reds,Arizona Diamondbacks,MANUAL_REVIEW,B,B_REVIEW,58.68,63.45,4.78,loss,Cincinnati Reds,1-2,-1.0,2026-06-13T20:10:00Z,2026-06-13T22:35:12.635237Z,True
-2026-06-13,Houston Astros @ Kansas City Royals,Kansas City Royals,MANUAL_REVIEW,A,A_REVIEW,55.75,63.45,7.7,loss,Houston Astros,8-7,-1.0,2026-06-13T23:10:00Z,2026-06-14T12:47:35.260296Z,True
-2026-06-13,Philadelphia Phillies @ Milwaukee Brewers,Milwaukee Brewers,MANUAL_REVIEW,B,B_REVIEW,58.68,63.45,4.78,loss,Philadelphia Phillies,9-8,-1.0,2026-06-13T23:10:00Z,2026-06-14T02:31:46.092494Z,True
-2026-06-13,Colorado Rockies @ Athletics,Athletics,WATCH,WATCH,WATCH,63.24,63.45,0.22,win,Athletics,5-7,0.581,2026-06-14T02:05:00Z,2026-06-14T12:47:35.622619Z,True
-2026-06-13,Tampa Bay Rays @ Los Angeles Angels,Los Angeles Angels,MANUAL_REVIEW,A,A_REVIEW,50.98,63.45,12.47,win,Los Angeles Angels,0-8,0.962,2026-06-14T02:07:00Z,2026-06-14T12:47:36.560137Z,True
+﻿Date,Game,Pick,Decision,Grade,Category,Result,Winner,Score,Paper Units,Paper Only
+2026-06-13,Arizona Diamondbacks @ Cincinnati Reds,Arizona Diamondbacks,MANUAL_REVIEW,B,B_REVIEW,loss,Cincinnati Reds,1-2,-1.0,True
+2026-06-13,Houston Astros @ Kansas City Royals,Kansas City Royals,MANUAL_REVIEW,A,A_REVIEW,loss,Houston Astros,8-7,-1.0,True
+2026-06-13,Philadelphia Phillies @ Milwaukee Brewers,Milwaukee Brewers,MANUAL_REVIEW,B,B_REVIEW,loss,Philadelphia Phillies,9-8,-1.0,True
+2026-06-13,Colorado Rockies @ Athletics,Athletics,WATCH,WATCH,WATCH,win,Athletics,5-7,0.581,True
+2026-06-13,Tampa Bay Rays @ Los Angeles Angels,Los Angeles Angels,MANUAL_REVIEW,A,A_REVIEW,win,Los Angeles Angels,0-8,0.962,True
