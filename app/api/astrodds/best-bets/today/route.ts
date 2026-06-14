@@ -1685,7 +1685,7 @@ function withAstroddsEngineV2Fields(row: any, index = 0) {
   };
 }
 
-export async function GET() {
+async function GET_IMPL() {
   const [ledgerDiagnostics, scanResult, oddsResult] = await Promise.all([
     loadStrongBuyLedgerStatus().catch(() => null),
     fetchMlbScan(TIMEOUT_MS),
@@ -1832,15 +1832,43 @@ export async function GET() {
   });
 }
 
+function astroddsFallbackErrorMessage(error: unknown): string {
+  if (error instanceof Error) {
+    const cause = (error as Error & { cause?: unknown }).cause;
+    const causeMessage = cause instanceof Error ? cause.message : cause ? String(cause) : "";
+    return [error.message, causeMessage].filter(Boolean).join(" | ");
+  }
 
+  return String(error);
+}
 
+export async function GET() {
+  try {
+    return await GET_IMPL();
+  } catch (error) {
+    const message = astroddsFallbackErrorMessage(error);
+    const isTimeout = /ETIMEDOUT|timed out|timeout|abort|fetch failed/i.test(message);
+    const status = isTimeout ? "timeout" : "partial";
 
-
-
-
-
-
-
-
-
+    return NextResponse.json(
+      buildFallbackResponse(
+        status,
+        [
+          isTimeout
+            ? `Best Bets route recovered from upstream timeout: ${message}`
+            : `Best Bets route recovered from upstream error: ${message}`,
+        ],
+        null,
+        [],
+      ),
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "no-store",
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      },
+    );
+  }
+}
 
