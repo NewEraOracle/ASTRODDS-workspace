@@ -241,6 +241,15 @@ if ($process.ExitCode -eq 0) {
   $recapProcess = Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$recapScript`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
   Add-Line "Telegram recap exit code: $($recapProcess.ExitCode)"
 
+  Add-Line "Running Telegram result tracking..."
+  $resultTracking = Join-Path $ScriptDir "81_telegram_result_tracking.py"
+
+  if (Test-Path $resultTracking) {
+    $resultTrackingProcess = Start-Process python -ArgumentList "`"$resultTracking`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "Telegram result tracking exit code: $($resultTrackingProcess.ExitCode)"
+  } else {
+    Add-Line "Telegram result tracking skipped: script not found."
+  }
   Add-Line "STATUS: OK"
   Add-Line "Engine run complete."
   Add-Line ""
@@ -270,6 +279,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
