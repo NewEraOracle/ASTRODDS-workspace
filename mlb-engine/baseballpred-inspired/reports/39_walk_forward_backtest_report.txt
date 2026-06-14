@@ -1,0 +1,44 @@
+ASTRODDS 39 WALK-FORWARD BACKTEST REPORT
+====================================================
+Generated: 2026-06-14T12:40:28.058282Z
+
+Input rows: 23826
+Eligible model rows: 21074
+Skipped rows: 2752
+
+Full eligible summary:
+- Bets: 21074
+- Wins: 11804
+- Losses: 9270
+- Accuracy: 56.01%
+- Even-money units: 2534u
+- Even-money ROI: 12.02%
+
+Threshold summary:
+- Prob >= 50% | Bets=21074 | Wins=11804 | Losses=9270 | Accuracy=56.01% | Units=2534u | ROI=12.02%
+- Prob >= 55% | Bets=10993 | Wins=6437 | Losses=4556 | Accuracy=58.56% | Units=1881u | ROI=17.11%
+- Prob >= 57% | Bets=6941 | Wins=4208 | Losses=2733 | Accuracy=60.63% | Units=1475u | ROI=21.25%
+- Prob >= 60% | Bets=2180 | Wins=1392 | Losses=788 | Accuracy=63.85% | Units=604u | ROI=27.71%
+- Prob >= 63% | Bets=2180 | Wins=1392 | Losses=788 | Accuracy=63.85% | Units=604u | ROI=27.71%
+
+Year summary, all eligible:
+- 2017 | Bets=2430 | Accuracy=53.05% | Units=148u | ROI=6.09%
+- 2018 | Bets=2433 | Accuracy=57.91% | Units=385u | ROI=15.82%
+- 2019 | Bets=2433 | Accuracy=59.88% | Units=481u | ROI=19.77%
+- 2020 | Bets=900 | Accuracy=57.0% | Units=126u | ROI=14.0%
+- 2021 | Bets=2437 | Accuracy=55.48% | Units=267u | ROI=10.96%
+- 2022 | Bets=2269 | Accuracy=57.16% | Units=325u | ROI=14.32%
+- 2023 | Bets=2437 | Accuracy=55.48% | Units=267u | ROI=10.96%
+- 2024 | Bets=2432 | Accuracy=55.39% | Units=262u | ROI=10.77%
+- 2025 | Bets=2272 | Accuracy=53.96% | Units=180u | ROI=7.92%
+- 2026 | Bets=1031 | Accuracy=54.51% | Units=93u | ROI=9.02%
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\39_walk_forward_backtest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\39_walk_forward_backtest_by_year.csv
+
+Important:
+- This is historical model validation.
+- Even-money units are diagnostic only because sportsbook closing odds are not included in this dataset.
+- Next step: compare thresholds and only promote gates that survive 2024/2025/2026 out-of-sample checks.
+
+Rule: audit only. No real-money automation.

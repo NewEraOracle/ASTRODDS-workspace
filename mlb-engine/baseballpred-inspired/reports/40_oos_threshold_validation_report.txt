@@ -1,0 +1,27 @@
+ASTRODDS 40 OUT-OF-SAMPLE THRESHOLD VALIDATION
+==========================================================
+Generated: 2026-06-14T12:42:46.492783Z
+
+OOS years: 2024, 2025, 2026
+
+Threshold results:
+- Prob >= 50% | Bets=5735 | Wins=3135 | Losses=2600 | Accuracy=54.66% | Units=535u | ROI=9.33% | MinYearBets=1031 | MinYearAcc=53.96% | Recommendation=RESEARCH_ONLY
+- Prob >= 55% | Bets=2680 | Wins=1542 | Losses=1138 | Accuracy=57.54% | Units=404u | ROI=15.07% | MinYearBets=416 | MinYearAcc=55.29% | Recommendation=WATCH_REVIEW
+- Prob >= 58% | Bets=1617 | Wins=983 | Losses=634 | Accuracy=60.79% | Units=349u | ROI=21.58% | MinYearBets=239 | MinYearAcc=58.92% | Recommendation=A_REVIEW_CORE
+- Prob >= 60% | Bets=478 | Wins=312 | Losses=166 | Accuracy=65.27% | Units=146u | ROI=30.54% | MinYearBets=66 | MinYearAcc=59.09% | Recommendation=ENGINE_BUY_STRICT
+- Prob >= 63% | Bets=478 | Wins=312 | Losses=166 | Accuracy=65.27% | Units=146u | ROI=30.54% | MinYearBets=66 | MinYearAcc=59.09% | Recommendation=ENGINE_BUY_STRICT
+
+Locked decision thresholds:
+- 60%+ calibrated probability = ENGINE_BUY_STRICT only if context is clean.
+- 58%+ calibrated probability = A_REVIEW_CORE / strong candidate.
+- 55%+ calibrated probability = WATCH_REVIEW.
+- Below 55% = NO_BET / research only.
+
+Important:
+- 58%+ is the best balance of volume and stability.
+- 60%+ is strongest but lower volume, so it should be reserved for strict ENGINE_BUY.
+- Context gates still override probability: lineup, pitcher, bullpen, conflict, weather.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\40_oos_threshold_validation.json
+
+Rule: validation only. Paper/manual only. No real-money automation.

@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-06-14T12:43:53.173088Z",
+  "source": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\reports\\40_oos_threshold_validation.json",
+  "version": "ASTRODDS_ENGINE_V2_THRESHOLDS_2026_06",
+  "paperOnly": true,
+  "lockedThresholds": {
+    "engineBuyStrictCalibratedProbability": 0.6,
+    "aReviewCoreCalibratedProbability": 0.58,
+    "watchReviewCalibratedProbability": 0.55,
+    "noBetBelowCalibratedProbability": 0.55
+  },
+  "contextOverrides": {
+    "oppositeSideConflict": "BLOCK",
+    "pickedPitcherStatsMissing": "BLOCK",
+    "pickedPitcherHighEra": "BLOCK_OR_REVIEW",
+    "pickedPitcherHighWhip": "BLOCK_OR_REVIEW",
+    "pickedBullpenHighFatigue": "BLOCK_OR_REVIEW",
+    "lineupNotConfirmed": "REVIEW_ONLY",
+    "highWindWeather": "REVIEW_ONLY"
+  },
+  "decisionMap": {
+    "probability60PlusAndCleanContext": "ENGINE_BUY",
+    "probability58Plus": "MANUAL_REVIEW_A",
+    "probability55Plus": "WATCH_REVIEW",
+    "below55": "NO_BET"
+  },
+  "oosValidation": [
+    {
+      "threshold": "0.5",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 5735,
+      "wins": 3135,
+      "losses": 2600,
+      "accuracy": 0.5466,
+      "unitsEvenMoney": 535,
+      "roiEvenMoneyPct": 9.33,
+      "minYearBets": 1031,
+      "minYearAccuracy": 0.5396,
+      "recommendation": "RESEARCH_ONLY"
+    },
+    {
+      "threshold": "0.55",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 2680,
+      "wins": 1542,
+      "losses": 1138,
+      "accuracy": 0.5754,
+      "unitsEvenMoney": 404,
+      "roiEvenMoneyPct": 15.07,
+      "minYearBets": 416,
+      "minYearAccuracy": 0.5529,
+      "recommendation": "WATCH_REVIEW"
+    },
+    {
+      "threshold": "0.58",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 1617,
+      "wins": 983,
+      "losses": 634,
+      "accuracy": 0.6079,
+      "unitsEvenMoney": 349,
+      "roiEvenMoneyPct": 21.58,
+      "minYearBets": 239,
+      "minYearAccuracy": 0.5892,
+      "recommendation": "A_REVIEW_CORE"
+    },
+    {
+      "threshold": "0.6",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 478,
+      "wins": 312,
+      "losses": 166,
+      "accuracy": 0.6527,
+      "unitsEvenMoney": 146,
+      "roiEvenMoneyPct": 30.54,
+      "minYearBets": 66,
+      "minYearAccuracy": 0.5909,
+      "recommendation": "ENGINE_BUY_STRICT"
+    },
+    {
+      "threshold": "0.63",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 478,
+      "wins": 312,
+      "losses": 166,
+      "accuracy": 0.6527,
+      "unitsEvenMoney": 146,
+      "roiEvenMoneyPct": 30.54,
+      "minYearBets": 66,
+      "minYearAccuracy": 0.5909,
+      "recommendation": "ENGINE_BUY_STRICT"
+    }
+  ],
+  "notes": [
+    "60%+ is strongest but lower volume; reserve for strict ENGINE_BUY only when context is clean.",
+    "58%+ is the best balance of volume and stability for A review.",
+    "55%+ can remain watch/review.",
+    "Context gates override probability.",
+    "No real-money automation."
+  ]
+}

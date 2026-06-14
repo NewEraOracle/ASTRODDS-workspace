@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-06-14T12:42:46.492783Z",
+  "input": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\reports\\39_walk_forward_backtest_by_year.csv",
+  "oosYears": [
+    2024,
+    2025,
+    2026
+  ],
+  "summary": [
+    {
+      "threshold": "0.5",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 5735,
+      "wins": 3135,
+      "losses": 2600,
+      "accuracy": 0.5466,
+      "unitsEvenMoney": 535,
+      "roiEvenMoneyPct": 9.33,
+      "minYearBets": 1031,
+      "minYearAccuracy": 0.5396,
+      "recommendation": "RESEARCH_ONLY"
+    },
+    {
+      "threshold": "0.55",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 2680,
+      "wins": 1542,
+      "losses": 1138,
+      "accuracy": 0.5754,
+      "unitsEvenMoney": 404,
+      "roiEvenMoneyPct": 15.07,
+      "minYearBets": 416,
+      "minYearAccuracy": 0.5529,
+      "recommendation": "WATCH_REVIEW"
+    },
+    {
+      "threshold": "0.58",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 1617,
+      "wins": 983,
+      "losses": 634,
+      "accuracy": 0.6079,
+      "unitsEvenMoney": 349,
+      "roiEvenMoneyPct": 21.58,
+      "minYearBets": 239,
+      "minYearAccuracy": 0.5892,
+      "recommendation": "A_REVIEW_CORE"
+    },
+    {
+      "threshold": "0.6",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 478,
+      "wins": 312,
+      "losses": 166,
+      "accuracy": 0.6527,
+      "unitsEvenMoney": 146,
+      "roiEvenMoneyPct": 30.54,
+      "minYearBets": 66,
+      "minYearAccuracy": 0.5909,
+      "recommendation": "ENGINE_BUY_STRICT"
+    },
+    {
+      "threshold": "0.63",
+      "oosYears": [
+        2024,
+        2025,
+        2026
+      ],
+      "bets": 478,
+      "wins": 312,
+      "losses": 166,
+      "accuracy": 0.6527,
+      "unitsEvenMoney": 146,
+      "roiEvenMoneyPct": 30.54,
+      "minYearBets": 66,
+      "minYearAccuracy": 0.5909,
+      "recommendation": "ENGINE_BUY_STRICT"
+    }
+  ],
+  "lockedThresholds": {
+    "engineBuyStrict": 0.6,
+    "aReviewCore": 0.58,
+    "watchReview": 0.55,
+    "noBetBelow": 0.55
+  },
+  "rule": "Historical validation only. Even-money units are diagnostic. No real-money automation."
+}

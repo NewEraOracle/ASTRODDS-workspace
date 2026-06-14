@@ -1,0 +1,13 @@
+ASTRODDS 41 THRESHOLD RULES LOCK REPORT
+====================================================
+Status: OK
+
+Locked thresholds:
+- 60%+ calibrated probability = ENGINE_BUY strict if context clean
+- 58%+ calibrated probability = A review core
+- 55%+ calibrated probability = watch/review
+- Below 55% = no bet
+
+Rules JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_ENGINE_V2_THRESHOLD_RULES.json
+
+Rule: paper/manual only. No real-money automation.

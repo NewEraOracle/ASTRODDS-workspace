@@ -1,0 +1,29 @@
+ASTRODDS 42 THRESHOLD CONTEXT GATE REPORT
+======================================================
+Input rows: 10
+
+Decision counts:
+- FULL_CONTEXT_A_REVIEW: 7
+- FULL_CONTEXT_NO_BET: 3
+
+Ranked threshold decisions:
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Prob=63.45% | Edge=13.45% | Decision=FULL_CONTEXT_A_REVIEW | Flags=lineup_not_confirmed
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Prob=63.45% | Edge=12.47% | Decision=FULL_CONTEXT_A_REVIEW | Flags=lineup_not_confirmed
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Prob=63.45% | Edge=12.0% | Decision=FULL_CONTEXT_A_REVIEW | Flags=lineup_not_confirmed|picked_bullpen_high_fatigue
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | Prob=63.45% | Edge=9.33% | Decision=FULL_CONTEXT_A_REVIEW | Flags=lineup_not_confirmed
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Prob=63.45% | Edge=7.7% | Decision=FULL_CONTEXT_A_REVIEW | Flags=lineup_not_confirmed
+- Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | Prob=63.45% | Edge=4.78% | Decision=FULL_CONTEXT_NO_BET | Flags=strict_gate_not_passed
+- Chicago Cubs @ San Francisco Giants | Pick: Chicago Cubs | Prob=59.22% | Edge=13.35% | Decision=FULL_CONTEXT_A_REVIEW | Flags=lineup_not_confirmed|picked_bullpen_high_fatigue
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Prob=59.22% | Edge=9.72% | Decision=FULL_CONTEXT_A_REVIEW | Flags=lineup_not_confirmed
+- Colorado Rockies @ Athletics | Pick: Athletics | Prob=59.22% | Edge=-5.57% | Decision=FULL_CONTEXT_NO_BET | Flags=strict_gate_not_passed
+- Los Angeles Dodgers @ Chicago White Sox | Pick: Los Angeles Dodgers | Prob=59.22% | Edge=-6.99% | Decision=FULL_CONTEXT_NO_BET | Flags=strict_gate_not_passed
+
+Locked thresholds used:
+- ENGINE_BUY_STRICT: 0.6
+- A_REVIEW_CORE: 0.58
+- WATCH_REVIEW: 0.55
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-context-threshold-final-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-context-threshold-final-latest.csv
+
+Rule: threshold context gate only. Paper/manual only. No real-money automation.

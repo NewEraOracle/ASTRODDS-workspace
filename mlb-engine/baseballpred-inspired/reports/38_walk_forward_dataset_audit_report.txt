@@ -1,0 +1,61 @@
+ASTRODDS 38 WALK-FORWARD DATASET AUDIT
+================================================
+Generated: 2026-06-14T12:34:14.641415Z
+
+Candidate datasets:
+
+- astrodss_master_feature_dataset_v2_calibrated.csv
+  Exists: True
+  Score: 13
+  Rows: 23826
+  Columns: 45
+  Years: {2016: 2428, 2017: 2430, 2018: 2433, 2019: 2433, 2020: 900, 2021: 2437, 2022: 2431, 2023: 2437, 2024: 2432, 2025: 2434, 2026: 1031}
+  Winner/result cols: ['winner', 'home_win', 'home_prev_home_win_pct']
+  Odds/prob cols: ['away_probable_pitcher', 'home_probable_pitcher', 'calibrated_pick_probability_v2']
+  Team cols: ['away_team', 'home_team', 'away_pitcher_prior_team_win_pct', 'home_pitcher_prior_team_win_pct']
+
+- mlb_moneyline_features_2016_2026.csv
+  Exists: True
+  Score: 11
+  Rows: 23759
+  Columns: 43
+  Years: {2016: 2428, 2017: 2430, 2018: 2433, 2019: 2433, 2020: 900, 2021: 2437, 2022: 2431, 2023: 2437, 2024: 2432, 2025: 2434, 2026: 964}
+  Winner/result cols: ['winner', 'target_home_win', 'home_wins_before', 'home_win_pct_before']
+  Odds/prob cols: []
+  Team cols: ['home_team', 'away_team']
+
+- mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv
+  Exists: True
+  Score: 10
+  Rows: 8267
+  Columns: 62
+  Years: {2023: 2437, 2024: 2432, 2025: 2434, 2026: 964}
+  Winner/result cols: ['winner', 'target_home_win', 'home_wins_before', 'home_win_pct_before']
+  Odds/prob cols: ['home_lineup_availability_risk', 'away_lineup_availability_risk', 'home_probable_pitcher_name', 'away_probable_pitcher_name']
+  Team cols: ['home_team', 'away_team']
+
+- moneyline_historical_predictions.csv
+  Exists: True
+  Score: 10
+  Rows: 8267
+  Columns: 12
+  Years: {2023: 2437, 2024: 2432, 2025: 2434, 2026: 964}
+  Winner/result cols: ['target_home_win', 'raw_home_win_probability', 'predicted_home_win']
+  Odds/prob cols: ['raw_home_win_probability']
+  Team cols: ['home_team', 'away_team']
+
+- mlb_moneyline_features_with_pitchers_bullpen_weather_lineup.csv
+  Exists: True
+  Score: 8
+  Rows: 8267
+  Columns: 119
+  Years: {}
+  Winner/result cols: ['winner', 'target_home_win', 'home_wins_before', 'home_win_pct_before']
+  Odds/prob cols: ['home_lineup_status', 'away_lineup_status', 'home_lineup_players_count', 'away_lineup_players_count', 'home_lineup_obp_proxy', 'away_lineup_obp_proxy', 'home_lineup_slg_proxy', 'away_lineup_slg_proxy', 'home_lineup_strength_score', 'away_lineup_strength_score', 'home_lineup_downgrade_score', 'away_lineup_downgrade_score', 'lineup_data_quality', 'lineup_warnings']
+  Team cols: ['home_team', 'away_team', 'home_pitcher_team_win_rate_started_before', 'away_pitcher_team_win_rate_started_before']
+
+Recommendation:
+- Best candidate: astrodss_master_feature_dataset_v2_calibrated.csv
+- Next step: build 39_walk_forward_backtest.py using this dataset.
+
+Rule: audit only. No model changes. No betting automation.

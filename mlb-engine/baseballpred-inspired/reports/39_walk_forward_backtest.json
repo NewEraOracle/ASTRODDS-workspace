@@ -1,0 +1,662 @@
+{
+  "generatedAt": "2026-06-14T12:40:28.058282Z",
+  "input": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\astrodss_master_feature_dataset_v2_calibrated.csv",
+  "totalRows": 23826,
+  "eligibleRows": 21074,
+  "skippedRows": 2752,
+  "fullEligibleSummary": {
+    "bets": 21074,
+    "wins": 11804,
+    "losses": 9270,
+    "accuracy": 0.5601,
+    "paperUnitsEvenMoney": 2534,
+    "paperRoiEvenMoneyPct": 12.02
+  },
+  "thresholdSummary": {
+    "0.5": {
+      "bets": 21074,
+      "wins": 11804,
+      "losses": 9270,
+      "accuracy": 0.5601,
+      "paperUnitsEvenMoney": 2534,
+      "paperRoiEvenMoneyPct": 12.02
+    },
+    "0.55": {
+      "bets": 10993,
+      "wins": 6437,
+      "losses": 4556,
+      "accuracy": 0.5856,
+      "paperUnitsEvenMoney": 1881,
+      "paperRoiEvenMoneyPct": 17.11
+    },
+    "0.58": {
+      "bets": 6941,
+      "wins": 4208,
+      "losses": 2733,
+      "accuracy": 0.6063,
+      "paperUnitsEvenMoney": 1475,
+      "paperRoiEvenMoneyPct": 21.25
+    },
+    "0.6": {
+      "bets": 2180,
+      "wins": 1392,
+      "losses": 788,
+      "accuracy": 0.6385,
+      "paperUnitsEvenMoney": 604,
+      "paperRoiEvenMoneyPct": 27.71
+    },
+    "0.63": {
+      "bets": 2180,
+      "wins": 1392,
+      "losses": 788,
+      "accuracy": 0.6385,
+      "paperUnitsEvenMoney": 604,
+      "paperRoiEvenMoneyPct": 27.71
+    }
+  },
+  "byYearAllEligible": [
+    {
+      "threshold": "all_eligible",
+      "season": 2017,
+      "bets": 2430,
+      "wins": 1289,
+      "losses": 1141,
+      "accuracy": 0.5305,
+      "paperUnitsEvenMoney": 148,
+      "paperRoiEvenMoneyPct": 6.09
+    },
+    {
+      "threshold": "all_eligible",
+      "season": 2018,
+      "bets": 2433,
+      "wins": 1409,
+      "losses": 1024,
+      "accuracy": 0.5791,
+      "paperUnitsEvenMoney": 385,
+      "paperRoiEvenMoneyPct": 15.82
+    },
+    {
+      "threshold": "all_eligible",
+      "season": 2019,
+      "bets": 2433,
+      "wins": 1457,
+      "losses": 976,
+      "accuracy": 0.5988,
+      "paperUnitsEvenMoney": 481,
+      "paperRoiEvenMoneyPct": 19.77
+    },
+    {
+      "threshold": "all_eligible",
+      "season": 2020,
+      "bets": 900,
+      "wins": 513,
+      "losses": 387,
+      "accuracy": 0.57,
+      "paperUnitsEvenMoney": 126,
+      "paperRoiEvenMoneyPct": 14.0
+    },
+    {
+      "threshold": "all_eligible",
+      "season": 2021,
+      "bets": 2437,
+      "wins": 1352,
+      "losses": 1085,
+      "accuracy": 0.5548,
+      "paperUnitsEvenMoney": 267,
+      "paperRoiEvenMoneyPct": 10.96
+    },
+    {
+      "threshold": "all_eligible",
+      "season": 2022,
+      "bets": 2269,
+      "wins": 1297,
+      "losses": 972,
+      "accuracy": 0.5716,
+      "paperUnitsEvenMoney": 325,
+      "paperRoiEvenMoneyPct": 14.32
+    },
+    {
+      "threshold": "all_eligible",
+      "season": 2023,
+      "bets": 2437,
+      "wins": 1352,
+      "losses": 1085,
+      "accuracy": 0.5548,
+      "paperUnitsEvenMoney": 267,
+      "paperRoiEvenMoneyPct": 10.96
+    },
+    {
+      "threshold": "all_eligible",
+      "season": 2024,
+      "bets": 2432,
+      "wins": 1347,
+      "losses": 1085,
+      "accuracy": 0.5539,
+      "paperUnitsEvenMoney": 262,
+      "paperRoiEvenMoneyPct": 10.77
+    },
+    {
+      "threshold": "all_eligible",
+      "season": 2025,
+      "bets": 2272,
+      "wins": 1226,
+      "losses": 1046,
+      "accuracy": 0.5396,
+      "paperUnitsEvenMoney": 180,
+      "paperRoiEvenMoneyPct": 7.92
+    },
+    {
+      "threshold": "all_eligible",
+      "season": 2026,
+      "bets": 1031,
+      "wins": 562,
+      "losses": 469,
+      "accuracy": 0.5451,
+      "paperUnitsEvenMoney": 93,
+      "paperRoiEvenMoneyPct": 9.02
+    }
+  ],
+  "byThresholdYear": [
+    {
+      "threshold": 0.5,
+      "season": 2017,
+      "bets": 2430,
+      "wins": 1289,
+      "losses": 1141,
+      "accuracy": 0.5305,
+      "paperUnitsEvenMoney": 148,
+      "paperRoiEvenMoneyPct": 6.09
+    },
+    {
+      "threshold": 0.5,
+      "season": 2018,
+      "bets": 2433,
+      "wins": 1409,
+      "losses": 1024,
+      "accuracy": 0.5791,
+      "paperUnitsEvenMoney": 385,
+      "paperRoiEvenMoneyPct": 15.82
+    },
+    {
+      "threshold": 0.5,
+      "season": 2019,
+      "bets": 2433,
+      "wins": 1457,
+      "losses": 976,
+      "accuracy": 0.5988,
+      "paperUnitsEvenMoney": 481,
+      "paperRoiEvenMoneyPct": 19.77
+    },
+    {
+      "threshold": 0.5,
+      "season": 2020,
+      "bets": 900,
+      "wins": 513,
+      "losses": 387,
+      "accuracy": 0.57,
+      "paperUnitsEvenMoney": 126,
+      "paperRoiEvenMoneyPct": 14.0
+    },
+    {
+      "threshold": 0.5,
+      "season": 2021,
+      "bets": 2437,
+      "wins": 1352,
+      "losses": 1085,
+      "accuracy": 0.5548,
+      "paperUnitsEvenMoney": 267,
+      "paperRoiEvenMoneyPct": 10.96
+    },
+    {
+      "threshold": 0.5,
+      "season": 2022,
+      "bets": 2269,
+      "wins": 1297,
+      "losses": 972,
+      "accuracy": 0.5716,
+      "paperUnitsEvenMoney": 325,
+      "paperRoiEvenMoneyPct": 14.32
+    },
+    {
+      "threshold": 0.5,
+      "season": 2023,
+      "bets": 2437,
+      "wins": 1352,
+      "losses": 1085,
+      "accuracy": 0.5548,
+      "paperUnitsEvenMoney": 267,
+      "paperRoiEvenMoneyPct": 10.96
+    },
+    {
+      "threshold": 0.5,
+      "season": 2024,
+      "bets": 2432,
+      "wins": 1347,
+      "losses": 1085,
+      "accuracy": 0.5539,
+      "paperUnitsEvenMoney": 262,
+      "paperRoiEvenMoneyPct": 10.77
+    },
+    {
+      "threshold": 0.5,
+      "season": 2025,
+      "bets": 2272,
+      "wins": 1226,
+      "losses": 1046,
+      "accuracy": 0.5396,
+      "paperUnitsEvenMoney": 180,
+      "paperRoiEvenMoneyPct": 7.92
+    },
+    {
+      "threshold": 0.5,
+      "season": 2026,
+      "bets": 1031,
+      "wins": 562,
+      "losses": 469,
+      "accuracy": 0.5451,
+      "paperUnitsEvenMoney": 93,
+      "paperRoiEvenMoneyPct": 9.02
+    },
+    {
+      "threshold": 0.55,
+      "season": 2017,
+      "bets": 1056,
+      "wins": 584,
+      "losses": 472,
+      "accuracy": 0.553,
+      "paperUnitsEvenMoney": 112,
+      "paperRoiEvenMoneyPct": 10.61
+    },
+    {
+      "threshold": 0.55,
+      "season": 2018,
+      "bets": 1255,
+      "wins": 762,
+      "losses": 493,
+      "accuracy": 0.6072,
+      "paperUnitsEvenMoney": 269,
+      "paperRoiEvenMoneyPct": 21.43
+    },
+    {
+      "threshold": 0.55,
+      "season": 2019,
+      "bets": 1419,
+      "wins": 889,
+      "losses": 530,
+      "accuracy": 0.6265,
+      "paperUnitsEvenMoney": 359,
+      "paperRoiEvenMoneyPct": 25.3
+    },
+    {
+      "threshold": 0.55,
+      "season": 2020,
+      "bets": 540,
+      "wins": 307,
+      "losses": 233,
+      "accuracy": 0.5685,
+      "paperUnitsEvenMoney": 74,
+      "paperRoiEvenMoneyPct": 13.7
+    },
+    {
+      "threshold": 0.55,
+      "season": 2021,
+      "bets": 1329,
+      "wins": 767,
+      "losses": 562,
+      "accuracy": 0.5771,
+      "paperUnitsEvenMoney": 205,
+      "paperRoiEvenMoneyPct": 15.43
+    },
+    {
+      "threshold": 0.55,
+      "season": 2022,
+      "bets": 1326,
+      "wins": 787,
+      "losses": 539,
+      "accuracy": 0.5935,
+      "paperUnitsEvenMoney": 248,
+      "paperRoiEvenMoneyPct": 18.7
+    },
+    {
+      "threshold": 0.55,
+      "season": 2023,
+      "bets": 1388,
+      "wins": 799,
+      "losses": 589,
+      "accuracy": 0.5756,
+      "paperUnitsEvenMoney": 210,
+      "paperRoiEvenMoneyPct": 15.13
+    },
+    {
+      "threshold": 0.55,
+      "season": 2024,
+      "bets": 1239,
+      "wins": 712,
+      "losses": 527,
+      "accuracy": 0.5747,
+      "paperUnitsEvenMoney": 185,
+      "paperRoiEvenMoneyPct": 14.93
+    },
+    {
+      "threshold": 0.55,
+      "season": 2025,
+      "bets": 1025,
+      "wins": 600,
+      "losses": 425,
+      "accuracy": 0.5854,
+      "paperUnitsEvenMoney": 175,
+      "paperRoiEvenMoneyPct": 17.07
+    },
+    {
+      "threshold": 0.55,
+      "season": 2026,
+      "bets": 416,
+      "wins": 230,
+      "losses": 186,
+      "accuracy": 0.5529,
+      "paperUnitsEvenMoney": 44,
+      "paperRoiEvenMoneyPct": 10.58
+    },
+    {
+      "threshold": 0.58,
+      "season": 2017,
+      "bets": 525,
+      "wins": 308,
+      "losses": 217,
+      "accuracy": 0.5867,
+      "paperUnitsEvenMoney": 91,
+      "paperRoiEvenMoneyPct": 17.33
+    },
+    {
+      "threshold": 0.58,
+      "season": 2018,
+      "bets": 757,
+      "wins": 452,
+      "losses": 305,
+      "accuracy": 0.5971,
+      "paperUnitsEvenMoney": 147,
+      "paperRoiEvenMoneyPct": 19.42
+    },
+    {
+      "threshold": 0.58,
+      "season": 2019,
+      "bets": 951,
+      "wins": 615,
+      "losses": 336,
+      "accuracy": 0.6467,
+      "paperUnitsEvenMoney": 279,
+      "paperRoiEvenMoneyPct": 29.34
+    },
+    {
+      "threshold": 0.58,
+      "season": 2020,
+      "bets": 389,
+      "wins": 225,
+      "losses": 164,
+      "accuracy": 0.5784,
+      "paperUnitsEvenMoney": 61,
+      "paperRoiEvenMoneyPct": 15.68
+    },
+    {
+      "threshold": 0.58,
+      "season": 2021,
+      "bets": 905,
+      "wins": 559,
+      "losses": 346,
+      "accuracy": 0.6177,
+      "paperUnitsEvenMoney": 213,
+      "paperRoiEvenMoneyPct": 23.54
+    },
+    {
+      "threshold": 0.58,
+      "season": 2022,
+      "bets": 904,
+      "wins": 536,
+      "losses": 368,
+      "accuracy": 0.5929,
+      "paperUnitsEvenMoney": 168,
+      "paperRoiEvenMoneyPct": 18.58
+    },
+    {
+      "threshold": 0.58,
+      "season": 2023,
+      "bets": 893,
+      "wins": 530,
+      "losses": 363,
+      "accuracy": 0.5935,
+      "paperUnitsEvenMoney": 167,
+      "paperRoiEvenMoneyPct": 18.7
+    },
+    {
+      "threshold": 0.58,
+      "season": 2024,
+      "bets": 740,
+      "wins": 436,
+      "losses": 304,
+      "accuracy": 0.5892,
+      "paperUnitsEvenMoney": 132,
+      "paperRoiEvenMoneyPct": 17.84
+    },
+    {
+      "threshold": 0.58,
+      "season": 2025,
+      "bets": 638,
+      "wins": 404,
+      "losses": 234,
+      "accuracy": 0.6332,
+      "paperUnitsEvenMoney": 170,
+      "paperRoiEvenMoneyPct": 26.65
+    },
+    {
+      "threshold": 0.58,
+      "season": 2026,
+      "bets": 239,
+      "wins": 143,
+      "losses": 96,
+      "accuracy": 0.5983,
+      "paperUnitsEvenMoney": 47,
+      "paperRoiEvenMoneyPct": 19.67
+    },
+    {
+      "threshold": 0.6,
+      "season": 2017,
+      "bets": 90,
+      "wins": 51,
+      "losses": 39,
+      "accuracy": 0.5667,
+      "paperUnitsEvenMoney": 12,
+      "paperRoiEvenMoneyPct": 13.33
+    },
+    {
+      "threshold": 0.6,
+      "season": 2018,
+      "bets": 164,
+      "wins": 106,
+      "losses": 58,
+      "accuracy": 0.6463,
+      "paperUnitsEvenMoney": 48,
+      "paperRoiEvenMoneyPct": 29.27
+    },
+    {
+      "threshold": 0.6,
+      "season": 2019,
+      "bets": 374,
+      "wins": 250,
+      "losses": 124,
+      "accuracy": 0.6684,
+      "paperUnitsEvenMoney": 126,
+      "paperRoiEvenMoneyPct": 33.69
+    },
+    {
+      "threshold": 0.6,
+      "season": 2020,
+      "bets": 170,
+      "wins": 99,
+      "losses": 71,
+      "accuracy": 0.5824,
+      "paperUnitsEvenMoney": 28,
+      "paperRoiEvenMoneyPct": 16.47
+    },
+    {
+      "threshold": 0.6,
+      "season": 2021,
+      "bets": 319,
+      "wins": 213,
+      "losses": 106,
+      "accuracy": 0.6677,
+      "paperUnitsEvenMoney": 107,
+      "paperRoiEvenMoneyPct": 33.54
+    },
+    {
+      "threshold": 0.6,
+      "season": 2022,
+      "bets": 324,
+      "wins": 196,
+      "losses": 128,
+      "accuracy": 0.6049,
+      "paperUnitsEvenMoney": 68,
+      "paperRoiEvenMoneyPct": 20.99
+    },
+    {
+      "threshold": 0.6,
+      "season": 2023,
+      "bets": 261,
+      "wins": 165,
+      "losses": 96,
+      "accuracy": 0.6322,
+      "paperUnitsEvenMoney": 69,
+      "paperRoiEvenMoneyPct": 26.44
+    },
+    {
+      "threshold": 0.6,
+      "season": 2024,
+      "bets": 205,
+      "wins": 125,
+      "losses": 80,
+      "accuracy": 0.6098,
+      "paperUnitsEvenMoney": 45,
+      "paperRoiEvenMoneyPct": 21.95
+    },
+    {
+      "threshold": 0.6,
+      "season": 2025,
+      "bets": 207,
+      "wins": 148,
+      "losses": 59,
+      "accuracy": 0.715,
+      "paperUnitsEvenMoney": 89,
+      "paperRoiEvenMoneyPct": 43.0
+    },
+    {
+      "threshold": 0.6,
+      "season": 2026,
+      "bets": 66,
+      "wins": 39,
+      "losses": 27,
+      "accuracy": 0.5909,
+      "paperUnitsEvenMoney": 12,
+      "paperRoiEvenMoneyPct": 18.18
+    },
+    {
+      "threshold": 0.63,
+      "season": 2017,
+      "bets": 90,
+      "wins": 51,
+      "losses": 39,
+      "accuracy": 0.5667,
+      "paperUnitsEvenMoney": 12,
+      "paperRoiEvenMoneyPct": 13.33
+    },
+    {
+      "threshold": 0.63,
+      "season": 2018,
+      "bets": 164,
+      "wins": 106,
+      "losses": 58,
+      "accuracy": 0.6463,
+      "paperUnitsEvenMoney": 48,
+      "paperRoiEvenMoneyPct": 29.27
+    },
+    {
+      "threshold": 0.63,
+      "season": 2019,
+      "bets": 374,
+      "wins": 250,
+      "losses": 124,
+      "accuracy": 0.6684,
+      "paperUnitsEvenMoney": 126,
+      "paperRoiEvenMoneyPct": 33.69
+    },
+    {
+      "threshold": 0.63,
+      "season": 2020,
+      "bets": 170,
+      "wins": 99,
+      "losses": 71,
+      "accuracy": 0.5824,
+      "paperUnitsEvenMoney": 28,
+      "paperRoiEvenMoneyPct": 16.47
+    },
+    {
+      "threshold": 0.63,
+      "season": 2021,
+      "bets": 319,
+      "wins": 213,
+      "losses": 106,
+      "accuracy": 0.6677,
+      "paperUnitsEvenMoney": 107,
+      "paperRoiEvenMoneyPct": 33.54
+    },
+    {
+      "threshold": 0.63,
+      "season": 2022,
+      "bets": 324,
+      "wins": 196,
+      "losses": 128,
+      "accuracy": 0.6049,
+      "paperUnitsEvenMoney": 68,
+      "paperRoiEvenMoneyPct": 20.99
+    },
+    {
+      "threshold": 0.63,
+      "season": 2023,
+      "bets": 261,
+      "wins": 165,
+      "losses": 96,
+      "accuracy": 0.6322,
+      "paperUnitsEvenMoney": 69,
+      "paperRoiEvenMoneyPct": 26.44
+    },
+    {
+      "threshold": 0.63,
+      "season": 2024,
+      "bets": 205,
+      "wins": 125,
+      "losses": 80,
+      "accuracy": 0.6098,
+      "paperUnitsEvenMoney": 45,
+      "paperRoiEvenMoneyPct": 21.95
+    },
+    {
+      "threshold": 0.63,
+      "season": 2025,
+      "bets": 207,
+      "wins": 148,
+      "losses": 59,
+      "accuracy": 0.715,
+      "paperUnitsEvenMoney": 89,
+      "paperRoiEvenMoneyPct": 43.0
+    },
+    {
+      "threshold": 0.63,
+      "season": 2026,
+      "bets": 66,
+      "wins": 39,
+      "losses": 27,
+      "accuracy": 0.5909,
+      "paperUnitsEvenMoney": 12,
+      "paperRoiEvenMoneyPct": 18.18
+    }
+  ],
+  "rule": "Historical model validation only. Even-money units are diagnostic, not real sportsbook ROI."
+}

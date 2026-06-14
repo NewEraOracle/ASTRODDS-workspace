@@ -105,6 +105,11 @@ if ($process.ExitCode -eq 0) {
   $contextGateProcess = Start-Process python -ArgumentList "`"$contextGate`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
   Add-Line "Full slate context gate exit code: $($contextGateProcess.ExitCode)"
 
+  Add-Line "Running threshold context gate..."
+  $thresholdGate = Join-Path $Workspace "mlb-engine\scripts\42_threshold_context_gate.py"
+  $thresholdGateProcess = Start-Process python -ArgumentList "`"$thresholdGate`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Threshold context gate exit code: $($thresholdGateProcess.ExitCode)"
+
   Add-Line "Running daily performance report..."
   $dailyReport = Join-Path $ScriptDir "33_daily_performance_report.py"
   $dailyProcess = Start-Process python -ArgumentList "`"$dailyReport`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
@@ -144,5 +149,6 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
