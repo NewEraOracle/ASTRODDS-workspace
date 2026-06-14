@@ -241,6 +241,15 @@ if ($process.ExitCode -eq 0) {
   $recapProcess = Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$recapScript`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
   Add-Line "Telegram recap exit code: $($recapProcess.ExitCode)"
 
+  Add-Line "Running public board categories..."
+  $publicBoard = Join-Path $ScriptDir "94_public_board_categories.py"
+
+  if (Test-Path $publicBoard) {
+    $publicBoardProcess = Start-Process python -ArgumentList "`"$publicBoard`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "Public board categories exit code: $($publicBoardProcess.ExitCode)"
+  } else {
+    Add-Line "Public board categories skipped: script not found."
+  }
   Add-Line "Running Telegram result tracking..."
   $resultTracking = Join-Path $ScriptDir "81_telegram_result_tracking.py"
 
@@ -279,6 +288,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
