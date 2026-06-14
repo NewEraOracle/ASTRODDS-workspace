@@ -1685,6 +1685,51 @@ function withAstroddsEngineV2Fields(row: any, index = 0) {
   };
 }
 
+
+const ASTRODDS_TODAY_TIME_ZONE = "America/Toronto";
+
+function etDateKey(value: Date | string | number | null | undefined): string | null {
+  if (value === null || value === undefined || value === "") return null;
+
+  const date = value instanceof Date ? value : new Date(value);
+
+  if (Number.isNaN(date.getTime())) return null;
+
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: ASTRODDS_TODAY_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+
+  const year = parts.find((part) => part.type === "year")?.value;
+  const month = parts.find((part) => part.type === "month")?.value;
+  const day = parts.find((part) => part.type === "day")?.value;
+
+  if (!year || !month || !day) return null;
+
+  return `${year}-${month}-${day}`;
+}
+
+function isTodayEtDate(value: Date | string | number | null | undefined): boolean {
+  const rowDate = etDateKey(value);
+  const today = etDateKey(new Date());
+
+  return Boolean(rowDate && today && rowDate === today);
+}
+
+function isSafeTodayOfficialPick(candidate: MoneylineCandidateResponse): boolean {
+  return (
+    candidate.gameStatus === "pre_game" &&
+    isTodayEtDate(candidate.date) &&
+    candidate.marketConnected === true &&
+    typeof candidate.marketProbability === "number" &&
+    typeof candidate.calibratedProbability === "number" &&
+    typeof candidate.edge === "number" &&
+    candidate.edge >= 0.03
+  );
+}
+
 async function GET_IMPL() {
   const [ledgerDiagnostics, scanResult, oddsResult] = await Promise.all([
     loadStrongBuyLedgerStatus().catch(() => null),
@@ -1705,10 +1750,14 @@ async function GET_IMPL() {
 
   const built = buildBestBetRows(scanResult.scan, ledgerDiagnostics, oddsResult.odds);
   const gameById = new Map(scanResult.scan.games.map((game) => [game.id, game] as const));
-  const officialPicks = built.bestBetRows
+  const officialPicksRaw = built.bestBetRows
     .filter((row: BestBetRowResponse) => row.status === "strong_buy" || row.status === "daily_pick")
     .map((row: BestBetRowResponse) => buildMoneylineCandidate(row, gameById.get(row.gameId ?? "")))
     .filter((candidate: MoneylineCandidateResponse | null): candidate is MoneylineCandidateResponse => Boolean(candidate && candidate.status === "official_pick"));
+
+  const safeOfficialPicks = officialPicksRaw.filter((candidate: MoneylineCandidateResponse) => isSafeTodayOfficialPick(candidate));
+
+  const officialPicks = safeOfficialPicks;
   const moneylineLeans = built.bestBetRows
     .map((row: BestBetRowResponse) => buildMoneylineCandidate(row, gameById.get(row.gameId ?? "")))
     .filter((candidate: MoneylineCandidateResponse | null): candidate is MoneylineCandidateResponse => Boolean(candidate && candidate.status === "moneyline_lean"))
@@ -1871,4 +1920,6 @@ export async function GET() {
     );
   }
 }
+
+
 
