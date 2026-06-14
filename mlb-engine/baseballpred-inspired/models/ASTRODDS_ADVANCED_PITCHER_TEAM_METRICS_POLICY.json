@@ -1,0 +1,19 @@
+{
+  "version": "ASTRODDS_ADVANCED_PITCHER_TEAM_METRICS_POLICY_V1",
+  "createdAt": "2026-06-14T15:10:05.569163Z",
+  "status": "DERIVED_RUNTIME_READY",
+  "advancedPitcherDatasetReady": false,
+  "teamContextDatasetReady": false,
+  "currentLimit": "Uses available pitcher context to derive K/BB and HR/9 when available. True xERA/FIP/xFIP requires an external/statcast-grade source.",
+  "rules": {
+    "picked_pitcher_disadvantage": "manual_review_before_official_buy",
+    "picked_pitcher_quality_risk": "manual_review_before_official_buy",
+    "picked_pitcher_advanced_unknown": "do_not_claim_advanced_pitcher_clean"
+  },
+  "outputs": {
+    "json": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-advanced-pitcher-team-metrics-latest.json",
+    "csv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-advanced-pitcher-team-metrics-latest.csv"
+  },
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

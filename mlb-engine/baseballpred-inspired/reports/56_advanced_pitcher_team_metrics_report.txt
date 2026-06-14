@@ -1,0 +1,41 @@
+ASTRODDS 56 ADVANCED PITCHER / TEAM METRICS REPORT
+============================================================
+Generated: 2026-06-14T15:10:05.569163Z
+
+Input source: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\VVS-pitcher-context-latest.json
+Input rows: 9
+Output rows: 9
+Advanced pitcher dataset ready: False
+Team context dataset ready: False
+
+Picked pitcher advantage counts:
+- neutral: 2
+- pitcher_advantage: 7
+
+Dataset audit:
+- astrodss_master_feature_dataset_v2_calibrated.csv | exists=False rows=0 advancedCols=0 teamCols=0 advancedReady=False teamReady=False
+- mlb_moneyline_features_2016_2026.csv | exists=False rows=0 advancedCols=0 teamCols=0 advancedReady=False teamReady=False
+- mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv | exists=False rows=0 advancedCols=0 teamCols=0 advancedReady=False teamReady=False
+- mlb_moneyline_features_with_pitchers_bullpen_weather_lineup.csv | exists=False rows=0 advancedCols=0 teamCols=0 advancedReady=False teamReady=False
+
+Current derived rows:
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Advantage=pitcher_advantage | Away=strong(86) Home=solid(58) | Flags=none
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Advantage=pitcher_advantage | Away=strong(86) Home=weak(48) | Flags=none
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Advantage=pitcher_advantage | Away=high_risk(2) Home=weak(40) | Flags=picked_pitcher_quality_risk
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Advantage=neutral | Away=strong(96) Home=strong(86) | Flags=none
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | Advantage=pitcher_advantage | Away=strong(78) Home=high_risk(0) | Flags=none
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Advantage=pitcher_advantage | Away=strong(76) Home=high_risk(20) | Flags=none
+- Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | Advantage=pitcher_advantage | Away=strong(96) Home=high_risk(22) | Flags=none
+- Los Angeles Dodgers @ Chicago White Sox | Pick: Los Angeles Dodgers | Advantage=pitcher_advantage | Away=weak(50) Home=high_risk(14) | Flags=picked_pitcher_quality_risk
+- Colorado Rockies @ Athletics | Pick: Athletics | Advantage=neutral | Away=weak(50) Home=weak(40) | Flags=picked_pitcher_quality_risk
+
+Important:
+- This layer derives extra pitcher diagnostics from available runtime pitcher stats.
+- True advanced metrics like xERA/FIP/xFIP require a verified external/statcast-grade data source.
+- Do not market xERA/FIP/xFIP until those columns/sources are actually connected.
+
+Policy JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_ADVANCED_PITCHER_TEAM_METRICS_POLICY.json
+Output JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-advanced-pitcher-team-metrics-latest.json
+Output CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-advanced-pitcher-team-metrics-latest.csv
+
+Rule: advanced metrics layer only. No scans. No real-money automation.
