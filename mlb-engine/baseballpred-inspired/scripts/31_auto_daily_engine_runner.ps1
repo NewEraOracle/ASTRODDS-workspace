@@ -135,6 +135,25 @@ if ($process.ExitCode -eq 0) {
   $thresholdGateProcess = Start-Process python -ArgumentList "`"$thresholdGate`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
   Add-Line "Threshold context gate exit code: $($thresholdGateProcess.ExitCode)"
 
+  Add-Line "Running free injury context gate..."
+  $injuryGate = Join-Path $ScriptDir "61_free_injury_context_gate.py"
+
+  if (-not (Test-Path $injuryGate)) {
+    Add-Line "STATUS: FAILED"
+    Add-Line "Missing free injury context gate: $injuryGate"
+    Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
+    exit 1
+  }
+
+  $injuryGateProcess = Start-Process python -ArgumentList "`"$injuryGate`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Free injury context gate exit code: $($injuryGateProcess.ExitCode)"
+
+  if ($injuryGateProcess.ExitCode -ne 0) {
+    Add-Line "SMART_GATE_FAILED_NO_TELEGRAM_SEND"
+    Add-Line "Reason: free injury context gate returned non-zero exit code."
+    Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
+    exit 1
+  }
   Add-Line "SMART_GATE_START"
 
   $smartGateScripts = @(
@@ -251,6 +270,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
