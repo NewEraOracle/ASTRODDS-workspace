@@ -1,0 +1,53 @@
+ASTRODDS 60 MLB FREE INJURY CONNECTOR REPORT
+======================================================
+Generated: 2026-06-14T15:41:56.876246+00:00
+
+Status: OK
+Date range: 2026-05-24 to 2026-06-14
+API rows fetched: 979
+Injury-related rows: 196
+
+Risk counts:
+- cleared_or_activated: 67
+- high: 92
+- medium: 37
+
+Latest injury transactions:
+- 2026-06-14 | Cleveland Guardians | José Ramírez | Risk=medium | Cleveland Guardians placed 3B José Ramírez on the 10-day injured list. Left hamate fracture.
+- 2026-06-14 | Kansas City Royals | Vinnie Pasquantino | Risk=medium | Kansas City Royals placed 1B Vinnie Pasquantino on the 10-day injured list. Right hamate fracture.
+- 2026-06-14 | Cleveland Guardians | Gabriel Arias | Risk=cleared_or_activated | Cleveland Guardians activated SS Gabriel Arias from the 60-day injured list.
+- 2026-06-14 | Cincinnati Reds | Jose Trevino | Risk=cleared_or_activated | Cincinnati Reds activated C Jose Trevino from the 10-day injured list.
+- 2026-06-13 | Atlanta Braves | Spencer Strider | Risk=high | Atlanta Braves placed RHP Spencer Strider on the 15-day injured list. Right elbow inflammation.
+- 2026-06-13 | Detroit Tigers | Jack Flaherty | Risk=high | Detroit Tigers placed RHP Jack Flaherty on the 15-day injured list. Left peroneal strain.
+- 2026-06-13 | Detroit Tigers | Tarik Skubal | Risk=cleared_or_activated | Detroit Tigers activated LHP Tarik Skubal from the 15-day injured list.
+- 2026-06-13 | Pittsburgh Pirates | Wilber Dotel | Risk=high | Pittsburgh Pirates placed RHP Wilber Dotel on the 15-day injured list. Right lat muscle strain.
+- 2026-06-13 | Tampa Bay Rays | Craig Kimbrel | Risk=cleared_or_activated | Tampa Bay Rays activated RHP Craig Kimbrel from the 15-day injured list.
+- 2026-06-13 | New York Yankees | Trent Grisham | Risk=medium | New York Yankees placed CF Trent Grisham on the 10-day injured list. Right hamstring strain.
+- 2026-06-13 | New York Yankees | Jasson Domínguez | Risk=cleared_or_activated | New York Yankees activated LF Jasson Domínguez from the 10-day injured list.
+- 2026-06-13 | Texas Rangers | Evan Carter | Risk=medium | Texas Rangers placed CF Evan Carter on the 10-day injured list. Right oblique strain.
+- 2026-06-13 | San Diego Padres | Miguel Andujar | Risk=medium | San Diego Padres placed DH Miguel Andujar on the 10-day injured list retroactive to June 11, 2026. Left hamstring strain.
+- 2026-06-12 | Atlanta Braves | Hurston Waldrep | Risk=cleared_or_activated | Atlanta Braves activated RHP Hurston Waldrep from the 60-day injured list.
+- 2026-06-12 | Toronto Blue Jays | Alejandro Kirk | Risk=cleared_or_activated | Toronto Blue Jays activated C Alejandro Kirk from the 60-day injured list.
+- 2026-06-12 | Milwaukee Brewers | Coleman Crow | Risk=high | Milwaukee Brewers placed RHP Coleman Crow on the 15-day injured list retroactive to June 10, 2026. Right forearm flexor strain.
+- 2026-06-12 | Philadelphia Phillies | Adolis García | Risk=high | Philadelphia Phillies placed RF Adolis García on the 60-day injured list. Right latissimus dorsi tear.
+- 2026-06-12 | Athletics | Jacob Wilson | Risk=cleared_or_activated | Athletics activated SS Jacob Wilson from the 10-day injured list.
+- 2026-06-12 | Toronto Blue Jays | Daulton Varsho | Risk=medium | Toronto Blue Jays placed CF Daulton Varsho on the 10-day injured list retroactive to June 10, 2026. Left wrist inflammation.
+- 2026-06-12 | Detroit Tigers | Kenley Jansen | Risk=cleared_or_activated | Detroit Tigers activated RHP Kenley Jansen from the 15-day injured list.
+- 2026-06-12 | Athletics | Brent Rooker | Risk=medium | Athletics placed DH Brent Rooker on the 10-day injured list retroactive to June 9, 2026. Bone bruise in left knee.
+- 2026-06-12 | Kansas City Royals | Seth Lugo | Risk=medium | Kansas City Royals placed RHP Seth Lugo on the 7-day injured list retroactive to June 11, 2026. Concussion.
+- 2026-06-12 | St. Louis Cardinals | Ramón Urías | Risk=high | St. Louis Cardinals placed 3B Ramón Urías on the 60-day injured list. Right elbow lateral epicondylitis.
+- 2026-06-12 | Arizona Diamondbacks | Jordan Lawlar | Risk=cleared_or_activated | Arizona Diamondbacks activated LF Jordan Lawlar from the 60-day injured list.
+- 2026-06-12 | Colorado Rockies | Chase Dollander | Risk=high | Colorado Rockies transferred RHP Chase Dollander from the 15-day injured list to the 60-day injured list. Right elbow strain.
+
+Important:
+- Free source covers official transactions / injured list activity.
+- False positive fix: no raw substring IL matching; safer regex only.
+- It does not fully cover day-to-day injuries or late scratches.
+- Keep lineup confirmation as the strongest final check.
+- Paper/manual only. No real-money automation.
+
+Output JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-free-injury-transactions-latest.json
+Output CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-free-injury-transactions-latest.csv
+Policy JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_MLB_FREE_INJURY_CONNECTOR_POLICY.json
+
+Rule: free injury connector only. No odds scan. No betting automation.

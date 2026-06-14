@@ -1,0 +1,39 @@
+{
+  "version": "ASTRODDS_FINAL_LAUNCH_PACKAGE_V1",
+  "generatedAt": "2026-06-14T15:36:57.386327Z",
+  "status": "LAUNCH_READY_WITH_DOCUMENTED_LIMITS",
+  "checks": {
+    "health_check_exists": true,
+    "credit_guard_exists": true,
+    "public_telegram_exists": true,
+    "review_board_exists": true,
+    "proof_log_html_exists": true,
+    "proof_log_json_exists": true,
+    "production_lock_ready": true,
+    "secret_safety_safe": true,
+    "source_policy_locked": true,
+    "real_odds_guard_done": true,
+    "injury_policy_exists": true,
+    "advanced_policy_exists": true
+  },
+  "gitStatusShort": [
+    "?? mlb-engine/baseballpred-inspired/scripts/59_final_launch_package.py"
+  ],
+  "docs": {
+    "operatorRunbook": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\docs\\astrodds\\OPERATOR_RUNBOOK.md",
+    "clientTelegramRules": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\docs\\astrodds\\CLIENT_TELEGRAM_RULES.md",
+    "documentedLimits": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\docs\\astrodds\\DOCUMENTED_LIMITS.md",
+    "launchChecklist": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\docs\\astrodds\\LAUNCH_CHECKLIST.md"
+  },
+  "runtime": {
+    "proofLogHtml": "OK",
+    "proofLogJson": 5
+  },
+  "rules": {
+    "publicTelegram": "official buys only",
+    "stake": "5% bankroll",
+    "creditGuard": "active",
+    "paperOnly": true,
+    "realMoneyAutomation": false
+  }
+}

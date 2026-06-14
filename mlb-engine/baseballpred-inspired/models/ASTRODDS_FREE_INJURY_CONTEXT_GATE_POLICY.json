@@ -1,0 +1,29 @@
+{
+  "version": "ASTRODDS_FREE_INJURY_CONTEXT_GATE_POLICY_V2",
+  "createdAt": "2026-06-14T15:49:37.653481+00:00",
+  "status": "OK",
+  "source": "MLB StatsAPI transactions joined to current slate teams",
+  "lookbackRules": {
+    "high": "14 days",
+    "medium": "10 days",
+    "low": "7 days"
+  },
+  "smarterGateRules": {
+    "critical_pitcher_match": "block_or_admin_review only when picked probable pitcher matches injured player",
+    "high": "manual_review for picked-team high injury cluster",
+    "medium": "manual_review for picked-team medium injury context",
+    "low": "monitor only",
+    "none": "no_block"
+  },
+  "limits": [
+    "covers official injured-list transactions, not all day-to-day injuries",
+    "does not replace confirmed lineups",
+    "team-level matching cannot fully know player importance without lineup/roster weighting"
+  ],
+  "outputs": {
+    "json": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-free-injury-context-gate-latest.json",
+    "csv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-free-injury-context-gate-latest.csv"
+  },
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

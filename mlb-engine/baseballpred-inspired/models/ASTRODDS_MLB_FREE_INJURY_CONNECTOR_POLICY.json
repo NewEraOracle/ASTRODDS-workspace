@@ -1,0 +1,26 @@
+{
+  "version": "ASTRODDS_MLB_FREE_INJURY_CONNECTOR_POLICY_V2",
+  "createdAt": "2026-06-14T15:41:56.876246+00:00",
+  "status": "OK",
+  "source": "MLB StatsAPI transactions endpoint",
+  "cost": "free_public_endpoint",
+  "falsePositiveFix": "Removed raw substring 'il' matching. Uses safer regex patterns for IL/injured list.",
+  "coverage": [
+    "official transactions",
+    "injured list placements",
+    "activations/reinstatements when present"
+  ],
+  "limits": [
+    "does not guarantee day-to-day injuries",
+    "does not guarantee late scratches",
+    "does not replace confirmed lineups",
+    "does not provide medical detail beyond transaction description"
+  ],
+  "officialBuyRule": "If a picked team's key player appears on recent injured-list transaction, downgrade to review unless lineup/context confirms it is irrelevant.",
+  "outputs": {
+    "json": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-free-injury-transactions-latest.json",
+    "csv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-free-injury-transactions-latest.csv"
+  },
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

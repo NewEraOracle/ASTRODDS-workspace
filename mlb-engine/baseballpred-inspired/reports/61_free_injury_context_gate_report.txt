@@ -1,0 +1,36 @@
+ASTRODDS 61 FREE INJURY CONTEXT GATE REPORT
+======================================================
+Generated: 2026-06-14T15:49:37.653481+00:00
+
+Slate rows: 9
+Free injury rows loaded: 196
+Pitcher context games loaded: 9
+Output rows: 9
+
+Official buy impact counts:
+- manual_review: 8
+- no_block: 1
+
+Current injury gate rows:
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | PickedRisk=high | ActiveInj=4 | PitcherHit=0 | Impact=manual_review | Flags=picked_team_high_recent_injury_cluster
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | PickedRisk=high | ActiveInj=2 | PitcherHit=0 | Impact=manual_review | Flags=picked_team_high_recent_injury_cluster|opponent_injury_context
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | PickedRisk=none | ActiveInj=0 | PitcherHit=0 | Impact=no_block | Flags=free_injury_context_clean|opponent_injury_context
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | PickedRisk=high | ActiveInj=8 | PitcherHit=0 | Impact=manual_review | Flags=picked_team_high_recent_injury_cluster|opponent_injury_context
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | PickedRisk=high | ActiveInj=3 | PitcherHit=0 | Impact=manual_review | Flags=picked_team_high_recent_injury_cluster|opponent_injury_context
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | PickedRisk=medium | ActiveInj=3 | PitcherHit=0 | Impact=manual_review | Flags=picked_team_medium_recent_injury_context|opponent_injury_context
+- Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | PickedRisk=high | ActiveInj=3 | PitcherHit=0 | Impact=manual_review | Flags=picked_team_high_recent_injury_cluster
+- Los Angeles Dodgers @ Chicago White Sox | Pick: Los Angeles Dodgers | PickedRisk=medium | ActiveInj=2 | PitcherHit=0 | Impact=manual_review | Flags=picked_team_medium_recent_injury_context|opponent_injury_context
+- Colorado Rockies @ Athletics | Pick: Athletics | PickedRisk=medium | ActiveInj=2 | PitcherHit=0 | Impact=manual_review | Flags=picked_team_medium_recent_injury_context|opponent_injury_context
+
+Important:
+- Smarter gate: does not block every team just because any player has an IL transaction.
+- Block is reserved for picked probable pitcher injury match.
+- High/medium team injury context forces manual review, not public auto-send.
+- This does not consume odds credits.
+- Paper/manual only. No real-money automation.
+
+Policy JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_FREE_INJURY_CONTEXT_GATE_POLICY.json
+Output JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-free-injury-context-gate-latest.json
+Output CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-free-injury-context-gate-latest.csv
+
+Rule: injury context gate only. No odds scan. No betting automation.

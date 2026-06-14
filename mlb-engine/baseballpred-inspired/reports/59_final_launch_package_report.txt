@@ -1,0 +1,40 @@
+ASTRODDS 59 FINAL LAUNCH PACKAGE REPORT
+==================================================
+Generated: 2026-06-14T15:36:57.386327Z
+
+Status: LAUNCH_READY_WITH_DOCUMENTED_LIMITS
+
+Checks:
+- health_check_exists: True
+- credit_guard_exists: True
+- public_telegram_exists: True
+- review_board_exists: True
+- proof_log_html_exists: True
+- proof_log_json_exists: True
+- production_lock_ready: True
+- secret_safety_safe: True
+- source_policy_locked: True
+- real_odds_guard_done: True
+- injury_policy_exists: True
+- advanced_policy_exists: True
+
+Created docs:
+- C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\docs\astrodds\OPERATOR_RUNBOOK.md
+- C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\docs\astrodds\CLIENT_TELEGRAM_RULES.md
+- C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\docs\astrodds\DOCUMENTED_LIMITS.md
+- C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\docs\astrodds\LAUNCH_CHECKLIST.md
+
+Final operating rules:
+- Public Telegram only sends official buys.
+- Review board stays admin/internal.
+- Entry max required.
+- Stake fixed at 5% bankroll.
+- Credit guard active.
+- Paper/manual only. No real-money automation.
+
+Git status at package time:
+- ?? mlb-engine/baseballpred-inspired/scripts/59_final_launch_package.py
+
+Launch package JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_FINAL_LAUNCH_PACKAGE.json
+
+Rule: launch packaging only. No scans. No real-money automation.
