@@ -1,0 +1,20 @@
+{
+  "version": "ASTRODDS_INJURY_IMPACT_POLICY_V1",
+  "createdAt": "2026-06-14T15:05:31.634001Z",
+  "status": "READY_WITH_UNKNOWN_SOURCE",
+  "verifiedInjuryDatasetReady": false,
+  "rules": {
+    "high": "block_or_admin_review_before_official_buy",
+    "medium": "manual_review_before_official_buy",
+    "low": "monitor_only",
+    "none": "no_injury_block",
+    "unknown": "do_not_claim_injury_clean; wait for verified source before marketing injury intelligence"
+  },
+  "currentLimit": "No live verified injury API is connected in this script. It only formalizes detection from available fields and prevents false claims.",
+  "outputs": {
+    "json": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-injury-impact-latest.json",
+    "csv": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-injury-impact-latest.csv"
+  },
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

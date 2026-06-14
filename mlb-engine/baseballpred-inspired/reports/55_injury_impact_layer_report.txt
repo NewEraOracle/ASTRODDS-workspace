@@ -1,0 +1,38 @@
+ASTRODDS 55 INJURY IMPACT LAYER REPORT
+================================================
+Generated: 2026-06-14T15:05:31.634001Z
+
+Input source: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-context-threshold-final-latest.json
+Input rows: 9
+Output rows: 9
+Verified injury dataset ready: False
+
+Risk counts:
+- unknown: 9
+
+Injury dataset audit:
+- mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv | exists=False rows=0 injuryCols=0 ready=False
+- mlb_moneyline_features_with_pitchers_bullpen_weather_lineup.csv | exists=False rows=0 injuryCols=0 ready=False
+- astrodss_master_feature_dataset_v2_calibrated.csv | exists=False rows=0 injuryCols=0 ready=False
+
+Current injury impact rows:
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Risk=unknown | Flags=injury_source_missing | OfficialBuyImpact=review_if_used_for_strict_production
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Risk=unknown | Flags=injury_source_missing | OfficialBuyImpact=review_if_used_for_strict_production
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Risk=unknown | Flags=injury_source_missing | OfficialBuyImpact=review_if_used_for_strict_production
+- Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Risk=unknown | Flags=injury_source_missing | OfficialBuyImpact=review_if_used_for_strict_production
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | Risk=unknown | Flags=injury_source_missing | OfficialBuyImpact=review_if_used_for_strict_production
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Risk=unknown | Flags=injury_source_missing | OfficialBuyImpact=review_if_used_for_strict_production
+- Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | Risk=unknown | Flags=injury_source_missing | OfficialBuyImpact=review_if_used_for_strict_production
+- Los Angeles Dodgers @ Chicago White Sox | Pick: Los Angeles Dodgers | Risk=unknown | Flags=injury_source_missing | OfficialBuyImpact=review_if_used_for_strict_production
+- Colorado Rockies @ Athletics | Pick: Athletics | Risk=unknown | Flags=injury_source_missing | OfficialBuyImpact=review_if_used_for_strict_production
+
+Important:
+- This layer does not invent injuries.
+- If no verified injury fields exist, it marks injury status as unknown/source missing.
+- Do not market injury intelligence until a verified injury source is connected.
+
+Policy JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_INJURY_IMPACT_POLICY.json
+Output JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-injury-impact-latest.json
+Output CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-injury-impact-latest.csv
+
+Rule: injury impact layer only. No scans. No real-money automation.
