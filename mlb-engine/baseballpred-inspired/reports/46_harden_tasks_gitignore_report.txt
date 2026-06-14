@@ -1,0 +1,40 @@
+﻿ASTRODDS 46 HARDEN TASKS + GITIGNORE REPORT
+================================================
+Generated: 2026-06-14T09:16:51.9669996-04:00
+
+Workspace: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace
+
+STEP 1 — Harden Windows scheduled tasks
+----------------------------------------
+OK: hardened ASTRODDS Engine V2 Morning
+OK: hardened ASTRODDS Engine V2 Afternoon
+OK: hardened ASTRODDS Engine V2 Evening
+
+STEP 2 — Verify scheduled tasks
+--------------------------------
+OK: ASTRODDS Engine V2 Morning
+  Prochaine exécution:                                       2026-06-14 11:00:00
+  Statut:                                                    Prêt
+  Tâche à exécuter:                                          powershell.exe -ExecutionPolicy Bypass -File C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\scripts\31_auto_daily_engine_runner.ps1
+OK: ASTRODDS Engine V2 Afternoon
+  Prochaine exécution:                                       2026-06-14 15:00:00
+  Statut:                                                    Prêt
+  Tâche à exécuter:                                          powershell.exe -ExecutionPolicy Bypass -File C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\scripts\31_auto_daily_engine_runner.ps1
+OK: ASTRODDS Engine V2 Evening
+  Prochaine exécution:                                       2026-06-14 19:00:00
+  Statut:                                                    Prêt
+  Tâche à exécuter:                                          powershell.exe -ExecutionPolicy Bypass -File C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\scripts\31_auto_daily_engine_runner.ps1
+
+STEP 3 — Update .gitignore
+---------------------------
+Gitignore patterns added: 11
+
+STEP 4 — Git status after hardening
+------------------------------------
+DIRTY:
+-  M .gitignore
+- ?? mlb-engine/baseballpred-inspired/scripts/46_harden_tasks_gitignore.ps1
+
+Conclusion:
+46 completed. If scheduled task hardening shows errors, run PowerShell as Administrator later.
+Rule: system hardening only. No real-money automation.

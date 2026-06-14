@@ -59,3 +59,14 @@ bestbets-live-debug.json
 
 # BaseballPred local raw data
 mlb-engine/baseballpred-inspired/data/raw/
+# ASTRODDS local secrets / runtime
+.env
+.env.*
+!.env.example
+# Python runtime
+**/__pycache__/
+*.pyc
+# Next.js / Node runtime
+.next/
+node_modules/
+# Local backup patches
