@@ -95,6 +95,16 @@ Add-Line ""
 Add-Line "Pipeline exit code: $($process.ExitCode)"
 
 if ($process.ExitCode -eq 0) {
+  Add-Line "Running daily performance report..."
+  $dailyReport = Join-Path $ScriptDir "33_daily_performance_report.py"
+  $dailyProcess = Start-Process python -ArgumentList "`"$dailyReport`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Daily performance exit code: $($dailyProcess.ExitCode)"
+
+  Add-Line "Running Telegram daily recap..."
+  $recapScript = Join-Path $ScriptDir "34_telegram_daily_recap.ps1"
+  $recapProcess = Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$recapScript`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Telegram recap exit code: $($recapProcess.ExitCode)"
+
   Add-Line "STATUS: OK"
   Add-Line "Engine run complete."
   Add-Line ""
@@ -124,3 +134,4 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+

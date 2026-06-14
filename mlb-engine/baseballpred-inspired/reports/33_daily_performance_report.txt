@@ -1,0 +1,44 @@
+ASTRODDS 33 DAILY PERFORMANCE REPORT
+============================================
+Generated: 2026-06-14T01:16:56.286945Z
+
+Summary:
+- Total signals: 5
+- Resolved: 1
+- Wins: 0
+- Losses: 1
+- Pending: 4
+- Win rate: 0.0%
+- Paper profit: -1.0u
+- ENGINE_BUY count: 1
+
+By decision:
+- ENGINE_BUY: 1
+- MANUAL_REVIEW: 3
+- WATCH: 1
+
+By grade:
+- A: 1
+- A+: 1
+- B: 2
+- WATCH: 1
+
+CLV summary:
+- Tracked rows: 5
+- Positive: 0
+- Negative: 0
+- Flat: 5
+
+Best signal by calibrated edge:
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: ENGINE_BUY | Grade: A+ | Edge: 12.47% | Result: pending
+
+Pending signals:
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: ENGINE_BUY | Grade: A+
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-daily-performance-latest.json
+Public JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-daily-performance.json
+
+Rule: Paper/manual only. No real-money automation.

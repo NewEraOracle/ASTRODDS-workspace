@@ -1,0 +1,22 @@
+﻿ASTRODDS 34 TELEGRAM DAILY RECAP REPORT
+================================================
+Status: OK
+Token: 8566***EMok
+Chat: 5583***6333
+
+Performance generatedAt: 2026-06-14T01:16:56.286945Z
+Sent this run: 1
+Skipped duplicate: 0
+Ledger rows: 2
+
+Signals: 5
+Resolved: 1
+Wins: 0
+Losses: 1
+Pending: 4
+Paper units: -1.0u
+ENGINE_BUY: 1
+
+Rule: recap only. Paper/manual only. No real-money automation.
+
+Recap ledger: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-telegram-recap-ledger.json
