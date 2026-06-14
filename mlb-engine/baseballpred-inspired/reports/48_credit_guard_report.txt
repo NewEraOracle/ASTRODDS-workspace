@@ -1,0 +1,25 @@
+ASTRODDS 48 CREDIT GUARD REPORT
+==========================================
+Generated UTC: 2026-06-14T13:36:24.912691+00:00
+
+Mode: status
+Status: STATUS_ONLY
+Allowed: True
+Recorded this run: False
+Reason: scan allowed
+
+Limits:
+- Max daily scans: 3
+- Max monthly scans: 90
+- Monthly reserve: 20
+- Effective monthly usable scans: 70
+
+Usage:
+- Daily scans before: 1
+- Monthly scans before: 1
+- Daily scans after: 1
+- Monthly scans after: 1
+
+Ledger: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-credit-guard-ledger.json
+
+Rule: credit protection only. Paper/manual only. No real-money automation.

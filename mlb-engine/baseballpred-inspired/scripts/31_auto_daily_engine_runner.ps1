@@ -85,6 +85,31 @@ if (-not (Test-Path $pipeline)) {
   exit 1
 }
 
+Add-Line "Running credit guard..."
+$creditGuard = Join-Path $ScriptDir "48_credit_guard.py"
+$creditGuardProcess = Start-Process python -ArgumentList "`"$creditGuard`" record" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+Add-Line "Credit guard exit code: $($creditGuardProcess.ExitCode)"
+
+if ($creditGuardProcess.ExitCode -eq 2) {
+  Add-Line "STATUS: CREDIT_GUARD_BLOCKED"
+  Add-Line "Engine run skipped to protect odds credits."
+  Add-Line ""
+  Add-Line "Rule: credit protection only. Paper/manual only. No real-money automation."
+  $Lines | Set-Content $Report -Encoding UTF8
+  $Lines
+  exit 0
+}
+
+if ($creditGuardProcess.ExitCode -ne 0) {
+  Add-Line "STATUS: CREDIT_GUARD_ERROR"
+  Add-Line "Engine run stopped because credit guard returned an error."
+  Add-Line ""
+  Add-Line "Rule: credit protection only. Paper/manual only. No real-money automation."
+  $Lines | Set-Content $Report -Encoding UTF8
+  $Lines
+  exit 1
+}
+
 Add-Line "Running Engine V2 full pipeline..."
 Add-Line "Script: $pipeline"
 Add-Line ""
@@ -154,6 +179,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
