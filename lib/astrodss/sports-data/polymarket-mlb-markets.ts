@@ -375,18 +375,78 @@ function probabilityForOutcome(outcome: string, index: number, teams: string[], 
   } satisfies PolymarketMlbOutcomeProbability;
 }
 
+
+// ASTRODDS_POLYMARKET_CLEAN_MONEYLINE_PARSER_V90
+function hasYesNoOutcomeSet(outcomes: string[]) {
+  return outcomes.length > 0 && outcomes.every((outcome) => /^(yes|no)$/i.test(outcome.trim()));
+}
+
+function polymarketSlugDate(...values: Array<string | undefined>) {
+  const joined = values.filter(Boolean).join(" ");
+  const match = joined.match(/(\d{4}-\d{2}-\d{2})/);
+
+  return match?.[1] ? `${match[1]}T16:00:00Z` : undefined;
+}
+
+function marketRecordString(value: unknown, key: string) {
+  if (!value || typeof value !== "object") return undefined;
+
+  const raw = (value as Record<string, unknown>)[key];
+
+  return typeof raw === "string" && raw.trim() ? raw : undefined;
+}
+
+function cleanPolymarketGameDate(market: GammaMarket, event?: GammaEvent) {
+  return (
+    polymarketSlugDate(market.slug, event?.slug, market.question, market.title, event?.title) ??
+    marketRecordString(market, "endDate") ??
+    marketRecordString(event, "endDate") ??
+    marketRecordString(market, "startDate") ??
+    marketRecordString(event, "startDate") ??
+    marketRecordString(market, "closedTime") ??
+    marketRecordString(event, "closedTime") ??
+    marketRecordString(market, "createdAt") ??
+    marketRecordString(event, "createdAt") ??
+    new Date().toISOString()
+  );
+}
+
+function isCleanSingleGameTeamMoneylineText(text: string) {
+  const normalized = normalizeText(text);
+
+  if (!normalized) return false;
+  if (isWrongSport(text)) return false;
+
+  if (/\b(extra innings|first 5|1st 5|f5|team total|player prop|props?|total runs|o\/u|over\/under|run line|spread|handicap)\b/.test(normalized)) {
+    return false;
+  }
+
+  if (/\b(100 or more|100\+|regular season|world series|pennant|division|championship|playoffs|series price|series winner)\b/.test(normalized)) {
+    return false;
+  }
+
+  const teams = orderedTeams(text).slice(0, 2);
+  if (teams.length < 2) return false;
+
+  return isMoneylineCandidate(text) || hasSingleGameWording(text) || hasDateLikeContext(text);
+}
+
 function normalizeMarket(market: GammaMarket, event?: GammaEvent): PolymarketMlbMoneylineMarket | undefined {
   const text = marketText(market, event);
+  if (!isCleanSingleGameTeamMoneylineText(text)) return undefined;
   if (!isMoneylineCandidate(text)) return undefined;
 
   const teams = orderedTeams(text).slice(0, 2);
+  if (teams.length < 2) return undefined;
   const outcomes = safeArray<string>(market.outcomes).map(String);
+  if (hasYesNoOutcomeSet(outcomes)) return undefined;
   const prices = alignOutcomePrices(market, outcomes.length || 2);
   const tokenIds = safeArray<string>(market.clobTokenIds).map(String);
   const outcomeProbabilities = (outcomes.length ? outcomes : [teams[0] ?? "Yes", teams[1] ?? "No"]).map((outcome, index) => probabilityForOutcome(outcome, index, teams, prices, tokenIds));
   const firstProbability = outcomeProbabilities.find((outcome) => outcome.marketProbability !== null)?.marketProbability ?? null;
   const currentPrice = toUsefulNumber(market.currentPrice, market.price, market.bestAsk, market.lastTradePrice, market.bestBid) ?? firstProbability;
   const question = market.question ?? market.title ?? event?.title ?? "Untitled MLB moneyline market";
+  const parsedGameDate = cleanPolymarketGameDate(market, event);
   const warnings: string[] = [];
   const matchConfidence: PolymarketMlbMoneylineMarket["matchConfidence"] =
     teams.length >= 2
@@ -422,8 +482,8 @@ function normalizeMarket(market: GammaMarket, event?: GammaEvent): PolymarketMlb
     liquidity: safeNumber(market.liquidityNum ?? market.liquidity ?? event?.liquidity),
     volume: safeNumber(market.volumeNum ?? market.volume ?? event?.volume),
     endDate: market.endDate ?? event?.endDate,
-    gameDate: market.startDate ?? event?.startDate ?? market.endDate ?? event?.endDate,
-    marketDate: market.startDate ?? event?.startDate ?? market.endDate ?? event?.endDate,
+    gameDate: parsedGameDate,
+    marketDate: parsedGameDate,
     active: market.active ?? event?.active ?? false,
     closed: market.closed ?? event?.closed ?? false,
     warnings,
