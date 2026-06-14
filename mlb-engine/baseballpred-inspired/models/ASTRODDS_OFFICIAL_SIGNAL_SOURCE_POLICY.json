@@ -1,0 +1,46 @@
+{
+  "version": "53_official_signal_source_policy_v1",
+  "createdAt": "2026-06-14T14:50:58.275776Z",
+  "status": "OK",
+  "officialPublicSource": ".astrodds/ASTRODDS-engine-final-signals-latest.json",
+  "publicTelegramScript": "mlb-engine/baseballpred-inspired/scripts/30_telegram_final_engine_alerts.py",
+  "publicTelegramRules": [
+    "Only finalEngineDecision = ENGINE_BUY",
+    "Only finalGrade A+ or A",
+    "Requires valid market/entry price",
+    "Message shows Pick, Game, Entry max, Recommended stake 5% bankroll",
+    "Does not send WATCH, WAIT, MANUAL_REVIEW, FULL_CONTEXT_A_REVIEW, or review-board candidates",
+    "Paper/manual only. No real-money automation."
+  ],
+  "reviewOnlySource": ".astrodds/ASTRODDS-full-slate-context-threshold-final-latest.json",
+  "reviewOnlyTelegramScript": "mlb-engine/baseballpred-inspired/scripts/44_telegram_review_recap.py",
+  "reviewOnlyRules": [
+    "Private/admin review board only",
+    "Not a client/public official buy source",
+    "Does not alter public official buy logic"
+  ],
+  "singleOfficialSourceLocked": true,
+  "checks": {
+    "engine_final_exists": true,
+    "full_slate_threshold_exists": true,
+    "public_telegram_uses_engine_final": true,
+    "public_telegram_only_engine_buy": true,
+    "public_telegram_requires_entry_price": true,
+    "review_board_uses_threshold_context": true,
+    "review_board_is_review_only": true,
+    "runner_has_public_alert_step": true,
+    "runner_has_review_recap_step": true
+  },
+  "runtimeCounts": {
+    "engineFinalRows": 5,
+    "fullSlateThresholdRows": 9,
+    "publicAlertLedgerRows": 1
+  },
+  "next": [
+    "54 historical odds ROI audit",
+    "55 injury impact layer",
+    "56 advanced pitcher/team metrics"
+  ],
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

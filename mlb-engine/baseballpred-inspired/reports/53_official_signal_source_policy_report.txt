@@ -1,0 +1,34 @@
+ASTRODDS 53 OFFICIAL SIGNAL SOURCE POLICY REPORT
+==========================================================
+Generated: 2026-06-14T14:50:58.275776Z
+
+Status: OK
+
+Locked source policy:
+- Official public/client source: .astrodds/ASTRODDS-engine-final-signals-latest.json
+- Review/admin source: .astrodds/ASTRODDS-full-slate-context-threshold-final-latest.json
+
+Checks:
+- engine_final_exists: True
+- full_slate_threshold_exists: True
+- public_telegram_uses_engine_final: True
+- public_telegram_only_engine_buy: True
+- public_telegram_requires_entry_price: True
+- review_board_uses_threshold_context: True
+- review_board_is_review_only: True
+- runner_has_public_alert_step: True
+- runner_has_review_recap_step: True
+
+Runtime counts:
+- engineFinalRows: 5
+- fullSlateThresholdRows: 9
+- publicAlertLedgerRows: 1
+
+Conclusion:
+- Single official public source is locked.
+- Public Telegram cannot send review/watch/wait picks.
+- Review board remains separate for admin only.
+
+Policy JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_OFFICIAL_SIGNAL_SOURCE_POLICY.json
+
+Rule: policy lock only. No scans. No real-money automation.
