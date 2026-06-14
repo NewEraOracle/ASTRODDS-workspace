@@ -19,6 +19,7 @@ PIPELINE = [
     ("26_full_slate_strict_gate.py", "Full slate strict gate"),
     ("19_engine_signal_ledger.py", "Save final signals to ledger"),
     ("20_resolve_engine_signal_ledger.py", "Resolve ledger win/loss when games are final"),
+    ("29_public_proof_log.py", "Generate public proof log"),
 ]
 
 def run(script):
@@ -106,3 +107,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

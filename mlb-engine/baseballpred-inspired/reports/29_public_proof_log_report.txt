@@ -1,0 +1,19 @@
+ASTRODDS 29 PUBLIC PROOF LOG REPORT
+============================================
+Generated: 2026-06-14T00:19:01.023516Z
+
+Signals: 5
+Wins: 0
+Losses: 1
+Pending: 4
+Paper profit units: -1.0u
+
+Proof log rows:
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: ENGINE_BUY | Grade: A+ | Result: pending | Units: 0.0
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | Result: pending | Units: 0.0
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | Result: pending | Units: 0.0
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | Result: pending | Units: 0.0
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | Result: loss | Units: -1.0
+
+HTML: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-proof-log.html
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-proof-log.json
