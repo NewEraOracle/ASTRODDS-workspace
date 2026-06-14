@@ -88,6 +88,16 @@ function errorMessage(error: unknown) {
   return error instanceof Error ? error.message : "Unknown browser fallback failure";
 }
 
+function coerceArrayResponse(data: unknown, keys: string[]) {
+  if (Array.isArray(data)) return data;
+  if (!data || typeof data !== "object") return [];
+  for (const key of keys) {
+    const value = (data as Record<string, unknown>)[key];
+    if (Array.isArray(value)) return value;
+  }
+  return [];
+}
+
 function liveStatus(game: MlbScheduleGame) {
   const state = `${game.status?.abstractGameState ?? ""} ${game.status?.detailedState ?? ""}`.toLowerCase();
   if (state.includes("final")) return "FINAL" as const;
@@ -269,6 +279,10 @@ async function fetchBrowserPolymarket(games: AstroddsGameScan[] = []): Promise<B
   const terms = mlbScheduleSearchTerms(games);
   const urls = terms.map((term) => polymarketEventsUrl(term));
   const marketUrls = terms.map((term) => polymarketMarketsUrl(term));
+  const baseballTagUrls = [
+    polymarketEventsUrl("", { tagSlug: "baseball" }),
+    polymarketMarketsUrl("", { tagSlug: "baseball" }),
+  ];
   const settled = await Promise.allSettled(
     urls.map(async (url) => {
       const response = await fetch(url.toString(), {
@@ -278,7 +292,7 @@ async function fetchBrowserPolymarket(games: AstroddsGameScan[] = []): Promise<B
 
       if (!response.ok) throw new Error(`Polymarket Gamma API returned ${response.status} for ${url.toString()}`);
       const data = (await response.json()) as unknown;
-      return Array.isArray(data) ? (data as GammaEvent[]) : [];
+      return coerceArrayResponse(data, ["events", "data", "results"]) as GammaEvent[];
     }),
   );
   const marketSettled = await Promise.allSettled(
@@ -290,15 +304,30 @@ async function fetchBrowserPolymarket(games: AstroddsGameScan[] = []): Promise<B
 
       if (!response.ok) throw new Error(`Polymarket Gamma markets API returned ${response.status} for ${url.toString()}`);
       const data = (await response.json()) as unknown;
-      return Array.isArray(data) ? (data as GammaMarket[]) : [];
+      return coerceArrayResponse(data, ["markets", "data", "results"]) as GammaMarket[];
+    }),
+  );
+  const baseballSettled = await Promise.allSettled(
+    baseballTagUrls.map(async (url) => {
+      const response = await fetch(url.toString(), {
+        cache: "no-store",
+        headers: { accept: "application/json" },
+      });
+
+      if (!response.ok) throw new Error(`Polymarket Gamma returned ${response.status} for ${url.toString()}`);
+      const data = (await response.json()) as unknown;
+      return coerceArrayResponse(data, ["events", "markets", "data", "results"]);
     }),
   );
   const events = settled.flatMap((entry) => (entry.status === "fulfilled" ? entry.value : []));
   const directMarkets = marketSettled.flatMap((entry) => (entry.status === "fulfilled" ? entry.value : []));
+  const baseballEvents = baseballSettled.slice(0, 1).flatMap((entry) => (entry.status === "fulfilled" ? entry.value : []));
+  const baseballMarkets = baseballSettled.slice(1).flatMap((entry) => (entry.status === "fulfilled" ? entry.value : []));
   const errors = settled.flatMap((entry) => (entry.status === "rejected" ? [errorMessage(entry.reason)] : []));
   const marketErrors = marketSettled.flatMap((entry) => (entry.status === "rejected" ? [errorMessage(entry.reason)] : []));
-  const normalized = normalizePolymarketSources(events, directMarkets, "MLB");
-  const sourceUrl = [...urls, ...marketUrls].map(String).join(" | ");
+  const baseballErrors = baseballSettled.flatMap((entry) => (entry.status === "rejected" ? [errorMessage(entry.reason)] : []));
+  const normalized = normalizePolymarketSources([...events, ...baseballEvents], [...directMarkets, ...baseballMarkets], "MLB", games);
+  const sourceUrl = [...urls, ...marketUrls, ...baseballTagUrls.map((url) => url.toString())].join(" | ");
 
   if (settled.every((entry) => entry.status === "rejected") && marketSettled.every((entry) => entry.status === "rejected")) {
     return {
@@ -343,7 +372,7 @@ async function fetchBrowserPolymarket(games: AstroddsGameScan[] = []): Promise<B
       rejectedNonMlbMarkets: normalized.rejectedMarkets.length,
       mlbMarketsDetected: normalized.acceptedRawMarkets.length,
       singleGameMlbMarketsDetected: normalized.markets.length,
-      queryStrategiesUsed: ["sport keyword", "schedule team pair", "team + MLB/baseball context", "Gamma events endpoint", "Gamma markets endpoint"],
+      queryStrategiesUsed: ["sport keyword", "schedule team pair", "team + MLB/baseball context", "baseball tag", "Gamma events endpoint", "Gamma markets endpoint"],
       teamSearchQueriesAttempted: terms.filter((term) => !polymarketSportQueryTerms("MLB").includes(term)).slice(0, 40),
       futuresRejected: normalized.rejectedMarkets.filter((market) => market.rejectedReason?.includes("futures") || market.rejectedReason?.includes("season/championship")).length,
       wrongSportsRejected: normalized.rejectedMarkets.filter((market) => market.rejectedReason?.includes("wrong sport")).length,
@@ -357,8 +386,8 @@ async function fetchBrowserPolymarket(games: AstroddsGameScan[] = []): Promise<B
       mlbCandidateMarketSamples: normalized.mlbCandidateMarketSamples,
       rejectionReasonCounts: normalized.rejectionReasonCounts,
       error:
-        errors.length || marketErrors.length || normalized.acceptedRawMarkets.length === 0
-          ? [[...errors, ...marketErrors].join(" | "), normalized.acceptedRawMarkets.length === 0 ? "Browser fallback connected to Polymarket, but no active single-game MLB markets were detected after team-alias filtering." : ""]
+        errors.length || marketErrors.length || baseballErrors.length || normalized.acceptedRawMarkets.length === 0
+          ? [[...errors, ...marketErrors, ...baseballErrors].join(" | "), normalized.acceptedRawMarkets.length === 0 ? "Browser fallback connected to Polymarket, but no active single-game MLB markets were detected after team-alias filtering." : ""]
               .filter(Boolean)
               .join(" ")
           : undefined,

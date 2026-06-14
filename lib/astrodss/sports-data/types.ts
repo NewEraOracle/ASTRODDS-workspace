@@ -306,6 +306,7 @@ export type AstroddsGameScan = {
   keyContext: string[];
   keyPlayerStatus: string;
   markets: AstroddsMarketScan[];
+  marketConnected?: boolean;
   dataStatus: AstroddsDataStatus;
   source: string;
   mlbContext?: AstroddsMlbGameContext;
@@ -363,11 +364,17 @@ export type AstroddsScanDiagnostics = {
     marketsFetched: number;
     sportsMarketsDetected: number;
     marketsMatchedToGames: number;
+    totalGammaMarketsScanned?: number;
     rawEventsFetched?: number;
     rawMarketsFetched?: number;
     rejectedNonMlbMarkets?: number;
+    acceptedMlbMarkets?: number;
     mlbMarketsDetected?: number;
     singleGameMlbMarketsDetected?: number;
+    rejectedBySportCategory?: number;
+    rejectedByTeamAlias?: number;
+    rejectedByDate?: number;
+    rejectedBySingleGameFilter?: number;
     queryStrategiesUsed?: string[];
     teamSearchQueriesAttempted?: string[];
     futuresRejected?: number;

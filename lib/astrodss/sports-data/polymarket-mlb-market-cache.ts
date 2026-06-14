@@ -11,6 +11,12 @@ export type PolymarketMlbMarketsCacheSnapshot = {
   markets: PolymarketMlbMoneylineMarket[];
   warnings: string[];
   sourceDiagnostics: PolymarketMlbSourceDiagnostic[];
+  totalGammaMarketsScanned?: number;
+  acceptedMlbMarkets?: number;
+  rejectedBySportCategory?: number;
+  rejectedByTeamAlias?: number;
+  rejectedByDate?: number;
+  rejectedBySingleGameFilter?: number;
 };
 
 export type PolymarketMlbMarketsCacheMetadata = {
@@ -36,6 +42,10 @@ function stringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
 }
 
+function numberOrUndefined(value: unknown) {
+  return typeof value === "number" && Number.isFinite(value) ? value : undefined;
+}
+
 function diagnosticArray(value: unknown): PolymarketMlbSourceDiagnostic[] {
   return Array.isArray(value) ? value.filter((item): item is PolymarketMlbSourceDiagnostic => isRecord(item) && typeof item.endpointLabel === "string") : [];
 }
@@ -52,6 +62,12 @@ function normalizeSnapshot(raw: unknown): PolymarketMlbMarketsCacheSnapshot | un
     markets,
     warnings: stringArray(raw.warnings),
     sourceDiagnostics: diagnosticArray(raw.sourceDiagnostics),
+    totalGammaMarketsScanned: numberOrUndefined(raw.totalGammaMarketsScanned),
+    acceptedMlbMarkets: numberOrUndefined(raw.acceptedMlbMarkets),
+    rejectedBySportCategory: numberOrUndefined(raw.rejectedBySportCategory),
+    rejectedByTeamAlias: numberOrUndefined(raw.rejectedByTeamAlias),
+    rejectedByDate: numberOrUndefined(raw.rejectedByDate),
+    rejectedBySingleGameFilter: numberOrUndefined(raw.rejectedBySingleGameFilter),
   };
 }
 

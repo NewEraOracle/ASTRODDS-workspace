@@ -188,6 +188,13 @@ type BestBetActionResponse = {
   sentCount?: number;
 };
 
+type BestBetsTodayResponse = {
+  status?: string;
+  bestBetsDiagnostics: BestBetsDiagnosticsResponse;
+  bestBetRows: BestBetRowResponse[];
+  warnings?: string[];
+  generatedAt?: string;
+};
 type PythonMlbEngineStatusResponse = {
   engineAvailable: boolean;
   modelAvailable: boolean;
@@ -516,6 +523,7 @@ type BestBetRowResponse = {
   manualOnly: true;
   paperOnly: true;
   realMoneyDisabled: true;
+  marketConnected?: boolean;
 };
 type BestBetsDiagnosticsResponse = {
   available: boolean;
@@ -1094,7 +1102,7 @@ function modelActionClass(action: string) {
 }
 
 function statsApiHealthItems(result?: AstroddsScanResult | null) {
-  const games = result?.games.filter((game) => game.sport === "MLB" && !game.source.toLowerCase().includes("market-only")) ?? [];
+  const games = result?.games?.filter((game) => game.sport === "MLB" && !game.source.toLowerCase().includes("market-only")) ?? [];
   const count = (status: AstroddsSourceStatus, selector: (game: AstroddsGameScan) => AstroddsSourceStatus | undefined) =>
     games.filter((game) => selector(game) === status).length;
 
@@ -1608,6 +1616,16 @@ function bestBetStatusLabel(status?: BestBetStatusResponse | string) {
   if (status === "buy") return "Buy";
   if (status === "watch") return "Watch";
   return "Blocked";
+}
+
+function bestBetKeyFactors(row: BestBetRowResponse, game?: AstroddsGameScan) {
+  const pitcherFactor = game?.mlbContext?.awayPitcher?.name || game?.mlbContext?.homePitcher?.name ? "Pitcher: good" : "Pitcher: missing";
+  const lineupFactor = game?.lineups?.status === "CONNECTED" ? "Lineup: confirmed" : "Lineup: missing";
+  const injuryFactor = game?.injuries?.status === "CONNECTED" ? "Injury: connected" : "Injury: not connected";
+  const weatherFactor = game?.weather?.status === "CONNECTED" ? "Weather: edge" : game?.weather?.status === "PARTIAL" ? "Weather: neutral" : "Weather: missing";
+  const marketFactor = row.marketConnected ? "Market: connected" : "Market: not connected";
+  const gameStatusFactor = row.gameStatusValidation?.isGameActiveForBetting && !row.gameStatusValidation?.isFinal ? "Game status: pre-game" : "Game status: blocked";
+  return [pitcherFactor, lineupFactor, injuryFactor, weatherFactor, marketFactor, gameStatusFactor];
 }
 
 function percentMetric(value?: number) {
@@ -2151,11 +2169,24 @@ export default function AstrodssTerminal() {
   const combinedRiskWarning = combinedRiskSummary?.warnings[0] ?? combinedRiskGateDiagnosticsError ?? "Waiting for combined risk diagnostics.";
   const combinedRiskTopRows = combinedRiskRows.slice(0, 3);
   const bestBetsSummary = bestBetsDiagnostics;
-  const bestBetsWarning = bestBetsSummary?.warnings[0] ?? bestBetsDiagnosticsError ?? "Waiting for Best Bets diagnostics.";
-  const bestBetsDailyPickCount = bestBetsSummary?.dailyPickCount ?? 0;
-  const bestBetsActionableCount = bestBetsSummary?.actionableCount ?? ((bestBetsSummary?.strongBuyCount ?? 0) + bestBetsDailyPickCount + (bestBetsSummary?.buyCount ?? 0));
-  const bestBetsVisibleCount = bestBetsSummary?.visibleBoardCount ?? (bestBetsActionableCount + (bestBetsSummary?.watchCount ?? 0));
-  const bestBetTopRows = bestBetRows.slice(0, 6);
+  const bestBetStrongBuyCount = bestBetRows.filter((row) => row.status === "strong_buy").length;
+  const bestBetDailyPickCount = bestBetRows.filter((row) => row.status === "daily_pick").length;
+  const bestBetOfficialCount = bestBetStrongBuyCount + bestBetDailyPickCount;
+  const bestBetMoneylineLeanCount = bestBetRows.filter((row) => row.status === "buy" || row.status === "watch").length;
+  const bestBetWatchCount = bestBetRows.filter((row) => row.status === "watch").length;
+  const bestBetBlockedCount = bestBetRows.filter((row) => row.status === "blocked").length;
+  const bestBetsWarning = bestBetRows.length > 0
+    ? bestBetOfficialCount > 0
+      ? bestBetsSummary?.warnings.find((warning) => warning !== "No valid MLB game status rows were available.") ?? ""
+      : "No official bets yet — showing best moneyline leans / odds watch."
+    : bestBetsDiagnosticsError ?? "Waiting for Best Bets diagnostics.";
+  const bestBetsVisibleCount = bestBetRows.filter((row) => row.status !== "blocked").length;
+  const bestBetTopRows = bestBetRows.filter((row) => row.status !== "blocked");
+  const bestBetGamesById = useMemo(() => new Map((result?.games ?? []).map((game) => [game.id, game])), [result?.games]);
+  const watchlistBestBetRows = bestBetRows.filter((row) => row.status === "watch");
+  const gamesWithMoneylineMarketConnected = (result?.games ?? []).filter((game) => game.sport === "MLB" && game.marketConnected).length;
+  const gamesScannedCount = result?.diagnostics.matching.gamesCount ?? result?.games?.length ?? 0;
+  const marketPriceMoneylineMarketsFound = marketPriceDiagnostics?.moneylineMarketsFound ?? result?.diagnostics.polymarket?.marketsFetched ?? 0;
   const strongBuyLedgerSummary = strongBuyLedgerDiagnostics;
   const strongBuyLedgerWarning = strongBuyLedgerSummary?.warnings[0] ?? strongBuyLedgerDiagnosticsError ?? "Waiting for Strong Buy ledger diagnostics.";
   const historicalExpansionSummary = historicalExpansionDiagnostics;
@@ -2302,6 +2333,22 @@ export default function AstrodssTerminal() {
 
 
 
+  async function refreshBestBetsToday() {
+    try {
+      const response = await fetch("/api/astrodds/best-bets/today", { cache: "no-store" });
+      if (!response.ok) throw new Error(`Best Bets response failed with ${response.status}`);
+      const payload = (await response.json()) as BestBetsTodayResponse;
+      setBestBetsDiagnostics(payload.bestBetsDiagnostics ?? null);
+      setBestBetRows(payload.bestBetRows ?? []);
+      setBestBetsDiagnosticsError("");
+    } catch (bestBetsError) {
+      const message = bestBetsError instanceof Error ? bestBetsError.message : "Unknown Best Bets diagnostics failure.";
+      setBestBetsDiagnostics(null);
+      setBestBetRows([]);
+      setBestBetsDiagnosticsError(message);
+    }
+  }
+
   async function refreshPythonMlbEngineStatus() {
     try {
       const response = await fetch("/api/astrodds/signals/unified?sport=MLB", { cache: "no-store" });
@@ -2375,15 +2422,7 @@ export default function AstrodssTerminal() {
         setCombinedRiskRows([]);
         setCombinedRiskGateDiagnosticsError("Combined risk gate diagnostics missing from unified API response.");
       }
-      if (payload.bestBetsDiagnostics) {
-        setBestBetsDiagnostics(payload.bestBetsDiagnostics);
-        setBestBetRows(payload.bestBetRows ?? []);
-        setBestBetsDiagnosticsError("");
-      } else {
-        setBestBetsDiagnostics(null);
-        setBestBetRows([]);
-        setBestBetsDiagnosticsError("Best Bets diagnostics missing from unified API response.");
-      }
+      // Best Bets come from the dedicated today route so the dashboard uses the latest rows.
       if (payload.strongBuyLedgerDiagnostics) {
         setStrongBuyLedgerDiagnostics(payload.strongBuyLedgerDiagnostics);
         setStrongBuyLedgerDiagnosticsError("");
@@ -2447,6 +2486,7 @@ export default function AstrodssTerminal() {
         setModernModelComparisonDiagnostics(null);
         setModernModelComparisonDiagnosticsError("Modern 2016-2026 model comparison diagnostics missing from unified API response.");
       }
+      await refreshBestBetsToday();
     } catch (statusError) {
       const message = statusError instanceof Error ? statusError.message : "Unknown Python MLB model status failure.";
       setPythonMlbEngineStatusError(message);
@@ -2743,8 +2783,11 @@ export default function AstrodssTerminal() {
       setActiveStep((step) => Math.min(step + 1, SCAN_STEPS.length - 1));
     }, 420);
 
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 45000);
+
     try {
-      const response = await fetch(apiRoute, { cache: "no-store" });
+      const response = await fetch(apiRoute, { cache: "no-store", signal: controller.signal });
       if (!response.ok) throw new Error(`Scan failed with ${response.status}`);
       const nextResult = (await response.json()) as AstroddsScanResult;
       console.log("ASTRODDS scan response received", {
@@ -2810,6 +2853,7 @@ export default function AstrodssTerminal() {
         setError(scanError instanceof Error ? scanError.message : "Unknown scanner error");
       }
     } finally {
+      window.clearTimeout(timeoutId);
       window.clearInterval(interval);
       setIsScanning(false);
     }
@@ -3274,11 +3318,11 @@ export default function AstrodssTerminal() {
                     <div className="mb-4 border border-[#d6af55]/30 bg-black/35 p-4">
                       <div className="flex flex-col gap-3 border-b border-white/10 pb-3 lg:flex-row lg:items-start lg:justify-between">
                         <div>
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Best Bets Board</p>
-                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Strong Buy First | Daily Picks Included</h3>
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Today&apos;s Moneyline Picks</p>
+                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Clean Moneyline Rows Only</h3>
                           <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300">
-                            Strict moneyline-only gate built from the Combined Risk rows. Strong Buy stays rare. Daily Picks surface the best valid manual-review candidates when the board can support them. Buy appears as a dashboard candidate. Watch stays monitor-only.
-                            No auto-betting. Real-money automation remains OFF.
+                            Moneyline/team winner picks only. Totals, spreads, props, and futures stay out of the daily picks board.
+                            Strong Buy stays rare. Daily Picks surface the best valid moneyline candidates. Watch stays monitor-only.
                           </p>
                         </div>
                         <div className="flex flex-wrap gap-2">
@@ -3288,179 +3332,130 @@ export default function AstrodssTerminal() {
                         </div>
                       </div>
 
-                      <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-5 2xl:[grid-template-columns:repeat(13,minmax(0,1fr))]">
+                      <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
                         <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Strong Buy</p>
-                          <p className="mt-2 text-3xl font-black text-emerald-100">{bestBetsSummary?.strongBuyCount ?? 0}</p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Polymarket</p>
+                          <p className="mt-2 text-2xl font-black text-white">{result?.diagnostics.polymarket.status ?? "NOT_CONNECTED"}</p>
+                           <p className="mt-1 text-[11px] text-slate-400">{marketPriceMoneylineMarketsFound} moneyline markets found</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Daily Picks</p>
-                          <p className="mt-2 text-3xl font-black text-cyan-100">{bestBetsDailyPickCount}</p>
+                           <p className="mt-2 text-3xl font-black text-cyan-100">{bestBetDailyPickCount}</p>
                           <p className="mt-1 text-[11px] text-slate-400">Target {bestBetsSummary?.targetDailyPickMin ?? 2} - {bestBetsSummary?.targetDailyPickMax ?? 6}</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Buy</p>
-                          <p className="mt-2 text-3xl font-black text-yellow-100">{bestBetsSummary?.buyCount ?? 0}</p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">MLB API</p>
+                          <p className="mt-2 text-2xl font-black text-white">{result?.diagnostics.sportApi.status ?? "NOT_CONNECTED"}</p>
+                          <p className="mt-1 text-[11px] text-slate-400">{result?.diagnostics.sportApi.gamesFetched ?? 0} games scanned</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Watch</p>
-                          <p className="mt-2 text-3xl font-black text-yellow-100">{bestBetsSummary?.watchCount ?? 0}</p>
+                           <p className="mt-2 text-3xl font-black text-yellow-100">{bestBetWatchCount}</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
                           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Blocked</p>
-                          <p className="mt-2 text-3xl font-black text-red-100">{bestBetsSummary?.blockedCount ?? 0}</p>
+                           <p className="mt-2 text-3xl font-black text-red-100">{bestBetBlockedCount}</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Actionable</p>
-                          <p className="mt-2 text-3xl font-black text-emerald-100">{bestBetsActionableCount}</p>
-                          <p className="mt-1 text-[11px] text-slate-400">Strong Buy + Daily Picks + Buy</p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Moneyline Connected</p>
+                           <p className="mt-2 text-3xl font-black text-emerald-100">{gamesWithMoneylineMarketConnected}</p>
+                          <p className="mt-1 text-[11px] text-slate-400">Games with clean moneyline matches</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Visible Board</p>
-                          <p className="mt-2 text-3xl font-black text-cyan-100">{bestBetsVisibleCount}</p>
-                          <p className="mt-1 text-[11px] text-slate-400">Strong Buy + Daily Picks + Buy + Watch</p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Market Status</p>
+                          <p className="mt-2 text-2xl font-black text-white">{marketPriceDiagnostics?.status ?? result?.diagnostics.polymarket.status ?? "NOT_CONNECTED"}</p>
+                           <p className="mt-1 text-[11px] text-slate-400">{marketPriceMoneylineMarketsFound} moneyline markets found</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Bankroll</p>
-                          <p className="mt-2 text-2xl font-black text-white">${bestBetsSummary?.bankroll?.toFixed(2) ?? "1000.00"}</p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Paper Mode</p>
+                          <p className="mt-2 text-2xl font-black text-white">ON</p>
+                          <p className="mt-1 text-[11px] text-slate-400">Real money OFF</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Stake %</p>
-                          <p className="mt-2 text-2xl font-black text-white">{bestBetsSummary?.stakePercent ?? 5}%</p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Daily Picks Rows</p>
+                           <p className="mt-2 text-3xl font-black text-white">{bestBetDailyPickCount}</p>
                         </div>
                         <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Stake Amount</p>
-                          <p className="mt-2 text-2xl font-black text-cyan-100">${bestBetsSummary?.stakeAmount?.toFixed(2) ?? "50.00"}</p>
-                        </div>
-                        <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Open Exposure</p>
-                          <p className="mt-2 text-2xl font-black text-white">{bestBetsSummary?.totalOpenExposurePercent?.toFixed(1) ?? "0.0"}%</p>
-                        </div>
-                        <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Exposure Label</p>
-                          <p className="mt-2 text-sm font-black uppercase text-white">{bestBetsSummary?.exposureLabel ?? "normal exposure"}</p>
-                        </div>
-                        <div className="border border-white/10 bg-black/35 p-3">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Tracked Bets</p>
-                          <p className="mt-2 text-2xl font-black text-white">{strongBuyLedgerSummary?.totalTracked ?? 0}</p>
-                          <p className="mt-1 text-[11px] text-slate-400">
-                            {strongBuyLedgerSummary?.settled ?? 0} settled | {strongBuyLedgerSummary?.wins ?? 0}-{strongBuyLedgerSummary?.losses ?? 0}
-                          </p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Watchlist Rows</p>
+                           <p className="mt-2 text-3xl font-black text-white">{bestBetWatchCount}</p>
                         </div>
                       </div>
-                      {bestBetsSummary?.strongBuyCount === 0 ? (
+                      {bestBetStrongBuyCount === 0 ? (
                         <p className="mt-4 border border-yellow-300/25 bg-yellow-400/10 p-3 text-xs font-bold text-yellow-100">
-                          {bestBetsDailyPickCount > 0
-                            ? "No Strong Buy today — showing best Daily Picks for manual review."
+                          {bestBetDailyPickCount > 0
+                            ? "No Strong Buy today - showing best Daily Picks for manual review."
                             : bestBetsSummary?.whyNoDailyPicks?.length
-                              ? `No Strong Buy today — ${bestBetsSummary.whyNoDailyPicks[0]}`
+                              ? `No Strong Buy today - ${bestBetsSummary.whyNoDailyPicks[0]}`
                               : bestBetsVisibleCount > 0
-                                ? "No Strong Buy today — showing best Buy/Watch candidates for review."
-                                : "No Strong Buy today — no Buy/Watch candidates passed the dashboard thresholds."}
+                                ? "No Strong Buy today - showing best Buy/Watch candidates for review."
+                                : "No Strong Buy today - no Buy/Watch candidates passed the dashboard thresholds."}
                         </p>
                       ) : null}
 
                       <div className="mt-4 overflow-x-auto">
-                        <table className="min-w-[1240px] w-full text-left text-xs">
+                        <table className="min-w-[1320px] w-full text-left text-xs">
                           <thead>
                             <tr className="border-b border-white/10 text-[10px] uppercase tracking-[0.16em] text-slate-400">
                               <th className="p-2">Game</th>
-                              <th className="p-2">Market</th>
-                              <th className="p-2">Selected Side</th>
+                              <th className="p-2">Pick</th>
+                              <th className="p-2">Market Price</th>
+                              <th className="p-2">Model %</th>
                               <th className="p-2">Edge</th>
+                              <th className="p-2">Confidence</th>
                               <th className="p-2">Risk</th>
-                              <th className="p-2">Stake</th>
-                              <th className="p-2">Reason</th>
-                              <th className="p-2">Not Strong Buy</th>
+                              <th className="p-2">Key Factors</th>
                               <th className="p-2">Status</th>
-                              <th className="p-2">Actions</th>
                             </tr>
                           </thead>
                           <tbody>
                             {bestBetTopRows.length ? (
-                              bestBetTopRows.map((row) => (
-                                <tr key={row.bestBetId} className="border-b border-white/[0.08] align-top">
-                                  <td className="p-2 text-white">
-                                    <p className="font-black">{row.awayTeam ?? "Away"} @ {row.homeTeam ?? "Home"}</p>
-                                    <p className="text-[11px] text-slate-400">{row.date ?? "Date unavailable"}</p>
-                                  </td>
-                                  <td className="p-2 text-slate-300">{row.marketType}</td>
-                                  <td className="p-2 text-cyan-100">
-                                    <p className="font-bold text-white">{row.selectedSide ?? "--"}</p>
-                                    <p className="text-[11px] text-slate-400">{row.matchConfidence ?? "none"} match</p>
-                                  </td>
-                                  <td className="p-2 font-mono text-emerald-100">{formatEdge(typeof row.diagnosticCalibratedEdgePct === "number" ? row.diagnosticCalibratedEdgePct / 100 : typeof row.diagnosticRawEdgePct === "number" ? row.diagnosticRawEdgePct / 100 : undefined)}</td>
-                                  <td className="p-2">
-                                    <Badge className={decisionToneClass(combinedRiskRiskTone(row.riskLevel))}>{combinedRiskRiskLabel(row.riskLevel)} / {row.riskScore}</Badge>
-                                  </td>
-                                  <td className="p-2 text-cyan-100">
-                                    <p className="font-black">{row.stakeRecommendation ?? (row.status === "strong_buy" ? `$${row.stakeAmount.toFixed(2)}` : "Manual only")}</p>
-                                    {row.status === "strong_buy" ? (
-                                      <p className="text-[11px] text-slate-400">{row.stakePercent}% | {row.totalOpenExposurePercent.toFixed(1)}% open</p>
-                                    ) : (
-                                      <p className="text-[11px] text-slate-400">{row.saveEligible ? "Manual dashboard only" : "Monitor only"}</p>
-                                    )}
-                                  </td>
-                                  <td className="max-w-[340px] p-2 text-slate-300">
-                                    <div className="grid gap-1">
-                                      <p>{row.mainReason ?? row.reasons[0] ?? row.warnings[0] ?? row.blockReasons[0] ?? "Manual-only diagnostics."}</p>
-                                      {row.status === "daily_pick" ? (
-                                        <p className="text-[11px] leading-4 text-cyan-100">{row.whyDailyPick ?? "Daily Pick selected as best available manual-review candidate."}</p>
-                                      ) : null}
-                                    </div>
-                                  </td>
-                                  <td className="max-w-[320px] p-2 text-slate-400">{row.whyNotStrongBuy ?? "--"}</td>
-                                  <td className="p-2">
-                                    <div className="flex flex-col gap-1">
+                              bestBetTopRows.map((row) => {
+                                const game = bestBetGamesById.get(row.gameId ?? "");
+                                const keyFactors = bestBetKeyFactors(row, game);
+
+                                return (
+                                  <tr key={row.bestBetId} className="border-b border-white/[0.08] align-top">
+                                    <td className="p-2 text-white">
+                                      <p className="font-black">{row.awayTeam ?? "Away"} @ {row.homeTeam ?? "Home"}</p>
+                                      <p className="text-[11px] text-slate-400">{row.date ?? "Date unavailable"}</p>
+                                    </td>
+                                    <td className="p-2 text-cyan-100">
+                                      <p className="font-bold text-white">{row.selectedSide ?? "--"}</p>
+                                      <p className="text-[11px] text-slate-400">{row.marketType}</p>
+                                    </td>
+                                    <td className="p-2 text-white">
+                                      <p className="font-mono font-black text-cyan-100">{percentMetric(row.marketProbability ?? undefined)}</p>
+                                      <p className="text-[11px] text-slate-500">{row.marketConnected ? "Market connected" : "No clean moneyline market connected"}</p>
+                                    </td>
+                                    <td className="p-2 text-white">
+                                      <p className="font-mono font-black text-white">{percentMetric(row.calibratedProbability ?? undefined)}</p>
+                                      <p className="text-[11px] text-slate-500">{row.matchConfidence ?? "none"} match</p>
+                                    </td>
+                                    <td className="p-2 font-mono text-emerald-100">{formatEdge(typeof row.diagnosticCalibratedEdgePct === "number" ? row.diagnosticCalibratedEdgePct / 100 : typeof row.diagnosticRawEdgePct === "number" ? row.diagnosticRawEdgePct / 100 : undefined)}</td>
+                                    <td className="p-2">
+                                      <Badge className="border-[#d6af55]/35 bg-[#d6af55]/10 text-[#ffe7a1]">{row.matchConfidence ?? "none"}</Badge>
+                                    </td>
+                                    <td className="p-2">
+                                      <Badge className={decisionToneClass(combinedRiskRiskTone(row.riskLevel))}>{combinedRiskRiskLabel(row.riskLevel)}</Badge>
+                                    </td>
+                                    <td className="max-w-[340px] p-2 text-slate-300">
+                                      <div className="grid gap-1">
+                                        {keyFactors.map((factor) => (
+                                          <p key={factor} className="text-[11px] leading-4 text-slate-300">{factor}</p>
+                                        ))}
+                                        <p className="pt-1 text-[11px] leading-4 text-slate-500">{row.mainReason ?? row.whyDailyPick ?? row.whyNotStrongBuy ?? row.warnings[0] ?? row.blockReasons[0] ?? "Manual-only diagnostics."}</p>
+                                      </div>
+                                    </td>
+                                    <td className="p-2">
                                       <Badge className={decisionToneClass(bestBetTone(row.status))}>{bestBetStatusLabel(row.status)}</Badge>
-                                      {row.gameStatusValidation ? (
-                                        <Badge className="border-cyan-300/35 bg-cyan-400/10 text-cyan-100">
-                                          MLB {row.gameStatusValidation.mlbStatus.replace(/_/g, " ")}
-                                        </Badge>
-                                      ) : null}
-                                      {row.gameStatusBlockReasons?.[0] ? (
-                                        <p className="max-w-[220px] text-[10px] leading-4 text-red-200">{row.gameStatusBlockReasons[0]}</p>
-                                      ) : null}
-                                    </div>
-                                  </td>
-                                  <td className="p-2">
-                                    <div className="flex flex-col gap-2">
-                                      {row.saveEligible ? (
-                                        <button
-                                          type="button"
-                                          onClick={() => saveBestBetTaken(row)}
-                                          disabled={activeBestBetSaveId === row.bestBetId}
-                                          className="inline-flex min-h-9 items-center justify-center border border-cyan-300/35 bg-cyan-400/10 px-3 text-[10px] font-black uppercase tracking-[0.14em] text-cyan-100 disabled:opacity-45"
-                                        >
-                                          {activeBestBetSaveId === row.bestBetId ? <Loader2 className="mr-2 size-3.5 animate-spin" aria-hidden="true" /> : null}
-                                          Save Bet Taken
-                                        </button>
-                                      ) : row.status === "watch" ? (
-                                        <Badge className="border-yellow-300/40 bg-yellow-400/10 text-yellow-100">Monitor Only</Badge>
-                                      ) : (
-                                        <Badge className="border-red-300/40 bg-red-500/10 text-red-100">Blocked</Badge>
-                                      )}
-                                      {row.telegramEligible ? (
-                                        <button
-                                          type="button"
-                                          onClick={() => sendStrongBuyTelegramAlert(row)}
-                                          disabled={activeStrongBuyTelegramId === row.bestBetId}
-                                          className="inline-flex min-h-9 items-center justify-center border border-[#d6af55]/45 bg-[#d6af55]/10 px-3 text-[10px] font-black uppercase tracking-[0.14em] text-[#ffe7a1] disabled:opacity-45"
-                                        >
-                                          {activeStrongBuyTelegramId === row.bestBetId ? <Loader2 className="mr-2 size-3.5 animate-spin" aria-hidden="true" /> : null}
-                                          Send Strong Buy Telegram
-                                        </button>
-                                      ) : row.status === "daily_pick" || row.status === "buy" ? (
-                                        <Badge className="border-cyan-300/35 bg-cyan-400/10 text-cyan-100">Manual Only</Badge>
-                                      ) : null}
-                                    </div>
-                                  </td>
-                                </tr>
-                              ))
+                                    </td>
+                                  </tr>
+                                );
+                              })
                             ) : (
                               <tr>
-                                <td colSpan={10} className="p-4 text-center text-sm font-bold text-slate-400">
-                                  No Best Bet rows are available yet. Run Scan MLB to populate the Strong Buy gate.
+                                <td colSpan={9} className="p-4 text-center text-sm font-bold text-slate-400">
+                                  No Best Bet rows are available yet. Run Scan MLB to populate the moneyline board.
                                 </td>
                               </tr>
                             )}
@@ -3477,6 +3472,101 @@ export default function AstrodssTerminal() {
                         <span>Ledger PnL: {typeof strongBuyLedgerSummary?.paperPnL === "number" ? `$${strongBuyLedgerSummary.paperPnL.toFixed(2)}` : "--"}</span>
                       </div>
                       <p className="mt-3 text-xs leading-5 text-slate-400">{bestBetActionMessage || bestBetsWarning || strongBuyLedgerWarning}</p>
+                    </div>
+
+                    <div className="border border-white/10 bg-black/35 p-4">
+                      <div className="flex flex-col gap-2 border-b border-white/10 pb-3 md:flex-row md:items-center md:justify-between">
+                        <div>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Watchlist</p>
+                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Compact moneyline monitor</h3>
+                        </div>
+                        <Badge className="border-yellow-300/35 bg-yellow-400/10 text-yellow-50">{watchlistBestBetRows.length} rows</Badge>
+                      </div>
+
+                      <div className="mt-4 grid gap-2">
+                        {watchlistBestBetRows.length ? (
+                          watchlistBestBetRows.map((row) => (
+                            <div key={row.bestBetId} className="grid gap-2 border border-white/10 bg-black/25 p-3 text-xs md:grid-cols-[1.3fr_1fr_1fr_1fr_0.8fr] md:items-center">
+                              <div>
+                                <p className="font-black text-white">{row.awayTeam ?? "Away"} @ {row.homeTeam ?? "Home"}</p>
+                                <p className="text-[11px] text-slate-400">{row.selectedSide ?? "MODEL ONLY"}</p>
+                              </div>
+                              <div className="text-slate-300">
+                                <p className="font-bold text-white">Why watch</p>
+                                <p className="text-[11px] leading-5">{row.whyDailyPick || row.mainReason || row.whyNotStrongBuy || "Monitor only."}</p>
+                              </div>
+                              <div className="text-slate-300">
+                                <p className="font-bold text-white">Missing factor</p>
+                                <p className="text-[11px] leading-5">{row.blockReasons[0] || row.downgradeReasons[0] || "Better price confirmation needed."}</p>
+                              </div>
+                              <div className="text-slate-300">
+                                <p className="font-bold text-white">Market connected</p>
+                                <p className="text-[11px] leading-5">{row.marketConnected ? "Yes" : "No"}</p>
+                              </div>
+                              <div className="text-right">
+                                <Badge className={decisionToneClass(bestBetTone(row.status))}>{bestBetStatusLabel(row.status)}</Badge>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="text-sm text-slate-400">No watchlist rows yet. Run Scan MLB to populate monitor-only candidates.</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="border border-white/10 bg-black/35 p-4">
+                      <div className="flex flex-col gap-2 border-b border-white/10 pb-3 md:flex-row md:items-center md:justify-between">
+                        <div>
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">System Status</p>
+                          <h3 className="mt-1 text-lg font-black uppercase tracking-[0.08em] text-white">Simple live counts</h3>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge className="border-red-300/55 bg-red-500/12 text-red-100">Real Money OFF</Badge>
+                          <Badge className="border-cyan-300/45 bg-cyan-400/10 text-cyan-100">Paper Mode ON</Badge>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
+                        <div className="border border-white/10 bg-black/25 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Polymarket</p>
+                          <p className="mt-2 text-2xl font-black text-white">{marketPriceDiagnostics?.status ?? result?.diagnostics.polymarket.status ?? "NOT_CONNECTED"}</p>
+                          <p className="mt-1 text-[11px] text-slate-400">{marketPriceDiagnostics?.marketPricesConnected ? "Connected" : "Not Connected"}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/25 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">MLB API</p>
+                          <p className="mt-2 text-2xl font-black text-white">{result?.diagnostics.sportApi.status ?? "NOT_CONNECTED"}</p>
+                          <p className="mt-1 text-[11px] text-slate-400">{result?.diagnostics.sportApi.gamesFetched ?? 0} games scanned</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/25 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Moneyline Markets Found</p>
+                          <p className="mt-2 text-3xl font-black text-white">{marketPriceMoneylineMarketsFound}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/25 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Games Scanned</p>
+                          <p className="mt-2 text-3xl font-black text-white">{gamesScannedCount}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/25 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Games With Markets</p>
+                          <p className="mt-2 text-3xl font-black text-emerald-100">{gamesWithMoneylineMarketConnected}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/25 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Daily Picks</p>
+                          <p className="mt-2 text-3xl font-black text-cyan-100">{bestBetDailyPickCount}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/25 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Watchlist</p>
+                          <p className="mt-2 text-3xl font-black text-yellow-100">{bestBetWatchCount}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/25 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Blocked</p>
+                          <p className="mt-2 text-3xl font-black text-red-100">{bestBetBlockedCount}</p>
+                        </div>
+                        <div className="border border-white/10 bg-black/25 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f4d274]">Manual Only</p>
+                          <p className="mt-2 text-sm font-black text-white">No auto-betting</p>
+                          <p className="mt-1 text-[11px] text-slate-400">Real money trading stays OFF</p>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="border border-white/10 bg-black/35 p-4">
@@ -3587,8 +3677,8 @@ export default function AstrodssTerminal() {
                         <span>Real money: OFF</span>
                       </div>
 
-                    <p className="mt-3 text-xs leading-5 text-slate-400">{combinedRiskWarning}</p>
-                  </div>
+                      <p className="mt-3 text-xs leading-5 text-slate-400">{combinedRiskWarning}</p>
+                    </div>
 
                   <div className="mt-4 border border-white/10 bg-black/35 p-4">
                     <div className="flex flex-col gap-3 border-b border-white/10 pb-3 lg:flex-row lg:items-start lg:justify-between">
@@ -5373,6 +5463,8 @@ export default function AstrodssTerminal() {
               )}
             </Panel>
 
+            {false && (
+            <>
             <Panel id="sports-data" title="Sports Data" kicker="Honest Source Status">
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
                 {sourceStatusRows(result).map(([label, status, detail]) => (
@@ -5394,7 +5486,7 @@ export default function AstrodssTerminal() {
                   <p className="mt-1 text-xs leading-5 text-slate-400">
                     Settles local paper trades only after MLB games are final. Unknown mappings are never marked as losses.
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">Last resolved: {lastResolvedAt ? formatDate(lastResolvedAt) : "Never"}</p>
+                  <p className="mt-1 text-xs text-slate-500">Last resolved: {formatDate(lastResolvedAt ?? undefined) ?? "Never"}</p>
                 </div>
                 <button
                   type="button"
@@ -5406,16 +5498,19 @@ export default function AstrodssTerminal() {
                   Resolve MLB Paper Trades
                 </button>
               </div>
-              {paperResolveSummary ? (
-                <div className="mb-4 border border-white/10 bg-black/30 p-3 text-xs text-slate-300">
-                  <p className="font-black uppercase tracking-[0.16em] text-[#f4d274]">Last Resolver Summary</p>
-                  <p className="mt-2">
-                    Results fetched: {paperResolveSummary.resultsFetched ?? 0} | Resolved: {paperResolveSummary.resolved} | Pending: {paperResolveSummary.pending} |
-                    Wins: {paperResolveSummary.wins} | Losses: {paperResolveSummary.losses} | Voids: {paperResolveSummary.voids} | Unknown: {paperResolveSummary.unknown}
-                  </p>
-                  {paperResolveSummary.errors.length ? <p className="mt-2 font-bold text-red-300">{paperResolveSummary.errors.join(" | ")}</p> : null}
-                </div>
-              ) : null}
+              {(() => {
+                const paperResolveErrors = paperResolveSummary?.errors ?? [];
+                return paperResolveSummary ? (
+                  <div className="mb-4 border border-white/10 bg-black/30 p-3 text-xs text-slate-300">
+                    <p className="font-black uppercase tracking-[0.16em] text-[#f4d274]">Last Resolver Summary</p>
+                    <p className="mt-2">
+                      Results fetched: {paperResolveSummary?.resultsFetched ?? 0} | Resolved: {paperResolveSummary?.resolved ?? 0} | Pending: {paperResolveSummary?.pending ?? 0} |
+                      Wins: {paperResolveSummary?.wins ?? 0} | Losses: {paperResolveSummary?.losses ?? 0} | Voids: {paperResolveSummary?.voids ?? 0} | Unknown: {paperResolveSummary?.unknown ?? 0}
+                    </p>
+                    {paperResolveErrors.length ? <p className="mt-2 font-bold text-red-300">{paperResolveErrors.join(" | ")}</p> : null}
+                  </div>
+                ) : null;
+              })()}
               <div className="mb-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
                 {metric("Official Picks", (serverPaperSummary?.totalOfficialPaperPicks ?? 0).toString(), "Server paper ledger", BellRing)}
                 {metric("Ledger ROI", formatRoi(serverPaperSummary?.roi ?? 0), "Official picks only", LineChart)}
@@ -5507,6 +5602,8 @@ export default function AstrodssTerminal() {
                 </p>
               </div>
             </Panel>
+            </>
+            )}
 
             <Panel id="record" title="Official Record" kicker="Separate From Wallet Performance">
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
@@ -5535,6 +5632,8 @@ export default function AstrodssTerminal() {
               </div>
             </Panel>
 
+            {false && (
+            <>
             <Panel id="wallets" title="Wallet Intelligence" kicker="Additional Public Whale Alert Layer">
               <div className="grid gap-4">
                 <div className="flex flex-col gap-3 border border-cyan-300/20 bg-cyan-400/10 p-4 md:flex-row md:items-center md:justify-between">
@@ -5560,7 +5659,7 @@ export default function AstrodssTerminal() {
 
                 {lastWhaleScanAt ? (
                   <p className="border border-white/10 bg-black/30 p-3 text-xs font-bold text-slate-300">
-                    Last public whale scan: {formatDate(lastWhaleScanAt)}
+                    Last public whale scan: {formatDate(lastWhaleScanAt ?? undefined)}
                   </p>
                 ) : null}
 
@@ -5747,7 +5846,6 @@ export default function AstrodssTerminal() {
                 Pending trades do not count as wins. Voids are displayed but never help win rate. Whale support is a bonus signal only and cannot override model edge, sports data, or order book quality.
               </p>
             </Panel>
-
             <Panel id="telegram" title="Telegram" kicker="Alerts Prepared">
               <div className="grid gap-4 lg:grid-cols-2">
                 <div className="astro-panel-soft p-4">
@@ -5814,9 +5912,9 @@ export default function AstrodssTerminal() {
                   </button>
                   {telegramTestResult ? (
                     <div className="mt-3 grid gap-2 text-xs">
-                      <TelegramStatusBadge status={telegramTestResult.status} />
-                      <p className="leading-5 text-slate-300">{telegramTestResult.reason}</p>
-                      {lastTelegramTestAt ? <p className="text-slate-500">Last test: {formatDate(lastTelegramTestAt)}</p> : null}
+                      <TelegramStatusBadge status={telegramTestResult?.status} />
+                      <p className="leading-5 text-slate-300">{telegramTestResult?.reason}</p>
+                      {lastTelegramTestAt ? <p className="text-slate-500">Last test: {formatDate(lastTelegramTestAt ?? undefined)}</p> : null}
                     </div>
                   ) : null}
                 </div>
@@ -5835,9 +5933,9 @@ export default function AstrodssTerminal() {
                   </button>
                   {whaleAlertTestResult ? (
                     <div className="mt-3 grid gap-2 text-xs">
-                      <TelegramStatusBadge status={whaleAlertTestResult.status} />
-                      <p className="leading-5 text-slate-300">{whaleAlertTestResult.reason}</p>
-                      {lastWhaleAlertTestAt ? <p className="text-slate-500">Last whale alert test: {formatDate(lastWhaleAlertTestAt)}</p> : null}
+                      <TelegramStatusBadge status={whaleAlertTestResult?.status} />
+                      <p className="leading-5 text-slate-300">{whaleAlertTestResult?.reason}</p>
+                      {lastWhaleAlertTestAt ? <p className="text-slate-500">Last whale alert test: {formatDate(lastWhaleAlertTestAt ?? undefined)}</p> : null}
                     </div>
                   ) : null}
                 </div>
@@ -5857,7 +5955,7 @@ export default function AstrodssTerminal() {
                   <div className="mt-3 grid gap-2 text-xs">
                     <p className="text-slate-300">Duplicates skipped: handled by <span className="font-mono">.astrodds/telegram-whale-signals.json</span></p>
                     <p className="text-slate-300">Stale entries skipped: STALE_ENTRY / TOO_LATE never send whale alerts.</p>
-                    {lastWhaleScanAt ? <p className="text-slate-500">Last whale scan: {formatDate(lastWhaleScanAt)}</p> : null}
+                    {lastWhaleScanAt ? <p className="text-slate-500">Last whale scan: {formatDate(lastWhaleScanAt ?? undefined)}</p> : null}
                   </div>
                 </div>
               </div>
@@ -5927,6 +6025,8 @@ export default function AstrodssTerminal() {
                 </div>
               </div>
             </Panel>
+            </>
+            )}
           </div>
         </div>
       </div>

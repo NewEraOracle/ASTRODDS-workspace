@@ -3,7 +3,7 @@ import { setMaxListeners } from "node:events";
 import { loadPolymarketMlbMarketsCache, writePolymarketMlbMarketsCache, type PolymarketMlbCacheStatus } from "./polymarket-mlb-market-cache";
 import { MLB_TEAMS, mlbTeamHits } from "./mlb-teams";
 import { normalizeText, safeArray, safeNumber } from "./normalize";
-import { POLYMARKET_GAMMA_BASE_URL, type GammaEvent, type GammaMarket } from "./polymarket";
+import { POLYMARKET_GAMMA_BASE_URL, normalizePolymarketSources, polymarketEventsUrl, polymarketMarketsUrl, type GammaEvent, type GammaMarket } from "./polymarket";
 
 export type PolymarketMlbMoneylineStatus = "CONNECTED" | "PARTIAL" | "FAILED" | "NOT_CONNECTED";
 
@@ -41,9 +41,12 @@ export type PolymarketMlbMoneylineMarket = {
   detectedAwayTeam?: string;
   detectedTeams: string[];
   outcomes: string[];
+  outcomePrices?: number[];
   clobTokenIds: string[];
   outcomeProbabilities: PolymarketMlbOutcomeProbability[];
+  currentPrice?: number | null;
   marketProbability: number | null;
+  matchConfidence?: "high" | "medium" | "low";
   liquidity?: number;
   volume?: number;
   endDate?: string;
@@ -68,6 +71,12 @@ export type PolymarketMlbMoneylineDiscoveryResult = {
   cacheStatus: PolymarketMlbCacheStatus;
   cacheAgeSeconds?: number;
   cacheGeneratedAt?: string;
+  totalGammaMarketsScanned?: number;
+  acceptedMlbMarkets?: number;
+  rejectedBySportCategory?: number;
+  rejectedByTeamAlias?: number;
+  rejectedByDate?: number;
+  rejectedBySingleGameFilter?: number;
 };
 
 type FetchJsonResult = {
@@ -156,6 +165,16 @@ function responseSnippet(text: string) {
   return text.replace(/\s+/g, " ").slice(0, 240);
 }
 
+function coerceArrayResponse(data: unknown, keys: string[]) {
+  if (Array.isArray(data)) return data;
+  if (!data || typeof data !== "object") return [];
+  for (const key of keys) {
+    const value = (data as Record<string, unknown>)[key];
+    if (Array.isArray(value)) return value;
+  }
+  return [];
+}
+
 function toUsefulNumber(...values: Array<number | string | undefined>) {
   for (const value of values) {
     const number = safeNumber(value);
@@ -190,12 +209,12 @@ function alignOutcomePrices(market: GammaMarket, outcomeCount: number) {
 }
 
 function isAbortError(error: unknown) {
-  return error instanceof Error && error.name === "AbortError";
+  return error instanceof Error && (error.name === "AbortError" || /timed out/i.test(error.message));
 }
 
 async function fetchJsonArray(url: URL, endpointLabel: string, timeoutMs: number, signal?: AbortSignal): Promise<FetchJsonResult> {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(timeoutMs), timeoutMs);
+  const timeout = setTimeout(() => controller.abort(new Error(`Polymarket Gamma request timed out after ${timeoutMs}ms`)), timeoutMs);
   const abortFromParent = () => controller.abort(signal?.reason);
   const baseDiagnostic: Omit<PolymarketMlbSourceDiagnostic, "status" | "timeout"> = {
     source: "Polymarket Gamma",
@@ -234,7 +253,7 @@ async function fetchJsonArray(url: URL, endpointLabel: string, timeoutMs: number
 
     const parsed = JSON.parse(text) as unknown;
     return {
-      data: Array.isArray(parsed) ? parsed : [],
+      data: coerceArrayResponse(parsed, ["events", "markets", "data", "results"]),
       diagnostic: {
         ...baseDiagnostic,
         status: "CONNECTED",
@@ -310,6 +329,16 @@ function isMoneylineCandidate(text: string) {
   return moneylineContextPatterns.some((pattern) => pattern.test(text)) || /\bwin\b/i.test(text) || /\bbeat\b/i.test(text);
 }
 
+function hasDateLikeContext(text: string) {
+  const normalized = normalizeText(text);
+  return /\b\d{4}-\d{2}-\d{2}\b|\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\s+\d{1,2}\b|\b\d{1,2}\/(?:\d{1,2})\b/i.test(normalized);
+}
+
+function hasSingleGameWording(text: string) {
+  const normalized = normalizeText(text);
+  return /\bwill\b.*\bwin\b|\bwin\b.*\bon\b|\bgame winner\b|\bmoneyline\b|\bto win\b|\bbeat\b|\bwho will win\b/.test(normalized);
+}
+
 function orderedTeams(text: string) {
   const normalized = normalizeText(text);
   const seen = new Map<string, { team: string; index: number }>();
@@ -356,8 +385,15 @@ function normalizeMarket(market: GammaMarket, event?: GammaEvent): PolymarketMlb
   const tokenIds = safeArray<string>(market.clobTokenIds).map(String);
   const outcomeProbabilities = (outcomes.length ? outcomes : [teams[0] ?? "Yes", teams[1] ?? "No"]).map((outcome, index) => probabilityForOutcome(outcome, index, teams, prices, tokenIds));
   const firstProbability = outcomeProbabilities.find((outcome) => outcome.marketProbability !== null)?.marketProbability ?? null;
+  const currentPrice = toUsefulNumber(market.currentPrice, market.price, market.bestAsk, market.lastTradePrice, market.bestBid) ?? firstProbability;
   const question = market.question ?? market.title ?? event?.title ?? "Untitled MLB moneyline market";
   const warnings: string[] = [];
+  const matchConfidence: PolymarketMlbMoneylineMarket["matchConfidence"] =
+    teams.length >= 2
+      ? "high"
+      : hasSingleGameWording(text) || hasDateLikeContext(text)
+        ? "medium"
+        : "low";
 
   if (firstProbability === null) warnings.push("Outcome price missing; market probability left null.");
   if (!tokenIds.length) warnings.push("CLOB token IDs missing; order book diagnostics unavailable from this discovery response.");
@@ -377,9 +413,12 @@ function normalizeMarket(market: GammaMarket, event?: GammaEvent): PolymarketMlb
     detectedHomeTeam: teams[1],
     detectedTeams: teams,
     outcomes,
+    outcomePrices: prices,
     clobTokenIds: tokenIds,
     outcomeProbabilities,
+    currentPrice,
     marketProbability: firstProbability,
+    matchConfidence,
     liquidity: safeNumber(market.liquidityNum ?? market.liquidity ?? event?.liquidity),
     volume: safeNumber(market.volumeNum ?? market.volume ?? event?.volume),
     endDate: market.endDate ?? event?.endDate,
@@ -418,9 +457,17 @@ export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs
     marketResults.push(...batchMarkets);
   }
 
+  const [baseballEventResult, baseballMarketResult] = await Promise.all([
+    fetchJsonArray(polymarketEventsUrl("", { tagSlug: "baseball" }), "Gamma events: baseball tag", Math.max(timeoutMs, 15000), options.signal),
+    fetchJsonArray(polymarketMarketsUrl("", { tagSlug: "baseball" }), "Gamma markets: baseball tag", Math.max(timeoutMs, 15000), options.signal),
+  ]);
+  eventResults.push(baseballEventResult);
+  marketResults.push(baseballMarketResult);
+
   const diagnostics = [...eventResults, ...marketResults].map((result) => result.diagnostic);
   const events = eventResults.flatMap((result) => result.data as GammaEvent[]);
   const directMarkets = marketResults.flatMap((result) => result.data as GammaMarket[]);
+  const normalized = normalizePolymarketSources(events, directMarkets, "MLB", []);
 
   const eventMarkets = events.flatMap((event) => (event.markets ?? []).map((market) => normalizeMarket(market, event))).filter(Boolean) as PolymarketMlbMoneylineMarket[];
   const normalizedDirectMarkets = directMarkets.map((market) => normalizeMarket(market)).filter(Boolean) as PolymarketMlbMoneylineMarket[];
@@ -452,6 +499,12 @@ export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs
     generatedAt,
     cacheUsed: false,
     cacheStatus: "not_used",
+    totalGammaMarketsScanned: normalized.rawMarketsFetched,
+    acceptedMlbMarkets: normalized.acceptedRawMarkets.length,
+    rejectedBySportCategory: normalized.rejectedBySportCategory,
+    rejectedByTeamAlias: normalized.rejectedByTeamAlias,
+    rejectedByDate: normalized.rejectedByDate,
+    rejectedBySingleGameFilter: normalized.rejectedBySingleGameFilter,
   };
 
   if (liveResult.marketPricesConnected) {
@@ -478,6 +531,12 @@ export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs
       cacheStatus: cached.metadata.cacheStatus,
       cacheAgeSeconds: cached.metadata.cacheAgeSeconds,
       cacheGeneratedAt: cached.metadata.cacheGeneratedAt,
+      totalGammaMarketsScanned: normalized.rawMarketsFetched,
+      acceptedMlbMarkets: 0,
+      rejectedBySportCategory: normalized.rejectedBySportCategory,
+      rejectedByTeamAlias: normalized.rejectedByTeamAlias,
+      rejectedByDate: normalized.rejectedByDate,
+      rejectedBySingleGameFilter: normalized.rejectedBySingleGameFilter,
     };
   }
 
@@ -491,5 +550,11 @@ export async function discoverPolymarketMlbMoneylineMarkets(options: { timeoutMs
     cacheStatus: cached.metadata.cacheStatus,
     cacheAgeSeconds: cached.metadata.cacheAgeSeconds,
     cacheGeneratedAt: cached.metadata.cacheGeneratedAt,
+    totalGammaMarketsScanned: cached.snapshot.totalGammaMarketsScanned ?? liveResult.totalGammaMarketsScanned,
+    acceptedMlbMarkets: cached.snapshot.acceptedMlbMarkets ?? liveResult.acceptedMlbMarkets,
+    rejectedBySportCategory: cached.snapshot.rejectedBySportCategory ?? liveResult.rejectedBySportCategory,
+    rejectedByTeamAlias: cached.snapshot.rejectedByTeamAlias ?? liveResult.rejectedByTeamAlias,
+    rejectedByDate: cached.snapshot.rejectedByDate ?? liveResult.rejectedByDate,
+    rejectedBySingleGameFilter: cached.snapshot.rejectedBySingleGameFilter ?? liveResult.rejectedBySingleGameFilter,
   };
 }

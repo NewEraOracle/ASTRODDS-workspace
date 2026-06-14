@@ -52,6 +52,10 @@ export type GammaMarket = {
   tags?: Array<{ label?: string; name?: string; slug?: string }> | string[];
 };
 
+type PolymarketDiscoveryUrlOptions = {
+  tagSlug?: string;
+};
+
 export function polymarketSportQueryTerms(sport: AstroddsSportFilter) {
   switch (sport) {
     case "MLB":
@@ -74,25 +78,27 @@ export function polymarketSportQueryTerms(sport: AstroddsSportFilter) {
   }
 }
 
-export function polymarketEventsUrl(query: string) {
+export function polymarketEventsUrl(query = "", options: PolymarketDiscoveryUrlOptions = {}) {
   const url = new URL("/events", POLYMARKET_GAMMA_BASE_URL);
   url.searchParams.set("active", "true");
   url.searchParams.set("closed", "false");
   url.searchParams.set("limit", "100");
   url.searchParams.set("order", "volume_24hr");
   url.searchParams.set("ascending", "false");
-  url.searchParams.set("q", query);
+  if (query.trim()) url.searchParams.set("q", query);
+  if (options.tagSlug) url.searchParams.set("tag_slug", options.tagSlug);
   return url;
 }
 
-export function polymarketMarketsUrl(query: string) {
+export function polymarketMarketsUrl(query = "", options: PolymarketDiscoveryUrlOptions = {}) {
   const url = new URL("/markets", POLYMARKET_GAMMA_BASE_URL);
   url.searchParams.set("active", "true");
   url.searchParams.set("closed", "false");
   url.searchParams.set("limit", "100");
   url.searchParams.set("order", "volume_24hr");
   url.searchParams.set("ascending", "false");
-  url.searchParams.set("q", query);
+  if (query.trim()) url.searchParams.set("q", query);
+  if (options.tagSlug) url.searchParams.set("tag_slug", options.tagSlug);
   return url;
 }
 
@@ -119,9 +125,19 @@ function createTimedSignal(parentSignal?: AbortSignal, timeoutMs = POLYMARKET_GA
   };
 }
 
-async function fetchGammaEvents(query: string, signal?: AbortSignal): Promise<GammaEvent[]> {
-  const url = polymarketEventsUrl(query);
-  const timedSignal = createTimedSignal(signal);
+function coerceArrayResponse(data: unknown, keys: string[]): unknown[] {
+  if (Array.isArray(data)) return data;
+  if (!data || typeof data !== "object") return [];
+  for (const key of keys) {
+    const value = (data as Record<string, unknown>)[key];
+    if (Array.isArray(value)) return value;
+  }
+  return [];
+}
+
+async function fetchGammaEvents(query: string, signal?: AbortSignal, options: PolymarketDiscoveryUrlOptions = {}, timeoutMs = POLYMARKET_GAMMA_FETCH_TIMEOUT_MS): Promise<GammaEvent[]> {
+  const url = polymarketEventsUrl(query, options);
+  const timedSignal = createTimedSignal(signal, timeoutMs);
 
   try {
     const response = await fetch(url, {
@@ -137,15 +153,15 @@ async function fetchGammaEvents(query: string, signal?: AbortSignal): Promise<Ga
     }
 
     const data = (await response.json()) as unknown;
-    return Array.isArray(data) ? (data as GammaEvent[]) : [];
+    return coerceArrayResponse(data, ["events", "data", "results"]) as GammaEvent[];
   } finally {
     timedSignal.cleanup();
   }
 }
 
-async function fetchGammaMarkets(query: string, signal?: AbortSignal): Promise<GammaMarket[]> {
-  const url = polymarketMarketsUrl(query);
-  const timedSignal = createTimedSignal(signal);
+async function fetchGammaMarkets(query: string, signal?: AbortSignal, options: PolymarketDiscoveryUrlOptions = {}, timeoutMs = POLYMARKET_GAMMA_FETCH_TIMEOUT_MS): Promise<GammaMarket[]> {
+  const url = polymarketMarketsUrl(query, options);
+  const timedSignal = createTimedSignal(signal, timeoutMs);
 
   try {
     const response = await fetch(url, {
@@ -161,7 +177,7 @@ async function fetchGammaMarkets(query: string, signal?: AbortSignal): Promise<G
     }
 
     const data = (await response.json()) as unknown;
-    return Array.isArray(data) ? (data as GammaMarket[]) : [];
+    return coerceArrayResponse(data, ["markets", "data", "results"]) as GammaMarket[];
   } finally {
     timedSignal.cleanup();
   }
@@ -175,6 +191,13 @@ function tagText(tags: GammaEvent["tags"]) {
       return `${tag.label ?? ""} ${tag.name ?? ""} ${tag.slug ?? ""}`;
     })
     .join(" ");
+}
+
+function dateOnly(value?: string) {
+  if (!value) return undefined;
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return undefined;
+  return parsed.toISOString().slice(0, 10);
 }
 
 function toUsefulNumber(...values: Array<number | string | undefined>) {
@@ -383,7 +406,11 @@ function rejectionReasonCounts(markets: RawPolymarketMarket[]) {
     .sort((a, b) => b.count - a.count || a.reason.localeCompare(b.reason));
 }
 
-function mlbRejectionReason(raw: RawPolymarketMarket) {
+function countRejectedMarkets(markets: RawPolymarketMarket[], patterns: RegExp[]) {
+  return markets.filter((market) => patterns.some((pattern) => pattern.test(market.rejectedReason ?? ""))).length;
+}
+
+function mlbRejectionReason(raw: RawPolymarketMarket, games: AstroddsGameScan[] = []) {
   const text = rawMarketText(raw);
   const normalized = text.toLowerCase();
   const normalizedStrict = normalizeText(text);
@@ -391,6 +418,8 @@ function mlbRejectionReason(raw: RawPolymarketMarket) {
   const betType = teamCount >= 2 && inferBetType(text) === "OTHER" ? "MONEYLINE" : inferBetType(text);
   const hasMlbContext = hasMlbKeyword(text) || teamCount > 0;
   const hasSingleGameWording = hasSingleGameMlbMarketWording(text);
+  const marketDate = dateOnly(raw.startDate ?? raw.gameDate ?? raw.marketDate ?? raw.endDate);
+  const gameDates = new Set(games.map((game) => dateOnly(game.startTime)).filter((value): value is string => Boolean(value)));
 
   if (wrongSportOrNonSportsPatterns.some((pattern) => pattern.test(normalized)) && !hasMlbContext) {
     return "Rejected: wrong sport";
@@ -403,6 +432,10 @@ function mlbRejectionReason(raw: RawPolymarketMarket) {
   }
 
   if (teamCount === 0) return "Rejected: no MLB team alias";
+
+  if (games.length && marketDate && !gameDates.has(marketDate)) {
+    return "Rejected: wrong date";
+  }
 
   if (teamCount === 1 && !hasSingleGameWording && !/\bvs\b|\bat\b|\b@\b/.test(normalizedStrict)) {
     return "Rejected: no opponent match";
@@ -424,11 +457,11 @@ export function getMlbMarketRejectionReason(title: string) {
   });
 }
 
-function filterPolymarketMarkets(rawMarkets: RawPolymarketMarket[], sport: AstroddsSportFilter) {
+function filterPolymarketMarkets(rawMarkets: RawPolymarketMarket[], sport: AstroddsSportFilter, games: AstroddsGameScan[] = []) {
   const rejectedMarkets: RawPolymarketMarket[] = [];
   const acceptedRawMarkets = rawMarkets.filter((market) => {
     if (sport === "MLB") {
-      const rejectedReason = mlbRejectionReason(market);
+      const rejectedReason = mlbRejectionReason(market, games);
       if (!rejectedReason) return true;
       rejectedMarkets.push({ ...market, rejectedReason });
       return false;
@@ -517,7 +550,7 @@ export function rawToMarketScans(raw: RawPolymarketMarket): AstroddsMarketScan[]
   });
 }
 
-export function normalizePolymarketEvents(events: GammaEvent[], sport: AstroddsSportFilter) {
+export function normalizePolymarketEvents(events: GammaEvent[], sport: AstroddsSportFilter, games: AstroddsGameScan[] = []) {
   const seen = new Set<string>();
   const rawMarkets: RawPolymarketMarket[] = [];
 
@@ -532,7 +565,7 @@ export function normalizePolymarketEvents(events: GammaEvent[], sport: AstroddsS
     });
   });
 
-  const { acceptedRawMarkets, rejectedMarkets } = filterPolymarketMarkets(rawMarkets, sport);
+  const { acceptedRawMarkets, rejectedMarkets } = filterPolymarketMarkets(rawMarkets, sport, games);
 
   const markets = acceptedRawMarkets.flatMap(rawToMarketScans);
   const unclearYesNoRejected = acceptedRawMarkets.filter((market) => {
@@ -543,6 +576,7 @@ export function normalizePolymarketEvents(events: GammaEvent[], sport: AstroddsS
   return {
     rawEventsFetched: events.length,
     rawMarketsFetched: rawMarkets.length,
+    totalGammaMarketsScanned: rawMarkets.length,
     acceptedRawMarkets,
     rejectedMarkets,
     markets,
@@ -550,10 +584,15 @@ export function normalizePolymarketEvents(events: GammaEvent[], sport: AstroddsS
     rawMarketSamples: rawMarkets.slice(0, 10).map(marketDisplayTitle),
     mlbCandidateMarketSamples: acceptedRawMarkets.slice(0, 10).map(marketDisplayTitle),
     rejectionReasonCounts: rejectionReasonCounts(rejectedMarkets).slice(0, 10),
+    rejectedBySportCategory: countRejectedMarkets(rejectedMarkets, [/wrong sport/i, /futures market/i, /season\/championship market/i, /unsupported market type/i]),
+    rejectedByTeamAlias: countRejectedMarkets(rejectedMarkets, [/no MLB team alias/i]),
+    rejectedByDate: countRejectedMarkets(rejectedMarkets, [/wrong date/i]),
+    rejectedBySingleGameFilter: countRejectedMarkets(rejectedMarkets, [/no opponent match/i, /single-game/i, /one-team/i]),
+    acceptedMlbMarkets: acceptedRawMarkets.length,
   };
 }
 
-export function normalizePolymarketSources(events: GammaEvent[], directMarkets: GammaMarket[], sport: AstroddsSportFilter) {
+export function normalizePolymarketSources(events: GammaEvent[], directMarkets: GammaMarket[], sport: AstroddsSportFilter, games: AstroddsGameScan[] = []) {
   const directEvents: GammaEvent[] = directMarkets.map((market) => ({
     title: market.question ?? market.title,
     slug: market.slug,
@@ -566,7 +605,7 @@ export function normalizePolymarketSources(events: GammaEvent[], directMarkets: 
     markets: [market],
   }));
 
-  return normalizePolymarketEvents([...events, ...directEvents], sport);
+  return normalizePolymarketEvents([...events, ...directEvents], sport, games);
 }
 
 export async function fetchPolymarketSportsMarkets(
@@ -581,13 +620,19 @@ export async function fetchPolymarketSportsMarkets(
   orderBookDiagnostics: AstroddsScanDiagnostics["orderBook"];
 }> {
   const terms = sport === "MLB" ? mlbScheduleSearchTerms(games) : polymarketSportQueryTerms(sport);
+  const baseballTagOptions = sport === "MLB" ? { tagSlug: "baseball" } : undefined;
   const queryStrategiesUsed =
     sport === "MLB"
-      ? ["sport keyword", "schedule team pair", "team + MLB/baseball context", "Gamma events endpoint", "Gamma markets endpoint"]
+      ? ["sport keyword", "schedule team pair", "team + MLB/baseball context", "baseball tag", "Gamma events endpoint", "Gamma markets endpoint"]
       : ["sport keyword", "Gamma events endpoint"];
   const teamSearchQueriesAttempted = sport === "MLB" ? terms.filter((term) => !polymarketSportQueryTerms("MLB").includes(term)) : [];
   const sourceUrl = terms
     .flatMap((term) => [polymarketEventsUrl(term).toString(), polymarketMarketsUrl(term).toString()])
+    .concat(
+      sport === "MLB" && baseballTagOptions
+        ? [polymarketEventsUrl("", baseballTagOptions).toString(), polymarketMarketsUrl("", baseballTagOptions).toString()]
+        : [],
+    )
     .join(" | ");
   const events: GammaEvent[] = [];
   const directMarkets: GammaMarket[] = [];
@@ -615,7 +660,15 @@ export async function fetchPolymarketSportsMarkets(
       }),
     );
   }
-  const normalized = normalizePolymarketSources(events, directMarkets, sport);
+  if (sport === "MLB" && baseballTagOptions) {
+    const [tagEvents, tagMarkets] = await Promise.all([
+      fetchGammaEvents("", signal, baseballTagOptions, 15000).catch(() => []),
+      fetchGammaMarkets("", signal, baseballTagOptions, 15000).catch(() => []),
+    ]);
+    events.push(...tagEvents);
+    directMarkets.push(...tagMarkets);
+  }
+  const normalized = normalizePolymarketSources(events, directMarkets, sport, games);
   const hydrated = await hydrateMarketsWithOrderBooks(normalized.markets, signal, "SERVER");
   const hadErrors = errors.length > 0;
   const diagnosticStatus: AstroddsDiagnosticStatus =
@@ -635,11 +688,25 @@ export async function fetchPolymarketSportsMarkets(
       marketsFetched: normalized.rawMarketsFetched,
       sportsMarketsDetected: normalized.acceptedRawMarkets.length,
       marketsMatchedToGames: 0,
+      totalGammaMarketsScanned: normalized.rawMarketsFetched,
       rawEventsFetched: normalized.rawEventsFetched,
       rawMarketsFetched: normalized.rawMarketsFetched,
       rejectedNonMlbMarkets: sport === "MLB" ? normalized.rejectedMarkets.length : undefined,
+      acceptedMlbMarkets: sport === "MLB" ? normalized.acceptedRawMarkets.length : undefined,
       mlbMarketsDetected: sport === "MLB" ? normalized.acceptedRawMarkets.length : undefined,
       singleGameMlbMarketsDetected: sport === "MLB" ? normalized.markets.length : undefined,
+      rejectedBySportCategory: sport === "MLB"
+        ? normalized.rejectedMarkets.filter((market) => /wrong sport|futures market|season\/championship market|unsupported market type/i.test(market.rejectedReason ?? "")).length
+        : undefined,
+      rejectedByTeamAlias: sport === "MLB"
+        ? normalized.rejectedMarkets.filter((market) => /no MLB team alias/i.test(market.rejectedReason ?? "")).length
+        : undefined,
+      rejectedByDate: sport === "MLB"
+        ? normalized.rejectedMarkets.filter((market) => /wrong date/i.test(market.rejectedReason ?? "")).length
+        : undefined,
+      rejectedBySingleGameFilter: sport === "MLB"
+        ? normalized.rejectedMarkets.filter((market) => /no opponent match|single-game/i.test(market.rejectedReason ?? "")).length
+        : undefined,
       queryStrategiesUsed,
       teamSearchQueriesAttempted: teamSearchQueriesAttempted.slice(0, 40),
       futuresRejected: sport === "MLB" ? normalized.rejectedMarkets.filter((market) => market.rejectedReason?.includes("futures") || market.rejectedReason?.includes("season/championship")).length : undefined,

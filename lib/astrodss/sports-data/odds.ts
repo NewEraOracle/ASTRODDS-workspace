@@ -9,6 +9,7 @@ export type AstroddsNormalizedOdd = {
   game: string;
   homeTeam: string;
   awayTeam: string;
+  commenceTime?: string;
   marketType: "moneyline" | "spread" | "total" | "unknown";
   marketLabel: string;
   side: string;
@@ -38,22 +39,31 @@ export type AstroddsOddsFetchResult = AstroddsOddsLayerStatus & {
 
 const SUPPORTED_MARKETS = ["Moneyline / Winner", "Spread / Handicap", "Totals / Over-Under"];
 
-function envValue(name: string) {
-  const value = process.env[name];
-  return typeof value === "string" && value.trim() ? value.trim() : undefined;
+function envValue(...names: string[]) {
+  for (const name of names) {
+    const value = process.env[name];
+    if (typeof value === "string" && value.trim()) return value.trim();
+  }
+  return undefined;
 }
 
 function defaultBaseUrl(provider: string) {
-  if (provider.toLowerCase().includes("oddsapi") || provider.toLowerCase().includes("the-odds-api")) {
+  const normalized = provider.toLowerCase();
+  if (
+    normalized.includes("oddsapi") ||
+    normalized.includes("the-odds-api") ||
+    normalized.includes("odds_api") ||
+    normalized.includes("the_odds_api")
+  ) {
     return "https://api.the-odds-api.com/v4";
   }
-  return envValue("ODDS_API_BASE_URL");
+  return envValue("ODDS_API_BASE_URL", "ASTRODDS_ODDS_API_BASE_URL");
 }
 
 export function getOddsLayerStatus(): AstroddsOddsLayerStatus {
-  const provider = envValue("ODDS_API_PROVIDER") ?? "NOT_CONFIGURED";
-  const keyConfigured = Boolean(envValue("ODDS_API_KEY"));
-  const baseUrl = defaultBaseUrl(provider);
+  const provider = envValue("ODDS_API_PROVIDER", "ASTRODDS_ODDS_FALLBACK_PROVIDER") ?? "the_odds_api";
+  const keyConfigured = Boolean(envValue("ODDS_API_KEY", "THE_ODDS_API_KEY"));
+  const baseUrl = envValue("ODDS_API_BASE_URL", "ASTRODDS_ODDS_API_BASE_URL") ?? defaultBaseUrl(provider);
 
   if (!keyConfigured || !baseUrl) {
     return {
@@ -156,6 +166,7 @@ function normalizeTheOddsApiEvent(event: OddsApiEvent, sourceUrl: string, provid
         game: `${awayTeam} vs ${homeTeam}`,
         homeTeam,
         awayTeam,
+        commenceTime: event.commence_time,
         marketType: type,
         marketLabel: marketLabel(type, market.key),
         side,
@@ -177,9 +188,10 @@ export async function fetchConfiguredSportsOdds(sportKey = "baseball_mlb", signa
   const provider = status.provider;
   const base = status.sourceUrl.replace(/\/$/, "");
   const url = new URL(`${base}/sports/${sportKey}/odds`);
-  url.searchParams.set("apiKey", envValue("ODDS_API_KEY") ?? "");
-  url.searchParams.set("regions", envValue("ODDS_API_REGIONS") ?? "us");
-  url.searchParams.set("markets", envValue("ODDS_API_MARKETS") ?? "h2h,spreads,totals");
+  const apiKey = envValue("ODDS_API_KEY", "THE_ODDS_API_KEY") ?? "";
+  url.searchParams.set("apiKey", apiKey);
+  url.searchParams.set("regions", envValue("ODDS_API_REGIONS", "ASTRODDS_ODDS_REGIONS") ?? "us");
+  url.searchParams.set("markets", envValue("ODDS_API_MARKETS", "ASTRODDS_ODDS_MARKETS") ?? "h2h,spreads,totals");
   url.searchParams.set("oddsFormat", "american");
 
   try {
@@ -187,14 +199,14 @@ export async function fetchConfiguredSportsOdds(sportKey = "baseball_mlb", signa
     if (!response.ok) throw new Error(`Odds provider returned ${response.status}`);
     const payload = (await response.json()) as unknown;
     const events = Array.isArray(payload) ? payload as OddsApiEvent[] : [];
-    const odds = events.flatMap((event) => normalizeTheOddsApiEvent(event, url.toString().replace(envValue("ODDS_API_KEY") ?? "", "***"), provider));
+    const odds = events.flatMap((event) => normalizeTheOddsApiEvent(event, url.toString().replace(apiKey, "***"), provider));
     return {
       ...status,
       status: odds.length ? "CONNECTED" : "PARTIAL",
       priceAvailable: odds.length > 0,
       officialBetEligibility: odds.length > 0,
       reason: odds.length ? "Real odds source connected with supported markets." : "Odds source connected but no supported markets returned.",
-      sourceUrl: url.toString().replace(envValue("ODDS_API_KEY") ?? "", "***"),
+      sourceUrl: url.toString().replace(apiKey, "***"),
       odds,
     };
   } catch (error) {
@@ -204,7 +216,7 @@ export async function fetchConfiguredSportsOdds(sportKey = "baseball_mlb", signa
       priceAvailable: false,
       officialBetEligibility: false,
       reason: "Odds source failed - official sports paper picks blocked.",
-      sourceUrl: url.toString().replace(envValue("ODDS_API_KEY") ?? "", "***"),
+      sourceUrl: url.toString().replace(apiKey, "***"),
       odds: [],
       error: error instanceof Error ? error.message : "Unknown odds provider failure.",
     };

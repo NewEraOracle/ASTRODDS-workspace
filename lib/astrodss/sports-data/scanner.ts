@@ -72,6 +72,7 @@ function marketOnlyGame(sport: AstroddsSport, market: AstroddsMarketScan): Astro
     keyContext: [reason],
     keyPlayerStatus: "MLB Data: NOT MATCHED",
     markets: [market],
+    marketConnected: true,
     dataStatus: "PARTIAL",
     source: "Polymarket Gamma API market-only row",
     unmatchedReason: reason,
@@ -167,6 +168,7 @@ function attachMarketsToGames(
     return {
       ...game,
       markets: matches,
+      marketConnected: matches.length > 0,
       unmatchedReason: matches.length ? undefined : bestUnmatchedReason,
     };
   });
