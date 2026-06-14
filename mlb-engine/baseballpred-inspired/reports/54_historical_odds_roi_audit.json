@@ -1,0 +1,2042 @@
+{
+  "generatedAt": "2026-06-14T14:55:05.371260Z",
+  "status": "REAL_ODDS_ROI_READY_TO_BUILD",
+  "recommendation": "Build 54B historical real-odds ROI using the best real-odds candidate.",
+  "realRoiCandidates": [
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_moneyline_dataset_skeleton.csv",
+      "name": "mlb_moneyline_dataset_skeleton.csv",
+      "suffix": ".csv",
+      "rows": 0,
+      "columns": 25,
+      "score": 9,
+      "status": "REAL_ODDS_ROI_POSSIBLE",
+      "oddsColumns": [],
+      "realOddsColumns": [
+        "sportsbook_away_prob",
+        "sportsbook_home_prob"
+      ],
+      "resultColumns": [
+        "home_win",
+        "winner"
+      ],
+      "pickColumns": [
+        "selected_side"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": true,
+      "hasCurrentProfitTracking": false
+    }
+  ],
+  "probabilityOnlyCandidates": [
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\astrodss_master_feature_dataset_v2_calibrated.csv",
+      "name": "astrodss_master_feature_dataset_v2_calibrated.csv",
+      "suffix": ".csv",
+      "rows": 23826,
+      "columns": 45,
+      "score": 11,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "calibrated_pick_probability_v2"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_prev_home_win_pct",
+        "home_win",
+        "model_correct",
+        "winner"
+      ],
+      "pickColumns": [
+        "calibrated_pick_probability_v2",
+        "model_pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\moneyline_historical_predictions.csv",
+      "name": "moneyline_historical_predictions.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 12,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "raw_home_win_probability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "predicted_home_win",
+        "raw_home_win_probability",
+        "target_home_win"
+      ],
+      "pickColumns": [
+        "predicted_home_win"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-signal-ledger.backup-before-clean-full-slate.json",
+      "name": "ASTRODDS-engine-signal-ledger.backup-before-clean-full-slate.json",
+      "suffix": ".json",
+      "rows": 12,
+      "columns": 33,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupstatus",
+        "calibratedprobabilityv2",
+        "homelineupstatus",
+        "marketprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-signal-ledger.json",
+      "name": "ASTRODDS-engine-signal-ledger.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 33,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupstatus",
+        "calibratedprobabilityv2",
+        "homelineupstatus",
+        "marketprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-proof-log.json",
+      "name": "astrodds-proof-log.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 18,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "calibratedprobability",
+        "clvstatus",
+        "marketmovementpctpoints",
+        "marketprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-signal-ledger.csv",
+      "name": "ASTRODDS-engine-signal-ledger.csv",
+      "suffix": ".csv",
+      "rows": 5,
+      "columns": 33,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupstatus",
+        "calibratedprobabilityv2",
+        "homelineupstatus",
+        "marketprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-context-final-latest.csv",
+      "name": "ASTRODDS-full-slate-context-final-latest.csv",
+      "suffix": ".csv",
+      "rows": 9,
+      "columns": 114,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-context-threshold-final-latest.csv",
+      "name": "ASTRODDS-full-slate-context-threshold-final-latest.csv",
+      "suffix": ".csv",
+      "rows": 9,
+      "columns": 116,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability",
+        "thresholdcalibratedprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-context-final-latest.json",
+      "name": "ASTRODDS-full-slate-context-final-latest.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 114,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-context-threshold-final-latest.json",
+      "name": "ASTRODDS-full-slate-context-threshold-final-latest.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 116,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability",
+        "thresholdcalibratedprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\edge-tracking\\edge-ledger-backup.json",
+      "name": "edge-ledger-backup.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 23,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "marketprobability",
+        "markettype",
+        "modelprobability",
+        "pricesource"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\edge-tracking\\edge-ledger.json",
+      "name": "edge-ledger.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 23,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "marketprobability",
+        "markettype",
+        "modelprobability",
+        "pricesource"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-final-signals-latest.csv",
+      "name": "ASTRODDS-engine-final-signals-latest.csv",
+      "suffix": ".csv",
+      "rows": 5,
+      "columns": 127,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "calibratedpickprobabilityforthreshold",
+        "calibratedprobabilityv2",
+        "homelineupcount",
+        "homelineupstatus",
+        "lockedenginebuyprobabilitymin",
+        "marketprobability",
+        "modelprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "calibratedpickprobabilityforthreshold",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-final-signals-latest.json",
+      "name": "ASTRODDS-engine-final-signals-latest.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 127,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "calibratedpickprobabilityforthreshold",
+        "calibratedprobabilityv2",
+        "homelineupcount",
+        "homelineupstatus",
+        "lockedenginebuyprobabilitymin",
+        "marketprobability",
+        "modelprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "calibratedpickprobabilityforthreshold",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-vvs-clean.json",
+      "name": "astrodds-vvs-clean.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 19,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "marketprobability",
+        "modelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-vvs-pro-context.json",
+      "name": "astrodds-vvs-pro-context.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 109,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    }
+  ],
+  "currentTrackingCandidates": [
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-daily-performance-latest.json",
+      "name": "ASTRODDS-daily-performance-latest.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 17,
+      "score": 7,
+      "status": "CURRENT_PAPER_TRACKING_ONLY",
+      "oddsColumns": [
+        "clv"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "byresult"
+      ],
+      "pickColumns": [],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-daily-performance.json",
+      "name": "astrodds-daily-performance.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 17,
+      "score": 7,
+      "status": "CURRENT_PAPER_TRACKING_ONLY",
+      "oddsColumns": [
+        "clv"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "byresult"
+      ],
+      "pickColumns": [],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    }
+  ],
+  "allCandidates": [
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\astrodss_master_feature_dataset_v2_calibrated.csv",
+      "name": "astrodss_master_feature_dataset_v2_calibrated.csv",
+      "suffix": ".csv",
+      "rows": 23826,
+      "columns": 45,
+      "score": 11,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "calibrated_pick_probability_v2"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_prev_home_win_pct",
+        "home_win",
+        "model_correct",
+        "winner"
+      ],
+      "pickColumns": [
+        "calibrated_pick_probability_v2",
+        "model_pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\astrodss_master_feature_dataset_v1.csv",
+      "name": "astrodss_master_feature_dataset_v1.csv",
+      "suffix": ".csv",
+      "rows": 23826,
+      "columns": 42,
+      "score": 9,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_prev_home_win_pct",
+        "home_win",
+        "model_correct",
+        "winner"
+      ],
+      "pickColumns": [
+        "model_pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\moneyline_historical_predictions.csv",
+      "name": "moneyline_historical_predictions.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 12,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "raw_home_win_probability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "predicted_home_win",
+        "raw_home_win_probability",
+        "target_home_win"
+      ],
+      "pickColumns": [
+        "predicted_home_win"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-signal-ledger.backup-before-clean-full-slate.json",
+      "name": "ASTRODDS-engine-signal-ledger.backup-before-clean-full-slate.json",
+      "suffix": ".json",
+      "rows": 12,
+      "columns": 33,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupstatus",
+        "calibratedprobabilityv2",
+        "homelineupstatus",
+        "marketprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-signal-ledger.json",
+      "name": "ASTRODDS-engine-signal-ledger.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 33,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupstatus",
+        "calibratedprobabilityv2",
+        "homelineupstatus",
+        "marketprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-proof-log.json",
+      "name": "astrodds-proof-log.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 18,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "calibratedprobability",
+        "clvstatus",
+        "marketmovementpctpoints",
+        "marketprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-signal-ledger.csv",
+      "name": "ASTRODDS-engine-signal-ledger.csv",
+      "suffix": ".csv",
+      "rows": 5,
+      "columns": 33,
+      "score": 9,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupstatus",
+        "calibratedprobabilityv2",
+        "homelineupstatus",
+        "marketprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\processed\\mlb_moneyline_dataset_skeleton.csv",
+      "name": "mlb_moneyline_dataset_skeleton.csv",
+      "suffix": ".csv",
+      "rows": 0,
+      "columns": 25,
+      "score": 9,
+      "status": "REAL_ODDS_ROI_POSSIBLE",
+      "oddsColumns": [],
+      "realOddsColumns": [
+        "sportsbook_away_prob",
+        "sportsbook_home_prob"
+      ],
+      "resultColumns": [
+        "home_win",
+        "winner"
+      ],
+      "pickColumns": [
+        "selected_side"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": true,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-clv-line-movement-latest.json",
+      "name": "ASTRODDS-clv-line-movement-latest.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 21,
+      "score": 8,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "calibratedprobabilitymovementpctpoints",
+        "clvstatus",
+        "latestcalibratedprobability",
+        "latestmarketprobability",
+        "marketmovementpctpoints",
+        "marketsource",
+        "openingcalibratededgepct",
+        "openingcalibratedprobability",
+        "openingmarketprobability"
+      ],
+      "realOddsColumns": [
+        "openingcalibratededgepct",
+        "openingcalibratedprobability",
+        "openingmarketprobability"
+      ],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-clv-line-movement-latest.csv",
+      "name": "ASTRODDS-clv-line-movement-latest.csv",
+      "suffix": ".csv",
+      "rows": 5,
+      "columns": 21,
+      "score": 8,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "calibratedprobabilitymovementpctpoints",
+        "clvstatus",
+        "latestcalibratedprobability",
+        "latestmarketprobability",
+        "marketmovementpctpoints",
+        "marketsource",
+        "openingcalibratededgepct",
+        "openingcalibratedprobability",
+        "openingmarketprobability"
+      ],
+      "realOddsColumns": [
+        "openingcalibratededgepct",
+        "openingcalibratedprobability",
+        "openingmarketprobability"
+      ],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_2016_2026.csv",
+      "name": "mlb_moneyline_features_2016_2026.csv",
+      "suffix": ".csv",
+      "rows": 23759,
+      "columns": 43,
+      "score": 7,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_injuries.csv",
+      "name": "mlb_moneyline_features_with_injuries.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 62,
+      "score": 7,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "away_lineup_availability_risk",
+        "home_lineup_availability_risk"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_lineup.csv",
+      "name": "mlb_moneyline_features_with_lineup.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 61,
+      "score": 7,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "away_lineup_downgrade_score",
+        "away_lineup_obp_proxy",
+        "away_lineup_players_count",
+        "away_lineup_slg_proxy",
+        "away_lineup_status",
+        "away_lineup_strength_score",
+        "home_lineup_downgrade_score",
+        "home_lineup_obp_proxy",
+        "home_lineup_players_count",
+        "home_lineup_slg_proxy",
+        "home_lineup_status",
+        "home_lineup_strength_score",
+        "lineup_data_quality",
+        "lineup_warnings"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_pitchers_bullpen_weather_lineup.csv",
+      "name": "mlb_moneyline_features_with_pitchers_bullpen_weather_lineup.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 119,
+      "score": 7,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "away_lineup_downgrade_score",
+        "away_lineup_obp_proxy",
+        "away_lineup_players_count",
+        "away_lineup_slg_proxy",
+        "away_lineup_status",
+        "away_lineup_strength_score",
+        "home_lineup_downgrade_score",
+        "home_lineup_obp_proxy",
+        "home_lineup_players_count",
+        "home_lineup_slg_proxy",
+        "home_lineup_status",
+        "home_lineup_strength_score",
+        "lineup_data_quality",
+        "lineup_warnings"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv",
+      "name": "mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 62,
+      "score": 7,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "away_lineup_availability_risk",
+        "home_lineup_availability_risk"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-context-final-latest.csv",
+      "name": "ASTRODDS-full-slate-context-final-latest.csv",
+      "suffix": ".csv",
+      "rows": 9,
+      "columns": 114,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-context-threshold-final-latest.csv",
+      "name": "ASTRODDS-full-slate-context-threshold-final-latest.csv",
+      "suffix": ".csv",
+      "rows": 9,
+      "columns": 116,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability",
+        "thresholdcalibratedprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-context-final-latest.json",
+      "name": "ASTRODDS-full-slate-context-final-latest.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 114,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-context-threshold-final-latest.json",
+      "name": "ASTRODDS-full-slate-context-threshold-final-latest.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 116,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability",
+        "thresholdcalibratedprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\edge-tracking\\edge-ledger-backup.json",
+      "name": "edge-ledger-backup.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 23,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "marketprobability",
+        "markettype",
+        "modelprobability",
+        "pricesource"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\edge-tracking\\edge-ledger.json",
+      "name": "edge-ledger.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 23,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "marketprobability",
+        "markettype",
+        "modelprobability",
+        "pricesource"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-final-signals-latest.csv",
+      "name": "ASTRODDS-engine-final-signals-latest.csv",
+      "suffix": ".csv",
+      "rows": 5,
+      "columns": 127,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "calibratedpickprobabilityforthreshold",
+        "calibratedprobabilityv2",
+        "homelineupcount",
+        "homelineupstatus",
+        "lockedenginebuyprobabilitymin",
+        "marketprobability",
+        "modelprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "calibratedpickprobabilityforthreshold",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-final-signals-latest.json",
+      "name": "ASTRODDS-engine-final-signals-latest.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 127,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "calibratedpickprobabilityforthreshold",
+        "calibratedprobabilityv2",
+        "homelineupcount",
+        "homelineupstatus",
+        "lockedenginebuyprobabilitymin",
+        "marketprobability",
+        "modelprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "calibratedpickprobabilityforthreshold",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-vvs-clean.json",
+      "name": "astrodds-vvs-clean.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 19,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "marketprobability",
+        "modelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-vvs-pro-context.json",
+      "name": "astrodds-vvs-pro-context.json",
+      "suffix": ".json",
+      "rows": 5,
+      "columns": 109,
+      "score": 7,
+      "status": "PROBABILITY_ONLY_ROI_POSSIBLE",
+      "oddsColumns": [
+        "awaylineupcount",
+        "awaylineupstatus",
+        "homelineupcount",
+        "homelineupstatus",
+        "marketprobability",
+        "modelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "result"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-daily-performance-latest.json",
+      "name": "ASTRODDS-daily-performance-latest.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 17,
+      "score": 7,
+      "status": "CURRENT_PAPER_TRACKING_ONLY",
+      "oddsColumns": [
+        "clv"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "byresult"
+      ],
+      "pickColumns": [],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-daily-performance.json",
+      "name": "astrodds-daily-performance.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 17,
+      "score": 7,
+      "status": "CURRENT_PAPER_TRACKING_ONLY",
+      "oddsColumns": [
+        "clv"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "byresult"
+      ],
+      "pickColumns": [],
+      "profitColumns": [
+        "paperprofitunits"
+      ],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": true
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_injury_availability_features.csv",
+      "name": "mlb_injury_availability_features.csv",
+      "suffix": ".csv",
+      "rows": 23773,
+      "columns": 22,
+      "score": 6,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "away_lineup_availability_risk",
+        "home_lineup_availability_risk"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_lineup_player_features_report.json",
+      "name": "mlb_lineup_player_features_report.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 17,
+      "score": 6,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "games_missing_lineup_data",
+        "games_with_confirmed_lineup_data",
+        "games_with_projected_or_proxy_lineup_data",
+        "lineup_data_quality",
+        "lineup_data_quality_summary",
+        "merged_moneyline_output",
+        "merged_pitcher_bullpen_weather_lineup_output"
+      ],
+      "realOddsColumns": [
+        "merged_moneyline_output"
+      ],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\daily\\2026-06-12\\polymarket_markets.json",
+      "name": "polymarket_markets.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 14,
+      "score": 6,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "disabledmarkets",
+        "futuremarkets",
+        "marketpricesconnected",
+        "markets",
+        "moneylinemarketsfound",
+        "supportedmarkets"
+      ],
+      "realOddsColumns": [
+        "moneylinemarketsfound"
+      ],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features.csv",
+      "name": "mlb_moneyline_features.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 43,
+      "score": 5,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_bullpen.csv",
+      "name": "mlb_moneyline_features_with_bullpen.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 61,
+      "score": 5,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_pitchers.csv",
+      "name": "mlb_moneyline_features_with_pitchers.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 65,
+      "score": 5,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_pitchers_bullpen.csv",
+      "name": "mlb_moneyline_features_with_pitchers_bullpen.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 83,
+      "score": 5,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_pitchers_bullpen_weather.csv",
+      "name": "mlb_moneyline_features_with_pitchers_bullpen_weather.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 101,
+      "score": 5,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_with_weather_ballpark.csv",
+      "name": "mlb_moneyline_features_with_weather_ballpark.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 61,
+      "score": 5,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_lineup_player_features.csv",
+      "name": "mlb_lineup_player_features.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 23,
+      "score": 4,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "away_lineup_downgrade_score",
+        "away_lineup_obp_proxy",
+        "away_lineup_players_count",
+        "away_lineup_slg_proxy",
+        "away_lineup_status",
+        "away_lineup_strength_score",
+        "home_lineup_downgrade_score",
+        "home_lineup_obp_proxy",
+        "home_lineup_players_count",
+        "home_lineup_slg_proxy",
+        "home_lineup_status",
+        "home_lineup_strength_score",
+        "lineup_data_quality",
+        "lineup_warnings"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-odds-snapshot-ledger.json",
+      "name": "ASTRODDS-odds-snapshot-ledger.json",
+      "suffix": ".json",
+      "rows": 75,
+      "columns": 19,
+      "score": 4,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "calibratedprobabilityv2",
+        "marketprobability",
+        "marketsource",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-odds-snapshot-ledger.csv",
+      "name": "ASTRODDS-odds-snapshot-ledger.csv",
+      "suffix": ".csv",
+      "rows": 75,
+      "columns": 19,
+      "score": 4,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "calibratedprobabilityv2",
+        "marketprobability",
+        "marketsource",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-odds-snapshot-ledger.backup-before-clean-full-slate.json",
+      "name": "ASTRODDS-odds-snapshot-ledger.backup-before-clean-full-slate.json",
+      "suffix": ".json",
+      "rows": 64,
+      "columns": 19,
+      "score": 4,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "calibratedprobabilityv2",
+        "marketprobability",
+        "marketsource",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-engine-latest.csv",
+      "name": "ASTRODDS-full-slate-engine-latest.csv",
+      "suffix": ".csv",
+      "rows": 9,
+      "columns": 21,
+      "score": 4,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "calibratedprobabilityv2",
+        "marketprobability",
+        "markettype",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-strict-latest.csv",
+      "name": "ASTRODDS-full-slate-strict-latest.csv",
+      "suffix": ".csv",
+      "rows": 9,
+      "columns": 26,
+      "score": 4,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "calibratedprobabilityv2",
+        "marketprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [
+        "conflictingpicks",
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-engine-latest.json",
+      "name": "ASTRODDS-full-slate-engine-latest.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 21,
+      "score": 4,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "calibratedprobabilityv2",
+        "marketprobability",
+        "markettype",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-full-slate-strict-latest.json",
+      "name": "ASTRODDS-full-slate-strict-latest.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 26,
+      "score": 4,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "calibratedprobabilityv2",
+        "marketprobability",
+        "rawmodelprobability"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [
+        "conflictingpicks",
+        "oppositesideconflict",
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_today_features.csv",
+      "name": "mlb_today_features.csv",
+      "suffix": ".csv",
+      "rows": 11,
+      "columns": 47,
+      "score": 3,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [
+        "home_win_pct_before",
+        "home_wins_before",
+        "target_home_win",
+        "winner"
+      ],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_weather_ballpark_features.csv",
+      "name": "mlb_weather_ballpark_features.csv",
+      "suffix": ".csv",
+      "rows": 9853,
+      "columns": 23,
+      "score": 2,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_bullpen_features.csv",
+      "name": "mlb_bullpen_features.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 23,
+      "score": 2,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_pitcher_features.csv",
+      "name": "mlb_pitcher_features.csv",
+      "suffix": ".csv",
+      "rows": 8267,
+      "columns": 27,
+      "score": 2,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\model-lean-ledger.json",
+      "name": "model-lean-ledger.json",
+      "suffix": ".json",
+      "rows": 2,
+      "columns": 16,
+      "score": 2,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [
+        "leanside"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-telegram-alert-ledger.json",
+      "name": "ASTRODDS-telegram-alert-ledger.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 8,
+      "score": 2,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\polymarket-mlb-markets-cache.json",
+      "name": "polymarket-mlb-markets-cache.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 5,
+      "score": 2,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "marketpricesconnected",
+        "markets"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\daily\\2026-06-12\\clv_snapshot.json",
+      "name": "clv_snapshot.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 5,
+      "score": 2,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "clvdiagnostics"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\daily\\2026-06-12\\feature_layers_snapshot.json",
+      "name": "feature_layers_snapshot.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 20,
+      "score": 2,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "lineup",
+        "runlinedisabled"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\daily\\2026-06-12\\market_matches.json",
+      "name": "market_matches.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 6,
+      "score": 2,
+      "status": "ODDS_DATA_PRESENT_BUT_INCOMPLETE",
+      "oddsColumns": [
+        "marketmatchdiagnostics"
+      ],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-telegram-recap-ledger.json",
+      "name": "ASTRODDS-telegram-recap-ledger.json",
+      "suffix": ".json",
+      "rows": 9,
+      "columns": 5,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-telegram-review-recap-ledger.json",
+      "name": "ASTRODDS-telegram-review-recap-ledger.json",
+      "suffix": ".json",
+      "rows": 4,
+      "columns": 5,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_bullpen_features_report.json",
+      "name": "mlb_bullpen_features_report.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 18,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_injury_availability_features_report.json",
+      "name": "mlb_injury_availability_features_report.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 19,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_2016_2026_report.json",
+      "name": "mlb_moneyline_features_2016_2026_report.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 16,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_moneyline_features_report.json",
+      "name": "mlb_moneyline_features_report.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 11,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_pitcher_features_report.json",
+      "name": "mlb_pitcher_features_report.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 18,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_today_features_report.json",
+      "name": "mlb_today_features_report.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 9,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\mlb_weather_ballpark_features_report.json",
+      "name": "mlb_weather_ballpark_features_report.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 15,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\data\\processed\\moneyline_historical_predictions_report.json",
+      "name": "moneyline_historical_predictions_report.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 11,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-credit-guard-ledger.json",
+      "name": "ASTRODDS-credit-guard-ledger.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 4,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS_MLB_MONEYLINE_MODEL_V1.json",
+      "name": "ASTRODDS_MLB_MONEYLINE_MODEL_V1.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 5,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    },
+    {
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS_MLB_MONEYLINE_MODEL_V1_BACKUP.json",
+      "name": "ASTRODDS_MLB_MONEYLINE_MODEL_V1_BACKUP.json",
+      "suffix": ".json",
+      "rows": 1,
+      "columns": 7,
+      "score": 0,
+      "status": "NOT_ODDS_ROI",
+      "oddsColumns": [],
+      "realOddsColumns": [],
+      "resultColumns": [],
+      "pickColumns": [],
+      "profitColumns": [],
+      "hasRealRoiInputs": false,
+      "hasCurrentProfitTracking": false
+    }
+  ],
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

@@ -1,0 +1,206 @@
+{
+  "generatedAt": "2026-06-14T14:57:41.265181Z",
+  "status": "REAL_HISTORICAL_ODDS_MISSING",
+  "conclusion": "No populated historical real odds dataset is available. The previous 54 audit found a skeleton/template, but it has 0 rows.",
+  "nextStep": "Use live forward tracking now. Add/import historical odds later before marketing true historical ROI.",
+  "realReadyCandidates": [],
+  "templateOnlyCandidates": [],
+  "probabilityOnlyCandidates": [
+    {
+      "name": "ASTRODDS-engine-signal-ledger.json",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-signal-ledger.json",
+      "exists": true,
+      "rows": 5,
+      "columns": 33,
+      "status": "PROBABILITY_ONLY_VALIDATION",
+      "realOddsColumns": [],
+      "probabilityColumns": [
+        "calibratedEdgeBucket",
+        "calibratedEdgePct",
+        "calibratedProbabilityV2",
+        "marketProbability",
+        "rawModelProbability"
+      ],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperProfitUnits"
+      ]
+    },
+    {
+      "name": "astrodds-proof-log.json",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-proof-log.json",
+      "exists": true,
+      "rows": 5,
+      "columns": 18,
+      "status": "PROBABILITY_ONLY_VALIDATION",
+      "realOddsColumns": [],
+      "probabilityColumns": [
+        "calibratedEdgePct",
+        "calibratedProbability",
+        "marketProbability"
+      ],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperProfitUnits"
+      ]
+    }
+  ],
+  "forwardPaperTracking": {
+    "rows": 5,
+    "resolved": 5,
+    "wins": 2,
+    "losses": 3,
+    "pending": 0,
+    "winRatePct": 40.0,
+    "paperUnits": -1.457,
+    "status": "FORWARD_PAPER_TRACKING_ONLY"
+  },
+  "allCandidates": [
+    {
+      "name": "mlb_moneyline_dataset_skeleton.csv",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\mlb_moneyline_dataset_skeleton.csv",
+      "exists": false,
+      "rows": 0,
+      "status": "MISSING"
+    },
+    {
+      "name": "astrodss_master_feature_dataset_v2_calibrated.csv",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\astrodss_master_feature_dataset_v2_calibrated.csv",
+      "exists": false,
+      "rows": 0,
+      "status": "MISSING"
+    },
+    {
+      "name": "mlb_moneyline_features_2016_2026.csv",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\mlb_moneyline_features_2016_2026.csv",
+      "exists": false,
+      "rows": 0,
+      "status": "MISSING"
+    },
+    {
+      "name": "mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\mlb_moneyline_features_with_pitchers_bullpen_weather_lineup_injuries.csv",
+      "exists": false,
+      "rows": 0,
+      "status": "MISSING"
+    },
+    {
+      "name": "moneyline_historical_predictions.csv",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\mlb-engine\\baseballpred-inspired\\data\\moneyline_historical_predictions.csv",
+      "exists": false,
+      "rows": 0,
+      "status": "MISSING"
+    },
+    {
+      "name": "ASTRODDS-engine-signal-ledger.json",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-engine-signal-ledger.json",
+      "exists": true,
+      "rows": 5,
+      "columns": 33,
+      "status": "PROBABILITY_ONLY_VALIDATION",
+      "realOddsColumns": [],
+      "probabilityColumns": [
+        "calibratedEdgeBucket",
+        "calibratedEdgePct",
+        "calibratedProbabilityV2",
+        "marketProbability",
+        "rawModelProbability"
+      ],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperProfitUnits"
+      ]
+    },
+    {
+      "name": "ASTRODDS-odds-snapshot-ledger.json",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-odds-snapshot-ledger.json",
+      "exists": true,
+      "rows": 75,
+      "columns": 19,
+      "status": "ODDS_OR_PROB_DATA_INCOMPLETE",
+      "realOddsColumns": [],
+      "probabilityColumns": [
+        "calibratedEdgePct",
+        "calibratedProbabilityV2",
+        "marketProbability",
+        "rawModelProbability"
+      ],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": []
+    },
+    {
+      "name": "ASTRODDS-clv-line-movement-latest.json",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\.astrodds\\ASTRODDS-clv-line-movement-latest.json",
+      "exists": true,
+      "rows": 5,
+      "columns": 21,
+      "status": "ODDS_OR_PROB_DATA_INCOMPLETE",
+      "realOddsColumns": [
+        "openingCalibratedEdgePct",
+        "openingCalibratedProbability",
+        "openingMarketProbability"
+      ],
+      "probabilityColumns": [
+        "calibratedProbabilityMovementPctPoints",
+        "latestCalibratedEdgePct",
+        "latestCalibratedProbability",
+        "latestMarketProbability",
+        "openingCalibratedEdgePct",
+        "openingCalibratedProbability",
+        "openingMarketProbability"
+      ],
+      "resultColumns": [],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": []
+    },
+    {
+      "name": "astrodds-proof-log.json",
+      "file": "C:\\Users\\crypt\\OneDrive\\Images\\ASTRODDS-workspace\\public\\astrodds-proof-log.json",
+      "exists": true,
+      "rows": 5,
+      "columns": 18,
+      "status": "PROBABILITY_ONLY_VALIDATION",
+      "realOddsColumns": [],
+      "probabilityColumns": [
+        "calibratedEdgePct",
+        "calibratedProbability",
+        "marketProbability"
+      ],
+      "resultColumns": [
+        "result",
+        "winner"
+      ],
+      "pickColumns": [
+        "pick"
+      ],
+      "profitColumns": [
+        "paperProfitUnits"
+      ]
+    }
+  ],
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}

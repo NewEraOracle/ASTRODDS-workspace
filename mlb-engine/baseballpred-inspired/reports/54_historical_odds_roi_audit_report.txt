@@ -1,0 +1,35 @@
+ASTRODDS 54 HISTORICAL ODDS ROI AUDIT
+================================================
+Generated: 2026-06-14T14:55:05.371260Z
+
+Status: REAL_ODDS_ROI_READY_TO_BUILD
+Recommendation: Build 54B historical real-odds ROI using the best real-odds candidate.
+
+Top candidates:
+- astrodss_master_feature_dataset_v2_calibrated.csv | status=PROBABILITY_ONLY_ROI_POSSIBLE | score=11 | rows=23826 | realOddsCols=0 resultCols=4 pickCols=2
+  odds/prob cols: calibrated_pick_probability_v2
+- astrodss_master_feature_dataset_v1.csv | status=NOT_ODDS_ROI | score=9 | rows=23826 | realOddsCols=0 resultCols=4 pickCols=1
+- moneyline_historical_predictions.csv | status=PROBABILITY_ONLY_ROI_POSSIBLE | score=9 | rows=8267 | realOddsCols=0 resultCols=3 pickCols=1
+  odds/prob cols: raw_home_win_probability
+- ASTRODDS-engine-signal-ledger.backup-before-clean-full-slate.json | status=PROBABILITY_ONLY_ROI_POSSIBLE | score=9 | rows=12 | realOddsCols=0 resultCols=2 pickCols=1
+  odds/prob cols: awaylineupstatus, calibratedprobabilityv2, homelineupstatus, marketprobability, rawmodelprobability
+- ASTRODDS-engine-signal-ledger.json | status=PROBABILITY_ONLY_ROI_POSSIBLE | score=9 | rows=5 | realOddsCols=0 resultCols=2 pickCols=1
+  odds/prob cols: awaylineupstatus, calibratedprobabilityv2, homelineupstatus, marketprobability, rawmodelprobability
+- astrodds-proof-log.json | status=PROBABILITY_ONLY_ROI_POSSIBLE | score=9 | rows=5 | realOddsCols=0 resultCols=2 pickCols=1
+  odds/prob cols: calibratedprobability, clvstatus, marketmovementpctpoints, marketprobability
+- ASTRODDS-engine-signal-ledger.csv | status=PROBABILITY_ONLY_ROI_POSSIBLE | score=9 | rows=5 | realOddsCols=0 resultCols=2 pickCols=1
+  odds/prob cols: awaylineupstatus, calibratedprobabilityv2, homelineupstatus, marketprobability, rawmodelprobability
+- mlb_moneyline_dataset_skeleton.csv | status=REAL_ODDS_ROI_POSSIBLE | score=9 | rows=0 | realOddsCols=2 resultCols=2 pickCols=1
+  real odds cols: sportsbook_away_prob, sportsbook_home_prob
+- ASTRODDS-clv-line-movement-latest.json | status=ODDS_DATA_PRESENT_BUT_INCOMPLETE | score=8 | rows=5 | realOddsCols=3 resultCols=0 pickCols=1
+  real odds cols: openingcalibratededgepct, openingcalibratedprobability, openingmarketprobability
+- ASTRODDS-clv-line-movement-latest.csv | status=ODDS_DATA_PRESENT_BUT_INCOMPLETE | score=8 | rows=5 | realOddsCols=3 resultCols=0 pickCols=1
+  real odds cols: openingcalibratededgepct, openingcalibratedprobability, openingmarketprobability
+
+Interpretation:
+- At least one dataset appears to contain odds + results + picks.
+- Next: compute true ROI using entry/closing prices.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\54_historical_odds_roi_audit.json
+
+Rule: audit only. No scans. No real-money automation.

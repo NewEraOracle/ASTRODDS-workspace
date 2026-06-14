@@ -1,0 +1,31 @@
+ASTRODDS 54B HISTORICAL REAL ODDS ROI BUILDER REPORT
+================================================================
+Generated: 2026-06-14T14:57:41.265181Z
+
+Status: REAL_HISTORICAL_ODDS_MISSING
+Conclusion: No populated historical real odds dataset is available. The previous 54 audit found a skeleton/template, but it has 0 rows.
+Next step: Use live forward tracking now. Add/import historical odds later before marketing true historical ROI.
+
+Forward paper tracking:
+- Rows: 5
+- Resolved: 5
+- Wins: 2
+- Losses: 3
+- Pending: 0
+- Win rate: 40.0%
+- Paper units: -1.457u
+
+Candidate classification:
+- ASTRODDS-engine-signal-ledger.json | status=PROBABILITY_ONLY_VALIDATION | rows=5 | realOddsCols=0 probCols=5 resultCols=2 pickCols=1
+- ASTRODDS-odds-snapshot-ledger.json | status=ODDS_OR_PROB_DATA_INCOMPLETE | rows=75 | realOddsCols=0 probCols=4 resultCols=0 pickCols=1
+- ASTRODDS-clv-line-movement-latest.json | status=ODDS_OR_PROB_DATA_INCOMPLETE | rows=5 | realOddsCols=3 probCols=7 resultCols=0 pickCols=1
+- astrodds-proof-log.json | status=PROBABILITY_ONLY_VALIDATION | rows=5 | realOddsCols=0 probCols=3 resultCols=2 pickCols=1
+
+Important:
+- Probability/even-money validation is not the same as true historical sportsbook ROI.
+- Current public proof log is valid forward paper tracking.
+- Do not claim real historical ROI until populated odds/closing-line data exists.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\reports\54B_historical_real_odds_roi_builder.json
+
+Rule: audit/build guard only. No scans. No real-money automation.
