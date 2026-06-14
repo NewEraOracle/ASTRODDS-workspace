@@ -2,6 +2,7 @@
 import csv
 import json
 import urllib.request
+from cache_utils import cached_get_json
 from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -20,8 +21,20 @@ def read_json(path):
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 def get_url_json(url, timeout=60):
-    with urllib.request.urlopen(url, timeout=timeout) as response:
-        return json.loads(response.read().decode("utf-8"))
+    # Cached public data fetch. Reduces repeated API calls and timeout risk.
+    namespace = "open_meteo" if "api.open-meteo.com" in url else "mlb_statsapi"
+
+    ttl_seconds = 1800
+    if namespace == "open_meteo":
+        ttl_seconds = 3600
+
+    data, source = cached_get_json(
+        url,
+        namespace=namespace,
+        ttl_seconds=ttl_seconds,
+        timeout=timeout
+    )
+    return data
 
 def nested(obj, path, default=None):
     cur = obj
@@ -235,3 +248,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

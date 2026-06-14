@@ -1,6 +1,6 @@
 ASTRODDS 35 CACHE HEALTH REPORT
 ========================================
-Generated: 2026-06-14T01:36:44.151109Z
+Generated: 2026-06-14T01:48:57.169753Z
 
 Status: OK
 Cache write path: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\cache\health_check\6e2c816605d70a2714f2715da45eb8f83f34e9764187ef0fe4056e7c30ffa880.json
@@ -8,12 +8,13 @@ Cache read status: hit
 
 Cache stats:
 - Directory: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\cache
-- Files: 59
-- Bytes: 85578283
+- Files: 74
+- Bytes: 85644495
 
 By namespace:
 - health_check: 1
-- mlb_statsapi: 58
+- mlb_statsapi: 68
+- open_meteo: 5
 
 Next:
 - Connect cache_utils.cached_get_json to bullpen / pitcher / weather scripts.
