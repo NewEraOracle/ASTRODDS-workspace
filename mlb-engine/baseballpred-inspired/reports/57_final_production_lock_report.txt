@@ -1,0 +1,77 @@
+ASTRODDS 57 FINAL PRODUCTION LOCK REPORT
+====================================================
+Generated: 2026-06-14T15:14:58.519054Z
+
+Status: PRODUCTION_LOCK_READY_WITH_DOCUMENTED_LIMITS
+
+Core functional checks:
+- source_policy_locked: True
+- public_telegram_official_only: True
+- credit_guard_connected: True
+- threshold_rules_locked: True
+- proof_log_client_ready: True
+- walk_forward_done: True
+- feature_parity_audit_done: True
+- injury_policy_exists: True
+- advanced_metrics_policy_exists: True
+- real_odds_guard_done: True
+
+Documented limits:
+- historical_real_odds_roi: REAL_HISTORICAL_ODDS_MISSING
+- verified_injury_source_ready: False
+- true_advanced_pitcher_dataset_ready: False
+- team_context_dataset_ready: False
+
+Runtime counts:
+- vvs_final: 5
+- engine_final: 5
+- signal_ledger: 5
+- daily_performance: OK_OBJECT
+- threshold_context: 9
+- telegram_alert_ledger: 1
+- telegram_review_ledger: 5
+- credit_guard_ledger: 2
+- proof_html: OK
+- proof_json: 5
+
+Production rules:
+- Public Telegram only sends ENGINE_BUY A+/A with valid Entry max.
+- Public Telegram never sends WATCH / WAIT / REVIEW picks.
+- Official alert stake is 5% bankroll.
+- Credit guard protects odds credits.
+- Proof log is client-ready but paper/manual only.
+
+Marketing limits:
+- No real historical odds ROI claim yet.
+- No verified injury-source claim yet.
+- No xERA/FIP/xFIP claim yet.
+
+Git status at report time:
+- M mlb-engine/baseballpred-inspired/reports/08_game_context_snapshot_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/09_pitcher_context_snapshot_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/10_bullpen_fatigue_snapshot_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/16_live_calibrated_edge_gate_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/19_engine_signal_ledger_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/20_resolve_engine_signal_ledger_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/21_engine_v2_full_pipeline_run_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/22_odds_snapshot_ledger_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/24_clv_and_line_movement_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/25_full_slate_engine_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/26_full_slate_strict_gate_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/29_public_proof_log_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/31_auto_daily_engine_runner_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/33_daily_performance_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/34_telegram_daily_recap_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/36_full_slate_context_input_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/37_full_slate_context_final_gate_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/42_threshold_context_gate_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/44_telegram_review_recap_report.txt
+-  M mlb-engine/baseballpred-inspired/reports/48_credit_guard_report.txt
+-  M public/astrodds-daily-performance.json
+-  M public/astrodds-proof-log.html
+-  M public/astrodds-proof-log.json
+- ?? mlb-engine/baseballpred-inspired/scripts/57_final_production_lock.py
+
+Lock JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\models\ASTRODDS_FINAL_PRODUCTION_LOCK.json
+
+Rule: final lock only. No scans. No real-money automation.

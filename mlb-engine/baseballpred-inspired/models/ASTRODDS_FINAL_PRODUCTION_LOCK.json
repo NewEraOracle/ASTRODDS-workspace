@@ -1,0 +1,108 @@
+{
+  "version": "ASTRODDS_FINAL_PRODUCTION_LOCK_V1",
+  "generatedAt": "2026-06-14T15:14:58.519054Z",
+  "status": "PRODUCTION_LOCK_READY_WITH_DOCUMENTED_LIMITS",
+  "fileChecks": {
+    "runner": true,
+    "health_check": true,
+    "credit_guard": true,
+    "public_telegram": true,
+    "review_telegram": true,
+    "proof_log": true,
+    "feature_parity_audit": true,
+    "source_policy": true,
+    "odds_roi_audit": true,
+    "real_odds_roi_builder": true,
+    "injury_layer": true,
+    "advanced_metrics": true,
+    "threshold_rules": true,
+    "source_policy_json": true,
+    "injury_policy": true,
+    "advanced_policy": true
+  },
+  "reportChecks": {
+    "39_walk_forward": true,
+    "40_oos_validation": true,
+    "52_feature_parity": true,
+    "53_source_policy": true,
+    "54B_real_odds": true,
+    "55_injury": true,
+    "56_advanced": true
+  },
+  "functionalChecks": {
+    "source_policy_locked": true,
+    "public_telegram_official_only": true,
+    "credit_guard_connected": true,
+    "threshold_rules_locked": true,
+    "proof_log_client_ready": true,
+    "walk_forward_done": true,
+    "feature_parity_audit_done": true,
+    "injury_policy_exists": true,
+    "advanced_metrics_policy_exists": true,
+    "real_odds_guard_done": true
+  },
+  "runtimeCounts": {
+    "vvs_final": 5,
+    "engine_final": 5,
+    "signal_ledger": 5,
+    "daily_performance": "OK_OBJECT",
+    "threshold_context": 9,
+    "telegram_alert_ledger": 1,
+    "telegram_review_ledger": 5,
+    "credit_guard_ledger": 2,
+    "proof_html": "OK",
+    "proof_json": 5
+  },
+  "documentedLimits": {
+    "historical_real_odds_roi": "REAL_HISTORICAL_ODDS_MISSING",
+    "verified_injury_source_ready": false,
+    "true_advanced_pitcher_dataset_ready": false,
+    "team_context_dataset_ready": false
+  },
+  "gitStatusShort": [
+    "M mlb-engine/baseballpred-inspired/reports/08_game_context_snapshot_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/09_pitcher_context_snapshot_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/10_bullpen_fatigue_snapshot_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/16_live_calibrated_edge_gate_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/19_engine_signal_ledger_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/20_resolve_engine_signal_ledger_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/21_engine_v2_full_pipeline_run_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/22_odds_snapshot_ledger_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/24_clv_and_line_movement_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/25_full_slate_engine_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/26_full_slate_strict_gate_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/29_public_proof_log_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/31_auto_daily_engine_runner_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/33_daily_performance_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/34_telegram_daily_recap_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/36_full_slate_context_input_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/37_full_slate_context_final_gate_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/42_threshold_context_gate_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/44_telegram_review_recap_report.txt",
+    " M mlb-engine/baseballpred-inspired/reports/48_credit_guard_report.txt",
+    " M public/astrodds-daily-performance.json",
+    " M public/astrodds-proof-log.html",
+    " M public/astrodds-proof-log.json",
+    "?? mlb-engine/baseballpred-inspired/scripts/57_final_production_lock.py"
+  ],
+  "productionRules": {
+    "publicTelegram": "Only ENGINE_BUY A+/A with valid Entry max. No review/watch/wait picks.",
+    "stake": "Recommended stake is 5% bankroll in public official buy alerts.",
+    "creditGuard": "Default max 3 scans/day and 70 usable scans/month.",
+    "proof": "Public proof log is paper/manual tracking only.",
+    "realMoneyAutomation": false,
+    "marketingLimits": [
+      "Do not claim real historical odds ROI until populated historical odds/closing-line data is connected.",
+      "Do not claim verified injury intelligence until a verified injury source is connected.",
+      "Do not claim xERA/FIP/xFIP until a verified advanced metrics dataset/source is connected."
+    ]
+  },
+  "nextOptionalImprovements": [
+    "Connect populated historical odds/closing-line source.",
+    "Connect verified injury source.",
+    "Connect Statcast-grade xERA/FIP/xFIP source.",
+    "Move runner to VPS/server for always-on production."
+  ],
+  "paperOnly": true,
+  "realMoneyAutomation": false
+}
