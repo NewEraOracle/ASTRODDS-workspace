@@ -1,7 +1,8 @@
 ﻿# -*- coding: utf-8 -*-
 from pathlib import Path
 import json, sys, urllib.parse, urllib.request
-from datetime import datetime
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[3]
 BASE = Path(__file__).resolve().parents[1]
@@ -107,6 +108,30 @@ def warnings(row):
     return c
 
 
+
+ASTRODDS_TODAY_TZ = ZoneInfo("America/Toronto")
+
+def et_date_key(value):
+    if not value:
+        return None
+
+    try:
+        if isinstance(value, datetime):
+            dt = value
+        else:
+            dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+
+        return dt.astimezone(ASTRODDS_TODAY_TZ).date().isoformat()
+    except Exception:
+        return None
+
+def is_today_game(row):
+    row_key = et_date_key(row.get("date"))
+    today_key = datetime.now(ASTRODDS_TODAY_TZ).date().isoformat()
+    return bool(row_key and row_key == today_key)
 def is_active_game(row):
     detailed = str(row.get("mlbDetailedStatus") or "").strip().lower()
     abstract = str(row.get("mlbAbstractStatus") or "").strip().lower()
@@ -120,42 +145,51 @@ def is_active_game(row):
 
     return True
 def is_a_pick(row):
-    m = market(row)
-    e = entry(row)
+    market_price = market(row)
+    entry_max = entry(row)
+    row_edge = edge(row)
+
     return (
         is_active_game(row)
+        and is_today_game(row)
         and dec(row) == "ENGINE_BUY"
         and grade(row) in ["A", "A+"]
-        and m is not None
-        and e is not None
-        and m <= e
+        and market_price is not None
+        and entry_max is not None
+        and row_edge is not None
+        and row_edge >= 3
+        and market_price <= entry_max
     )
-
 def is_value_lean(row):
-    m = market(row)
-    e = entry(row)
-    ed = edge(row)
+    market_price = market(row)
+    entry_max = entry(row)
+    row_edge = edge(row)
     cp = calibrated_prob(row)
 
     if not is_active_game(row):
         return False
 
+    if not is_today_game(row):
+        return False
+
     if dec(row) == "ENGINE_BUY":
         return False
+
     if dec(row) in ["WATCH", "NO_BET", "BLOCKED"]:
         return False
+
     if grade(row) not in ["A", "B", "A+"]:
         return False
-    if m is None or e is None or ed is None or cp is None:
+
+    if market_price is None or entry_max is None or row_edge is None or cp is None:
         return False
 
     return (
-        ed >= 7
+        row_edge >= 7
         and cp >= 0.60
-        and m <= e + 0.02
+        and market_price <= entry_max + 0.02
         and warnings(row) <= 2
     )
-
 def key(row, label):
     return "|".join([
         label,
@@ -262,6 +296,13 @@ def main():
                     "publicCategory": "A_PICK",
                     "game": r.get("game"),
                     "pick": r.get("pick"),
+                    "date": r.get("date"),
+                    "gameId": r.get("gameId"),
+                    "gamePk": r.get("gamePk"),
+                    "marketProbability": market(r),
+                    "entryMax": entry(r),
+                    "calibratedProbability": calibrated_prob(r),
+                    "edge": edge(r),
                     "telegramOk": telegram_ok,
                     "telegramMessageId": message_id,
                 })
@@ -273,6 +314,13 @@ def main():
                     "publicCategory": "VALUE_LEAN",
                     "game": r.get("game"),
                     "pick": r.get("pick"),
+                    "date": r.get("date"),
+                    "gameId": r.get("gameId"),
+                    "gamePk": r.get("gamePk"),
+                    "marketProbability": market(r),
+                    "entryMax": entry(r),
+                    "calibratedProbability": calibrated_prob(r),
+                    "edge": edge(r),
                     "telegramOk": telegram_ok,
                     "telegramMessageId": message_id,
                 })
@@ -321,4 +369,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
