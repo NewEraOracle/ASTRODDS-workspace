@@ -1,0 +1,22 @@
+ASTRODDS 37 FULL SLATE CONTEXT FINAL GATE REPORT
+==========================================================
+Input rows: 7
+
+Decision counts:
+- BLOCKED_CONTEXT_RISK: 2
+- FULL_CONTEXT_NO_BET: 2
+- FULL_CONTEXT_REVIEW: 3
+
+Ranked context decisions:
+- Atlanta Braves @ New York Mets | Pick: Atlanta Braves | Edge: 13.95% | Decision: FULL_CONTEXT_REVIEW | Flags: lineup_not_confirmed
+- St. Louis Cardinals @ Minnesota Twins | Pick: St. Louis Cardinals | Edge: 12.96% | Decision: BLOCKED_CONTEXT_RISK | Flags: lineup_not_confirmed|picked_bullpen_high_fatigue
+- Arizona Diamondbacks @ Cincinnati Reds | Pick: Cincinnati Reds | Edge: 12.96% | Decision: FULL_CONTEXT_REVIEW | Flags: lineup_not_confirmed
+- Tampa Bay Rays @ Los Angeles Angels | Pick: Tampa Bay Rays | Edge: 10.62% | Decision: BLOCKED_CONTEXT_RISK | Flags: lineup_not_confirmed|picked_pitcher_stats_missing
+- New York Yankees @ Toronto Blue Jays | Pick: New York Yankees | Edge: 8.91% | Decision: FULL_CONTEXT_REVIEW | Flags: lineup_not_confirmed
+- Seattle Mariners @ Washington Nationals | Pick: Seattle Mariners | Edge: 2.82% | Decision: FULL_CONTEXT_NO_BET | Flags: strict_gate_not_passed
+- Los Angeles Dodgers @ Chicago White Sox | Pick: Los Angeles Dodgers | Edge: -6.99% | Decision: FULL_CONTEXT_NO_BET | Flags: strict_gate_not_passed
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-context-final-latest.json
+CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-full-slate-context-final-latest.csv
+
+Rule: context gate only. Paper/manual only. No real-money automation.
