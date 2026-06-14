@@ -43,6 +43,7 @@ $files = @(
   ".env.local",
   "mlb-engine\baseballpred-inspired\scripts\31_auto_daily_engine_runner.ps1",
   "mlb-engine\baseballpred-inspired\scripts\44_telegram_review_recap.py",
+  "mlb-engine\baseballpred-inspired\scripts\48_credit_guard.py",
   "mlb-engine\scripts\42_threshold_context_gate.py",
   "mlb-engine\baseballpred-inspired\models\ASTRODDS_ENGINE_V2_THRESHOLD_RULES.json",
   "public\astrodds-proof-log.html",
@@ -73,6 +74,49 @@ Add-Line "Threshold context rows: $threshold"
 Add-Line "Telegram review recap ledger rows: $reviewLedger"
 
 Add-Line ""
+Add-Line "Credit guard usage:"
+$creditLedgerPath = Join-Path $Workspace ".astrodds\ASTRODDS-credit-guard-ledger.json"
+$creditGuardScript = Join-Path $Workspace "mlb-engine\baseballpred-inspired\scripts\48_credit_guard.py"
+
+$creditDaily = 0
+$creditMonthly = 0
+$creditStatus = "OK"
+
+if (!(Test-Path $creditGuardScript)) {
+  $creditStatus = "MISSING_SCRIPT"
+}
+
+if (Test-Path $creditLedgerPath) {
+  try {
+    $creditLedger = Get-Content $creditLedgerPath -Raw | ConvertFrom-Json
+    if ($null -eq $creditLedger) {
+      $creditLedger = @()
+    }
+
+    if ($creditLedger -isnot [array]) {
+      $creditLedger = @($creditLedger)
+    }
+
+    $utcNow = (Get-Date).ToUniversalTime()
+    $today = $utcNow.ToString("yyyy-MM-dd")
+    $month = $utcNow.ToString("yyyy-MM")
+
+    $creditDaily = @($creditLedger | Where-Object { "$($_.startedAt)".Substring(0, [Math]::Min(10, "$($_.startedAt)".Length)) -eq $today }).Count
+    $creditMonthly = @($creditLedger | Where-Object { "$($_.startedAt)".Substring(0, [Math]::Min(7, "$($_.startedAt)".Length)) -eq $month }).Count
+  } catch {
+    $creditStatus = "BAD_LEDGER"
+  }
+} else {
+  $creditStatus = "NO_LEDGER_YET"
+}
+
+Add-Line "Credit guard status: $creditStatus"
+Add-Line "Credit guard daily scans: $creditDaily"
+Add-Line "Credit guard monthly scans: $creditMonthly"
+Add-Line "Credit guard daily limit: 3"
+Add-Line "Credit guard monthly usable default: 70"
+Add-Line ""
+
 Add-Line "Scheduled tasks:"
 $tasks = @(
   "ASTRODDS Engine V2 Morning",
@@ -109,3 +153,4 @@ Add-Line "Rule: health check only. No real-money automation."
 $Lines | Set-Content $Report -Encoding UTF8
 $Lines
 "`nSaved: $Report"
+

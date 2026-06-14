@@ -1,17 +1,19 @@
 ﻿ASTRODDS 45 HEALTH CHECK REPORT
 ====================================
-Generated: 2026-06-14T09:11:22.4858082-04:00
+Generated: 2026-06-14T09:49:46.1438197-04:00
 
 Workspace: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace
 
 Git status:
 DIRTY
-- ?? mlb-engine/baseballpred-inspired/scripts/45_astrodds_health_check.ps1
+-  M mlb-engine/baseballpred-inspired/scripts/45_astrodds_health_check.ps1
+- ?? mlb-engine/baseballpred-inspired/scripts/45_astrodds_health_check.backup-before-credit-guard.ps1
 
 Core files:
 OK: .env.local
 OK: mlb-engine\baseballpred-inspired\scripts\31_auto_daily_engine_runner.ps1
 OK: mlb-engine\baseballpred-inspired\scripts\44_telegram_review_recap.py
+OK: mlb-engine\baseballpred-inspired\scripts\48_credit_guard.py
 OK: mlb-engine\scripts\42_threshold_context_gate.py
 OK: mlb-engine\baseballpred-inspired\models\ASTRODDS_ENGINE_V2_THRESHOLD_RULES.json
 OK: public\astrodds-proof-log.html
@@ -21,8 +23,15 @@ Runtime JSON counts:
 VVS rows: 5
 Signal ledger rows: 5
 Daily total signals: 5
-Threshold context rows: 10
-Telegram review recap ledger rows: 2
+Threshold context rows: 9
+Telegram review recap ledger rows: 4
+
+Credit guard usage:
+Credit guard status: OK
+Credit guard daily scans: 1
+Credit guard monthly scans: 1
+Credit guard daily limit: 3
+Credit guard monthly usable default: 70
 
 Scheduled tasks:
 OK: ASTRODDS Engine V2 Morning
