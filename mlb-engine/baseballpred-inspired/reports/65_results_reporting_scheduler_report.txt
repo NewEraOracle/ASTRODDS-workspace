@@ -1,0 +1,25 @@
+ASTRODDS 65 RESULTS REPORTING SCHEDULER REPORT
+================================================
+Generated: 2026-06-14T12:13:28.2285268-04:00
+
+Workspace: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace
+
+Daily runner: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\scripts\63_daily_11pm_results_alert_runner.ps1
+Weekly runner: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\mlb-engine\baseballpred-inspired\scripts\64_weekly_investor_results_report_runner.ps1
+
+Duplicate reset:
+- Daily key removed/reset: daily-results|2026-06-14
+- Weekly key removed/reset: 2026-06-08_2026-06-14
+
+OK: scheduled daily results alert at 23:00 local PC/Montreal time
+OK: scheduled weekly investor report every Sunday at 23:10 local PC/Montreal time
+
+Verify tasks:
+- ASTRODDS Daily Results 11PM
+  Statut:                      Prêt
+- ASTRODDS Weekly Investor Results
+  Statut:                      Prêt
+
+Status: OK
+
+Rule: scheduler only. No odds scan. No betting automation.

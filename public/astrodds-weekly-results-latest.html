@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ASTRODDS Weekly Results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { margin:0; background:#07070a; color:#f4f4f5; font-family:Arial, Helvetica, sans-serif; }
+    .wrap { max-width:1100px; margin:0 auto; padding:30px 18px; }
+    .cards { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; margin:20px 0; }
+    .card { background:#111118; border:1px solid #27272a; border-radius:14px; padding:16px; }
+    .label { color:#a1a1aa; font-size:12px; text-transform:uppercase; }
+    .value { font-size:24px; font-weight:800; margin-top:8px; }
+    table { width:100%; border-collapse:collapse; background:#101016; border:1px solid #27272a; }
+    th,td { padding:10px; border-bottom:1px solid #27272a; font-size:13px; text-align:left; }
+    th { background:#18181f; color:#d4d4d8; text-transform:uppercase; font-size:11px; }
+    .sub,.note { color:#a1a1aa; line-height:1.5; }
+    @media(max-width:900px) { .cards { grid-template-columns:repeat(2,minmax(0,1fr)); } table { display:block; overflow-x:auto; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ASTRODDS Weekly Results</h1>
+  <div class="sub">Week: 2026-06-08 to 2026-06-14. Paper/manual tracking only. No real-money automation.</div>
+  <div class="cards">
+    <div class="card"><div class="label">Signals</div><div class="value">5</div></div>
+    <div class="card"><div class="label">Wins</div><div class="value">2</div></div>
+    <div class="card"><div class="label">Losses</div><div class="value">3</div></div>
+    <div class="card"><div class="label">Win Rate</div><div class="value">40.0%</div></div>
+    <div class="card"><div class="label">Paper Units</div><div class="value">-1.457u</div></div>
+  </div>
+  <table>
+    <thead><tr><th>Date</th><th>Game</th><th>Pick</th><th>Category</th><th>Result</th><th>Score</th><th>Units</th></tr></thead>
+    <tbody><tr><td>2026-06-13</td><td>Arizona Diamondbacks @ Cincinnati Reds</td><td><strong>Arizona Diamondbacks</strong></td><td>B_REVIEW</td><td>LOSS</td><td>1-2</td><td>-1.0</td></tr><tr><td>2026-06-13</td><td>Houston Astros @ Kansas City Royals</td><td><strong>Kansas City Royals</strong></td><td>A_REVIEW</td><td>LOSS</td><td>8-7</td><td>-1.0</td></tr><tr><td>2026-06-13</td><td>Philadelphia Phillies @ Milwaukee Brewers</td><td><strong>Milwaukee Brewers</strong></td><td>B_REVIEW</td><td>LOSS</td><td>9-8</td><td>-1.0</td></tr><tr><td>2026-06-13</td><td>Colorado Rockies @ Athletics</td><td><strong>Athletics</strong></td><td>WATCH</td><td>WIN</td><td>5-7</td><td>0.581</td></tr><tr><td>2026-06-13</td><td>Tampa Bay Rays @ Los Angeles Angels</td><td><strong>Los Angeles Angels</strong></td><td>A_REVIEW</td><td>WIN</td><td>0-8</td><td>0.962</td></tr></tbody>
+  </table>
+  <p class="note">CSV is Google Sheets compatible: public/astrodds-weekly-results-latest.csv</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+ASTRODDS 63 DAILY 11PM RESULTS ALERT REPORT
+========================================================
+Generated: 2026-06-14T16:10:19.761597+00:00
+
+Status: OK
+Montreal date: 2026-06-14
+Token: 8566***EMok
+Chat: 5583***6333
+Sent this run: 1
+Skipped duplicate: 0
+
+Signals: 0
+Resolved: 0
+Wins: 0
+Losses: 0
+Pending: 0
+Win rate: None%
+Paper units: 0u
+ENGINE_BUY: 0
+
+Telegram message:
+ðŸ“Š ASTRODDS DAILY RESULTS â€” 2026-06-14
+
+Signals: 0
+Wins: 0 | Losses: 0 | Pending: 0
+Win rate: N/A
+Paper units: 0.0u
+Official buys: 0
+
+Paper/manual tracking only. No real-money automation.
+
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-daily-results-11pm-latest.json
+Dedup ledger: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-telegram-daily-results-ledger.json
+
+Rule: daily results only. No odds scan. No betting automation.

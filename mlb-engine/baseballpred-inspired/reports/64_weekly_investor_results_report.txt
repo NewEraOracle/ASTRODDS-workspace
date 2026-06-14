@@ -1,0 +1,23 @@
+ASTRODDS 64 WEEKLY INVESTOR RESULTS REPORT
+========================================================
+Generated: 2026-06-14T16:10:20.752250+00:00
+
+Status: OK
+Week: 2026-06-08 to 2026-06-14
+Sent Telegram summary: 1
+Sent Telegram CSV: 1
+Skipped duplicate: 0
+
+Signals: 5
+Resolved: 5
+Wins: 2
+Losses: 3
+Pending: 0
+Win rate: 40.0%
+Paper units: -1.457u
+
+Google Sheets CSV: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-weekly-results-latest.csv
+Investor HTML: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-weekly-results-latest.html
+JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\.astrodds\ASTRODDS-weekly-results-latest.json
+
+Rule: weekly investor report only. No odds scan. No betting automation.
