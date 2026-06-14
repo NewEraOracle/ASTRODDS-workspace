@@ -58,9 +58,47 @@ def status_badge(result):
 def safe(x):
     return html.escape(str(x if x is not None else ""))
 
+def public_category(decision, grade):
+    d = str(decision or "").upper()
+    g = str(grade or "").upper()
+
+    if d == "ENGINE_BUY":
+        return "OFFICIAL_BUY"
+    if d == "MANUAL_REVIEW" and g in ["A+", "A"]:
+        return "A_REVIEW"
+    if d == "MANUAL_REVIEW":
+        return "B_REVIEW"
+    if d == "WATCH":
+        return "WATCH"
+    return "NO_BET"
+
+def summarize_rows(rows):
+    total = len(rows)
+    wins = sum(1 for r in rows if str(r.get("result", "")).lower() == "win")
+    losses = sum(1 for r in rows if str(r.get("result", "")).lower() == "loss")
+    pending = sum(1 for r in rows if str(r.get("result", "pending")).lower() == "pending")
+    resolved = wins + losses
+    win_rate = round((wins / resolved) * 100, 2) if resolved else None
+    profit = round(sum(fnum(r.get("paperProfitUnits")) or 0 for r in rows), 3)
+
+    return {
+        "signals": total,
+        "resolved": resolved,
+        "wins": wins,
+        "losses": losses,
+        "pending": pending,
+        "winRatePct": win_rate,
+        "paperProfitUnits": profit,
+    }
+
 def main():
     ledger = read_json(LEDGER, [])
     clv_rows = read_json(CLV, [])
+
+    if not isinstance(ledger, list):
+        ledger = []
+    if not isinstance(clv_rows, list):
+        clv_rows = []
 
     clv_by_key = {}
     for c in clv_rows:
@@ -72,13 +110,16 @@ def main():
     for r in ledger:
         key = f"{r.get('gameId')}|{r.get('pick')}"
         clv = clv_by_key.get(key, {})
+        decision = r.get("finalEngineDecision")
+        grade = r.get("finalGrade")
 
         proof_rows.append({
             "date": r.get("date"),
             "game": r.get("game"),
             "pick": r.get("pick"),
-            "decision": r.get("finalEngineDecision"),
-            "grade": r.get("finalGrade"),
+            "decision": decision,
+            "grade": grade,
+            "category": public_category(decision, grade),
             "marketProbability": r.get("marketProbability"),
             "calibratedProbability": r.get("calibratedProbabilityV2"),
             "calibratedEdgePct": r.get("calibratedEdgePct"),
@@ -95,17 +136,27 @@ def main():
 
     proof_rows.sort(key=lambda x: str(x.get("date") or ""), reverse=True)
 
+    base_summary = summarize_rows(proof_rows)
+    category_summary = {}
+    for cat in ["OFFICIAL_BUY", "A_REVIEW", "B_REVIEW", "WATCH", "NO_BET"]:
+        cat_rows = [r for r in proof_rows if r.get("category") == cat]
+        if cat_rows:
+            category_summary[cat] = summarize_rows(cat_rows)
+
     summary = {
         "generatedAt": datetime.utcnow().isoformat() + "Z",
         "mode": "paper_only",
-        "totalSignals": len(proof_rows),
-        "wins": sum(1 for r in proof_rows if r.get("result") == "win"),
-        "losses": sum(1 for r in proof_rows if r.get("result") == "loss"),
-        "pending": sum(1 for r in proof_rows if r.get("result") == "pending"),
+        "totalSignals": base_summary["signals"],
+        "resolved": base_summary["resolved"],
+        "wins": base_summary["wins"],
+        "losses": base_summary["losses"],
+        "pending": base_summary["pending"],
+        "winRatePct": base_summary["winRatePct"],
         "engineBuy": sum(1 for r in proof_rows if r.get("decision") == "ENGINE_BUY"),
         "manualReview": sum(1 for r in proof_rows if r.get("decision") == "MANUAL_REVIEW"),
         "watch": sum(1 for r in proof_rows if r.get("decision") == "WATCH"),
-        "paperProfitUnits": round(sum(fnum(r.get("paperProfitUnits")) or 0 for r in proof_rows), 3),
+        "paperProfitUnits": base_summary["paperProfitUnits"],
+        "categorySummary": category_summary,
         "note": "ASTRODDS proof log is paper/manual only. No real-money automation.",
     }
 
@@ -130,6 +181,7 @@ def main():
           <td><strong>{safe(r.get('pick'))}</strong></td>
           <td>{safe(r.get('decision'))}</td>
           <td>{safe(r.get('grade'))}</td>
+          <td>{safe(r.get('category'))}</td>
           <td>{pct(r.get('marketProbability'))}</td>
           <td>{pct(r.get('calibratedProbability'))}</td>
           <td>{safe(r.get('calibratedEdgePct'))}%</td>
@@ -139,6 +191,16 @@ def main():
           <td>{safe(r.get('score'))}</td>
           <td>{units(r.get('paperProfitUnits'))}</td>
         </tr>
+        """)
+
+    category_cards_html = []
+    for cat, s in category_summary.items():
+        category_cards_html.append(f"""
+        <div class="card">
+          <div class="label">{safe(cat)}</div>
+          <div class="value">{s.get('signals')}</div>
+          <div class="submini">W {s.get('wins')} / L {s.get('losses')} / {s.get('paperProfitUnits')}u</div>
+        </div>
         """)
 
     page = f"""<!doctype html>
@@ -164,14 +226,23 @@ def main():
       font-size: 34px;
       letter-spacing: -0.03em;
     }}
+    h2 {{
+      margin: 26px 0 12px;
+      font-size: 20px;
+    }}
     .sub {{
       color: #a1a1aa;
       margin-bottom: 24px;
       line-height: 1.5;
     }}
+    .submini {{
+      color: #a1a1aa;
+      font-size: 12px;
+      margin-top: 8px;
+    }}
     .cards {{
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 12px;
       margin: 22px 0 28px;
     }}
@@ -229,7 +300,6 @@ def main():
       font-size: 12px;
     }}
     @media (max-width: 900px) {{
-      .cards {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       table {{ display: block; overflow-x: auto; }}
     }}
   </style>
@@ -240,7 +310,7 @@ def main():
     <div class="sub">
       Public paper-trading proof log generated from ASTRODDS Engine V2.
       Signals are logged from the final engine decision layer and resolved after games finish.
-      No real-money automation.
+      No real-money automation. No guaranteed profit.
     </div>
 
     <div class="cards">
@@ -248,7 +318,13 @@ def main():
       <div class="card"><div class="label">Wins</div><div class="value">{summary['wins']}</div></div>
       <div class="card"><div class="label">Losses</div><div class="value">{summary['losses']}</div></div>
       <div class="card"><div class="label">Pending</div><div class="value">{summary['pending']}</div></div>
+      <div class="card"><div class="label">Win Rate</div><div class="value">{summary['winRatePct']}%</div></div>
       <div class="card"><div class="label">Paper Units</div><div class="value">{summary['paperProfitUnits']}u</div></div>
+    </div>
+
+    <h2>Client Breakdown</h2>
+    <div class="cards">
+      {''.join(category_cards_html)}
     </div>
 
     <table>
@@ -259,6 +335,7 @@ def main():
           <th>Pick</th>
           <th>Decision</th>
           <th>Grade</th>
+          <th>Category</th>
           <th>Market</th>
           <th>Calibrated</th>
           <th>Edge</th>
@@ -293,14 +370,24 @@ def main():
     lines.append(f"Wins: {summary['wins']}")
     lines.append(f"Losses: {summary['losses']}")
     lines.append(f"Pending: {summary['pending']}")
+    lines.append(f"Win rate: {summary['winRatePct']}%")
     lines.append(f"Paper profit units: {summary['paperProfitUnits']}u")
+    lines.append("")
+    lines.append("By category:")
+    for cat, s in category_summary.items():
+        lines.append(
+            f"- {cat}: signals={s.get('signals')} wins={s.get('wins')} "
+            f"losses={s.get('losses')} pending={s.get('pending')} "
+            f"winRate={s.get('winRatePct')}% units={s.get('paperProfitUnits')}u"
+        )
     lines.append("")
     lines.append("Proof log rows:")
     for r in proof_rows:
         lines.append(
             f"- {r.get('date')} | {r.get('game')} | Pick: {r.get('pick')} | "
             f"Decision: {r.get('decision')} | Grade: {r.get('grade')} | "
-            f"Result: {r.get('result')} | Units: {r.get('paperProfitUnits')}"
+            f"Category: {r.get('category')} | Result: {r.get('result')} | "
+            f"Units: {r.get('paperProfitUnits')}"
         )
     lines.append("")
     lines.append(f"HTML: {OUT_HTML}")
@@ -313,3 +400,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

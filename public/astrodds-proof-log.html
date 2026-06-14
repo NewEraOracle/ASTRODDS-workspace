@@ -21,14 +21,23 @@
       font-size: 34px;
       letter-spacing: -0.03em;
     }
+    h2 {
+      margin: 26px 0 12px;
+      font-size: 20px;
+    }
     .sub {
       color: #a1a1aa;
       margin-bottom: 24px;
       line-height: 1.5;
     }
+    .submini {
+      color: #a1a1aa;
+      font-size: 12px;
+      margin-top: 8px;
+    }
     .cards {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 12px;
       margin: 22px 0 28px;
     }
@@ -86,7 +95,6 @@
       font-size: 12px;
     }
     @media (max-width: 900px) {
-      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       table { display: block; overflow-x: auto; }
     }
   </style>
@@ -97,15 +105,39 @@
     <div class="sub">
       Public paper-trading proof log generated from ASTRODDS Engine V2.
       Signals are logged from the final engine decision layer and resolved after games finish.
-      No real-money automation.
+      No real-money automation. No guaranteed profit.
     </div>
 
     <div class="cards">
       <div class="card"><div class="label">Signals</div><div class="value">5</div></div>
-      <div class="card"><div class="label">Wins</div><div class="value">0</div></div>
-      <div class="card"><div class="label">Losses</div><div class="value">1</div></div>
-      <div class="card"><div class="label">Pending</div><div class="value">4</div></div>
-      <div class="card"><div class="label">Paper Units</div><div class="value">-1.0u</div></div>
+      <div class="card"><div class="label">Wins</div><div class="value">2</div></div>
+      <div class="card"><div class="label">Losses</div><div class="value">3</div></div>
+      <div class="card"><div class="label">Pending</div><div class="value">0</div></div>
+      <div class="card"><div class="label">Win Rate</div><div class="value">40.0%</div></div>
+      <div class="card"><div class="label">Paper Units</div><div class="value">-1.457u</div></div>
+    </div>
+
+    <h2>Client Breakdown</h2>
+    <div class="cards">
+      
+        <div class="card">
+          <div class="label">A_REVIEW</div>
+          <div class="value">2</div>
+          <div class="submini">W 1 / L 1 / -0.038u</div>
+        </div>
+        
+        <div class="card">
+          <div class="label">B_REVIEW</div>
+          <div class="value">2</div>
+          <div class="submini">W 0 / L 2 / -2.0u</div>
+        </div>
+        
+        <div class="card">
+          <div class="label">WATCH</div>
+          <div class="value">1</div>
+          <div class="submini">W 1 / L 0 / 0.581u</div>
+        </div>
+        
     </div>
 
     <table>
@@ -116,6 +148,7 @@
           <th>Pick</th>
           <th>Decision</th>
           <th>Grade</th>
+          <th>Category</th>
           <th>Market</th>
           <th>Calibrated</th>
           <th>Edge</th>
@@ -132,16 +165,17 @@
           <td>2026-06-14T02:07:00Z</td>
           <td>Tampa Bay Rays @ Los Angeles Angels</td>
           <td><strong>Los Angeles Angels</strong></td>
-          <td>ENGINE_BUY</td>
-          <td>A+</td>
+          <td>MANUAL_REVIEW</td>
+          <td>A</td>
+          <td>A_REVIEW</td>
           <td>50.98%</td>
           <td>63.45%</td>
           <td>12.47%</td>
           <td>flat</td>
-          <td><span class="badge pending">PENDING</span></td>
-          <td></td>
-          <td>---</td>
-          <td>0.0u</td>
+          <td><span class="badge win">WIN</span></td>
+          <td>Los Angeles Angels</td>
+          <td>0-8</td>
+          <td>0.962u</td>
         </tr>
         
         <tr>
@@ -150,14 +184,15 @@
           <td><strong>Athletics</strong></td>
           <td>WATCH</td>
           <td>WATCH</td>
+          <td>WATCH</td>
           <td>63.24%</td>
           <td>63.45%</td>
           <td>0.22%</td>
           <td>flat</td>
-          <td><span class="badge pending">PENDING</span></td>
-          <td></td>
-          <td>---</td>
-          <td>0.0u</td>
+          <td><span class="badge win">WIN</span></td>
+          <td>Athletics</td>
+          <td>5-7</td>
+          <td>0.581u</td>
         </tr>
         
         <tr>
@@ -166,14 +201,15 @@
           <td><strong>Kansas City Royals</strong></td>
           <td>MANUAL_REVIEW</td>
           <td>A</td>
+          <td>A_REVIEW</td>
           <td>55.75%</td>
           <td>63.45%</td>
           <td>7.7%</td>
           <td>flat</td>
-          <td><span class="badge pending">PENDING</span></td>
-          <td></td>
-          <td>---</td>
-          <td>0.0u</td>
+          <td><span class="badge loss">LOSS</span></td>
+          <td>Houston Astros</td>
+          <td>8-7</td>
+          <td>-1.0u</td>
         </tr>
         
         <tr>
@@ -182,14 +218,15 @@
           <td><strong>Milwaukee Brewers</strong></td>
           <td>MANUAL_REVIEW</td>
           <td>B</td>
+          <td>B_REVIEW</td>
           <td>58.68%</td>
           <td>63.45%</td>
           <td>4.78%</td>
           <td>flat</td>
-          <td><span class="badge pending">PENDING</span></td>
-          <td></td>
-          <td>---</td>
-          <td>0.0u</td>
+          <td><span class="badge loss">LOSS</span></td>
+          <td>Philadelphia Phillies</td>
+          <td>9-8</td>
+          <td>-1.0u</td>
         </tr>
         
         <tr>
@@ -198,6 +235,7 @@
           <td><strong>Arizona Diamondbacks</strong></td>
           <td>MANUAL_REVIEW</td>
           <td>B</td>
+          <td>B_REVIEW</td>
           <td>58.68%</td>
           <td>63.45%</td>
           <td>4.78%</td>
@@ -212,7 +250,7 @@
     </table>
 
     <div class="note">
-      Generated at 2026-06-14T00:19:01.023516Z. This page is for research and paper tracking only.
+      Generated at 2026-06-14T14:16:56.452547Z. This page is for research and paper tracking only.
     </div>
   </div>
 </body>

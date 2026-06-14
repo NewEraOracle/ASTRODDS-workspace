@@ -1,19 +1,25 @@
 ASTRODDS 29 PUBLIC PROOF LOG REPORT
 ============================================
-Generated: 2026-06-14T00:19:01.023516Z
+Generated: 2026-06-14T14:16:56.452547Z
 
 Signals: 5
-Wins: 0
-Losses: 1
-Pending: 4
-Paper profit units: -1.0u
+Wins: 2
+Losses: 3
+Pending: 0
+Win rate: 40.0%
+Paper profit units: -1.457u
+
+By category:
+- A_REVIEW: signals=2 wins=1 losses=1 pending=0 winRate=50.0% units=-0.038u
+- B_REVIEW: signals=2 wins=0 losses=2 pending=0 winRate=0.0% units=-2.0u
+- WATCH: signals=1 wins=1 losses=0 pending=0 winRate=100.0% units=0.581u
 
 Proof log rows:
-- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: ENGINE_BUY | Grade: A+ | Result: pending | Units: 0.0
-- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | Result: pending | Units: 0.0
-- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | Result: pending | Units: 0.0
-- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | Result: pending | Units: 0.0
-- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | Result: loss | Units: -1.0
+- 2026-06-14T02:07:00Z | Tampa Bay Rays @ Los Angeles Angels | Pick: Los Angeles Angels | Decision: MANUAL_REVIEW | Grade: A | Category: A_REVIEW | Result: win | Units: 0.962
+- 2026-06-14T02:05:00Z | Colorado Rockies @ Athletics | Pick: Athletics | Decision: WATCH | Grade: WATCH | Category: WATCH | Result: win | Units: 0.581
+- 2026-06-13T23:10:00Z | Houston Astros @ Kansas City Royals | Pick: Kansas City Royals | Decision: MANUAL_REVIEW | Grade: A | Category: A_REVIEW | Result: loss | Units: -1.0
+- 2026-06-13T23:10:00Z | Philadelphia Phillies @ Milwaukee Brewers | Pick: Milwaukee Brewers | Decision: MANUAL_REVIEW | Grade: B | Category: B_REVIEW | Result: loss | Units: -1.0
+- 2026-06-13T20:10:00Z | Arizona Diamondbacks @ Cincinnati Reds | Pick: Arizona Diamondbacks | Decision: MANUAL_REVIEW | Grade: B | Category: B_REVIEW | Result: loss | Units: -1.0
 
 HTML: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-proof-log.html
 JSON: C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace\public\astrodds-proof-log.json
