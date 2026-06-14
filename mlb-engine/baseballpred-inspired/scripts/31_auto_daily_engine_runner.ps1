@@ -241,6 +241,15 @@ if ($process.ExitCode -eq 0) {
   $recapProcess = Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$recapScript`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
   Add-Line "Telegram recap exit code: $($recapProcess.ExitCode)"
 
+  Add-Line "Running Over/Under daily audit..."
+  $overUnderAudit = Join-Path $ScriptDir "96_over_under_daily_audit.py"
+
+  if (Test-Path $overUnderAudit) {
+    $overUnderAuditProcess = Start-Process python -ArgumentList "`"$overUnderAudit`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "Over/Under daily audit exit code: $($overUnderAuditProcess.ExitCode)"
+  } else {
+    Add-Line "Over/Under daily audit skipped: script not found."
+  }
   Add-Line "Running public board categories..."
   $publicBoard = Join-Path $ScriptDir "94_public_board_categories.py"
 
@@ -288,6 +297,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
