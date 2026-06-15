@@ -79,39 +79,6 @@ def first_present(d, names, default=None):
             return d[n]
     return default
 
-def get_apicks(board):
-    """
-    Supports multiple possible schemas:
-    - {"aPick": [...]}
-    - {"aPicks": [...]}
-    - {"categories": {"aPick": [...]}}
-    - {"rows": [{"category":"A PICK", ...}]}
-    """
-    if not isinstance(board, dict):
-        return []
-
-    for key in ["aPick", "aPicks", "a_pick", "aPICK"]:
-        if isinstance(board.get(key), list):
-            return board.get(key)
-
-    cats = board.get("categories")
-    if isinstance(cats, dict):
-        for key in ["aPick", "aPicks", "A PICK", "A_PICK"]:
-            if isinstance(cats.get(key), list):
-                return cats.get(key)
-
-    rows = board.get("rows")
-    if isinstance(rows, list):
-        out = []
-        for r in rows:
-            cat = str(first_present(r, ["category", "tier", "label"], "")).lower()
-            if "a pick" in cat or cat == "apick" or cat == "a_pick":
-                out.append(r)
-        return out
-
-    # Fallback: some reports may store string lines only; do not guess.
-    return []
-
 
 def local_date_key(value):
     raw = str(value or "")
@@ -125,8 +92,65 @@ def local_date_key(value):
     except Exception:
         return raw[:10]
 
-def is_today_et(value):
-    return local_date_key(value) == datetime.now(ET).date().isoformat()
+def get_apicks(board):
+    """
+    Moneyline A PICK rule:
+    - Include normal aPicks
+    - Also promote valueLeans with edge >= 10%
+    This prevents good A PICKs from being hidden as VALUE_LEAN.
+    """
+    if not isinstance(board, dict):
+        return []
+
+    out = []
+
+    for key in ["aPick", "aPicks", "a_pick", "aPICK"]:
+        if isinstance(board.get(key), list):
+            out.extend(board.get(key))
+
+    cats = board.get("categories")
+    if isinstance(cats, dict):
+        for key in ["aPick", "aPicks", "A PICK", "A_PICK"]:
+            if isinstance(cats.get(key), list):
+                out.extend(cats.get(key))
+
+    rows = board.get("rows")
+    if isinstance(rows, list):
+        for r in rows:
+            cat = str(first_present(r, ["category", "tier", "label"], "")).lower()
+            if "a pick" in cat or cat == "apick" or cat == "a_pick":
+                out.append(r)
+
+    # Fix: promote VALUE_LEAN rows with edge >= 10% into A PICK Telegram.
+    for key in ["valueLean", "valueLeans", "VALUE_LEAN"]:
+        value_rows = board.get(key)
+        if isinstance(value_rows, list):
+            for r in value_rows:
+                try:
+                    edge = float(first_present(r, ["edge", "edgePct", "probabilityEdge"], 0))
+                except Exception:
+                    edge = 0
+                model = float(first_present(r, ["model", "modelProb", "modelProbability", "probability"], 0) or 0)
+                if edge >= 0.10 and model >= 0.62:
+                    rr = dict(r)
+                    rr["category"] = "A_PICK"
+                    rr["stake"] = "5% bankroll"
+                    rr["reason"] = "Promoted from VALUE_LEAN because edge is >= 10%."
+                    out.append(rr)
+
+    # De-dupe by stable game + pick + local date.
+    deduped = []
+    seen = set()
+    for r in out:
+        game = first_present(r, ["game", "market", "event", "matchup"], "")
+        pick = first_present(r, ["pick", "team", "selection"], "")
+        date = first_present(r, ["date", "commenceTime", "commence_time", "startTime"], "")
+        key = "|".join([str(local_date_key(date)), str(game), str(pick)])
+        if key not in seen:
+            seen.add(key)
+            deduped.append(r)
+
+    return deduped
 
 def make_signal_id(r):
     game = first_present(r, ["game", "market", "event", "matchup"], "")
@@ -271,6 +295,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
 
