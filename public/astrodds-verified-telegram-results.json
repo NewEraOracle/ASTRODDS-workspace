@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T08:37:57.077810-04:00",
+  "generatedAt": "2026-06-15T09:00:24.267849-04:00",
   "title": "ASTRODDS Verified Telegram Results",
   "rules": {
     "included": "Only verified Telegram A+/official signals.",
@@ -8,8 +8,7 @@
       "watchlist",
       "model-only",
       "non-Telegram value/action leans"
-    ],
-    "note": "Manual seed entries are marked manualVerified=true."
+    ]
   },
   "summary": {
     "record": "3-0",
