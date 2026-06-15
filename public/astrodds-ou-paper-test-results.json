@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-06-15T08:47:02.193315-04:00",
+  "title": "ASTRODDS Over/Under Paper Test Results",
+  "rules": {
+    "purpose": "Separate Over/Under paper test ledger.",
+    "doesNotAffect": "Official Telegram A+ verified win rate.",
+    "included": [
+      "O/U_PICK",
+      "O/U_LEAN"
+    ],
+    "excluded": [
+      "O/U_WATCH",
+      "Moneyline",
+      "Telegram official record"
+    ]
+  },
+  "summary": {
+    "ouPaperSignals": 1,
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 1,
+    "graded": 0,
+    "winRate": 0.0,
+    "winRateLabel": "N/A"
+  },
+  "signals": [
+    {
+      "signalId": "2026-06-16T00:06:00Z|colorado-rockies-vs-chicago-cubs|over-9|9.0|O/U_PICK",
+      "addedAt": "2026-06-15T08:47:02.193315-04:00",
+      "date": "2026-06-16T00:06:00Z",
+      "game": "Colorado Rockies vs Chicago Cubs",
+      "pick": "Over 9",
+      "marketType": "over_under",
+      "category": "O/U_PICK",
+      "status": "PENDING",
+      "result": "PENDING",
+      "paperOnly": true,
+      "telegramOfficial": false,
+      "line": 9.0,
+      "priceAmerican": -124,
+      "modelProbability": 0.676,
+      "marketProbability": 0.5536,
+      "probabilityEdge": 0.1224,
+      "projectedTotalRuns": 10.44,
+      "edgeRuns": 1.44,
+      "stake": "3% max / paper",
+      "reason": "away_rf=6.50 | away_ra=7.08 | home_rf=3.75 | home_ra=4.58 | sample_games=12 | weight=0.72"
+    }
+  ]
+}
