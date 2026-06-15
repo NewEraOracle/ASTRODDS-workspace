@@ -132,8 +132,9 @@ def make_signal_id(r):
     game = first_present(r, ["game", "market", "event", "matchup"], "")
     pick = first_present(r, ["pick", "team", "selection"], "")
     date = first_present(r, ["date", "commenceTime", "commence_time", "startTime"], "")
-    price = first_present(r, ["market", "price", "marketPrice", "market_price"], "")
-    return "|".join([str(date), str(game), str(pick), str(price), "moneyline_apick"])
+    # Stable duplicate key: do NOT include market price.
+    # Price can move during the day; same pick should not be sent twice.
+    return "|".join([str(local_date_key(date)), str(game), str(pick), "moneyline_apick"])
 
 
 def local_time_label(value):
@@ -270,5 +271,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
