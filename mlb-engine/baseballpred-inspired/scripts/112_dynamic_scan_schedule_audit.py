@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 ASTRODDS 112 - Dynamic Scan Schedule Audit
 
@@ -24,7 +24,7 @@ JSON_OUT = ROOT / ".astrodds" / "ASTRODDS-dynamic-scan-schedule-latest.json"
 
 ET = ZoneInfo("America/Toronto")
 
-MAX_ODDS_SCANS_PER_DAY = 4
+MAX_ODDS_SCANS_PER_DAY = 3
 
 def fetch_json(url, timeout=45):
     with urllib.request.urlopen(url, timeout=timeout) as r:
@@ -228,3 +228,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
