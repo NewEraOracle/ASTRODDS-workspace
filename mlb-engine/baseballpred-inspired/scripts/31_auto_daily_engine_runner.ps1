@@ -267,6 +267,14 @@ if ($process.ExitCode -eq 0) {
   } else {
     Add-Line "Lineup pitcher live context skipped: script not found."
   }
+  Add-Line "Running bullpen fatigue context audit..."
+  $bullpenContext = Join-Path $ScriptDir "111_bullpen_fatigue_context_audit.py"
+  if (Test-Path $bullpenContext) {
+    $bullpenProcess = Start-Process python -ArgumentList "`"$bullpenContext`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "Bullpen fatigue context exit code: $($bullpenProcess.ExitCode)"
+  } else {
+    Add-Line "Bullpen fatigue context skipped: script not found."
+  }
   Add-Line "Running Over/Under daily audit..."
   $overUnderAudit = Join-Path $ScriptDir "96_over_under_daily_audit.py"
 
@@ -350,6 +358,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
