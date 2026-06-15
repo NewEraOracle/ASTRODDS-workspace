@@ -334,10 +334,10 @@ def classify_candidate(over, under, profiles, league_avg_team_runs):
     category = "O/U_WATCH"
     stake = "No stake"
 
-    if edge >= 0.12 and abs(edge_runs) >= 0.75:
+    if 0.10 <= edge <= 0.13 and abs(edge_runs) >= 0.50:
         category = "O/U_PICK"
         stake = "3% max / paper"
-    elif edge >= 0.08 and abs(edge_runs) >= 0.50:
+    elif 0.10 <= edge <= 0.13 and abs(edge_runs) >= 0.35:
         category = "O/U_LEAN"
         stake = "1-2% max / paper"
 
@@ -404,8 +404,8 @@ def main():
             "source": "sportsbook totals only",
             "method": "team expected runs -> Poisson distributions -> Over/Under/Push probabilities",
             "publicSend": False,
-            "ouPick": "probabilityEdge >= 12% and abs(edgeRuns) >= 0.75",
-            "ouLean": "probabilityEdge >= 8% and abs(edgeRuns) >= 0.50",
+            "ouPick": "probabilityEdge between 10% and 13% and abs(edgeRuns) >= 0.50, based on proxy backtest zone",
+            "ouLean": "probabilityEdge between 10% and 13% and abs(edgeRuns) >= 0.35, audit-only",
             "excluded": ["runline/spread", "props", "futures"],
         },
         "counts": {
@@ -478,3 +478,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
