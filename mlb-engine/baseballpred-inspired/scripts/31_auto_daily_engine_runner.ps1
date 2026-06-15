@@ -250,6 +250,23 @@ if ($process.ExitCode -eq 0) {
   } else {
     Add-Line "Odds snapshot store skipped: script not found."
   }
+  Add-Line "Running MLB gamePk mapper audit..."
+  $gamePkMapper = Join-Path $ScriptDir "109_mlb_gamepk_mapper_audit.py"
+  if (Test-Path $gamePkMapper) {
+    $gamePkProcess = Start-Process python -ArgumentList "`"$gamePkMapper`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "MLB gamePk mapper exit code: $($gamePkProcess.ExitCode)"
+  } else {
+    Add-Line "MLB gamePk mapper skipped: script not found."
+  }
+
+  Add-Line "Running lineup pitcher live context audit..."
+  $lineupPitcherContext = Join-Path $ScriptDir "110_lineup_pitcher_live_context_audit.py"
+  if (Test-Path $lineupPitcherContext) {
+    $lineupPitcherProcess = Start-Process python -ArgumentList "`"$lineupPitcherContext`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "Lineup pitcher live context exit code: $($lineupPitcherProcess.ExitCode)"
+  } else {
+    Add-Line "Lineup pitcher live context skipped: script not found."
+  }
   Add-Line "Running Over/Under daily audit..."
   $overUnderAudit = Join-Path $ScriptDir "96_over_under_daily_audit.py"
 
@@ -333,6 +350,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
