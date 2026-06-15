@@ -131,7 +131,7 @@ def get_apicks(board):
                 except Exception:
                     edge = 0
                 model = float(first_present(r, ["model", "modelProb", "modelProbability", "probability"], 0) or 0)
-                if edge >= 0.10 and model >= 0.62:
+                if edge >= 0.13 and model >= 0.62:
                     rr = dict(r)
                     rr["category"] = "A_PICK"
                     rr["stake"] = "5% bankroll"
@@ -150,7 +150,18 @@ def get_apicks(board):
             seen.add(key)
             deduped.append(r)
 
-    return deduped
+    final = []
+    for r in deduped:
+        try:
+            edge = float(first_present(r, ["edge", "edgePct", "probabilityEdge"], 0) or 0)
+            model = float(first_present(r, ["model", "modelProb", "modelProbability", "probability"], 0) or 0)
+        except Exception:
+            edge = 0
+            model = 0
+        if edge >= 0.13 and model >= 0.62:
+            final.append(r)
+
+    return final
 
 def make_signal_id(r):
     game = first_present(r, ["game", "market", "event", "matchup"], "")
@@ -295,6 +306,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
