@@ -250,6 +250,15 @@ if ($process.ExitCode -eq 0) {
   } else {
     Add-Line "Over/Under daily audit skipped: script not found."
   }
+  Add-Line "Running Over/Under expected total model..."
+  $overUnderModel = Join-Path $ScriptDir "98_over_under_expected_total_model.py"
+
+  if (Test-Path $overUnderModel) {
+    $overUnderModelProcess = Start-Process python -ArgumentList "`"$overUnderModel`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "Over/Under expected total model exit code: $($overUnderModelProcess.ExitCode)"
+  } else {
+    Add-Line "Over/Under expected total model skipped: script not found."
+  }
   Add-Line "Running public board categories..."
   $publicBoard = Join-Path $ScriptDir "94_public_board_categories.py"
 
@@ -297,6 +306,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
