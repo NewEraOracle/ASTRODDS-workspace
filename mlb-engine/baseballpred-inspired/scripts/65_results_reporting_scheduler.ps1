@@ -4,10 +4,10 @@ Set-Location $Workspace
 $ReportsDir = Join-Path $Workspace "mlb-engine\baseballpred-inspired\reports"
 $Report = Join-Path $ReportsDir "65_results_reporting_scheduler_report.txt"
 
-$DailyScript = Join-Path $Workspace "mlb-engine\baseballpred-inspired\scripts\63_daily_11pm_results_alert.py"
+$DailyScript = Join-Path $Workspace "mlb-engine\baseballpred-inspired\scripts\63_daily_12pm_results_alert.py"
 $WeeklyScript = Join-Path $Workspace "mlb-engine\baseballpred-inspired\scripts\64_weekly_investor_results_report.py"
 
-$DailyTask = "ASTRODDS Daily Results 11PM"
+$DailyTask = "ASTRODDS Daily Results 12PM"
 $WeeklyTask = "ASTRODDS Weekly Investor Results"
 
 $DailyAction = "powershell.exe -ExecutionPolicy Bypass -Command `"cd '$Workspace'; python '$DailyScript'`""
@@ -22,8 +22,8 @@ $Lines.Add("Workspace: $Workspace")
 $Lines.Add("")
 
 try {
-  schtasks /Create /TN $DailyTask /TR $DailyAction /SC DAILY /ST 23:00 /F | Out-Null
-  $Lines.Add("OK: scheduled daily results alert at 23:00 local Montreal/PC time")
+  schtasks /Create /TN $DailyTask /TR $DailyAction /SC DAILY /ST 12:00 /F | Out-Null
+  $Lines.Add("OK: scheduled daily results alert at 12:00 local Montreal/PC time")
 } catch {
   $Lines.Add("ERROR: daily task schedule failed: $($_.Exception.Message)")
 }
@@ -56,4 +56,5 @@ $Lines | Set-Content $Report -Encoding UTF8
 $Lines | ForEach-Object { Write-Host $_ }
 Write-Host ""
 Write-Host "Saved: $Report"
+
 
