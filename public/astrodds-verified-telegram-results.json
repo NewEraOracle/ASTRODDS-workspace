@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-06-15T08:37:57.077810-04:00",
+  "title": "ASTRODDS Verified Telegram Results",
+  "rules": {
+    "included": "Only verified Telegram A+/official signals.",
+    "excluded": [
+      "paper picks",
+      "watchlist",
+      "model-only",
+      "non-Telegram value/action leans"
+    ],
+    "note": "Manual seed entries are marked manualVerified=true."
+  },
+  "summary": {
+    "record": "3-0",
+    "wins": 3,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 3,
+    "winRate": 1.0,
+    "winRateLabel": "100%",
+    "totalProfitTracked": 28.45
+  },
+  "signals": [
+    {
+      "signalId": "manual-seed-001-rays-angels-rays",
+      "signalDate": "2026-06-14",
+      "market": "Tampa Bay Rays vs. Los Angeles Angels",
+      "pick": "Tampa Bay Rays",
+      "marketType": "moneyline",
+      "grade": "A+",
+      "stakeRule": "manual",
+      "telegramSent": true,
+      "result": "WIN",
+      "profit": 9.42,
+      "manualVerified": true,
+      "source": "manual_result_seed",
+      "note": "Verified from user Polymarket screenshot.",
+      "addedAt": "2026-06-15T08:37:56.916816-04:00"
+    },
+    {
+      "signalId": "manual-seed-002-astros-royals-royals",
+      "signalDate": "2026-06-14",
+      "market": "Houston Astros vs. Kansas City Royals",
+      "pick": "Kansas City Royals",
+      "marketType": "moneyline",
+      "grade": "A+",
+      "stakeRule": "manual",
+      "telegramSent": true,
+      "result": "WIN",
+      "profit": 8.92,
+      "manualVerified": true,
+      "source": "manual_result_seed",
+      "note": "Verified from user Polymarket screenshot.",
+      "addedAt": "2026-06-15T08:37:56.916816-04:00"
+    },
+    {
+      "signalId": "manual-seed-003-rays-angels-angels",
+      "signalDate": "2026-06-13",
+      "market": "Tampa Bay Rays vs. Los Angeles Angels",
+      "pick": "Los Angeles Angels",
+      "marketType": "moneyline",
+      "grade": "A+",
+      "stakeRule": "manual",
+      "telegramSent": true,
+      "result": "WIN",
+      "profit": 10.11,
+      "manualVerified": true,
+      "source": "manual_result_seed",
+      "note": "Verified from user Polymarket screenshot.",
+      "addedAt": "2026-06-15T08:37:56.916816-04:00"
+    }
+  ]
+}
