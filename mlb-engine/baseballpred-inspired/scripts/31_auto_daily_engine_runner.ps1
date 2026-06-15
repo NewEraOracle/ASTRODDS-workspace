@@ -259,6 +259,15 @@ if ($process.ExitCode -eq 0) {
   } else {
     Add-Line "Over/Under expected total model skipped: script not found."
   }
+  Add-Line "Running Over/Under probability edge model..."
+  $overUnderProbabilityEdge = Join-Path $ScriptDir "100_over_under_probability_edge_model.py"
+
+  if (Test-Path $overUnderProbabilityEdge) {
+    $overUnderProbabilityEdgeProcess = Start-Process python -ArgumentList "`"$overUnderProbabilityEdge`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "Over/Under probability edge model exit code: $($overUnderProbabilityEdgeProcess.ExitCode)"
+  } else {
+    Add-Line "Over/Under probability edge model skipped: script not found."
+  }
   Add-Line "Running public board categories..."
   $publicBoard = Join-Path $ScriptDir "94_public_board_categories.py"
 
@@ -306,6 +315,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
