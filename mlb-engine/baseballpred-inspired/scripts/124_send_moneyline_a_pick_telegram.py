@@ -112,6 +112,22 @@ def get_apicks(board):
     # Fallback: some reports may store string lines only; do not guess.
     return []
 
+
+def local_date_key(value):
+    raw = str(value or "")
+    if not raw:
+        return ""
+    try:
+        dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=ZoneInfo("UTC"))
+        return dt.astimezone(ET).date().isoformat()
+    except Exception:
+        return raw[:10]
+
+def is_today_et(value):
+    return local_date_key(value) == datetime.now(ET).date().isoformat()
+
 def make_signal_id(r):
     game = first_present(r, ["game", "market", "event", "matchup"], "")
     pick = first_present(r, ["pick", "team", "selection"], "")
@@ -254,4 +270,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
