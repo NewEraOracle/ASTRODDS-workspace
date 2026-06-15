@@ -241,6 +241,15 @@ if ($process.ExitCode -eq 0) {
   $recapProcess = Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$recapScript`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
   Add-Line "Telegram recap exit code: $($recapProcess.ExitCode)"
 
+  Add-Line "Storing odds snapshot..."
+  $oddsSnapshotStore = Join-Path $ScriptDir "107_odds_snapshot_store.py"
+
+  if (Test-Path $oddsSnapshotStore) {
+    $oddsSnapshotProcess = Start-Process python -ArgumentList "`"$oddsSnapshotStore`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "Odds snapshot store exit code: $($oddsSnapshotProcess.ExitCode)"
+  } else {
+    Add-Line "Odds snapshot store skipped: script not found."
+  }
   Add-Line "Running Over/Under daily audit..."
   $overUnderAudit = Join-Path $ScriptDir "96_over_under_daily_audit.py"
 
@@ -315,6 +324,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
