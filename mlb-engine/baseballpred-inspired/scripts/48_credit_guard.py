@@ -3,6 +3,7 @@ import json
 import os
 import sys
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[3]
 BASE = Path(__file__).resolve().parents[1]
@@ -10,6 +11,7 @@ BASE = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / ".astrodds" / "ASTRODDS-credit-guard-ledger.json"
 REPORT = BASE / "reports" / "48_credit_guard_report.txt"
 
+LOCAL_TZ = ZoneInfo("America/Toronto")
 DEFAULT_MAX_DAILY_SCANS = 3
 DEFAULT_MAX_MONTHLY_SCANS = 90
 DEFAULT_MONTHLY_RESERVE = 20
@@ -38,11 +40,37 @@ def write_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
-def same_day(value, stamp):
-    return str(value)[:10] == stamp[:10]
+def parse_iso_dt(value):
+    raw = str(value or "").strip()
+    if not raw:
+        return None
+    try:
+        return datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except Exception:
+        return None
 
-def same_month(value, stamp):
-    return str(value)[:7] == stamp[:7]
+def local_day_key(value):
+    dt = parse_iso_dt(value)
+    if not dt:
+        return str(value or "")[:10]
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(LOCAL_TZ).date().isoformat()
+
+def local_month_key(value):
+    dt = parse_iso_dt(value)
+    if not dt:
+        return str(value or "")[:7]
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    local = dt.astimezone(LOCAL_TZ)
+    return f"{local.year:04d}-{local.month:02d}"
+
+def same_day(a, b):
+    return local_day_key(a) == local_day_key(b)
+
+def same_month(a, b):
+    return local_month_key(a) == local_month_key(b)
 
 def main():
     mode = "status"
@@ -160,3 +188,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
