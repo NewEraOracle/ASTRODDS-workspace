@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 ASTRODDS 121 - Send Verified Results Documents to Telegram
 
@@ -178,8 +178,6 @@ def main():
         docs = [
             (OFFICIAL_HTML, "Official A+ Verified Results HTML"),
             (OU_HTML, "Over/Under Paper Test Results HTML"),
-            (OFFICIAL_JSON, "Official A+ Verified Results JSON"),
-            (OU_JSON, "Over/Under Paper Test Results JSON"),
         ]
 
         for path, caption in docs:
@@ -242,3 +240,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
