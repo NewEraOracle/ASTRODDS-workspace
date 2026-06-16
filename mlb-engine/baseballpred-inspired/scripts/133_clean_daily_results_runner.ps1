@@ -82,5 +82,14 @@ Add-Line "Running 177 true feature final gap report..."
 python ".\mlb-engine\baseballpred-inspired\scripts\177_true_feature_final_gap_report.py"
 Add-Line "177 true feature gap exit code: $LASTEXITCODE"
 
+
+Add-Line "Building odds open/close from snapshots..."
+python ".\mlb-engine\baseballpred-inspired\scripts\180_build_odds_open_close_from_snapshots.py"
+Add-Line "180 odds open/close exit code: $LASTEXITCODE"
+
+Add-Line "Syncing snapshots to market lines..."
+python ".\mlb-engine\baseballpred-inspired\scripts\181_sync_snapshots_to_market_lines.py"
+Add-Line "181 snapshot market sync exit code: $LASTEXITCODE"
+
 Add-Line "ASTRODDS clean daily results runner finished"
 

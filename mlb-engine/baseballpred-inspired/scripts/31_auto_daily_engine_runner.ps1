@@ -85,6 +85,34 @@ if (-not (Test-Path $pipeline)) {
   exit 1
 }
 
+
+Add-Line "Running credit-safe MLB odds collector..."
+$oddsCollector = Join-Path $ScriptDir "179_credit_safe_mlb_odds_collector.py"
+if (Test-Path $oddsCollector) {
+  $oddsCollectorProcess = Start-Process python -ArgumentList "`"$oddsCollector`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "MLB odds collector exit code: $($oddsCollectorProcess.ExitCode)"
+} else {
+  Add-Line "MLB odds collector skipped: script not found."
+}
+
+Add-Line "Building odds open/close from snapshots..."
+$oddsOpenClose = Join-Path $ScriptDir "180_build_odds_open_close_from_snapshots.py"
+if (Test-Path $oddsOpenClose) {
+  $oddsOpenCloseProcess = Start-Process python -ArgumentList "`"$oddsOpenClose`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Odds open/close builder exit code: $($oddsOpenCloseProcess.ExitCode)"
+} else {
+  Add-Line "Odds open/close builder skipped: script not found."
+}
+
+Add-Line "Syncing snapshots to market lines..."
+$oddsMarketSync = Join-Path $ScriptDir "181_sync_snapshots_to_market_lines.py"
+if (Test-Path $oddsMarketSync) {
+  $oddsMarketSyncProcess = Start-Process python -ArgumentList "`"$oddsMarketSync`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Snapshot market line sync exit code: $($oddsMarketSyncProcess.ExitCode)"
+} else {
+  Add-Line "Snapshot market line sync skipped: script not found."
+}
+
 Add-Line "Running credit guard..."
 $creditGuard = Join-Path $ScriptDir "48_credit_guard.py"
 $creditGuardProcess = Start-Process python -ArgumentList "`"$creditGuard`" record" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
