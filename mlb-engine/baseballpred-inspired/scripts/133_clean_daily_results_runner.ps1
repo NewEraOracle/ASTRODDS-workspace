@@ -47,5 +47,14 @@ Add-Line "Running 158 postponed/suspended safety audit..."
 python ".\mlb-engine\baseballpred-inspired\scripts\158_postponed_suspended_safety_audit.py"
 Add-Line "158 postponed/suspended safety exit code: $LASTEXITCODE"
 
+
+Add-Line "Running 164 full build validation..."
+python ".\mlb-engine\baseballpred-inspired\scripts\164_full_build_validation_report.py"
+Add-Line "164 full build validation exit code: $LASTEXITCODE"
+
+Add-Line "Running 165 tomorrow review commands..."
+python ".\mlb-engine\baseballpred-inspired\scripts\165_tomorrow_review_commands.py"
+Add-Line "165 tomorrow review commands exit code: $LASTEXITCODE"
+
 Add-Line "ASTRODDS clean daily results runner finished"
 

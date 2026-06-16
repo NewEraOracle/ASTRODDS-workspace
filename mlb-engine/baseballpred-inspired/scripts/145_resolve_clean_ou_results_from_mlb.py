@@ -51,6 +51,21 @@ TEAM_ALIASES = {
     "houston astros": "houston astros",
 }
 
+
+def astrodds_safe_game_status(game_obj):
+    status = game_obj.get("status", {}) if isinstance(game_obj, dict) else {}
+    abstract_state = str(status.get("abstractGameState", "")).lower()
+    detailed_state = str(status.get("detailedState", "")).lower()
+    coded = str(status.get("codedGameState", "")).upper()
+    danger_terms = ["postponed", "suspended", "delayed", "cancelled", "canceled", "rescheduled"]
+    if any(t in detailed_state for t in danger_terms):
+        return "KEEP_PENDING", detailed_state or coded
+    is_final = abstract_state == "final" or "final" in detailed_state or coded in ("F", "FT", "FR")
+    if is_final:
+        return "FINAL", detailed_state or coded
+    return "KEEP_PENDING", detailed_state or coded
+
+
 def now_et():
     return datetime.now(ET).isoformat()
 
