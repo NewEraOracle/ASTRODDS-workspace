@@ -79,7 +79,7 @@ def et_time_text(value):
 def classify(model, edge):
     if model >= 0.65 and edge >= 0.15:
         return "A+"
-    if model >= 0.62 and edge >= 0.13:
+    if model >= 0.62 and edge >= 0.12:
         return "A"
     return ""
 
@@ -169,7 +169,7 @@ def build_message(r):
         f"Stake: {r['stake']}\n\n"
         "Rule: PAPER/MANUAL SIGNAL.\n"
         "A+ = 65+ confidence and 15%+ edge.\n"
-        "A = 62+ confidence and 13%+ edge.\n"
+        "A = 62+ confidence and 12%+ edge.\n"
         "No real-money automation."
     )
 
@@ -247,3 +247,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

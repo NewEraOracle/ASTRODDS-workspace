@@ -145,7 +145,7 @@ def main():
 
         if model >= 0.65 and edge >= 0.15:
             grade = "A+"
-        elif model >= 0.62 and edge >= 0.13:
+        elif model >= 0.62 and edge >= 0.12:
             grade = "A"
         else:
             skipped_filter += 1
@@ -198,3 +198,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
