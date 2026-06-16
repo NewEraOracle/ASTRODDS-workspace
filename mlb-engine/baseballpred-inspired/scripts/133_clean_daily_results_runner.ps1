@@ -65,5 +65,22 @@ Add-Line "Running full BaseballPred gap report..."
 python ".\mlb-engine\baseballpred-inspired\scripts\172_full_baseballpred_gap_report.py"
 Add-Line "172 gap report exit code: $LASTEXITCODE"
 
+
+Add-Line "Running 174 exact Bpen WHIP35 audit..."
+python ".\mlb-engine\baseballpred-inspired\scripts\174_build_exact_bpen_whip35_audit.py"
+Add-Line "174 Bpen WHIP35 exit code: $LASTEXITCODE"
+
+Add-Line "Running 175 historical market line importer..."
+python ".\mlb-engine\baseballpred-inspired\scripts\175_import_historical_market_lines.py"
+Add-Line "175 market importer exit code: $LASTEXITCODE"
+
+Add-Line "Running 176 market data gap report..."
+python ".\mlb-engine\baseballpred-inspired\scripts\176_market_data_gap_report.py"
+Add-Line "176 market gap exit code: $LASTEXITCODE"
+
+Add-Line "Running 177 true feature final gap report..."
+python ".\mlb-engine\baseballpred-inspired\scripts\177_true_feature_final_gap_report.py"
+Add-Line "177 true feature gap exit code: $LASTEXITCODE"
+
 Add-Line "ASTRODDS clean daily results runner finished"
 
