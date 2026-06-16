@@ -61,6 +61,15 @@ Add-Line "Running BaseballPred ROI/CLV backtest..."
 python ".\mlb-engine\baseballpred-inspired\scripts\171_roi_clv_backtest_from_market_lines.py"
 Add-Line "171 ROI/CLV backtest exit code: $LASTEXITCODE"
 
+
+Add-Line "Running exact Bpen WHIP35 StatsAPI builder..."
+python ".\mlb-engine\baseballpred-inspired\scripts\183_build_exact_bpen_whip35_from_statsapi.py"
+Add-Line "183 exact Bpen WHIP35 exit code: $LASTEXITCODE"
+
+Add-Line "Merging exact Bpen WHIP35 into BaseballPred sidecars..."
+python ".\mlb-engine\baseballpred-inspired\scripts\184_merge_exact_bpen_whip35_into_bbp_sidecars.py"
+Add-Line "184 merge exact Bpen WHIP35 exit code: $LASTEXITCODE"
+
 Add-Line "Running full BaseballPred gap report..."
 python ".\mlb-engine\baseballpred-inspired\scripts\172_full_baseballpred_gap_report.py"
 Add-Line "172 gap report exit code: $LASTEXITCODE"

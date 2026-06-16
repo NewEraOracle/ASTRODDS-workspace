@@ -429,6 +429,25 @@ if (Test-Path $todayBoard) {
 }
 
 
+
+Add-Line "Running exact Bpen WHIP35 StatsAPI builder..."
+$exactBpen = Join-Path $ScriptDir "183_build_exact_bpen_whip35_from_statsapi.py"
+if (Test-Path $exactBpen) {
+  $exactBpenProcess = Start-Process python -ArgumentList "`"$exactBpen`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Exact Bpen WHIP35 exit code: $($exactBpenProcess.ExitCode)"
+} else {
+  Add-Line "Exact Bpen WHIP35 skipped: script not found."
+}
+
+Add-Line "Merging exact Bpen WHIP35 into BaseballPred sidecars..."
+$mergeBpen = Join-Path $ScriptDir "184_merge_exact_bpen_whip35_into_bbp_sidecars.py"
+if (Test-Path $mergeBpen) {
+  $mergeBpenProcess = Start-Process python -ArgumentList "`"$mergeBpen`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Merge exact Bpen WHIP35 exit code: $($mergeBpenProcess.ExitCode)"
+} else {
+  Add-Line "Merge exact Bpen WHIP35 skipped: script not found."
+}
+
 Add-Line "Running BaseballPred Moneyline readiness audit..."
 $bbpMlReady = Join-Path $ScriptDir "167_baseballpred_moneyline_readiness_audit.py"
 if (Test-Path $bbpMlReady) {
