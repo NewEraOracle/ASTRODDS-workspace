@@ -38,5 +38,14 @@ Add-Line "Running 146 O/U Telegram clean report..."
 python ".\mlb-engine\baseballpred-inspired\scripts\146_send_clean_ou_daily_results.py"
 Add-Line "146 O/U report exit code: $LASTEXITCODE"
 
+
+Add-Line "Running 154 O/U V1/V2 A-B report..."
+python ".\mlb-engine\baseballpred-inspired\scripts\154_ou_v1_v2_ab_test_report.py"
+Add-Line "154 O/U A-B report exit code: $LASTEXITCODE"
+
+Add-Line "Running 158 postponed/suspended safety audit..."
+python ".\mlb-engine\baseballpred-inspired\scripts\158_postponed_suspended_safety_audit.py"
+Add-Line "158 postponed/suspended safety exit code: $LASTEXITCODE"
+
 Add-Line "ASTRODDS clean daily results runner finished"
 

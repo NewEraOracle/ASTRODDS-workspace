@@ -345,7 +345,62 @@ Add-Line "Running public board categories..."
   } else {
     Add-Line "Clean Moneyline CSV sync skipped: script not found."
   }
-  Add-Line "Running Telegram result tracking..."
+  
+Add-Line "Running O/U V2 sidecar context enrichment..."
+$ouV2Context = Join-Path $ScriptDir "151_ou_live_context_enrichment_audit.py"
+if (Test-Path $ouV2Context) {
+  $ouV2ContextProcess = Start-Process python -ArgumentList "`"$ouV2Context`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "O/U V2 context enrichment exit code: $($ouV2ContextProcess.ExitCode)"
+} else {
+  Add-Line "O/U V2 context enrichment skipped: script not found."
+}
+
+Add-Line "Running O/U V2 strict paper score..."
+$ouV2Strict = Join-Path $ScriptDir "152_ou_v2_strict_paper_score_audit.py"
+if (Test-Path $ouV2Strict) {
+  $ouV2StrictProcess = Start-Process python -ArgumentList "`"$ouV2Strict`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "O/U V2 strict paper score exit code: $($ouV2StrictProcess.ExitCode)"
+} else {
+  Add-Line "O/U V2 strict paper score skipped: script not found."
+}
+
+Add-Line "Running O/U V2 batting context merge..."
+$ouV2Batting = Join-Path $ScriptDir "159_merge_lineup_obp_slg_proxy_into_ou_v2.py"
+if (Test-Path $ouV2Batting) {
+  $ouV2BattingProcess = Start-Process python -ArgumentList "`"$ouV2Batting`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "O/U V2 batting context merge exit code: $($ouV2BattingProcess.ExitCode)"
+} else {
+  Add-Line "O/U V2 batting context merge skipped: script not found."
+}
+
+Add-Line "Running O/U V2 batting context score..."
+$ouV2BattingScore = Join-Path $ScriptDir "160_ou_v2_batting_context_score_audit.py"
+if (Test-Path $ouV2BattingScore) {
+  $ouV2BattingScoreProcess = Start-Process python -ArgumentList "`"$ouV2BattingScore`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "O/U V2 batting context score exit code: $($ouV2BattingScoreProcess.ExitCode)"
+} else {
+  Add-Line "O/U V2 batting context score skipped: script not found."
+}
+
+Add-Line "Running O/U V1/V2 A-B tracker..."
+$ouABTracker = Join-Path $ScriptDir "153_ou_v1_v2_ab_test_tracker.py"
+if (Test-Path $ouABTracker) {
+  $ouABProcess = Start-Process python -ArgumentList "`"$ouABTracker`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "O/U V1/V2 A-B tracker exit code: $($ouABProcess.ExitCode)"
+} else {
+  Add-Line "O/U V1/V2 A-B tracker skipped: script not found."
+}
+
+Add-Line "Running ASTRODDS today control board..."
+$todayBoard = Join-Path $ScriptDir "155_astrodds_today_control_board.py"
+if (Test-Path $todayBoard) {
+  $todayBoardProcess = Start-Process python -ArgumentList "`"$todayBoard`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Today control board exit code: $($todayBoardProcess.ExitCode)"
+} else {
+  Add-Line "Today control board skipped: script not found."
+}
+
+Add-Line "Running Telegram result tracking..."
   $resultTracking = Join-Path $ScriptDir "81_telegram_result_tracking.py"
 
   if (Test-Path $resultTracking) {
