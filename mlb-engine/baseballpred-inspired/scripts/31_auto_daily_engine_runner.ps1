@@ -311,7 +311,15 @@ if ($process.ExitCode -eq 0) {
   } else {
     Add-Line "Over/Under probability edge model skipped: script not found."
   }
-  Add-Line "Running public board categories..."
+  Add-Line "Running O/U A+ Telegram sender..."
+$ouAPlusTelegram = Join-Path $ScriptDir "136_send_ou_aplus_telegram.py"
+if (Test-Path $ouAPlusTelegram) {
+  $ouAPlusProcess = Start-Process python -ArgumentList "`"$ouAPlusTelegram`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "O/U A+ Telegram exit code: $($ouAPlusProcess.ExitCode)"
+} else {
+  Add-Line "O/U A+ Telegram skipped: script not found."
+}
+Add-Line "Running public board categories..."
   $publicBoard = Join-Path $ScriptDir "94_public_board_categories.py"
 
   if (Test-Path $publicBoard) {
@@ -375,6 +383,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
