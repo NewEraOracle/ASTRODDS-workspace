@@ -29,4 +29,14 @@ Add-Line "Running 131 Telegram clean report..."
 python ".\mlb-engine\baseballpred-inspired\scripts\131_send_clean_moneyline_daily_results.py"
 Add-Line "131 report exit code: $LASTEXITCODE"
 
+
+Add-Line "Running 145 O/U resolver..."
+python ".\mlb-engine\baseballpred-inspired\scripts\145_resolve_clean_ou_results_from_mlb.py"
+Add-Line "145 O/U resolver exit code: $LASTEXITCODE"
+
+Add-Line "Running 146 O/U Telegram clean report..."
+python ".\mlb-engine\baseballpred-inspired\scripts\146_send_clean_ou_daily_results.py"
+Add-Line "146 O/U report exit code: $LASTEXITCODE"
+
 Add-Line "ASTRODDS clean daily results runner finished"
+
