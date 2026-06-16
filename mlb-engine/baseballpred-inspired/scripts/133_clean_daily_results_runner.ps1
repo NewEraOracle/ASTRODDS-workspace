@@ -56,5 +56,14 @@ Add-Line "Running 165 tomorrow review commands..."
 python ".\mlb-engine\baseballpred-inspired\scripts\165_tomorrow_review_commands.py"
 Add-Line "165 tomorrow review commands exit code: $LASTEXITCODE"
 
+
+Add-Line "Running BaseballPred ROI/CLV backtest..."
+python ".\mlb-engine\baseballpred-inspired\scripts\171_roi_clv_backtest_from_market_lines.py"
+Add-Line "171 ROI/CLV backtest exit code: $LASTEXITCODE"
+
+Add-Line "Running full BaseballPred gap report..."
+python ".\mlb-engine\baseballpred-inspired\scripts\172_full_baseballpred_gap_report.py"
+Add-Line "172 gap report exit code: $LASTEXITCODE"
+
 Add-Line "ASTRODDS clean daily results runner finished"
 

@@ -400,6 +400,28 @@ if (Test-Path $todayBoard) {
   Add-Line "Today control board skipped: script not found."
 }
 
+
+Add-Line "Running BaseballPred Moneyline readiness audit..."
+$bbpMlReady = Join-Path $ScriptDir "167_baseballpred_moneyline_readiness_audit.py"
+if (Test-Path $bbpMlReady) {
+  $bbpMlReadyProcess = Start-Process python -ArgumentList "`"$bbpMlReady`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "BaseballPred Moneyline readiness exit code: $($bbpMlReadyProcess.ExitCode)"
+}
+
+Add-Line "Running BaseballPred feature bridge..."
+$bbpBridge = Join-Path $ScriptDir "168_build_baseballpred_feature_bridge.py"
+if (Test-Path $bbpBridge) {
+  $bbpBridgeProcess = Start-Process python -ArgumentList "`"$bbpBridge`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "BaseballPred feature bridge exit code: $($bbpBridgeProcess.ExitCode)"
+}
+
+Add-Line "Running Moneyline BaseballPred sidecar..."
+$bbpMl = Join-Path $ScriptDir "169_moneyline_baseballpred_sidecar_audit.py"
+if (Test-Path $bbpMl) {
+  $bbpMlProcess = Start-Process python -ArgumentList "`"$bbpMl`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+  Add-Line "Moneyline BaseballPred sidecar exit code: $($bbpMlProcess.ExitCode)"
+}
+
 Add-Line "Running Telegram result tracking..."
   $resultTracking = Join-Path $ScriptDir "81_telegram_result_tracking.py"
 
