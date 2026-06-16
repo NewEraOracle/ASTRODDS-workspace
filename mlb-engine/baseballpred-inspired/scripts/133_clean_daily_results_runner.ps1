@@ -39,6 +39,19 @@ python ".\mlb-engine\baseballpred-inspired\scripts\146_send_clean_ou_daily_resul
 Add-Line "146 O/U report exit code: $LASTEXITCODE"
 
 
+
+Add-Line "Resolving market line results from MLB..."
+python ".\mlb-engine\baseballpred-inspired\scripts\186_resolve_market_lines_results_from_mlb.py"
+Add-Line "186 market line resolve exit code: $LASTEXITCODE"
+
+Add-Line "Running market ROI/CLV summary..."
+python ".\mlb-engine\baseballpred-inspired\scripts\187_market_roi_clv_summary_report.py"
+Add-Line "187 market ROI/CLV summary exit code: $LASTEXITCODE"
+
+Add-Line "Running ROI/CLV backtest from market lines..."
+python ".\mlb-engine\baseballpred-inspired\scripts\171_roi_clv_backtest_from_market_lines.py"
+Add-Line "171 ROI/CLV backtest exit code: $LASTEXITCODE"
+
 Add-Line "Running 154 O/U V1/V2 A-B report..."
 python ".\mlb-engine\baseballpred-inspired\scripts\154_ou_v1_v2_ab_test_report.py"
 Add-Line "154 O/U A-B report exit code: $LASTEXITCODE"
