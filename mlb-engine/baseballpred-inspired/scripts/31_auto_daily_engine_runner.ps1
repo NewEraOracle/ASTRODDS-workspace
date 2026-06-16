@@ -329,6 +329,14 @@ if ($process.ExitCode -eq 0) {
   } else {
     Add-Line "Moneyline A PICK Telegram skipped: script not found."
   }
+  Add-Line "Syncing clean Moneyline picks into CSV..."
+  $cleanCsvSync = Join-Path $ScriptDir "134_sync_clean_moneyline_picks_csv.py"
+  if (Test-Path $cleanCsvSync) {
+    $cleanCsvSyncProcess = Start-Process python -ArgumentList "`"$cleanCsvSync`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
+    Add-Line "Clean Moneyline CSV sync exit code: $($cleanCsvSyncProcess.ExitCode)"
+  } else {
+    Add-Line "Clean Moneyline CSV sync skipped: script not found."
+  }
   Add-Line "Running Telegram result tracking..."
   $resultTracking = Join-Path $ScriptDir "81_telegram_result_tracking.py"
 
@@ -367,6 +375,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 

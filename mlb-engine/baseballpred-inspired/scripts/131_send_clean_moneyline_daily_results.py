@@ -242,17 +242,17 @@ def main():
 
         send_message(token, chat_id, text)
         send_document(token, chat_id, HTML_REPORT, "ASTRODDS clean moneyline results report")
-        send_document(token, chat_id, CLEAN_CSV, "ASTRODDS clean moneyline record CSV")
 
         sent.setdefault("sent", []).append(key)
         sent["updatedAt"] = datetime.now(ET).isoformat()
         save_sent(sent)
 
         lines.append("")
-        lines.append("Telegram sent: clean summary + HTML report + CSV document.")
+        lines.append("Telegram sent: clean summary + HTML report.")
 
     REPORT.write_text("\n".join(lines), encoding="utf-8")
     print("\n".join(lines))
 
 if __name__ == "__main__":
     main()
+
