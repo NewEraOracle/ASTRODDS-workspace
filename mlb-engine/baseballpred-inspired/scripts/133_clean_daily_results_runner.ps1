@@ -113,5 +113,22 @@ Add-Line "Syncing snapshots to market lines..."
 python ".\mlb-engine\baseballpred-inspired\scripts\181_sync_snapshots_to_market_lines.py"
 Add-Line "181 snapshot market sync exit code: $LASTEXITCODE"
 
+
+Add-Line "Running 189 calibration data readiness..."
+python ".\mlb-engine\baseballpred-inspired\scripts\189_calibration_data_readiness_audit.py"
+Add-Line "189 calibration readiness exit code: $LASTEXITCODE"
+
+Add-Line "Running 190 Moneyline historical calibration..."
+python ".\mlb-engine\baseballpred-inspired\scripts\190_moneyline_historical_calibration_audit.py"
+Add-Line "190 Moneyline historical calibration exit code: $LASTEXITCODE"
+
+Add-Line "Running 191 live pick calibration..."
+python ".\mlb-engine\baseballpred-inspired\scripts\191_live_pick_calibration_audit.py"
+Add-Line "191 live pick calibration exit code: $LASTEXITCODE"
+
+Add-Line "Running 192 calibration control board..."
+python ".\mlb-engine\baseballpred-inspired\scripts\192_calibration_control_board.py"
+Add-Line "192 calibration control board exit code: $LASTEXITCODE"
+
 Add-Line "ASTRODDS clean daily results runner finished"
 
