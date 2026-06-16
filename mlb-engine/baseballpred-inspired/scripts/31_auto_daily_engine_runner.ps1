@@ -321,13 +321,13 @@ if ($process.ExitCode -eq 0) {
     Add-Line "Public board categories skipped: script not found."
   }
 
-  Add-Line "Running Moneyline A PICK Telegram sender..."
-  $moneylineAPickTelegram = Join-Path $ScriptDir "124_send_moneyline_a_pick_telegram.py"
+  Add-Line "Running Moneyline A/A+ Telegram sender..."
+  $moneylineAPickTelegram = Join-Path $ScriptDir "135_send_moneyline_a_aplus_telegram.py"
   if (Test-Path $moneylineAPickTelegram) {
     $moneylineAPickProcess = Start-Process python -ArgumentList "`"$moneylineAPickTelegram`"" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
-    Add-Line "Moneyline A PICK Telegram exit code: $($moneylineAPickProcess.ExitCode)"
+    Add-Line "Moneyline A/A+ Telegram exit code: $($moneylineAPickProcess.ExitCode)"
   } else {
-    Add-Line "Moneyline A PICK Telegram skipped: script not found."
+    Add-Line "Moneyline A/A+ Telegram skipped: script not found."
   }
   Add-Line "Syncing clean Moneyline picks into CSV..."
   $cleanCsvSync = Join-Path $ScriptDir "134_sync_clean_moneyline_picks_csv.py"
@@ -375,6 +375,7 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
 
 
 
