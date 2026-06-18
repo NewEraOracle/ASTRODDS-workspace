@@ -8,11 +8,11 @@ REPORTS = ROOT / "mlb-engine" / "baseballpred-inspired" / "reports"
 
 IN_JSON = ASTRO / "ASTRODDS-moneyline-only-today-board-latest.json"
 OUT_ACTION = ASTRO / "ASTRODDS-moneyline-actionable-today-latest.json"
-OUT_FULL = ASTRO / "ASTRODDS-moneyline-strict-live-confirmed-latest.json"
+OUT_FULL = ASTRO / "ASTRODDS-moneyline-status-fallback-confirmed-latest.json"
 REPORT = REPORTS / "229_moneyline_strict_live_confirmation_guard_report.txt"
 
 OPEN_STATES = ("scheduled", "pre-game", "pregame", "warmup", "preview")
-CLOSED_STATES = ("final", "in progress", "live", "delayed", "postponed", "suspended")
+CLOSED_STATES = ("final", "in progress", "delayed", "postponed", "suspended")
 
 def fnum(v, default=None):
     if v is None:
@@ -33,33 +33,54 @@ def load_json(path):
     except Exception:
         return {}
 
-def status_text(row):
+def txt(v):
+    return str(v or "").lower().strip()
+
+def contains_any(s, terms):
+    return any(t in s for t in terms)
+
+def live_status(row):
+    return txt(row.get("liveMlbStatus", ""))
+
+def cached_status(row):
     return " ".join([
-        str(row.get("liveMlbStatus", "")),
-        str(row.get("mlbStatus", "")),
-        str(row.get("liveStatusSource", "")),
-    ]).lower().strip()
+        txt(row.get("cachedMlbStatus", "")),
+        txt(row.get("mlbStatus", "")),
+        txt(row.get("cachedCandidateReasons", "")),
+        txt(row.get("candidateReasons", "")),
+    ]).strip()
 
-def cached_text(row):
-    return " ".join([
-        str(row.get("cachedMlbStatus", "")),
-        str(row.get("cachedCandidateReasons", "")),
-        str(row.get("candidateReasons", "")),
-    ]).lower().strip()
+def status_decision(row):
+    """
+    Safer priority:
+    1. liveMlbStatus closed => BLOCKED
+    2. liveMlbStatus open => OPEN
+    3. no liveMlbStatus + cached open => OPEN_FALLBACK
+    4. no liveMlbStatus + cached closed => HOLD_STALE_CLOSED, NOT BLOCKED
+    5. unknown => HOLD
 
-def live_is_open(row):
-    txt = status_text(row)
-    if not txt:
-        return False
-    return any(x in txt for x in OPEN_STATES) and not any(x in txt for x in CLOSED_STATES)
+    Reason: cached "Final/In Progress" can be stale or from an older game/date.
+    Only liveMlbStatus can hard-block.
+    """
+    live = live_status(row)
+    cached = cached_status(row)
 
-def live_is_closed(row):
-    txt = status_text(row)
-    return any(x in txt for x in CLOSED_STATES)
+    if live:
+        if contains_any(live, CLOSED_STATES):
+            return "BLOCKED", row.get("liveMlbStatus", ""), "liveMlbStatus"
+        if contains_any(live, OPEN_STATES):
+            return "OPEN", row.get("liveMlbStatus", ""), "liveMlbStatus"
+        return "HOLD", row.get("liveMlbStatus", ""), "liveMlbStatus_unknown"
 
-def cached_is_closed(row):
-    txt = cached_text(row)
-    return any(x in txt for x in CLOSED_STATES) or "already_started_or_final" in txt
+    if cached:
+        if contains_any(cached, OPEN_STATES):
+            val = row.get("cachedMlbStatus") or row.get("mlbStatus") or "CachedOpen"
+            return "OPEN_FALLBACK", val, "cached_open_fallback"
+        if "already_started_or_final" in cached or contains_any(cached, CLOSED_STATES):
+            val = row.get("cachedMlbStatus") or row.get("mlbStatus") or "CachedClosed"
+            return "HOLD_STALE_CLOSED", val, "cached_closed_hold_not_block"
+
+    return "HOLD", "", "no_status"
 
 def action_tier(edge):
     if edge is None:
@@ -95,9 +116,11 @@ def main():
     blocked = []
     no_value = []
     missing = []
+    fallback_open_count = 0
+    cached_closed_hold_count = 0
 
-    for r in rows:
-        r = dict(r)
+    for raw in rows:
+        r = dict(raw)
         model = fnum(r.get("modelProbability"), None)
         price = fnum(r.get("price"), None)
         edge = fnum(r.get("currentEdgePct", r.get("edgePct")), None)
@@ -107,40 +130,49 @@ def main():
             r["currentEdgePct"] = edge
             r["edgePct"] = edge
 
-        live_open = live_is_open(r)
-        live_closed = live_is_closed(r)
-        cached_closed = cached_is_closed(r)
-        live_status = str(r.get("liveMlbStatus", "")).strip()
-        source = str(r.get("liveStatusSource", "")).strip()
+        decision, status_value, status_source = status_decision(r)
+        r["statusDecision"] = decision
+        r["statusSourceUsed"] = status_source
 
-        if live_closed:
+        if decision == "BLOCKED":
             r["actionStatus"] = "BLOCKED_LIVE_STARTED_OR_FINAL"
             r["status"] = "BLOCKED"
-            r["mainReason"] = "Blocked because live MLB status says game is not pregame."
-            r["riskReason"] = f"liveMlbStatus={live_status}"
+            r["telegramEligible"] = False
+            r["mainReason"] = "Blocked because liveMlbStatus confirms game is not pregame."
+            r["riskReason"] = f"statusSource={status_source} | status={status_value}"
             blocked.append(r)
             continue
 
-        if not live_open:
-            # Important fix: never make a bet when live status is blank/no-match.
-            if cached_closed:
-                r["actionStatus"] = "HOLD_LIVE_STATUS_MISSING_CACHED_CLOSED"
-                r["status"] = "HOLD"
-                r["mainReason"] = "Not actionable: live MLB status was not confirmed open, and cached status suggests started/final."
-                r["riskReason"] = f"liveMlbStatus={live_status or 'blank'} | source={source or 'blank'} | cachedMlbStatus={r.get('cachedMlbStatus','')}"
-                hold_unknown.append(r)
-            else:
-                r["actionStatus"] = "HOLD_LIVE_STATUS_NOT_CONFIRMED_OPEN"
-                r["status"] = "HOLD"
-                r["mainReason"] = "Not actionable: live MLB status is not confirmed Scheduled/Pre-Game/Warmup."
-                r["riskReason"] = f"liveMlbStatus={live_status or 'blank'} | source={source or 'blank'}"
-                hold_unknown.append(r)
+        if decision == "HOLD_STALE_CLOSED":
+            cached_closed_hold_count += 1
+            r["actionStatus"] = "HOLD_CACHED_CLOSED_NEEDS_LIVE_CONFIRMATION"
+            r["status"] = "HOLD"
+            r["telegramEligible"] = False
+            r["mainReason"] = "Not actionable: cached status says closed, but liveMlbStatus is blank. Treating as HOLD to avoid stale Final/In Progress false block."
+            r["riskReason"] = f"cachedStatus={status_value} | liveMlbStatus=blank | needs live confirmation"
+            hold_unknown.append(r)
             continue
+
+        if decision == "HOLD":
+            r["actionStatus"] = "HOLD_STATUS_NOT_CONFIRMED"
+            r["status"] = "HOLD"
+            r["telegramEligible"] = False
+            r["mainReason"] = "Not actionable: no open status confirmed from live or cached status."
+            r["riskReason"] = f"liveMlbStatus={r.get('liveMlbStatus','blank')} | cachedMlbStatus={r.get('cachedMlbStatus','')} | mlbStatus={r.get('mlbStatus','')}"
+            hold_unknown.append(r)
+            continue
+
+        if decision == "OPEN_FALLBACK":
+            fallback_open_count += 1
+            if not r.get("liveMlbStatus"):
+                r["liveMlbStatus"] = f"Fallback-{status_value}"
+            r["mainReason"] = "Open status confirmed by cached fallback because liveMlbStatus was blank."
 
         if model is None or price is None:
             r["actionStatus"] = "NO_MODEL_OR_PRICE"
             r["status"] = "NO_BET"
-            r["mainReason"] = "Live status is open, but model or price is missing."
+            r["telegramEligible"] = False
+            r["mainReason"] = "Status is open, but model or price is missing."
             r["riskReason"] = "Need both modelProbability and market price."
             missing.append(r)
             continue
@@ -151,12 +183,12 @@ def main():
         r["telegramEligible"] = False
 
         if tier == "NO_BET":
-            r["mainReason"] = "Live status open, but edge is not high enough."
+            r["mainReason"] = "Status open, but edge is not high enough."
             r["riskReason"] = f"Current edge {edge}%."
             no_value.append(r)
         else:
-            r["mainReason"] = "Strict live-confirmed Moneyline candidate."
-            r["riskReason"] = f"Live status {live_status}; current edge {edge}% from model {round(model*100,1)}% vs market {round(price*100,1)}%."
+            r["mainReason"] = "Moneyline candidate with open status confirmation."
+            r["riskReason"] = f"statusSource={status_source}; status={status_value}; edge {edge}% from model {round(model*100,1)}% vs market {round(price*100,1)}%."
             if tier == "A_PICK":
                 r["suggestedStake"] = "5% max bankroll"
             elif tier == "VALUE_LEAN":
@@ -177,6 +209,8 @@ def main():
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "inputRows": len(rows),
         "actionableRows": len(actionable),
+        "fallbackOpenRows": fallback_open_count,
+        "cachedClosedHoldRows": cached_closed_hold_count,
         "holdUnknownRows": len(hold_unknown),
         "blockedRows": len(blocked),
         "noValueRows": len(no_value),
@@ -186,7 +220,7 @@ def main():
         "blockedMoneyline": blocked,
         "noValueMoneyline": no_value,
         "missingModelOrPrice": missing,
-        "rule": "Strict: actionable only when liveMlbStatus confirms Scheduled/Pre-Game/Warmup. Blank/no-match live status can never be actionable.",
+        "rule": "liveMlbStatus hard-blocks. Cached open can fallback. Cached closed without liveMlbStatus becomes HOLD, not BLOCKED.",
     }
 
     OUT_ACTION.write_text(json.dumps(out, indent=2), encoding="utf-8")
@@ -194,12 +228,14 @@ def main():
     IN_JSON.write_text(json.dumps({"generatedAt": out["generatedAt"], "moneylineRows": len(all_rows), "moneylineBoard": all_rows, "rule": out["rule"]}, indent=2), encoding="utf-8")
 
     lines = [
-        "ASTRODDS 229 MONEYLINE STRICT LIVE CONFIRMATION GUARD",
+        "ASTRODDS 229 MONEYLINE STATUS FALLBACK CONFIRMATION GUARD",
         "=" * 78,
         f"Generated UTC: {out['generatedAt']}",
         "",
         f"Input rows: {out['inputRows']}",
         f"Actionable rows: {out['actionableRows']}",
+        f"Fallback open rows: {out['fallbackOpenRows']}",
+        f"Cached closed hold rows: {out['cachedClosedHoldRows']}",
         f"Hold unknown rows: {out['holdUnknownRows']}",
         f"Blocked rows: {out['blockedRows']}",
         f"No value rows: {out['noValueRows']}",
@@ -215,17 +251,17 @@ def main():
             lines.append(
                 f"- #{r['actionRank']} | {r['actionStatus']} | {r.get('pick')} | {r.get('game')} | "
                 f"price={r.get('price')} | model={r.get('modelProbability')} | edge={r.get('currentEdgePct')}% | "
-                f"live={r.get('liveMlbStatus','')} | stake={r.get('suggestedStake','')}"
+                f"status={r.get('liveMlbStatus','')} | source={r.get('statusSourceUsed','')} | stake={r.get('suggestedStake','')}"
             )
 
-    lines += ["", "HOLD / NOT ACTIONABLE DUE TO LIVE STATUS:"]
-    for r in hold_unknown[:30]:
+    lines += ["", "HOLD / NOT ACTIONABLE:"]
+    for r in hold_unknown[:60]:
         lines.append(
-            f"- HOLD | {r.get('pick')} | {r.get('game')} | edge={r.get('currentEdgePct', r.get('edgePct'))} | "
-            f"live={r.get('liveMlbStatus','blank')} | cached={r.get('cachedMlbStatus','')} | {r.get('mainReason')}"
+            f"- {r.get('actionStatus')} | {r.get('pick')} | {r.get('game')} | edge={r.get('currentEdgePct', r.get('edgePct'))} | "
+            f"live={r.get('liveMlbStatus','blank')} | cached={r.get('cachedMlbStatus','')} | mlbStatus={r.get('mlbStatus','')} | {r.get('mainReason')}"
         )
 
-    lines += ["", f"JSON: {OUT_ACTION}", "Rule: blank live status can never produce actionable bet."]
+    lines += ["", f"JSON: {OUT_ACTION}", "Rule: cached closed cannot hard-block without liveMlbStatus."]
     REPORT.write_text("\n".join(lines), encoding="utf-8")
     print("\n".join(lines))
 
