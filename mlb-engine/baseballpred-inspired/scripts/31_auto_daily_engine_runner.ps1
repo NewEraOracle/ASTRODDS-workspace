@@ -118,8 +118,110 @@ $creditGuard = Join-Path $ScriptDir "48_credit_guard.py"
 $creditGuardProcess = Start-Process python -ArgumentList "`"$creditGuard`" record" -WorkingDirectory $Workspace -NoNewWindow -Wait -PassThru
 Add-Line "Credit guard exit code: $($creditGuardProcess.ExitCode)"
 
+# === CREDIT_GUARD_BLOCKED_PM_POSTPROCESS_START ===
+# Even when odds credit guard blocks a fresh scan, these scripts use existing local artifacts only.
+# This keeps the dashboard/Top 6 updated without spending new odds credits.
+if ($LASTEXITCODE -eq 2) {
+  Add-Line "Credit guard blocked fresh odds scan, running local PM-complete moneyline postprocess..."
+
+  $AstroddsWorkspace = if ($Workspace) { $Workspace } else { (Resolve-Path (Join-Path $ScriptDir "..\..\..")).Path }
+
+  $pmExactJoin400 = Join-Path $ScriptDir "400_market_pm_exact_team_join.py"
+  if (Test-Path $pmExactJoin400) {
+    Add-Line "Running Market PM exact team join 400 after credit block..."
+    $p400cb = Start-Process python -ArgumentList "`"$pmExactJoin400`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+    Add-Line "Market PM exact team join 400 after credit block exit code: $($p400cb.ExitCode)"
+  }
+
+  $pmComplement403 = Join-Path $ScriptDir "403_pm_join_complement_finalizer.py"
+  if (Test-Path $pmComplement403) {
+    Add-Line "Running PM join complement finalizer 403 after credit block..."
+    $p403cb = Start-Process python -ArgumentList "`"$pmComplement403`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+    Add-Line "PM join complement finalizer 403 after credit block exit code: $($p403cb.ExitCode)"
+  }
+
+  $moneylineLiveGuard229 = Join-Path $ScriptDir "229_moneyline_strict_live_confirmation_guard.py"
+  if (Test-Path $moneylineLiveGuard229) {
+    Add-Line "Running Moneyline live/status guard 229 after credit block..."
+    $p229cb = Start-Process python -ArgumentList "`"$moneylineLiveGuard229`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+    Add-Line "Moneyline live/status guard 229 after credit block exit code: $($p229cb.ExitCode)"
+  }
+
+  $positiveTop6_261 = Join-Path $ScriptDir "261_positive_partner_top6_board.py"
+  if (Test-Path $positiveTop6_261) {
+    Add-Line "Running Positive partner Top 6 board 261 after credit block..."
+    $p261cb = Start-Process python -ArgumentList "`"$positiveTop6_261`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+    Add-Line "Positive partner Top 6 board 261 after credit block exit code: $($p261cb.ExitCode)"
+  }
+
+  $pmHealth405 = Join-Path $ScriptDir "405_pm_join_complement_health_audit.py"
+  if (Test-Path $pmHealth405) {
+    Add-Line "Running PM join complement health audit 405 after credit block..."
+    $p405cb = Start-Process python -ArgumentList "`"$pmHealth405`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+    Add-Line "PM join complement health audit 405 after credit block exit code: $($p405cb.ExitCode)"
+  }
+
+  Add-Line "CREDIT_GUARD_BLOCKED_PM_POSTPROCESS_DONE"
+}
+# === CREDIT_GUARD_BLOCKED_PM_POSTPROCESS_END ===
+
 if ($creditGuardProcess.ExitCode -eq 2) {
-  Add-Line "STATUS: CREDIT_GUARD_BLOCKED"
+  
+# === CREDIT_GUARD_BLOCKED_PM_POSTPROCESS_FORCE_START ===
+# Runs local PM/Fair/Edge postprocess before the credit guard exits.
+# Does not spend odds credits; uses existing local artifacts only.
+Add-Line "Credit guard blocked fresh odds scan, running local PM-complete moneyline postprocess before exit..."
+
+$AstroddsWorkspace = (Resolve-Path (Join-Path $ScriptDir "..\..\..")).Path
+
+$pmExactJoin400 = Join-Path $ScriptDir "400_market_pm_exact_team_join.py"
+if (Test-Path $pmExactJoin400) {
+  Add-Line "Running Market PM exact team join 400 before credit-block exit..."
+  $p400cb = Start-Process python -ArgumentList "`"$pmExactJoin400`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "Market PM exact team join 400 before credit-block exit code: $($p400cb.ExitCode)"
+} else {
+  Add-Line "Market PM exact team join 400 missing before credit-block exit: $pmExactJoin400"
+}
+
+$pmComplement403 = Join-Path $ScriptDir "403_pm_join_complement_finalizer.py"
+if (Test-Path $pmComplement403) {
+  Add-Line "Running PM join complement finalizer 403 before credit-block exit..."
+  $p403cb = Start-Process python -ArgumentList "`"$pmComplement403`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "PM join complement finalizer 403 before credit-block exit code: $($p403cb.ExitCode)"
+} else {
+  Add-Line "PM join complement finalizer 403 missing before credit-block exit: $pmComplement403"
+}
+
+$moneylineLiveGuard229 = Join-Path $ScriptDir "229_moneyline_strict_live_confirmation_guard.py"
+if (Test-Path $moneylineLiveGuard229) {
+  Add-Line "Running Moneyline live/status guard 229 before credit-block exit..."
+  $p229cb = Start-Process python -ArgumentList "`"$moneylineLiveGuard229`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "Moneyline live/status guard 229 before credit-block exit code: $($p229cb.ExitCode)"
+} else {
+  Add-Line "Moneyline live/status guard 229 missing before credit-block exit: $moneylineLiveGuard229"
+}
+
+$positiveTop6_261 = Join-Path $ScriptDir "261_positive_partner_top6_board.py"
+if (Test-Path $positiveTop6_261) {
+  Add-Line "Running Positive partner Top 6 board 261 before credit-block exit..."
+  $p261cb = Start-Process python -ArgumentList "`"$positiveTop6_261`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "Positive partner Top 6 board 261 before credit-block exit code: $($p261cb.ExitCode)"
+} else {
+  Add-Line "Positive partner Top 6 board 261 missing before credit-block exit: $positiveTop6_261"
+}
+
+$pmHealth405 = Join-Path $ScriptDir "405_pm_join_complement_health_audit.py"
+if (Test-Path $pmHealth405) {
+  Add-Line "Running PM join complement health audit 405 before credit-block exit..."
+  $p405cb = Start-Process python -ArgumentList "`"$pmHealth405`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "PM join complement health audit 405 before credit-block exit code: $($p405cb.ExitCode)"
+} else {
+  Add-Line "PM join complement health audit 405 missing before credit-block exit: $pmHealth405"
+}
+
+Add-Line "CREDIT_GUARD_BLOCKED_PM_POSTPROCESS_FORCE_DONE"
+# === CREDIT_GUARD_BLOCKED_PM_POSTPROCESS_FORCE_END ===
+Add-Line "STATUS: CREDIT_GUARD_BLOCKED"
   Add-Line "Engine run skipped to protect odds credits."
   Add-Line ""
   Add-Line "Rule: credit protection only. Paper/manual only. No real-money automation."
@@ -469,6 +571,62 @@ if (Test-Path $bbpMl) {
   Add-Line "Moneyline BaseballPred sidecar exit code: $($bbpMlProcess.ExitCode)"
 }
 
+
+# === ASTRODDS PM COMPLETE MONEYLINE PIPELINE START ===
+# Source of truth:
+# - MLB StatsAPI remains schedule/status only.
+# - 400 joins PM/market by exact official game + exact team side.
+# - 403 safely fills the one missing binary side with 1 - opponent PM.
+# - 229 applies live/status guard.
+# - 261 builds positive partner-style Top 6.
+# - 405 audits PM/Fair/Edge completeness.
+$AstroddsWorkspace = if ($Workspace) { $Workspace } else { (Resolve-Path (Join-Path $ScriptDir "..\..\..")).Path }
+
+$pmExactJoin400 = Join-Path $ScriptDir "400_market_pm_exact_team_join.py"
+Add-Line "Running Market PM exact team join 400..."
+if (Test-Path $pmExactJoin400) {
+  $p400 = Start-Process python -ArgumentList "`"$pmExactJoin400`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "Market PM exact team join 400 exit code: $($p400.ExitCode)"
+} else {
+  Add-Line "Market PM exact team join 400 missing: $pmExactJoin400"
+}
+
+$pmComplement403 = Join-Path $ScriptDir "403_pm_join_complement_finalizer.py"
+Add-Line "Running PM join complement finalizer 403..."
+if (Test-Path $pmComplement403) {
+  $p403 = Start-Process python -ArgumentList "`"$pmComplement403`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "PM join complement finalizer 403 exit code: $($p403.ExitCode)"
+} else {
+  Add-Line "PM join complement finalizer 403 missing: $pmComplement403"
+}
+
+$moneylineLiveGuard229 = Join-Path $ScriptDir "229_moneyline_strict_live_confirmation_guard.py"
+Add-Line "Running Moneyline live/status guard 229 after PM completion..."
+if (Test-Path $moneylineLiveGuard229) {
+  $p229pm = Start-Process python -ArgumentList "`"$moneylineLiveGuard229`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "Moneyline live/status guard 229 after PM completion exit code: $($p229pm.ExitCode)"
+} else {
+  Add-Line "Moneyline live/status guard 229 missing: $moneylineLiveGuard229"
+}
+
+$positiveTop6_261 = Join-Path $ScriptDir "261_positive_partner_top6_board.py"
+Add-Line "Running Positive partner Top 6 board 261..."
+if (Test-Path $positiveTop6_261) {
+  $p261 = Start-Process python -ArgumentList "`"$positiveTop6_261`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "Positive partner Top 6 board 261 exit code: $($p261.ExitCode)"
+} else {
+  Add-Line "Positive partner Top 6 board 261 missing: $positiveTop6_261"
+}
+
+$pmHealth405 = Join-Path $ScriptDir "405_pm_join_complement_health_audit.py"
+Add-Line "Running PM join complement health audit 405..."
+if (Test-Path $pmHealth405) {
+  $p405 = Start-Process python -ArgumentList "`"$pmHealth405`"" -WorkingDirectory $AstroddsWorkspace -NoNewWindow -Wait -PassThru
+  Add-Line "PM join complement health audit 405 exit code: $($p405.ExitCode)"
+} else {
+  Add-Line "PM join complement health audit 405 missing: $pmHealth405"
+}
+# === ASTRODDS PM COMPLETE MONEYLINE PIPELINE END ===
 Add-Line "Running Telegram result tracking..."
   $resultTracking = Join-Path $ScriptDir "81_telegram_result_tracking.py"
 
@@ -507,6 +665,9 @@ Set-Content -Path $Report -Value ($lines -join "`n") -Encoding UTF8
 if ($process.ExitCode -ne 0) {
   exit $process.ExitCode
 }
+
+
+
 
 
 
