@@ -1,0 +1,1 @@
+﻿$root="C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace"; $scripts=Join-Path $root "mlb-engine\baseballpred-inspired\scripts"; python (Join-Path $scripts "386_prod_core_db_init.py") --root $root; exit $LASTEXITCODE

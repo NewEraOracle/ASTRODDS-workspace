@@ -1,0 +1,1 @@
+﻿$root="C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace"; $scripts=Join-Path $root "mlb-engine\baseballpred-inspired\scripts"; python (Join-Path $scripts "389_clean_client_value_report.py") --root $root; exit $LASTEXITCODE

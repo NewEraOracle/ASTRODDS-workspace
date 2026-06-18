@@ -1,0 +1,1 @@
+﻿$root="C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace"; $scripts=Join-Path $root "mlb-engine\baseballpred-inspired\scripts"; python (Join-Path $scripts "387_import_latest_artifacts_to_db.py") --root $root; exit $LASTEXITCODE

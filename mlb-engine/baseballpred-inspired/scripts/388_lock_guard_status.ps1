@@ -1,0 +1,1 @@
+﻿$root="C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace"; $lock=Join-Path $root ".astrodds\ASTRODDS.prodcore.lock"; Write-Host "ASTRODDS 388 LOCK GUARD STATUS" -ForegroundColor Cyan; if(Test-Path $lock){Write-Host "LOCK EXISTS" -ForegroundColor Yellow; Get-Content $lock}else{Write-Host "No production core lock active." -ForegroundColor Green}

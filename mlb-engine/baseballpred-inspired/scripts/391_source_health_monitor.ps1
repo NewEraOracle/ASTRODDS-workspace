@@ -1,0 +1,1 @@
+﻿$root="C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace"; $scripts=Join-Path $root "mlb-engine\baseballpred-inspired\scripts"; python (Join-Path $scripts "391_source_health_monitor.py") --root $root; exit $LASTEXITCODE

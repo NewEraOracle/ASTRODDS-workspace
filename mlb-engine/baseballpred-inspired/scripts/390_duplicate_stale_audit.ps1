@@ -1,0 +1,1 @@
+﻿$root="C:\Users\crypt\OneDrive\Images\ASTRODDS-workspace"; $scripts=Join-Path $root "mlb-engine\baseballpred-inspired\scripts"; python (Join-Path $scripts "390_duplicate_stale_audit.py") --root $root; exit $LASTEXITCODE
